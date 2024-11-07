@@ -1,17 +1,18 @@
 import { Text, useParse, useSend } from 'alemonjs'
+import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 import { isUser } from '@xiuxian/api/index'
 import { Bag, Cooling, operationLock } from '@xiuxian/core/index'
 import { goods, transactions, user_bag } from '@xiuxian/db/index'
 export default OnResponse(
   async e => {
-    const T = await operationLock(e.UserId)
+    const UID = await getEmailUID(e.UserId)
+    const T = await operationLock(UID)
     const Send = useSend(e)
     if (!T) {
       Send(Text('操作频繁'))
       return
     }
     //
-    const UID = e.UserId
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
     // 解析文本

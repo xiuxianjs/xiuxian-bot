@@ -3,6 +3,7 @@ import { user } from '@xiuxian/db/index'
 import { Player, Burial, Cooling } from '@xiuxian/core/index'
 import { operationLock } from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
+import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 export default OnResponse(
   async e => {
     // lock start
@@ -13,7 +14,7 @@ export default OnResponse(
       return
     }
 
-    const UID = e.UserId
+    const UID = await getEmailUID(e.UserId)
 
     user
       .findOne({

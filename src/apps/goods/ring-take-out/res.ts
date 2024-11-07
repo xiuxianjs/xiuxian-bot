@@ -1,4 +1,5 @@
 import { Text, useParse, useSend } from 'alemonjs'
+import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 import { isUser } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
 export default OnResponse(
@@ -12,7 +13,7 @@ export default OnResponse(
     }
 
     // lock end
-    const UID = e.UserId
+    const UID = await getEmailUID(e.UserId)
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
     // 解析消息

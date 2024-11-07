@@ -1,9 +1,10 @@
+import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 import { isUser, sendReply } from '@xiuxian/api/index'
 import * as DB from '@xiuxian/db/index'
 export default OnResponse(
   async e => {
     // 获取用户信息
-    const UID = e.UserId
+    const UID = await getEmailUID(e.UserId)
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
     const PositionData = await DB.map_point

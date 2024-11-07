@@ -3,6 +3,7 @@ import { Bag, Cooling, Skills } from '@xiuxian/core/index'
 import { user, user_skills } from '@xiuxian/db/index'
 import { operationLock } from '@xiuxian/core/index'
 import { Text, useParse, useSend } from 'alemonjs'
+import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 export default OnResponse(
   async e => {
     // lock
@@ -13,7 +14,7 @@ export default OnResponse(
       return
     }
     // is user
-    const UID = e.UserId
+    const UID = await getEmailUID(e.UserId)
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
     // message parse

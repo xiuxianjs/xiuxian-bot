@@ -1,4 +1,4 @@
-import { sequelize } from '../connect.js'
+import { sequelize } from '../../connect.js'
 import { DataTypes, Model } from 'sequelize'
 // 定义User属性接口
 

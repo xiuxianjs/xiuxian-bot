@@ -3,6 +3,7 @@ import * as DB from '@xiuxian/db/index'
 import * as GameApi from '@xiuxian/core/index'
 import { operationLock } from '@xiuxian/core/index'
 import { Text, useParse, useSend } from 'alemonjs'
+import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 export default OnResponse(
   async e => {
     // lock start
@@ -13,7 +14,7 @@ export default OnResponse(
       return
     }
     // lock end
-    const UID = e.UserId
+    const UID = await getEmailUID(e.UserId)
     let msg = []
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return

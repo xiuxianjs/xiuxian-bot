@@ -16,6 +16,7 @@ import { urlHelpCache } from '@xiuxian/utils/index'
 import { personalInformation } from '@xiuxian/statistics/index'
 import { pictureRender } from '@xiuxian/img/index'
 import { Image, Text, useSend } from 'alemonjs'
+import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 
 const reStart = {}
 
@@ -25,7 +26,7 @@ const reStart = {}
  * @returns
  */
 export async function reCreateMsg(e) {
-  const UID = e.UserId
+  const UID = await getEmailUID(e.UserId)
 
   const Send = useSend(e)
 
@@ -72,7 +73,7 @@ export async function reCreateMsg(e) {
          * 重置用户
          */
         Player.updatePlayer(UID, e.UserAvatar)
-          .then(_ => {
+          .then(() => {
             // 设置redis
             Burial.set(UID, CDID, CDTime)
 
@@ -131,7 +132,7 @@ export async function levelUp(
   ID: 1 | 2 | 3,
   p: number
 ) {
-  const UID = e.UserId
+  const UID = await getEmailUID(e.UserId)
 
   const UserData = await isUser(e, UID)
   if (typeof UserData === 'boolean') return
@@ -191,8 +192,8 @@ export async function levelUp(
 /**
  * 踏入仙途
  */
-export function createUser(e) {
-  const UID = e.UserId
+export async function createUser(e) {
+  const UID = await getEmailUID(e.UserId)
   const Send = useSend(e)
   // 刷新用户信息
   Player.updatePlayer(UID, e.UserAvatar)
@@ -213,8 +214,8 @@ export function createUser(e) {
  * 显示个人信息
  * @param e
  */
-export function showUserMsg(e) {
-  const UID = e.UserId
+export async function showUserMsg(e) {
+  const UID = await getEmailUID(e.UserId)
   const Send = useSend(e)
   personalInformation(UID, e.UserAvatar).then(UserData => {
     pictureRender('MessageComponent', {
@@ -476,7 +477,7 @@ export async function isUser(e: {}, UID: string) {
       }
     })
     .then(res => res?.dataValues)
-    .catch(_ => false)
+    .catch(() => false)
   if (UserData && typeof UserData !== 'boolean') return UserData
   createUser(e)
   return false
@@ -495,7 +496,7 @@ export async function isSideUser(e: {}, UID: string) {
       }
     })
     .then(res => res?.dataValues)
-    .catch(_ => false)
+    .catch(() => false)
   if (UserData && typeof UserData !== 'boolean') return UserData
   const Send = useSend(e)
   Send(Text('查无此人'))

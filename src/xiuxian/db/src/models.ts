@@ -1,4 +1,4 @@
-export * from './models/user.js'
+export * from './models/user/user.js'
 /**
  * 势力数据
  */
@@ -6,8 +6,8 @@ export * from './models/ass.js'
 export * from './models/ass_bag.js'
 export * from './models/ass_typing.js'
 export * from './models/ass_bag_message.js'
-export * from './models/user_ass.js'
-export * from './models/user_ass_apply.js'
+export * from './models/user/user_ass.js'
+export * from './models/user/user_ass_apply.js'
 /**
  * ******
  * 静态模型
@@ -37,22 +37,25 @@ export * from './models/goods/goods_palace.js'
 export * from './models/goods/goods_wheeldisc.js'
 // 通天塔
 export * from './models/sky.js'
+// 邮箱
+export * from './models/email.js'
 /**
  * *****
  * 用户数据
  * ******
  */
-export * from './models/user_log.js'
-export * from './models/user_ring.js'
-export * from './models/user_bag.js'
-export * from './models/user_level.js'
-export * from './models/user_equipment.js'
-export * from './models/user_skills.js'
-export * from './models/user_fate.js'
-export * from './models/user_buy_log.js'
 export * from './models/skys.js'
-export * from './models/user_skys.js'
-export * from './models/user_bag_message.js'
+export * from './models/user/user_log.js'
+export * from './models/user/user_ring.js'
+export * from './models/user/user_bag.js'
+export * from './models/user/user_level.js'
+export * from './models/user/user_equipment.js'
+export * from './models/user/user_skills.js'
+export * from './models/user/user_fate.js'
+export * from './models/user/user_buy_log.js'
+export * from './models/user/user_skys.js'
+export * from './models/user/user_bag_message.js'
+export * from './models/user/user_email.js'
 /**
  * 交易
  */

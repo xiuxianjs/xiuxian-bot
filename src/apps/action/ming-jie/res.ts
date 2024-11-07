@@ -1,6 +1,7 @@
 import { isUser } from '@xiuxian/api/index'
 import { Bag, Levels, operationLock } from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
+import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 import { user_fate, user_level } from '@xiuxian/db/index'
 const reGiveup = {}
 export default OnResponse(
@@ -13,7 +14,7 @@ export default OnResponse(
       return
     }
     // 检查用户
-    const UID = e.UserId
+    const UID = await getEmailUID(e.UserId)
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
     const thing = await user_fate

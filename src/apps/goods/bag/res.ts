@@ -3,9 +3,10 @@ import { pictureRender } from '@xiuxian/img/index'
 import { backpackInformation } from '@xiuxian/statistics/index'
 import { Goods } from '@xiuxian/core/index'
 import { Image, useParse, useSend } from 'alemonjs'
+import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 export default OnResponse(
   async e => {
-    const UID = e.UserId
+    const UID = await getEmailUID(e.UserId)
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
     const text = useParse(e.Megs, 'Text')

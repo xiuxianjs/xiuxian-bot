@@ -1,17 +1,18 @@
-import { user_bag } from './models/user_bag.js'
+import { user_bag } from './models/user/user_bag.js'
 import { goods } from './models/goods/goods.js'
-import { user_skills } from './models/user_skills.js'
-import { user_equipment } from './models/user_equipment.js'
-import { user_fate } from './models/user_fate.js'
-import { user_ring } from './models/user_ring.js'
-import { user_ass } from './models/user_ass.js'
+import { user_skills } from './models/user/user_skills.js'
+import { user_equipment } from './models/user/user_equipment.js'
+import { user_fate } from './models/user/user_fate.js'
+import { user_ring } from './models/user/user_ring.js'
+import { user_ass } from './models/user/user_ass.js'
 import { ass } from './models/ass.js'
 import { ass_typing } from './models/ass_typing.js'
 import { ass_bag } from './models/ass_bag.js'
-import { user } from './models/user.js'
+import { user } from './models/user/user.js'
 import { transactions } from './models/transactions.js'
 import { transactions_logs } from './models/transactions_logs.js'
-import { user_buy_log } from './models/user_buy_log.js'
+import { user_buy_log } from './models/user/user_buy_log.js'
+import { user_ass_apply } from './models/user/user_ass_apply.js'
 import { sequelize } from './connect.js'
 import {
   ass_bag_message,
@@ -20,8 +21,7 @@ import {
   goods_drops,
   goods_limit,
   goods_palace,
-  goods_wheeldisc,
-  user_ass_apply
+  goods_wheeldisc
 } from './models.js'
 
 const belongsTo = () => {

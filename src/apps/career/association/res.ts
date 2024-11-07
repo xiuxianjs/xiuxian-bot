@@ -1,4 +1,5 @@
 import { Text, useSend } from 'alemonjs'
+import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 import { isUser, controlByName } from '@xiuxian/api/index'
 /**
  * 职业经验够了之后
@@ -16,7 +17,7 @@ import { isUser, controlByName } from '@xiuxian/api/index'
  */
 export default OnResponse(
   async e => {
-    const UID = e.UserId
+    const UID = await getEmailUID(e.UserId)
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
     if (!(await controlByName(e, UserData, '协会'))) return

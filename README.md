@@ -24,7 +24,7 @@ yarn --ignore-engines
 
 配置`alemon.config.yaml`文件
 
-```env
+```yaml
 redis:
   host: ''
   port: ''
@@ -45,6 +45,8 @@ db2:
   password: ''
   database: ''
 
+gui:
+  port: 9601
 ```
 
 - MySQL80
@@ -54,38 +56,3 @@ db2:
 数据库名 `xiuxian_bak`
 字符集 `utf8mb4`
 排序规则 `utf8mb4_german2_ci`
-
-- 应用调试
-
-```sh
-yarn dev
-```
-
-- 打包
-
-```sh
-yarn build
-```
-
-- 图片调试
-
-```sh
-yarn server
-```
-
-## 目录结构
-
-```ts
-src/                // 源代码目录
-    |--apps/        // 开发应用
-    |--assets/
-    |--xiuxian/
-        |--api/
-        |--core/
-        |--db/
-        |--img/
-        |--statistics/
-        |--utils/
-index.ts            // 文件入口
-package.json   // 工程配置文件
-```

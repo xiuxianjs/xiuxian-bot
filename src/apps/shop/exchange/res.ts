@@ -2,6 +2,7 @@ import { controlByName, isUser } from '@xiuxian/api/index'
 import * as DB from '@xiuxian/db/index'
 import * as GameApi from '@xiuxian/core/index'
 import { Text, useParse, useSend } from 'alemonjs'
+import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 export default OnResponse(
   async e => {
     // lock start
@@ -12,7 +13,7 @@ export default OnResponse(
       return
     }
     // 从消息中获取用户ID
-    const UID = e.UserId
+    const UID = await getEmailUID(e.UserId)
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
     if (!(await controlByName(e, UserData, '联盟'))) return

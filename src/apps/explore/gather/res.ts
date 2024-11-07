@@ -1,4 +1,5 @@
 import { Text, useParse, useSend } from 'alemonjs'
+import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 import {
   isUser,
   ControlByBlood,
@@ -30,7 +31,7 @@ export default OnResponse(
       return
     }
 
-    const UID = e.UserId
+    const UID = await getEmailUID(e.UserId)
 
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return

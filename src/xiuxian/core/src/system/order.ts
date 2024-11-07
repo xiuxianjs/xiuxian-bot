@@ -38,6 +38,6 @@ export async function delThing(ID: number) {
     t = true
   } finally {
     await releaseLock(resource, lockValue)
-    return t
   }
+  return t
 }

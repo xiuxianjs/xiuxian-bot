@@ -1,4 +1,5 @@
 import { Image, useSend } from 'alemonjs'
+import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 import { Cooling } from '@xiuxian/core/index'
 import { pictureRender } from '@xiuxian/img/index'
 export default OnResponse(

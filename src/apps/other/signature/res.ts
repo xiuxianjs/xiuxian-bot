@@ -1,4 +1,5 @@
 import { Text, useParse, useSend } from 'alemonjs'
+import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 import {
   Control,
   showUserMsg,
@@ -11,7 +12,7 @@ import { user } from '@xiuxian/db/index'
 export default OnResponse(
   async e => {
     //
-    const UID = e.UserId
+    const UID = await getEmailUID(e.UserId)
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
     if (!(await Control(e, UserData))) return

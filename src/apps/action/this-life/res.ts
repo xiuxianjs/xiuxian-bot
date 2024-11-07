@@ -1,11 +1,12 @@
 import { isUser } from '@xiuxian/api/index'
 import { Text, useSend } from 'alemonjs'
+import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 import { fate_level, goods, user_fate, user_level } from '@xiuxian/db/index'
 import { Talent } from '@xiuxian/core/index'
 export default OnResponse(
   async e => {
     // 操作锁
-    const UID = e.UserId
+    const UID = await getEmailUID(e.UserId)
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
     // 查看本命信息：武器名/等级/属性/精炼需要消耗提示

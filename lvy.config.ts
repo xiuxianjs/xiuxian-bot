@@ -4,6 +4,7 @@ import { dirname, join } from 'path'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 import { onStart } from 'alemonjs'
+import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 export default defineConfig({
   plugins: [
     {

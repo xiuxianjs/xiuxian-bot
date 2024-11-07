@@ -1,11 +1,12 @@
 import { Text, useParse, useSend } from 'alemonjs'
+import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 import { ControlByBlood, isUser, victoryCooling } from '@xiuxian/api/index'
 import { Boss, Fight, operationLock } from '@xiuxian/core/index'
 import { Redis, user } from '@xiuxian/db/index'
 // 攻击
 export default OnResponse(
   async e => {
-    const UID = e.UserId
+    const UID = await getEmailUID(e.UserId)
 
     // lock start
     const T = await operationLock(e.UserId)
