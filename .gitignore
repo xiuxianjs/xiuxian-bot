@@ -1,0 +1,11 @@
+# Node dependencies
+node_modules
+/data/
+/lib/
+/logs/
+*.log
+.env.*
+alemon*.env
+alemon*.yaml
+*.logs.ts
+yarn.lock
