@@ -3,6 +3,7 @@ node_modules
 /data/
 /lib/
 /logs/
+/public
 *.log
 .env.*
 alemon*.env
