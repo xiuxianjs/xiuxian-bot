@@ -38,21 +38,18 @@ db:
   password: ''
   database: ''
 
-db2:
-  host: ''
-  port: ''
-  user: ''
-  password: ''
-  database: ''
-
 gui:
   port: 9601
 ```
 
 - MySQL80
 
-> 阅读 xiuxian/db/src/models 建表
-
 数据库名 `xiuxian_bak`
 字符集 `utf8mb4`
 排序规则 `utf8mb4_german2_ci`
+
+> 执行src/sql/xiuxian.sql 建表
+
+## 交流
+
+QQ Group 806943302

@@ -1,5 +1,4 @@
 import { defineChildren, getConfig } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 import {} from 'chat-space'
 import axios from 'axios'
 

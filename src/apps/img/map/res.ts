@@ -1,5 +1,4 @@
 import { Image, useSend } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 import { lcalCacheImage } from '@xiuxian/utils/index'
 import img_map from '@src/assets/img/map.jpg'
 export default OnResponse(

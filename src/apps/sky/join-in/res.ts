@@ -12,7 +12,7 @@ export default OnResponse(
     const Send = useSend(e)
 
     //查看数据是否存在
-    const data = await DB.sky
+    const data = await DB.user_sky_ranking
       .findOne({
         where: {
           uid: UID
@@ -28,7 +28,7 @@ export default OnResponse(
 
     Send(Text('进入通天塔'))
 
-    await DB.sky.create({
+    await DB.user_sky_ranking.create({
       uid: UID
     })
   },

@@ -1,29 +1,28 @@
-import { sequelize } from '../connect.js'
+import { sequelize } from '../../connect.js'
 import { DataTypes, Model } from 'sequelize'
-
-export const transactions = sequelize.define<
+export const user_sky_reward = sequelize.define<
   Model<{
+    // 定义模型属性
     id: number
-    uid: string //string
-    name: string //string
-    count: number
-    price: number
+    uid: string // string
+    sid: number //
+    time: Date
     createAt: Date
     updateAt: Date
     deleteAt: Date
   }>
 >(
-  'transactions',
+  'user_sky_reward',
   {
+    // 定义模型属性
     id: {
-      type: DataTypes.INTEGER, // integer
+      type: DataTypes.INTEGER,
       primaryKey: true,
       unique: true
     },
-    uid: DataTypes.STRING, //string
-    name: DataTypes.STRING, //string
-    count: DataTypes.INTEGER,
-    price: DataTypes.INTEGER, // integer
+    uid: DataTypes.STRING, // string
+    sid: DataTypes.INTEGER, // string
+    time: DataTypes.DATE,
     createAt: DataTypes.DATE,
     updateAt: DataTypes.DATE,
     deleteAt: DataTypes.DATE

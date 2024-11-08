@@ -1,6 +1,5 @@
 import nodemailer, { Transporter, SentMessageInfo } from 'nodemailer'
 import { getConfig } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 import SMTPPool from 'nodemailer/lib/smtp-pool'
 import crypto from 'crypto'
 import { email, user_email } from '@src/xiuxian/db'

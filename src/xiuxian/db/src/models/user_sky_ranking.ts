@@ -1,18 +1,14 @@
-import { sequelize } from '../../connect.js'
+import { sequelize } from '../connect.js'
 import { DataTypes, Model } from 'sequelize'
-export const user_skys = sequelize.define<
+export const user_sky_ranking = sequelize.define<
   Model<{
     // 定义模型属性
     id: number
     uid: string // string
-    sid: number //
-    time: Date
-    createAt: Date
-    updateAt: Date
-    deleteAt: Date
+    doc: string //
   }>
 >(
-  'user_skys',
+  'user_sky_ranking',
   {
     // 定义模型属性
     id: {
@@ -21,11 +17,7 @@ export const user_skys = sequelize.define<
       unique: true
     },
     uid: DataTypes.STRING, // string
-    sid: DataTypes.INTEGER, // string
-    time: DataTypes.DATE,
-    createAt: DataTypes.DATE,
-    updateAt: DataTypes.DATE,
-    deleteAt: DataTypes.DATE
+    doc: DataTypes.STRING //
   },
   {
     freezeTableName: true, //不增加复数表名

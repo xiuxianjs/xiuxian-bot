@@ -10,7 +10,7 @@ import {
   user_fate,
   user_ring,
   user_bag_message,
-  user_skys,
+  user_sky_reward,
   user_buy_log,
   user_ass
 } from '@xiuxian/db/index'
@@ -197,7 +197,7 @@ export async function updatePlayer(UID: string, UserAvatar: string) {
       }
     }),
     // 删除
-    user_skys.destroy({
+    user_sky_reward.destroy({
       where: {
         uid: UID
       }

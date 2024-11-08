@@ -1,5 +1,4 @@
 import { Image, useSend } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 import { pictureRender } from '@xiuxian/img/index'
 import json_update from '@src/assets/defset/update.json'
 const helpData = {}

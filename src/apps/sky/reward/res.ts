@@ -1,6 +1,6 @@
 import { isUser } from '@xiuxian/api/index'
 import * as DB from '@xiuxian/db/index'
-import { skys, user_skys } from '@xiuxian/db/index'
+import { skys, user_sky_reward } from '@xiuxian/db/index'
 import { Op } from 'sequelize'
 import { Bag } from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
@@ -14,7 +14,7 @@ export default OnResponse(
     const Send = useSend(e)
 
     // 查看数据是否存在
-    const data = await DB.sky
+    const data = await DB.user_sky_ranking
       .findOne({
         where: {
           uid: UID
@@ -38,7 +38,7 @@ export default OnResponse(
     // const currentDate = new Date()
     // currentDate.setDate(1)
     // currentDate.setHours(8, 0, 0, 0)
-    const uDAta = await user_skys
+    const uDAta = await user_sky_reward
       .findAll({
         where: {
           uid: UID,
@@ -82,7 +82,7 @@ export default OnResponse(
     }
     const msg = ['领取物品']
     for (const item of goods) {
-      await user_skys.create({
+      await user_sky_reward.create({
         uid: UID,
         // 对应奖励条
         time: currentDate,

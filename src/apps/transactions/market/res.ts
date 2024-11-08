@@ -6,14 +6,14 @@ import { transactions } from '@xiuxian/db/index'
 import { pictureRender } from '@xiuxian/img/index'
 export default OnResponse(
   async e => {
-    const UID = await getEmailUID(e.UserId)
     // lock
-    const T = await operationLock(UID)
+    const T = await operationLock(e.UserId)
     const Send = useSend(e)
     if (!T) {
       Send(Text('操作频繁'))
       return
     }
+    const UID = await getEmailUID(e.UserId)
     // is user
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return

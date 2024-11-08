@@ -2,7 +2,6 @@ import { appendFile, mkdirSync } from 'fs'
 import { join } from 'path'
 import { Sequelize } from 'sequelize'
 import { getConfig } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 const formatDate = (date: Date) => {
   const year = date.getFullYear()
   const month = String(date.getMonth() + 1).padStart(2, '0')

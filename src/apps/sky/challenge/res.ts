@@ -22,7 +22,7 @@ export default OnResponse(
     const CDTime = GameApi.Cooling.CD_B
     if (!(await victoryCooling(e, UID, CDID))) return
     // 查看数据是否存在
-    const data = await DB.sky
+    const data = await DB.user_sky_ranking
       .findOne({
         where: {
           uid: UID
@@ -45,7 +45,7 @@ export default OnResponse(
     }
     // 设置redis
     GameApi.Burial.set(UID, CDID, CDTime)
-    const dataB = await DB.sky
+    const dataB = await DB.user_sky_ranking
       .findOne({
         where: {
           id: id
@@ -54,7 +54,7 @@ export default OnResponse(
       .then(res => res?.dataValues)
     // 如果发现找不到。就说明位置是空的，占领位置。
     if (!dataB) {
-      await DB.sky.update(
+      await DB.user_sky_ranking.update(
         {
           id
         },
@@ -76,7 +76,7 @@ export default OnResponse(
       .then(res => res?.dataValues)
     if (!UserDataB) {
       // 不存在该用户了
-      await DB.sky.update(
+      await DB.user_sky_ranking.update(
         {
           id
         },
@@ -108,7 +108,7 @@ export default OnResponse(
       return
     }
     //
-    await DB.sky.update(
+    await DB.user_sky_ranking.update(
       {
         // 自身的 uid
         uid: data.uid
@@ -121,7 +121,7 @@ export default OnResponse(
       }
     )
     //
-    await DB.sky.update(
+    await DB.user_sky_ranking.update(
       {
         // 对方的
         uid: dataB.uid

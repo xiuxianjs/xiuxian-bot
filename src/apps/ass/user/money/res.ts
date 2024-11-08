@@ -9,13 +9,13 @@ import { literal } from 'sequelize'
 // 查看该宗门都有谁
 export default OnResponse(
   async e => {
-    const UID = await getEmailUID(e.UserId)
-    const T = await operationLock(UID)
+    const T = await operationLock(e.UserId)
     const Send = useSend(e)
     if (!T) {
       Send(Text('操作频繁'))
       return
     }
+    const UID = await getEmailUID(e.UserId)
 
     const UserData = await isUser(e, UID)
 

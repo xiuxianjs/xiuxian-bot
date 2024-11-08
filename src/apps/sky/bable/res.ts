@@ -11,7 +11,7 @@ export default OnResponse(
     if (typeof UserData === 'boolean') return
     const Send = useSend(e)
     // 查看数据是否存在
-    const data = await DB.sky
+    const data = await DB.user_sky_ranking
       .findOne({
         where: {
           uid: UID

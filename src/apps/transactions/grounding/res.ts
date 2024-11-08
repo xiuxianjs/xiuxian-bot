@@ -5,13 +5,13 @@ import { Bag, Cooling, operationLock } from '@xiuxian/core/index'
 import { goods, transactions, user_bag } from '@xiuxian/db/index'
 export default OnResponse(
   async e => {
-    const UID = await getEmailUID(e.UserId)
-    const T = await operationLock(UID)
+    const T = await operationLock(e.UserId)
     const Send = useSend(e)
     if (!T) {
       Send(Text('操作频繁'))
       return
     }
+    const UID = await getEmailUID(e.UserId)
     //
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return

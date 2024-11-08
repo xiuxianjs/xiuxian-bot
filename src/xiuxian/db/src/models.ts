@@ -36,7 +36,7 @@ export * from './models/goods/goods_limit.js'
 export * from './models/goods/goods_palace.js'
 export * from './models/goods/goods_wheeldisc.js'
 // 通天塔
-export * from './models/sky.js'
+export * from './models/user_sky_ranking.js'
 // 邮箱
 export * from './models/email.js'
 /**
@@ -53,7 +53,7 @@ export * from './models/user/user_equipment.js'
 export * from './models/user/user_skills.js'
 export * from './models/user/user_fate.js'
 export * from './models/user/user_buy_log.js'
-export * from './models/user/user_skys.js'
+export * from './models/user/user_sky_reward.js'
 export * from './models/user/user_bag_message.js'
 export * from './models/user/user_email.js'
 /**

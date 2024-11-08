@@ -3,7 +3,6 @@ export * from './src/models.js'
 import { Model, ModelCtor } from 'sequelize'
 import './src/main.js'
 import { getIoRedis } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 
 export const Redis = getIoRedis()
 

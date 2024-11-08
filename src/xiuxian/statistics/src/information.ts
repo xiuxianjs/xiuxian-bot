@@ -405,14 +405,14 @@ export type RingInformationType =
  */
 export async function showSky(UID: string) {
   // 找到比自己id大  xxx的 4条数据。
-  const data = await DB.sky
+  const data = await DB.user_sky_ranking
     .findOne({
       where: {
         uid: UID
       }
     })
     .then(res => res?.dataValues)
-  const list = await DB.sky
+  const list = await DB.user_sky_ranking
     .findAll({
       where: {
         id: { [Op.lte]: data.id } // 获取ID小于给定ID的记录
@@ -448,7 +448,7 @@ export async function showSky(UID: string) {
       .then(res => res?.dataValues)
     if (!data) {
       // 不存在 uid
-      DB.sky.destroy({
+      DB.user_sky_ranking.destroy({
         where: {
           uid: item.uid
         }
