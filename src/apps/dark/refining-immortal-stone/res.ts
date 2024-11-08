@@ -15,7 +15,7 @@ export default OnResponse(
     }
     // lock end
     const UID = await getEmailUID(e.UserId)
-    let msg = []
+    const msg = []
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
     // 金银置换
@@ -31,7 +31,7 @@ export default OnResponse(
       Send(Text('境界不足'))
       return
     }
-    let lingshi = await GameApi.Bag.searchBagByName(UID, '极品灵石')
+    const lingshi = await GameApi.Bag.searchBagByName(UID, '极品灵石')
     if (!lingshi || lingshi.acount < Number(account) * 10000) {
       Send(Text('请确保您有足够的极品灵石再试一次呢~'))
       return

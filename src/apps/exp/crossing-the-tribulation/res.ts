@@ -41,13 +41,13 @@ export default OnResponse(
     /**
      * 进入渡劫模式
      */
-    let time = setInterval(async function () {
+    const time = setInterval(async function () {
       GameApi.State.set(UID, {
         actionID: 5,
         startTime: 7,
         endTime: 6
       })
-      let variable: number = Math.random() * (400000 - 340000) + 340000
+      const variable: number = Math.random() * (400000 - 340000) + 340000
       if (UserData.battle_blood_now > 0) {
         if (num) {
           num++

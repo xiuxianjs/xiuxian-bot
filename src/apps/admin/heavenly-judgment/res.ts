@@ -2,13 +2,14 @@ import { Text, useParse, useSend } from 'alemonjs'
 import { isSideUser } from '@xiuxian/api/index'
 import { Bag } from '@xiuxian/core/index'
 import { goods } from '@xiuxian/db/index'
+import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 export default OnResponse(
   async e => {
     if (!e.IsMaster) return
     const text = useParse(e.Megs, 'Text')
     if (!text) return
-    const [UID, Name, Count] = text.replace(/(#|\/)?天道裁决/, '').split('*')
-    console.warn('ADMIN', UID, Name, Count)
+    const [uid, Name, Count] = text.replace(/(#|\/)?天道裁决/, '').split('*')
+    const UID = await getEmailUID(uid)
     const UserData = await isSideUser(e, UID)
     if (typeof UserData == 'boolean') return
     // 查阅物品
@@ -32,10 +33,11 @@ export default OnResponse(
       Send(Text(`储物袋空间不足`))
       return
     }
+    const acount = Number(Count)
     await Bag.addBagThing(UID, [
       {
         name: ifexist.name,
-        acount: Number(Count) ?? 1
+        acount: acount < 1 ? 1 : acount
       }
     ])
     Send(Text(`已添加[${Name}]*${Count}`))

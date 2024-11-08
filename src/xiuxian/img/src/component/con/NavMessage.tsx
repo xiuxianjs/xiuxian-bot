@@ -3,24 +3,6 @@ import Header from './header.js'
 import { ThemesEmun } from './ThemeBackground.js'
 import classNames from 'classnames'
 import { createUID } from '../../core/index.js'
-const ThemesColor = {
-  dark: {
-    left: '#f3d109a6',
-    right: '#ff0000ba'
-  },
-  red: {
-    left: '#f7da2fa6',
-    right: '#ff6800ba'
-  },
-  purple: {
-    left: '#83e139ba',
-    right: '#f72020cc'
-  },
-  blue: {
-    left: '#aadb03ba',
-    right: '#f72020ba'
-  }
-}
 
 type PropsType = {
   data: {
@@ -78,11 +60,10 @@ type PropsType = {
  */
 export default function NavMessage({ data }: PropsType) {
   // 现在的血量   血量总量
-  const pro = Math.floor((data.battle_blood_now / data.battle_blood_now) * 100)
+  const value = Math.floor(
+    ((data?.battle_blood_now ?? 0) / (data?.battle_blood_limit ?? 1)) * 100
+  )
   //
-  const color = `linear-gradient(to right, ${
-    ThemesColor[data?.theme ?? 'dark'].left
-  } ${pro}%,${ThemesColor[data?.theme ?? 'dark'].right}  ${pro}%)`
   /**
    *
    * @param a
@@ -195,13 +176,15 @@ export default function NavMessage({ data }: PropsType) {
           }
           <div
             className="absolute nav-box-uidwhitespace-nowrap text-3xl text-center w-full bottom-0 text-[#ffffffe6] font-bold rounded-xl"
-            style={{ background: color }}
+            style={{
+              background: `linear-gradient(to right, var(--bool-left-collor) ${value}%,var(--bool-right-collor) ${value}%)`
+            }}
           >
             {UID}
           </div>
 
           <div className="absolute nav-box-uidwhitespace-nowrap  text-center w-full text-[#ffffffe6] font-bold rounded-xl">
-            {`${data.battle_blood_now}/${data.battle_blood_limit}-${pro}%`}
+            {`${data.battle_blood_now}/${data.battle_blood_limit}-${value}%`}
           </div>
           {
             // 百分比

@@ -1,5 +1,4 @@
 import { Text, useSend } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 import { levelUp } from '@xiuxian/api/index'
 import { operationLock } from '@xiuxian/core/index'
 export default OnResponse(

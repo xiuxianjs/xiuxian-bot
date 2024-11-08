@@ -239,7 +239,7 @@ export async function showUserMsg(e) {
  * @param UIDB
  * @returns
  */
-export async function dualVerification(e: {}, UserData, UserDataB) {
+export async function dualVerification(e: any, UserData, UserDataB) {
   const Send = useSend(e)
   if (UserData.uid == UserDataB.uid) {
     Send(Text('自己打自己?'))
@@ -265,7 +265,11 @@ export async function dualVerification(e: {}, UserData, UserDataB) {
  * @param regionB
  * @returns
  */
-export function dualVerificationAction(e: {}, region: number, regionB: number) {
+export function dualVerificationAction(
+  e: any,
+  region: number,
+  regionB: number
+) {
   if (region != regionB) {
     const Send = useSend(e)
     Send(Text('此地未找到此人'))
@@ -281,7 +285,7 @@ export function dualVerificationAction(e: {}, region: number, regionB: number) {
  * @returns
  */
 export async function sendReply(
-  e: {},
+  e: any,
   title: string,
   msg: string[] = [],
   size = 8
@@ -305,7 +309,7 @@ export async function sendReply(
  * @param UID
  * @returns
  */
-export async function Control(e: {}, UserData) {
+export async function Control(e: any, UserData) {
   const { state, msg } = await State.Go(UserData)
   const Send = useSend(e)
   if (state == 4001) {
@@ -321,7 +325,7 @@ export async function Control(e: {}, UserData) {
  * @param UID
  * @returns
  */
-export async function ControlByBlood(e: {}, UserData) {
+export async function ControlByBlood(e: any, UserData) {
   const { state, msg } = await State.goByBlood(UserData)
   const Send = useSend(e)
   if (state == 4001) {
@@ -338,7 +342,7 @@ export async function ControlByBlood(e: {}, UserData) {
  * @param addressName
  * @returns
  */
-export async function controlByName(e: {}, UserData, addressName: string) {
+export async function controlByName(e: any, UserData, addressName: string) {
   if (!(await ControlByBlood(e, UserData))) return false
   if (!(await Map.mapAction(UserData.pont_x, UserData.pont_y, addressName))) {
     const Send = useSend(e)
@@ -354,7 +358,7 @@ export async function controlByName(e: {}, UserData, addressName: string) {
  * @param name
  * @returns
  */
-export async function postHelp(e: {}, name: string) {
+export async function postHelp(e: any, name: string) {
   const img = await urlHelpCache(name).catch(err => {
     console.error(err)
     return '图片缓存错误'
@@ -394,7 +398,7 @@ const npcName = [
  * @returns
  */
 export async function killNPC(
-  e: {},
+  e: any,
   Mname: string,
   UID: string,
   prestige: number
@@ -437,7 +441,7 @@ export async function killNPC(
   return false
 }
 
-export async function showAction(e: {}, UID: string, UserData) {
+export async function showAction(e: any, UID: string, UserData) {
   const mData = await Map.getRecordsByXYZ(
     UserData.pont_x,
     UserData.pont_y,
@@ -469,7 +473,7 @@ export async function showAction(e: {}, UID: string, UserData) {
  * @param UID
  * @returns
  */
-export async function isUser(e: {}, UID: string) {
+export async function isUser(e: any, UID: string) {
   const UserData = await user
     .findOne({
       where: {
@@ -488,7 +492,7 @@ export async function isUser(e: {}, UID: string) {
  * @param UID
  * @returns
  */
-export async function isSideUser(e: {}, UID: string) {
+export async function isSideUser(e: any, UID: string) {
   const UserData = await user
     .findOne({
       where: {
@@ -503,7 +507,7 @@ export async function isSideUser(e: {}, UID: string) {
   return false
 }
 
-export async function victoryCooling(e: {}, UID: string, CDID: Burial.CDType) {
+export async function victoryCooling(e: any, UID: string, CDID: Burial.CDType) {
   const { state, msg } = await Burial.cooling(UID, CDID)
   if (state == 4001) {
     const Send = useSend(e)
@@ -514,7 +518,7 @@ export async function victoryCooling(e: {}, UID: string, CDID: Burial.CDType) {
 }
 
 export async function endAllWord(
-  e: {},
+  e: any,
   UID: string,
   UserData: {
     state: number
@@ -563,7 +567,7 @@ export async function endAllWord(
 }
 
 export async function condensateGas(
-  e: {},
+  e: any,
   UID: string,
   time: number,
   UserData
@@ -600,7 +604,7 @@ export async function condensateGas(
  * @param type
  */
 export async function upgrade(
-  e: {},
+  e: any,
   UID: string,
   time: number,
   key: number,
@@ -648,7 +652,7 @@ export async function upgrade(
  * @param size
  * @returns
  */
-export async function punishLevel(e: {}, UID: string, UserData) {
+export async function punishLevel(e: any, UID: string, UserData) {
   /**
    * 渡劫失败惩罚
    *

@@ -1,5 +1,4 @@
 import { Text, useParse, useSend } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 import { showUserMsg } from '@xiuxian/api/index'
 import { Player } from '@xiuxian/core/index'
 export default OnResponse(

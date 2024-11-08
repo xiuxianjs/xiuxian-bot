@@ -21,7 +21,7 @@ export default OnResponse(
     const text = useParse(e.Megs, 'Text')
 
     const email = text.replace(/^(#|\/)?设置邮箱/, '')
-    var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
     if (!regex.test(email)) {
       Send(Text('非法格式'))

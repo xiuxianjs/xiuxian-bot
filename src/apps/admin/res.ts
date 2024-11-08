@@ -1,5 +1,4 @@
 import { Text, useParse, useSend } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 import * as DB from '@xiuxian/db/index'
 export default OnResponse(
   async e => {

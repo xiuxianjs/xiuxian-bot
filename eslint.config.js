@@ -1,9 +1,12 @@
 import js from '@eslint/js'
 import prettier from 'eslint-config-prettier'
 import globals from 'globals'
+import tseslint from 'typescript-eslint'
+import pluginReact from 'eslint-plugin-react'
 
+/** @type {import('eslint').Linter.Config[]} */
 export default [
-  js.configs.recommended,
+  ...tseslint.configs.recommended,
   {
     languageOptions: {
       ecmaVersion: 2021,
@@ -21,9 +24,8 @@ export default [
     },
     plugins: {
       prettier
-    }
-  },
-  {
-    // files: ['src/**/*']
+    },
+    ...js.configs.recommended,
+    ...pluginReact.configs.flat.recommended
   }
 ]

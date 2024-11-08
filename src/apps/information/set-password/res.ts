@@ -11,7 +11,7 @@ export default OnResponse(
     // 解析密码
     const text = useParse(e.Megs, 'Text')
     const password = text.replace(/^(#|\/)?设置密码/, '')
-    var regex = /^[a-zA-Z0-9]+$/
+    const regex = /^[a-zA-Z0-9]+$/
     const Send = useSend(e)
     if (!regex.test(password)) {
       Send(Text('密码必须只包含数字或字母'))

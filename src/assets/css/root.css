@@ -10,6 +10,8 @@
   --uid-background-bolor: linear-gradient(45deg, #585858c9, #a5a5bfd9);
   --font-color: #10e633dc;
   --nav-state-clolor: #00bbd4;
+  --bool-left-collor: #f3d109a6;
+  --bool-right-collor: #ff0000ba;
 }
 
 #root[data-theme='red'] {
@@ -28,6 +30,8 @@
   );
   --font-color: #10e633dc;
   --nav-state-clolor: #7dac19;
+  --bool-left-collor: #f7da2fa6;
+  --bool-right-collor: #ff6800ba;
 }
 
 #root[data-theme='blue'] {
@@ -42,6 +46,8 @@
   --uid-background-bolor: linear-gradient(45deg, #4067ad54, #143878eb);
   --font-color: #10e633dc;
   --nav-state-clolor: #0097d4;
+  --bool-left-collor: #aadb03ba;
+  --bool-right-collor: #f72020ba;
 }
 
 #root[data-theme='purple'] {
@@ -56,4 +62,6 @@
   --uid-background-bolor: linear-gradient(45deg, #bab3e8c9, #626288d9);
   --font-color: #10e633dc;
   --nav-state-clolor: #3cc7d9;
+  --bool-left-collor: #83e139ba;
+  --bool-right-collor: #f72020cc;
 }
