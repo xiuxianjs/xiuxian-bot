@@ -10,7 +10,7 @@ type PropsType = {
     list: {
       icon: number
       title: string
-      desc: number
+      desc: string
     }[]
   }[]
   theme?: ThemesEmun

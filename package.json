@@ -28,7 +28,7 @@
     "@alemonjs/qq-group-bot": "^0.0.6",
     "@alemonjs/qq-guild-bot": "^0.0.5",
     "@alemonjs/telegram": "^0.0.3",
-    "alemonjs": "2.0.0-rc.42",
+    "alemonjs": "2.0.0-rc.44",
     "bullmq": "^4.12.7",
     "classnames": "^2.5.1",
     "dotenv": "^16.4.5",

@@ -13,7 +13,7 @@ import { Goods, Cooling } from '@xiuxian/core/index.ts'
 import { ass, ass_typing, user_ass } from '@xiuxian/db/index'
 import update_josn from '@src/assets/defset/update.json'
 import json_base_help from '@src/assets/defset/base_help.json'
-import e from '@src/assets/defset/user.json'
+import event from '@src/assets/defset/user.json'
 export default defineConfig({
   routes: {
     '/AssMessage': {
@@ -24,7 +24,7 @@ export default defineConfig({
           data={await user_ass
             .findAll({
               where: {
-                uid: e.UserId
+                uid: event.UserId
               },
               include: [
                 {
@@ -46,8 +46,8 @@ export default defineConfig({
         <Component.BagComponent
           theme={'purple'}
           data={await backpackInformation(
-            e.UserId,
-            e.UserAvatar,
+            event.UserId,
+            event.UserAvatar,
             Goods.mapType['道具']
           )}
         />
@@ -61,14 +61,14 @@ export default defineConfig({
       component: (
         <Component.Equipmentcomponent
           theme={'purple'}
-          data={await equipmentInformation(e.UserId, e.UserAvatar)}
+          data={await equipmentInformation(event.UserId, event.UserAvatar)}
         />
       )
     },
     '/HelpComponent': {
       // body 内容
       component: (
-        <Component.HelpComponent theme={'dark'} data={json_base_help as any} />
+        <Component.HelpComponent theme={'dark'} data={json_base_help} />
       )
     },
     '/UpdateComponent': {
@@ -78,7 +78,7 @@ export default defineConfig({
       component: (
         <Component.SkillsComponent
           theme={'dark'}
-          data={await skillInformation(e.UserId, e.UserAvatar)}
+          data={await skillInformation(event.UserId, event.UserAvatar)}
         />
       )
     },
@@ -92,13 +92,16 @@ export default defineConfig({
       component: (
         <Component.MessageComponent
           theme={'purple'}
-          data={await personalInformation(e.UserId, e.UserAvatar)}
+          data={await personalInformation(event.UserId, event.UserAvatar)}
         />
       )
     },
     '/SkyComponent': {
       component: (
-        <Component.SkyComponent theme={'dark'} data={await showSky(e.UserId)} />
+        <Component.SkyComponent
+          theme={'dark'}
+          data={await showSky(event.UserId)}
+        />
       )
     }
   }
