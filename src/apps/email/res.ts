@@ -2,8 +2,6 @@ import { generateCaptcha, sendEmail } from '@src/xiuxian/core/src/system/email'
 import { Redis, email as Email } from '@src/xiuxian/db'
 import { user_email } from '@src/xiuxian/db/src/models/user/user_email'
 import { Text, useOberver, useParse, useSend } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
-
 /**
  *
  * @param uid
@@ -50,7 +48,7 @@ export default OnResponse(
     Oberver(
       async (e, { next }) => {
         //
-        const UID = await getEmailUID(e.UserId)
+        const UID = e.UserId
         const txt = useParse(e.Megs, 'Text')
         const Send = useSend(e)
         if (/取消验证码/.test(txt)) {
