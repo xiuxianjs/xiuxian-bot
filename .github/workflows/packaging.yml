@@ -29,11 +29,6 @@ jobs:
             count=$((count + 1))
           done
 
-      - name: 安装 rsync
-        run: |
-          sudo apt-get update 
-          sudo apt-get install -y rsync
-
       - name: 使用 Node.js
         uses: actions/setup-node@v2
         with:
@@ -45,6 +40,11 @@ jobs:
       - name: 打包文件
         run: |
           sh .github/script/build.sh
+
+      - name: 安装 rsync
+        run: |
+          sudo apt-get update 
+          sudo apt-get install -y rsync
 
       - name: 推送到 Discord 服务器
         run: |
@@ -58,8 +58,8 @@ jobs:
           sh .github/script/qq-group-bot.sh
           rsync -avz --delete ./build/ ${{ secrets.SSH_SERVER_USER }}@${{ secrets.SSH_SERVER_IP_QQ_BOT }}:/home/lighthouse/qq-group-bot
 
-      # - name: 推送到 QQ 服务器
-      #   run: |
-      #     scp ${{ secrets.SSH_SERVER_USER }}@${{ secrets.SSH_SERVER_IP_CONFIG }}:/home/lighthouse/config/alemon.config.yaml alemon.config.yaml
-      #     sh .github/script/qq.sh
-      #     rsync -avz --delete ./build/ ${{ secrets.SSH_SERVER_USER }}@${{ secrets.SSH_SERVER_IP_QQ }}:/home/lighthouse/qq
+      - name: 推送到 QQ 服务器
+        run: |
+          scp ${{ secrets.SSH_SERVER_USER }}@${{ secrets.SSH_SERVER_IP_CONFIG }}:/home/lighthouse/config/alemon.config.yaml alemon.config.yaml
+          sh .github/script/qq.sh
+          rsync -avz --delete ./build/ ${{ secrets.SSH_SERVER_USER }}@${{ secrets.SSH_SERVER_IP_QQ }}:/home/lighthouse/qq

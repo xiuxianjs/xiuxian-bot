@@ -7,11 +7,9 @@ ssh-copy-id user@remote_server_ip
 ```
 
 ```sh
-ssh user@remote_server_ip
-```
-
-```sh
-ssh -o BatchMode=yes -o StrictHostKeyChecking=no ${{ secrets.SSH_SERVER_USER }}@$IP "echo 'SSH connection to $IP successful!' || echo 'Connection failed for $IP'"
+IP=0.0.0.1
+SSH_SERVER_USER='user'
+ssh -o BatchMode=yes -o StrictHostKeyChecking=no $SSH_SERVER_USER@$IP "echo 'successful!' || echo 'Connection failed'"
 ```
 
 ## 含义
