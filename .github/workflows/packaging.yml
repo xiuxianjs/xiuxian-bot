@@ -47,22 +47,25 @@ jobs:
           sudo apt-get install rsync -y
           rsync --version
 
-      - name: 推送到 Discord 服务器
+      - name: 推送到 discord 服务器
         run: |
           scp ${{ secrets.SSH_SERVER_USER }}@${{ secrets.SSH_SERVER_IP_CONFIG }}:/home/lighthouse/config/alemon.config.yaml alemon.config.yaml
           sh .github/script/discord.sh
           rsync -avz --delete ./build/ ${{ secrets.SSH_SERVER_USER }}@${{ secrets.SSH_SERVER_IP_DISCORD }}:/home/lighthouse/discord
 
-      - name: 推送到 QQBOT 服务器
+      - name: 推送到 qq-guild-bot 服务器
         run: |
-          scp ${{ secrets.SSH_SERVER_USER }}@${{ secrets.SSH_SERVER_IP_CONFIG }}:/home/lighthouse/config/alemon.config.yaml alemon.config.yaml
-          sh .github/script/qq-group-bot.sh
-          rsync -avz --delete ./build/ ${{ secrets.SSH_SERVER_USER }}@${{ secrets.SSH_SERVER_IP_QQ_BOT }}:/home/lighthouse/qq-group-bot
           scp ${{ secrets.SSH_SERVER_USER }}@${{ secrets.SSH_SERVER_IP_CONFIG }}:/home/lighthouse/config/alemon.config.yaml alemon.config.yaml
           sh .github/script/qq-guild-bot.sh
           rsync -avz --delete ./build/ ${{ secrets.SSH_SERVER_USER }}@${{ secrets.SSH_SERVER_IP_QQ_BOT }}:/home/lighthouse/qq-guild-bot
 
-      - name: 推送到 QQ 服务器
+      - name: 推送到 qq-group-bot 服务器
+        run: |
+          scp ${{ secrets.SSH_SERVER_USER }}@${{ secrets.SSH_SERVER_IP_CONFIG }}:/home/lighthouse/config/alemon.config.yaml alemon.config.yaml
+          sh .github/script/qq-group-bot.sh
+          rsync -avz --delete ./build/ ${{ secrets.SSH_SERVER_USER }}@${{ secrets.SSH_SERVER_IP_QQ_BOT }}:/home/lighthouse/qq-group-bot
+
+      - name: 推送到 qq 服务器
         run: |
           scp ${{ secrets.SSH_SERVER_USER }}@${{ secrets.SSH_SERVER_IP_CONFIG }}:/home/lighthouse/config/alemon.config.yaml alemon.config.yaml
           sh .github/script/qq.sh

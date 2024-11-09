@@ -1,51 +1,55 @@
-# 自动化部署
+# 修仙机器人
 
-## 本地生产
+## 环境
 
-- 部署密钥
+NodeJS > 18, Redis > 5, MySQL 8
 
-```sh
-ssh-copy-id user@remote_server_ip
-```
+### 本地调试
 
-- 校验ip可通
+- 源码安装
 
 ```sh
-IP=0.0.0.1
-SSH_SERVER_USER='user'
-ssh -o BatchMode=yes -o StrictHostKeyChecking=no $SSH_SERVER_USER@$IP "echo 'successful!' || echo 'Connection failed'"
+git clone --depth=1  https://github.com/xiuxianjs/xiuxian-bot.git
+cd xiuxian-bot
 ```
 
-- 确保服务器已安装
+- 依赖加载
 
 ```sh
-sudo yum update
-sudo yum install rsync -y
-rsync --version
+npm install yarn@1.12.1 -g
+yarn --ignore-engines
 ```
 
-## 含义
+- 配置环境
 
-- SSH_PRIVATE_KEY
+配置`alemon.config.yaml`文件
 
-ssh 密钥
+```yaml
+redis:
+  host: ''
+  port: ''
+  password: ''
+  db: ''
 
-- SSH_SERVER_USER
+db:
+  host: ''
+  port: ''
+  user: ''
+  password: ''
+  database: ''
 
-ssh 用户
+gui:
+  port: 9601
+```
 
-- SSH_SERVER_IP_CONFIG
+- MySQL80
 
-获取配置的地址
+数据库名 `xiuxian_bak`
+字符集 `utf8mb4`
+排序规则 `utf8mb4_german2_ci`
 
-- SSH_SERVER_IP_DISCORD
+> 执行src/sql/xiuxian.sql 建表
 
-向discord推送的地址
+## 交流
 
-- SSH_SERVER_IP_QQ_BOT
-
-向qqbot推送的地址
-
-- SSH_SERVER_IP_QQ
-
-向qq推送的地址
+QQ Group 806943302
