@@ -10,6 +10,10 @@ ssh-copy-id user@remote_server_ip
 ssh user@remote_server_ip
 ```
 
+```sh
+ssh -o BatchMode=yes -o StrictHostKeyChecking=no ${{ secrets.SSH_SERVER_USER }}@$IP "echo 'SSH connection to $IP successful!' || echo 'Connection failed for $IP'"
+```
+
 ## 含义
 
 - SSH_PRIVATE_KEY
