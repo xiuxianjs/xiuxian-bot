@@ -58,6 +58,9 @@ jobs:
           scp ${{ secrets.SSH_SERVER_USER }}@${{ secrets.SSH_SERVER_IP_CONFIG }}:/home/lighthouse/config/alemon.config.yaml alemon.config.yaml
           sh .github/script/qq-group-bot.sh
           rsync -avz --delete ./build/ ${{ secrets.SSH_SERVER_USER }}@${{ secrets.SSH_SERVER_IP_QQ_BOT }}:/home/lighthouse/qq-group-bot
+          scp ${{ secrets.SSH_SERVER_USER }}@${{ secrets.SSH_SERVER_IP_CONFIG }}:/home/lighthouse/config/alemon.config.yaml alemon.config.yaml
+          sh .github/script/qq-guild-bot.sh
+          rsync -avz --delete ./build/ ${{ secrets.SSH_SERVER_USER }}@${{ secrets.SSH_SERVER_IP_QQ_BOT }}:/home/lighthouse/qq-guild-bot
 
       - name: 推送到 QQ 服务器
         run: |
