@@ -2,14 +2,26 @@
 
 ## 本地生产
 
+- 部署密钥
+
 ```sh
 ssh-copy-id user@remote_server_ip
 ```
+
+- 校验ip可通
 
 ```sh
 IP=0.0.0.1
 SSH_SERVER_USER='user'
 ssh -o BatchMode=yes -o StrictHostKeyChecking=no $SSH_SERVER_USER@$IP "echo 'successful!' || echo 'Connection failed'"
+```
+
+- 确保服务器已安装
+
+```sh
+sudo yum update
+sudo yum install rsync -y
+rsync --version
 ```
 
 ## 含义

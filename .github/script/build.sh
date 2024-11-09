@@ -20,3 +20,4 @@ cp -rf lib ./build
 cp -rf .puppeteerrc.cjs ./build
 cp -rf package.json ./build
 cp -rf pm2.config.cjs ./build
+ls build

@@ -44,7 +44,8 @@ jobs:
       - name: 安装 rsync
         run: |
           sudo apt-get update 
-          sudo apt-get install -y rsync
+          sudo apt-get install rsync -y
+          rsync --version
 
       - name: 推送到 Discord 服务器
         run: |

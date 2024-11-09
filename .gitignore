@@ -5,6 +5,7 @@ node_modules
 /logs/
 /public
 /build
+/dist
 *.log
 .env.*
 alemon*.env
