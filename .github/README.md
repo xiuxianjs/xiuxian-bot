@@ -44,7 +44,7 @@ gui:
 
 - MySQL80
 
-数据库名 `xiuxian_bak`
+数据库名 `xiuxian`
 字符集 `utf8mb4`
 排序规则 `utf8mb4_german2_ci`
 
