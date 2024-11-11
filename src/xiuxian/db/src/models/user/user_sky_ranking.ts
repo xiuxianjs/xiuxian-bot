@@ -1,4 +1,4 @@
-import { sequelize } from '../connect.js'
+import { sequelize } from '../../connect.js'
 import { DataTypes, Model } from 'sequelize'
 export const user_sky_ranking = sequelize.define<
   Model<{

@@ -1,4 +1,4 @@
-import { sequelize } from '../connect.js'
+import { sequelize } from '../../connect.js'
 import { DataTypes, Model } from 'sequelize'
 export const ass_bag_message = sequelize.define<
   Model<{

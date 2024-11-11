@@ -1,4 +1,4 @@
-import { transactions, transactions_logs } from '@xiuxian/db/index'
+import { transactions, user_transactions_logs } from '@xiuxian/db/index'
 import { acquireLock, releaseLock } from '../wrap/lock.js'
 
 /**
@@ -29,7 +29,7 @@ export async function delThing(ID: number) {
     })
 
     // 添加购买记录
-    await transactions_logs.create({
+    await user_transactions_logs.create({
       ...data,
       updateAt: new Date(),
       deleteAt: new Date()

@@ -1,6 +1,5 @@
-import { sequelize } from '../connect.js'
+import { sequelize } from '../../connect.js'
 import { DataTypes, Model } from 'sequelize'
-
 export const ass = sequelize.define<
   Model<{
     id: number

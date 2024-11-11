@@ -5,17 +5,17 @@ import { user_equipment } from './models/user/user_equipment.js'
 import { user_fate } from './models/user/user_fate.js'
 import { user_ring } from './models/user/user_ring.js'
 import { user_ass } from './models/user/user_ass.js'
-import { ass } from './models/ass.js'
+import { ass } from './models/ass/ass.js'
 import { ass_typing } from './models/ass_typing.js'
-import { ass_bag } from './models/ass_bag.js'
+import { ass_bag } from './models/ass/ass_bag.js'
 import { user } from './models/user/user.js'
 import { transactions } from './models/transactions.js'
-import { transactions_logs } from './models/transactions_logs.js'
-import { user_buy_log } from './models/user/user_buy_log.js'
+import { user_transactions_logs } from './models/log/user_transactions_logs.js'
+import { ass_bag_message } from './models/ass/ass_bag_message.js'
+import { user_buy_log } from './models/log/user_buy_log.js'
 import { user_ass_apply } from './models/user/user_ass_apply.js'
 import { sequelize } from './connect.js'
 import {
-  ass_bag_message,
   goods_alliancemall,
   goods_commodities,
   goods_drops,
@@ -56,8 +56,14 @@ const belongsTo = () => {
    */
   transactions.belongsTo(goods, { foreignKey: 'name', targetKey: 'name' })
   transactions.belongsTo(user, { foreignKey: 'uid', targetKey: 'uid' })
-  transactions_logs.belongsTo(goods, { foreignKey: 'name', targetKey: 'name' })
-  transactions_logs.belongsTo(user, { foreignKey: 'uid', targetKey: 'uid' })
+  user_transactions_logs.belongsTo(goods, {
+    foreignKey: 'name',
+    targetKey: 'name'
+  })
+  user_transactions_logs.belongsTo(user, {
+    foreignKey: 'uid',
+    targetKey: 'uid'
+  })
   /**
    * goods
    */

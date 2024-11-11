@@ -2,10 +2,10 @@ export * from './models/user/user.js'
 /**
  * 势力数据
  */
-export * from './models/ass.js'
-export * from './models/ass_bag.js'
+export * from './models/ass/ass.js'
+export * from './models/ass/ass_bag.js'
 export * from './models/ass_typing.js'
-export * from './models/ass_bag_message.js'
+export * from './models/ass/ass_bag_message.js'
 export * from './models/user/user_ass.js'
 export * from './models/user/user_ass_apply.js'
 /**
@@ -36,7 +36,7 @@ export * from './models/goods/goods_limit.js'
 export * from './models/goods/goods_palace.js'
 export * from './models/goods/goods_wheeldisc.js'
 // 通天塔
-export * from './models/user_sky_ranking.js'
+export * from './models/user/user_sky_ranking.js'
 // 邮箱
 export * from './models/email.js'
 /**
@@ -52,7 +52,7 @@ export * from './models/user/user_level.js'
 export * from './models/user/user_equipment.js'
 export * from './models/user/user_skills.js'
 export * from './models/user/user_fate.js'
-export * from './models/user/user_buy_log.js'
+export * from './models/log/user_buy_log.js'
 export * from './models/user/user_sky_reward.js'
 export * from './models/user/user_bag_message.js'
 export * from './models/user/user_email.js'
@@ -60,4 +60,4 @@ export * from './models/user/user_email.js'
  * 交易
  */
 export * from './models/transactions.js'
-export * from './models/transactions_logs.js'
+export * from './models/log/user_transactions_logs.js'
