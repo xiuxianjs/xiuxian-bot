@@ -9,7 +9,7 @@ export default OnResponse(
     const UID = await getEmailUID(e.UserId)
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
-    // 查看本命信息：武器名/等级/属性/精炼需要消耗提示
+    // 查看本命信息：武器名/等级/属性/强化需要消耗提示
     const thing = await user_fate
       .findOne({
         where: {
@@ -22,7 +22,7 @@ export default OnResponse(
       .then(res => res?.dataValues)
     const Send = useSend(e)
     if (!thing) {
-      Send(Text('未有本命物品'))
+      Send(Text('未有本命物'))
       return
     }
     // 查看消耗所需
@@ -75,7 +75,7 @@ export default OnResponse(
       })
       .then(res => res?.dataValues)
 
-    // 精炼等级*1000*物品等级
+    // 强化等级*1000*物品等级
     const size = 1000 * goodThing.grade
 
     const be = await Talent.getTalentName(thing['good']['dataValues']['talent'])
@@ -97,11 +97,11 @@ export default OnResponse(
           `本命物:${thing.name}`,
           `等级:${thing.grade}`,
           `属性:${be}`,
-          `精炼所需物品:${thing.name}`,
-          `精炼所需灵石:${size}`,
-          `精炼所需修为:${exp_gaspractice}/${data.exp_gaspractice}`,
-          `精炼所需气血:${exp_bodypractice}/${data.exp_bodypractice}`,
-          `精炼所需魂念:${exp_soul}/${data.exp_soul}`
+          `强化所需物品:${thing.name}`,
+          `强化所需灵石:${size}`,
+          `强化所需修为:${exp_gaspractice}/${data.exp_gaspractice}`,
+          `强化所需气血:${exp_bodypractice}/${data.exp_bodypractice}`,
+          `强化所需魂念:${exp_soul}/${data.exp_soul}`
         ].join('\n')
       )
     )
@@ -109,5 +109,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?本命$/
+  /^(#|\/)?我的本命物$/
 )

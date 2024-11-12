@@ -60,10 +60,10 @@ export default function App({ data, theme }: PropsType) {
             </div>
           </div>
 
-          {/* 个人信息 */}
+          {/* 我的资料 */}
           <div className="rounded-lg px-25 mx-auto">
             <div className="pb-5">
-              <div className=" text-white text-2xl p-3">{'[个人信息]'}</div>
+              <div className=" text-white text-2xl p-3">{'[我的资料]'}</div>
               <div className="">
                 <div className="text-left pl-20 whitespace-nowrap">
                   灵力: {data.special_spiritual}/{data.special_spiritual_limit}

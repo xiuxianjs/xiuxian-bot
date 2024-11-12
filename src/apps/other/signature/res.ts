@@ -19,7 +19,7 @@ export default OnResponse(
 
     // 解析文本
     const text = useParse(e.Megs, 'Text')
-    const autograph = text.replace(/^(#|\/)?签名/, '')
+    const autograph = text.replace(/^(#|\/)?更改签名/, '')
 
     // 发送消息
     const Send = useSend(e)
@@ -54,5 +54,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?签名[\u4e00-\u9fa5]+$/
+  /^(#|\/)?更改签名[\u4e00-\u9fa5]+$/
 )

@@ -26,7 +26,7 @@ export default OnResponse(
       .then(res => res?.dataValues)
     //
     if (!thing) {
-      Send(Text('未有本命物品'))
+      Send(Text('未有本命物'))
       return
     }
 
@@ -34,7 +34,12 @@ export default OnResponse(
     if (!reGiveup[UID] || reGiveup[UID] + 30000 < new Date().getTime()) {
       reGiveup[UID] = new Date().getTime()
       Send(
-        Text(['[重要提示]\n请30s内再次发送[/命解]', '\n以确认命解'].join(''))
+        Text(
+          [
+            '[重要提示]\n请30s内再次发送[/剥离本命物]',
+            '\n以确认剥离本命物'
+          ].join('')
+        )
       )
       return
     }
@@ -85,5 +90,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?命解$/
+  /^(#|\/)?剥离本命物$/
 )

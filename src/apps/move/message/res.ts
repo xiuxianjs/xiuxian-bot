@@ -11,5 +11,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?(坐标信息|坐標信息)$/
+  /^(#|\/)?我的坐标$/
 )

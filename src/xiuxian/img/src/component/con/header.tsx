@@ -5,7 +5,7 @@ import React from 'react'
  */
 export default function Header({
   Title = '凡人修仙',
-  list = ['/更换主题', '/改名+字符']
+  list = ['/更改主题', '/更改昵称为+字符']
 }: {
   Title?: string
   list?: string[]

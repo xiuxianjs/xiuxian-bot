@@ -19,5 +19,5 @@ export default OnResponse(
     }
   },
   'message.create',
-  /^(#|\/)?杀神榜$/
+  /^(#|\/)?查看杀神榜$/
 )

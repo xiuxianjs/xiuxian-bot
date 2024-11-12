@@ -26,7 +26,7 @@ export default function App({ data, theme }: PropsType) {
             <div className="bg-[var(--bg-color)]  shadow-md  rounded-md relative px-4 py-2">
               <span className="text-2xl">{data.autograph}</span>
               <span className="text-white px-2 py-1 rounded-t-lg text-lg bg-slate-400 absolute top-[-36px] flex left-[12px]  shadow-md">
-                /签名+字符
+                /更改昵称为+字符
               </span>
             </div>
           </div>
@@ -52,7 +52,7 @@ export default function App({ data, theme }: PropsType) {
                 </div>
               </div>
               <span className="text-white px-2 py-1 rounded-t-lg text-lg bg-slate-400 absolute top-[-36px] flex left-[12px]  shadow-md">
-                /面板信息
+                /我的面板
               </span>
             </div>
           </div>
@@ -67,7 +67,7 @@ export default function App({ data, theme }: PropsType) {
                 ))}
                 <span className="text-white px-2 py-1 rounded-t-lg text-lg bg-slate-400 absolute top-[-36px] flex left-[12px]  shadow-md">
                   {' '}
-                  /功法信息
+                  /我的功法
                 </span>
               </div>
             </div>

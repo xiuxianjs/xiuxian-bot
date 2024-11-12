@@ -68,5 +68,5 @@ export default OnResponse(
     }
   },
   'message.create',
-  /^(#|\/)?(金角|银角)信息/
+  /^(#|\/)?查看(金角|银角)$/
 )

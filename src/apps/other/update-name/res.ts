@@ -17,7 +17,7 @@ export default OnResponse(
     if (typeof UserData === 'boolean') return
     if (!(await Control(e, UserData))) return
     const text = useParse(e.Megs, 'Text')
-    const name = text.replace(/^(#|\/)?(改名|(更改|更换)道號)/, '')
+    const name = text.replace(/^(#|\/)?更改昵称为/, '')
     const Send = useSend(e)
     if (Config.IllegalCharacters.test(name)) {
       Send(Text('异常名称'))
@@ -49,5 +49,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?(改名|(更改|更换)道號)[\u4e00-\u9fa5]+$/
+  /^(#|\/)?更改昵称为[\u4e00-\u9fa5]+$/
 )

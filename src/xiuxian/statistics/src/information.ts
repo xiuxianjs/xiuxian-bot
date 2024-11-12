@@ -3,7 +3,7 @@ import { Op } from 'sequelize'
 import { Talent, Equipment } from '@xiuxian/core/index'
 
 /**
- * 个人信息
+ * 我的资料
  * @param UID
  * @param UserAvatar
  * @returns
@@ -248,7 +248,7 @@ export type EquipmentInformationType =
   ReturnType<typeof equipmentInformation> extends Promise<infer T> ? T : never
 
 /**
- * 功法信息
+ * 我的功法
  * @param UID
  * @param UserAvatar
  * @returns

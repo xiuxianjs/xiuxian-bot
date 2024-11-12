@@ -156,7 +156,7 @@ export default function App({ data, theme }: PropsType) {
             </div>
           </div>
           <Footer
-            list={['/功法信息', '/本命', '/勋章信息']}
+            list={['/我的功法', '/我的本命物', '/我的协会']}
             docs={'提示：任何物品都可以装备哦～'}
           />
           <div className="min-h-10"></div>

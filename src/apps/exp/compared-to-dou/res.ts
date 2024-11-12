@@ -29,7 +29,7 @@ export default OnResponse(
     let UIDB = null
     if (!ats || ats.length === 0) {
       const text = useParse(e.Megs, 'Text')
-      UIDB = text.replace(/^(#|\/)?(比斗|比鬥)/, '')
+      UIDB = text.replace(/^(#|\/)?(决斗|比鬥)/, '')
     } else {
       const d = ats.find(item => item?.typing === 'user' && !item.bot)
       UIDB = d?.value
@@ -136,7 +136,7 @@ export default OnResponse(
     Send(
       Text(
         [
-          '🤺🤺经过一番畅快的比斗~',
+          '🤺🤺经过一番畅快的决斗~',
           `你激昂的气血增加了${eA}~`,
           `对方坚毅的气血增加了${eB}`
         ].join('\n')
@@ -146,5 +146,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?(比斗|比鬥)/
+  /^(#|\/)?(决斗|比鬥)/
 )

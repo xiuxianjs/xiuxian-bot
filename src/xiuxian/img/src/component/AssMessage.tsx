@@ -18,7 +18,7 @@ export default function AssMessage({ data, theme }: PropsType) {
       <body>
         <ThemeBackground theme={theme}>
           <div className="px-4">
-            <Header list={['/势力信息', '/更新公告']} />
+            <Header list={['/我的势力', '/查看公告']} />
           </div>
           <div className="px-4 text-2xl text-white  relative">
             {data.map((item, index) => {

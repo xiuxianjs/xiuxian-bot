@@ -30,7 +30,7 @@ export default function AssBag({ data, theme }: PropsType) {
       <body>
         <ThemeBackground theme={theme}>
           <div className="px-4">
-            <Header list={['/势力信息', '/更新公告']} />
+            <Header list={['/我的势力', '/查看公告']} />
           </div>
           <div className="px-4 text-2xl text-white  relative">
             <div className="my-1 rounded-md bg-black bg-opacity-20">
@@ -60,7 +60,7 @@ export default function AssBag({ data, theme }: PropsType) {
             })}
           </main>
           <Footer
-            list={['/我的势力信息']}
+            list={['/我的我的势力']}
             docs={'提示：可使用贡献值换取包库物品哦～'}
           />
           <div className="min-h-10"></div>

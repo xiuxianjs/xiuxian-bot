@@ -11,7 +11,7 @@ export default OnResponse(
     // send
     const Send = useSend(e)
 
-    // 查看自己的势力信息
+    // 查看自己的我的势力
     user_ass_apply
       .findAll({
         where: {

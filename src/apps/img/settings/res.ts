@@ -15,5 +15,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?修仙配置$/
+  /^(#|\/)?查看配置$/
 )

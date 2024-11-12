@@ -51,5 +51,5 @@ export default OnResponse(
       })
   },
   'message.create',
-  /^(#|\/)?我(出售|售出)的$/
+  /^(#|\/)?我的虚空镜$/
 )

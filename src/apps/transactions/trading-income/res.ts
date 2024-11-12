@@ -40,5 +40,5 @@ export default OnResponse(
     Send(Text(`获得[${name}]*${count}`))
   },
   'message.create',
-  /^(#|\/)?交易所得/
+  /^(#|\/)?领取交易所得/
 )

@@ -19,5 +19,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?更新公告$/
+  /^(#|\/)?查看公告$/
 )

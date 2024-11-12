@@ -25,7 +25,7 @@ export default OnResponse(
       })
       .then(res => res?.dataValues)
     if (T) {
-      Send(Text('已有本命物品'))
+      Send(Text('已有本命物'))
       return
     }
     // 解析

@@ -45,5 +45,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?面板信息$/
+  /^(#|\/)?我的面板$/
 )

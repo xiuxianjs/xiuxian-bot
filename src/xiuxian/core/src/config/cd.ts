@@ -31,10 +31,10 @@ export const CD_Pconst_ractice = 1
 // 双修
 export const CD_Ambiguous = 1
 
-// 比斗
+// 决斗
 export const CD_Battle = 1
 
-// 比斗
+// 决斗
 export const CD_B = 1
 
 // 传功

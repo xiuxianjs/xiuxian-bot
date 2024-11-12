@@ -211,7 +211,7 @@ export async function createUser(e) {
 }
 
 /**
- * 显示个人信息
+ * 显示我的资料
  * @param e
  */
 export async function showUserMsg(e) {

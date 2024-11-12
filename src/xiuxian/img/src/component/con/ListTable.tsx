@@ -28,7 +28,7 @@ export default function ListTable<
       url={img_information}
     >
       <div className="p-4">
-        <Header list={['/通天塔', '/杀神榜']} />
+        <Header list={['/查看通天塔', '/查看杀神榜']} />
       </div>
       {data.map((item, index) => (
         <div key={index} className="flex flex-col ">

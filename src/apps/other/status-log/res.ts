@@ -55,7 +55,7 @@ export default OnResponse(
         }
       })
 
-    const msg = ['[状态记录]']
+    const msg = ['[我的记录]']
 
     const Send = useSend(e)
 
@@ -80,5 +80,5 @@ export default OnResponse(
     Send(Text(msg.join('')))
   },
   'message.create',
-  /^(#|\/)?状态记录$/
+  /^(#|\/)?我的记录$/
 )

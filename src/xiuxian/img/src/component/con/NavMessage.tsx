@@ -126,7 +126,7 @@ export default function NavMessage({ data }: PropsType) {
           //
         }
         <span className="text-white px-2 py-1 rounded-t-lg text-lg bg-slate-400 absolute top-[-36px] flex left-[12px]  shadow-md">
-          /个人信息
+          /我的资料
         </span>
         {
           //

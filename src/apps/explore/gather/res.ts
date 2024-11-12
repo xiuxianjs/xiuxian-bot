@@ -40,7 +40,7 @@ export default OnResponse(
 
     const text = useParse(e.Megs, 'Text')
 
-    const [id, size] = text.replace(/^(#|\/)?采集/, '').split('*')
+    const [id, size] = text.replace(/^(#|\/)?开采/, '').split('*')
 
     // 看看境界
     const gaspractice = await user_level
@@ -134,5 +134,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?采集\d+\*?(1|2)?$/
+  /^(#|\/)?开采\d+\*?(1|2)?$/
 )

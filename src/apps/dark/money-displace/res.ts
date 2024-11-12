@@ -107,5 +107,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?(金银置换|金銀置換)\d+\*[\u4e00-\u9fa5]+\*[\u4e00-\u9fa5]+$/
+  /^(#|\/)?(金银坊置换|金銀坊置換)\d+\*[\u4e00-\u9fa5]+\*[\u4e00-\u9fa5]+$/
 )

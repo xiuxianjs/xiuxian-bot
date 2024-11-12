@@ -17,7 +17,7 @@ export const work_size = 4
 
 /**
  * ******
- * 传送阵 | 双修 | 比斗
+ * 传送阵 | 双修 | 决斗
  * *****
  */
 
@@ -85,7 +85,7 @@ export const ExchangeEnd = 0.8
  */
 export const pageSize = 6
 /**
- * 建立势力控制境界
+ * 建立控制境界
  */
 export const AssLevel = 24
 

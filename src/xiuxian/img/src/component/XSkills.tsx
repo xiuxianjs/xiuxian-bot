@@ -71,7 +71,7 @@ export default function App({ data, theme }: PropsType) {
               })}
             </div>
             <Footer
-              list={['/面板信息', '/本命', '/勋章信息']}
+              list={['/我的面板', '/我的本命物', '/我的协会']}
               docs={'提示：任何物品都可以装备哦～'}
             />
           </BackgroundImage>

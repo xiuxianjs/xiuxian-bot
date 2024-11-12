@@ -26,20 +26,20 @@ export default OnResponse(
       .then(res => res?.dataValues)
     //
     if (!thing) {
-      Send(Text('未有本命物品'))
+      Send(Text('未有本命物'))
       return
     }
     if (thing.grade == 10) {
-      Send(Text('本命物品品质已至仙品'))
+      Send(Text('本命物品质已至仙品'))
       return
     }
-    // 精炼是否有同名
+    // 强化是否有同名
     const bagThing = await Bag.searchBagByName(UID, thing.name)
     if (!bagThing) {
       Send(Text(`没[${thing.name}]`))
       return
     }
-    // 精炼等级*1000*物品等级
+    // 强化等级*1000*物品等级
     const size = 1000 * bagThing.grade
     // 是否拥有固定灵石
     const lingshi = await Bag.searchBagByName(UID, '下品灵石')
@@ -96,7 +96,7 @@ export default OnResponse(
       exp_bodypractice < udata.exp_bodypractice ||
       exp_soul < udata.exp_soul
     ) {
-      Send(Text('当前[修为/气血/神念]不足以精炼本名物品'))
+      Send(Text('当前[修为/气血/神念]不足以强化本命物'))
       return
     }
 
@@ -119,7 +119,7 @@ export default OnResponse(
 
     const grade = thing.grade + 1
 
-    // 更新精炼等级
+    // 更新强化等级
     await user_fate.update(
       {
         grade: grade
@@ -130,8 +130,8 @@ export default OnResponse(
         }
       }
     )
-    Send(Text(`[${thing.name}]精炼至${grade}级`))
+    Send(Text(`[${thing.name}]强化至${grade}级`))
   },
   'message.create',
-  /^(#|\/)?精炼$/
+  /^(#|\/)?强化本命物$/
 )

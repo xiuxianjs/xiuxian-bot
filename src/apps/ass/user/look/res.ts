@@ -28,7 +28,7 @@ export default OnResponse(
       return
     }
 
-    // 查看个人信息，确保有权限
+    // 查看我的资料，确保有权限
 
     const UADatas = await DB.user_ass
       .findAll({
