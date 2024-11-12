@@ -27,24 +27,27 @@ yarn --ignore-engines
 配置`alemon.config.yaml`文件
 
 ```yaml
+# 新增redis配置
 redis:
   host: ''
   port: ''
   password: ''
   db: ''
-
+# 新增db配置
 db:
   host: ''
   port: ''
   user: ''
   password: ''
   database: ''
-
+# 新增客户端配置
 gui:
   port: 9601
 ```
 
 - MySQL80
+
+> 必须安装mysql8才能才能运行
 
 数据库名 `xiuxian`
 字符集 `utf8mb4`
@@ -64,13 +67,17 @@ yarn dev --login gui
 
 - 连接
 
-消息>连接
+客户端 > 消息 > 连接
 
 > 会提示 ws://localhost:9601 已连接
 
 - 测试
 
 发送指令`/修仙帮助`
+
+## Github自动化部署
+
+[README_ACITON](./README_ACITON.md)
 
 ## 交流
 

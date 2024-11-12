@@ -5,15 +5,15 @@
 - 部署密钥
 
 ```sh
-ssh-copy-id user@remote_server_ip
+ssh-copy-id SSH_SERVER_USER@SSH_SERVER_IP
 ```
 
 - 校验ip可通
 
 ```sh
-IP=0.0.0.1
+SSH_SERVER_IP=0.0.0.0
 SSH_SERVER_USER='user'
-ssh -o BatchMode=yes -o StrictHostKeyChecking=no $SSH_SERVER_USER@$IP "echo 'successful!' || echo 'Connection failed'"
+ssh -o BatchMode=yes -o StrictHostKeyChecking=no $SSH_SERVER_USER@$SSH_SERVER_IP "echo 'successful!' || echo 'Connection failed'"
 ```
 
 ## 含义
