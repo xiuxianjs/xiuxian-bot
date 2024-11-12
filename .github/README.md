@@ -29,17 +29,17 @@ yarn --ignore-engines
 ```yaml
 # 新增redis配置
 redis:
-  host: ''
-  port: ''
+  host: 'locahost'
+  port: '6379'
   password: ''
-  db: ''
+  db: '1'
 # 新增db配置
 db:
-  host: ''
-  port: ''
-  user: ''
-  password: ''
-  database: ''
+  host: 'locahost'
+  port: '3306'
+  user: 'root'
+  password: 'My002580!'
+  database: 'xiuxian_test'
 # 新增客户端配置
 gui:
   port: 9601
@@ -49,11 +49,15 @@ gui:
 
 > 必须安装mysql8才能才能运行
 
-数据库名 `xiuxian`
+数据库名 `xiuxian_test`
 字符集 `utf8mb4`
 排序规则 `utf8mb4_german2_ci`
 
-> 执行src/sql文件进行建表
+```sql
+CREATE DATABASE IF NOT EXISTS `xiuxian_test`
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_german2_ci;
+```
 
 ## 测试客户端
 
@@ -64,6 +68,8 @@ gui:
 ```sh
 yarn dev --login gui
 ```
+
+> 首次运行请等待1-2分钟。确保数据完全植入
 
 - 连接
 

@@ -8,8 +8,10 @@ const formatDate = (date: Date) => {
   const day = String(date.getDate()).padStart(2, '0')
   return `${year}-${month}-${day}`
 }
+
 const dir = join(process.cwd(), 'logs', 'mysql-dc')
 mkdirSync(dir, { recursive: true })
+
 const logging = (sql: string) => {
   const TIME = new Date()
   const NOW = TIME.toLocaleDateString(undefined, {
@@ -27,7 +29,9 @@ const logging = (sql: string) => {
   })
   return false
 }
+
 const db = getConfig().value?.db
+
 export const sequelize = new Sequelize(db.database, db.user, db.password, {
   host: db.host,
   port: db.port,

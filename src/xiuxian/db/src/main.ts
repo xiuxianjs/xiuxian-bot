@@ -14,10 +14,9 @@ import { user_transactions_logs } from './models/log/user_transactions_logs.js'
 import { ass_bag_message } from './models/ass/ass_bag_message.js'
 import { user_buy_log } from './models/log/user_buy_log.js'
 import { user_ass_apply } from './models/user/user_ass_apply.js'
-import { sequelize } from './connect.js'
 import { goods_alliancemall, goods_commodities, goods_drops } from './models.js'
 
-const belongsTo = () => {
+export const useBelongsTo = () => {
   /**
    * user
    */
@@ -64,16 +63,3 @@ const belongsTo = () => {
   goods_commodities.belongsTo(goods, { foreignKey: 'gid', targetKey: 'id' })
   goods_drops.belongsTo(goods, { foreignKey: 'gid', targetKey: 'id' })
 }
-
-await sequelize
-  .authenticate()
-  .then(() => {
-    console.log('数据库连接成功.')
-
-    belongsTo()
-  })
-  .catch(err => {
-    console.error(err)
-    console.log('数据库连接失败.')
-    process.cwd()
-  })
