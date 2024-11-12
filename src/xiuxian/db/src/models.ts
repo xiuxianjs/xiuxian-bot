@@ -28,13 +28,10 @@ export * from './models/monster.js'
 // 地图寻宝
 export * from './models/map_treasure.js'
 // 商品
-export * from './models/goods/goods.js'
-export * from './models/goods/goods_alliancemall.js'
-export * from './models/goods/goods_commodities.js'
-export * from './models/goods/goods_drops.js'
-export * from './models/goods/goods_limit.js'
-export * from './models/goods/goods_palace.js'
-export * from './models/goods/goods_wheeldisc.js'
+export * from './models/goods.js'
+export * from './models/goods_alliancemall.js'
+export * from './models/goods_commodities.js'
+export * from './models/goods_drops.js'
 // 通天塔
 export * from './models/user/user_sky_ranking.js'
 // 邮箱
@@ -59,5 +56,5 @@ export * from './models/user/user_email.js'
 /**
  * 交易
  */
-export * from './models/transactions.js'
+export * from './models/transactions/transactions.js'
 export * from './models/log/user_transactions_logs.js'

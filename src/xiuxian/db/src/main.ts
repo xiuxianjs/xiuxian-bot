@@ -1,5 +1,5 @@
 import { user_bag } from './models/user/user_bag.js'
-import { goods } from './models/goods/goods.js'
+import { goods } from './models/goods.js'
 import { user_skills } from './models/user/user_skills.js'
 import { user_equipment } from './models/user/user_equipment.js'
 import { user_fate } from './models/user/user_fate.js'
@@ -9,20 +9,13 @@ import { ass } from './models/ass/ass.js'
 import { ass_typing } from './models/ass_typing.js'
 import { ass_bag } from './models/ass/ass_bag.js'
 import { user } from './models/user/user.js'
-import { transactions } from './models/transactions.js'
+import { transactions } from './models/transactions/transactions.js'
 import { user_transactions_logs } from './models/log/user_transactions_logs.js'
 import { ass_bag_message } from './models/ass/ass_bag_message.js'
 import { user_buy_log } from './models/log/user_buy_log.js'
 import { user_ass_apply } from './models/user/user_ass_apply.js'
 import { sequelize } from './connect.js'
-import {
-  goods_alliancemall,
-  goods_commodities,
-  goods_drops,
-  goods_limit,
-  goods_palace,
-  goods_wheeldisc
-} from './models.js'
+import { goods_alliancemall, goods_commodities, goods_drops } from './models.js'
 
 const belongsTo = () => {
   /**
@@ -70,9 +63,6 @@ const belongsTo = () => {
   goods_alliancemall.belongsTo(goods, { foreignKey: 'gid', targetKey: 'id' })
   goods_commodities.belongsTo(goods, { foreignKey: 'gid', targetKey: 'id' })
   goods_drops.belongsTo(goods, { foreignKey: 'gid', targetKey: 'id' })
-  goods_limit.belongsTo(goods, { foreignKey: 'gid', targetKey: 'id' })
-  goods_palace.belongsTo(goods, { foreignKey: 'gid', targetKey: 'id' })
-  goods_wheeldisc.belongsTo(goods, { foreignKey: 'gid', targetKey: 'id' })
 }
 
 await sequelize

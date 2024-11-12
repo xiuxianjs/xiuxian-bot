@@ -1,8 +1,10 @@
 # 修仙机器人
 
-## 环境
+使用AlemonJS+VlyJS进行开发的修仙机器人。
 
-NodeJS > 18, Redis > 5, MySQL 8
+https://alemonjs.com/
+
+https://lvyjs.dev/
 
 ### 本地调试
 
@@ -48,7 +50,27 @@ gui:
 字符集 `utf8mb4`
 排序规则 `utf8mb4_german2_ci`
 
-> 执行src/sql/xiuxian.sql 建表
+> 执行src/sql文件进行建表
+
+## 测试客户端
+
+请在 https://alemonjs.com/ 中下载客户端
+
+- 登录gui
+
+```sh
+yarn dev --login gui
+```
+
+- 连接
+
+消息>连接
+
+> 会提示 ws://localhost:9601 已连接
+
+- 测试
+
+发送指令`/修仙帮助`
 
 ## 交流
 

@@ -1,6 +1,6 @@
-import { sequelize } from '../../connect.js'
+import { sequelize } from '../connect.js'
 import { DataTypes, Model } from 'sequelize'
-export const goods_drops = sequelize.define<
+export const goods_commodities = sequelize.define<
   Model<{
     // 定义模型属性
     id: number
@@ -8,7 +8,7 @@ export const goods_drops = sequelize.define<
     limit_buy: number // 购买上限
   }>
 >(
-  'goods_drops',
+  'goods_commodities',
   {
     // 定义模型属性
     id: {
