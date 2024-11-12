@@ -9,7 +9,7 @@ export default OnResponse(
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
     const text = useParse(e.Megs, 'Text')
-    const name = text.replace(/^(#|\/)?查看/, '')
+    const name = text.replace(/^(#|\/)?我的势力/, '')
 
     // 查看该宗门中。关于自己的信息和宗门的信息。
 
@@ -78,5 +78,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?查看[\u4e00-\u9fa5]+$/
+  /^(#|\/)?我的势力[\u4e00-\u9fa5]+$/
 )

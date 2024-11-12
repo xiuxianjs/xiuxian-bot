@@ -52,5 +52,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?(个人|個人)信息$/
+  /^(#|\/)?我的资料$/
 )

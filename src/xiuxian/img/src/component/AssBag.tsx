@@ -30,7 +30,7 @@ export default function AssBag({ data, theme }: PropsType) {
       <body>
         <ThemeBackground theme={theme}>
           <div className="px-4">
-            <Header list={['/我的势力', '/查看公告']} />
+            <Header list={['/我的势力', '/查看更新']} />
           </div>
           <div className="px-4 text-2xl text-white  relative">
             <div className="my-1 rounded-md bg-black bg-opacity-20">

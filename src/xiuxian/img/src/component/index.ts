@@ -12,7 +12,9 @@ import TransactionMessage from './TransactionMessage.js'
 import AssMessage from './AssMessage.js'
 import AssList from './AssList.js'
 import AssBag from './AssBag.js'
+import Activety from './Activety.js'
 export {
+  Activety,
   AssBag,
   AssList,
   TransactionMessage,

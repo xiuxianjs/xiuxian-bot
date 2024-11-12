@@ -20,7 +20,7 @@ export default OnResponse(
         msg.push(`地点名:${item?.name}\n坐标(${item?.x},${item?.y},${item?.z})`)
       }
     }
-    sendReply(e, '[查看当前位置]', msg)
+    sendReply(e, '[当前位置]', msg)
     return
   },
   'message.create',

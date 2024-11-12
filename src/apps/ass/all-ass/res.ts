@@ -10,7 +10,7 @@ export default OnResponse(
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
     const text = useParse(e.Megs, 'Text')
-    const p = text.replace(/^(#|\/)?势力/, '')
+    const p = text.replace(/^(#|\/)?查看势力/, '')
     const page = p == '' ? 1 : Number(p)
     //
     const pageSize = Cooling.pageSize
@@ -52,5 +52,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?势力\d*$/
+  /^(#|\/)?查看势力\d*$/
 )

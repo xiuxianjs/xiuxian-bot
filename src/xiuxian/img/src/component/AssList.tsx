@@ -18,7 +18,7 @@ export default function AssList({ data, theme }: PropsType) {
       <body>
         <ThemeBackground theme={theme}>
           <div className="px-4">
-            <Header list={['/我的势力', '/查看公告']} />
+            <Header list={['/我的势力', '/查看更新']} />
           </div>
           <div className="px-4 text-2xl text-white  relative">
             {data.map((item, index) => (

@@ -103,6 +103,9 @@ export default defineConfig({
           data={await showSky(event.UserId)}
         />
       )
+    },
+    '/Activety': {
+      component: <Component.Activety theme={'dark'} select="limit_time" />
     }
   }
 })
