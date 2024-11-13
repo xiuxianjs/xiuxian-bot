@@ -17,34 +17,10 @@ import { user_ass_apply } from './models/user/user_ass_apply.js'
 import { goods_alliancemall } from './models/goods_alliancemall.js'
 import { goods_commodities } from './models/goods_commodities.js'
 import { goods_drops } from './models/goods_drops.js'
-import { monster } from './models.js'
-import { fate_level } from './models.js'
-import { map_treasure } from './models.js'
-import { map_point } from './models.js'
-import { talent } from './models.js'
-import { map_position } from './models.js'
-import { levels } from './models.js'
-import { skys } from './models.js'
-import { constitution } from './models/constitution.js'
-import { levels_limit } from './models/levels_limit.js'
 
-export const BaseModels = {
-  ass_typing,
-  skys,
-  monster,
-  goods,
-  goods_alliancemall,
-  goods_commodities,
-  goods_drops,
-  fate_level,
-  levels,
-  talent,
-  map_point,
-  map_position,
-  map_treasure,
-  constitution,
-  levels_limit
-}
+import * as models from './models.js'
+
+export { models }
 
 export const useBelongsTo = () => {
   /**

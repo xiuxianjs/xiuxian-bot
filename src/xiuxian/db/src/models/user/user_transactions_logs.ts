@@ -16,21 +16,62 @@ export const user_transactions_logs = sequelize.define<
   'user_transactions_logs',
   {
     id: {
-      type: DataTypes.INTEGER, // integer
+      type: DataTypes.INTEGER,
       primaryKey: true,
-      unique: true
+      autoIncrement: true,
+      allowNull: false
     },
-    uid: DataTypes.STRING, //string
-    name: DataTypes.STRING, //string
-    count: DataTypes.INTEGER,
-    price: DataTypes.INTEGER, // integer
-    createAt: DataTypes.DATE,
-    updateAt: DataTypes.DATE,
-    deleteAt: DataTypes.DATE
+    uid: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+      comment: '用户编号'
+    },
+    name: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+      comment: '物品名'
+    },
+    count: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+      comment: '物品数量'
+    },
+    price: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
+    createAt: {
+      type: DataTypes.DATE,
+      allowNull: true
+    },
+    updateAt: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: DataTypes.NOW
+      // onUpdate: DataTypes.NOW
+    },
+    deleteAt: {
+      type: DataTypes.DATE,
+      allowNull: true
+    }
   },
   {
     freezeTableName: true,
     createdAt: false,
-    updatedAt: false
+    updatedAt: false,
+    indexes: [
+      {
+        name: 'user_transactions_logs:pk:user:uid', // 索引名称
+        unique: false, // 非唯一索引
+        fields: ['uid'], // 索引字段
+        using: 'BTREE' // 索引方法
+      },
+      {
+        name: 'user_transactions_logs:pk:goods:name', // 索引名称
+        unique: false, // 非唯一索引
+        fields: ['name'], // 索引字段
+        using: 'BTREE' // 索引方法
+      }
+    ]
   }
 )

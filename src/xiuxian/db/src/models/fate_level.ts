@@ -16,13 +16,33 @@ export const fate_level = sequelize.define<
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      unique: true
+      allowNull: false
     },
-    grade: DataTypes.INTEGER, //int
-    exp_bodypractice: DataTypes.INTEGER, //int
-    exp_gaspractice: DataTypes.INTEGER, //int
-    exp_soul: DataTypes.INTEGER, //int
-    doc: DataTypes.STRING //string
+    grade: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      comment: '等级'
+    },
+    exp_gaspractice: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+      comment: '气修经验'
+    },
+    exp_bodypractice: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+      comment: '体修经验'
+    },
+    exp_soul: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+      comment: '灵魂经验'
+    },
+    doc: {
+      type: DataTypes.STRING(20),
+      allowNull: true,
+      comment: '说明'
+    }
   },
   {
     freezeTableName: true,

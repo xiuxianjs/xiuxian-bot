@@ -10,12 +10,21 @@ export const ass_bag_message = sequelize.define<
   'ass_bag_message',
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       primaryKey: true,
-      unique: true
+      autoIncrement: true,
+      allowNull: false
     },
-    aid: DataTypes.STRING,
-    grade: DataTypes.INET
+    aid: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+      comment: '宗门编号'
+    },
+    grade: {
+      type: DataTypes.INTEGER,
+      defaultValue: 1,
+      comment: '背包等级'
+    }
   },
   {
     freezeTableName: true,

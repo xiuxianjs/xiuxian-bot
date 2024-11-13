@@ -7,21 +7,6 @@
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
--- ----------------------------
--- Table structure for skys
--- ----------------------------
-DROP TABLE IF EXISTS `skys`;
-CREATE TABLE `skys` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `count` int(11) DEFAULT '1' COMMENT '数量',
-  `ranking` int(11) DEFAULT NULL COMMENT '排名',
-  `createAt` datetime DEFAULT NULL,
-  `updateAt` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `deleteAt` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_skys_name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of skys

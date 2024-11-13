@@ -14,22 +14,52 @@ export const skys = sequelize.define<
 >(
   'skys',
   {
-    // 定义模型属性
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      unique: true
+      autoIncrement: true,
+      allowNull: false
     },
-    name: DataTypes.STRING, // string
-    count: DataTypes.INTEGER,
-    ranking: DataTypes.INTEGER,
-    createAt: DataTypes.DATE,
-    updateAt: DataTypes.DATE,
-    deleteAt: DataTypes.DATE
+    name: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
+    count: {
+      type: DataTypes.INTEGER,
+      defaultValue: 1,
+      comment: '数量'
+    },
+    ranking: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      comment: '排名'
+    },
+    createAt: {
+      type: DataTypes.DATE,
+      allowNull: true
+    },
+    updateAt: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: DataTypes.NOW
+      // onUpdate: DataTypes.NOW
+    },
+    deleteAt: {
+      type: DataTypes.DATE,
+      allowNull: true
+    }
   },
   {
     freezeTableName: true,
     createdAt: false,
-    updatedAt: false
+    updatedAt: false,
+    indexes: [
+      {
+        name: 'skys:pk:goods:name', // 索引名称
+        unique: false, // 非唯一索引
+        fields: ['name'], // 索引字段
+        using: 'BTREE' // 索引方法
+      }
+    ]
   }
 )

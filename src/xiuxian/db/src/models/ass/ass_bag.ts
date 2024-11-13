@@ -14,22 +14,53 @@ export const ass_bag = sequelize.define<
   'ass_bag',
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       primaryKey: true,
-      unique: true
+      autoIncrement: true,
+      allowNull: false
     },
     aid: {
-      type: DataTypes.INTEGER
-    }, // 编号
-    tid: DataTypes.INET, // 物品编号
-    type: DataTypes.INET, // 物品类型
-    name: DataTypes.STRING, // 物品名
-    acount: DataTypes.INTEGER, // 数量
-    doc: DataTypes.STRING // 说明
+      type: DataTypes.BIGINT,
+      allowNull: false,
+      comment: '编号'
+    },
+    tid: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      comment: '物品编号'
+    },
+    type: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      comment: '物品类型'
+    },
+    name: {
+      type: DataTypes.STRING(20),
+      defaultValue: '10',
+      comment: '物品名'
+    },
+    acount: {
+      type: DataTypes.BIGINT,
+      defaultValue: 1,
+      comment: '数量'
+    },
+    doc: {
+      type: DataTypes.STRING(20),
+      allowNull: true,
+      comment: '说明'
+    }
   },
   {
     freezeTableName: true,
     createdAt: false,
-    updatedAt: false
+    updatedAt: false,
+    indexes: [
+      {
+        name: 'ass_bag:pk:goods:name', // 索引名称
+        unique: false, // 非唯一索引
+        fields: ['name'], // 索引字段
+        using: 'BTREE' // 索引方法
+      }
+    ]
   }
 )

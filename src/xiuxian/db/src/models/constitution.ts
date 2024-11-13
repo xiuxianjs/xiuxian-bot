@@ -10,12 +10,21 @@ export const constitution = sequelize.define<
   'constitution',
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       primaryKey: true,
-      unique: true
+      autoIncrement: true,
+      allowNull: false
     },
-    name: DataTypes.STRING,
-    grade: DataTypes.INTEGER
+    name: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+      comment: '名称'
+    },
+    grade: {
+      type: DataTypes.INTEGER,
+      defaultValue: 1,
+      comment: '等级'
+    }
   },
   {
     freezeTableName: true,

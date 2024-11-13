@@ -8,6 +8,7 @@ export const map_position = sequelize.define<
     type: number //int
     grade: number //int
     attribute: number //int
+    size: number
     x1: number //int
     x2: number //int
     y1: number //int
@@ -21,19 +22,58 @@ export const map_position = sequelize.define<
   {
     id: {
       type: DataTypes.INTEGER,
-      primaryKey: true
+      primaryKey: true,
+      allowNull: false
     },
-    name: DataTypes.STRING, //string
-    type: DataTypes.INTEGER, //int
-    grade: DataTypes.INTEGER, //int
-    attribute: DataTypes.INTEGER, //int
-    x1: DataTypes.INTEGER, //int
-    x2: DataTypes.INTEGER, //int
-    y1: DataTypes.INTEGER, //int
-    y2: DataTypes.INTEGER, //int
-    z1: DataTypes.INTEGER, //int
-    z2: DataTypes.INTEGER, //int
-    doc: DataTypes.STRING //string
+    name: {
+      type: DataTypes.STRING(20),
+      allowNull: true,
+      unique: true
+    },
+    type: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    grade: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    attribute: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    size: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    x1: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    x2: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    y1: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    y2: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    z1: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    z2: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    doc: {
+      type: DataTypes.STRING(20),
+      allowNull: true
+    }
   },
   {
     freezeTableName: true,

@@ -76,7 +76,8 @@ export const user = sequelize.define<Model<User>>(
       type: DataTypes.BIGINT,
       primaryKey: true,
       autoIncrement: true,
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
     uid: {
       type: DataTypes.STRING(50),
@@ -387,13 +388,3 @@ export const user = sequelize.define<Model<User>>(
     updatedAt: false
   }
 )
-
-// 强制同步 User 模型
-// user
-//   .sync({ force: true }) // 或者 { alter: true } 进行修改
-//   .then(() => {
-//     console.log('User 表与模型同步成功')
-//   })
-//   .catch(err => {
-//     console.error('User 表同步失败:', err)
-//   })

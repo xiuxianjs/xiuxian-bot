@@ -21,19 +21,63 @@ export const ass_typing = sequelize.define<
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      unique: true
+      allowNull: false
     },
-    master: DataTypes.STRING,
-    vice_master: DataTypes.STRING,
-    super_admin: DataTypes.STRING,
-    admin: DataTypes.STRING,
-    core_member: DataTypes.STRING,
-    senior_menber: DataTypes.STRING,
-    intermediate_member: DataTypes.STRING,
-    lowerlevel_member: DataTypes.STRING,
-    tagged_member: DataTypes.STRING,
-    reviewed_member: DataTypes.STRING,
-    doc: DataTypes.STRING
+    master: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+      comment: '主人'
+    },
+    vice_master: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+      comment: '副主人'
+    },
+    super_admin: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+      comment: '超级管理员'
+    },
+    admin: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+      comment: '管理员'
+    },
+    core_member: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+      comment: '核心成员'
+    },
+    senior_menber: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+      comment: '高级成员'
+    },
+    intermediate_member: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+      comment: '中级成员'
+    },
+    lowerlevel_member: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+      comment: '低级成员'
+    },
+    tagged_member: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+      comment: '标记成员'
+    },
+    reviewed_member: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+      comment: '待审核成员'
+    },
+    doc: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+      comment: '说明'
+    }
   },
   {
     freezeTableName: true,

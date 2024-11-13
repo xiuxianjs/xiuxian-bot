@@ -11,12 +11,18 @@ export const talent = sequelize.define<
   'talent',
   {
     id: {
-      type: DataTypes.INTEGER, // integer
+      type: DataTypes.INTEGER,
       primaryKey: true,
-      unique: true
+      allowNull: false
     },
-    name: DataTypes.STRING, //string
-    doc: DataTypes.STRING //string
+    name: {
+      type: DataTypes.STRING(20),
+      allowNull: true
+    },
+    doc: {
+      type: DataTypes.STRING(20),
+      allowNull: true
+    }
   },
   {
     freezeTableName: true,

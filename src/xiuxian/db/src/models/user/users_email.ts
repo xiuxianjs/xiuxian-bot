@@ -10,12 +10,22 @@ export const users_email = sequelize.define<
   'users_email',
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       primaryKey: true,
-      unique: true
+      autoIncrement: true,
+      allowNull: false,
+      comment: '编号'
     },
-    email: DataTypes.STRING,
-    uid: DataTypes.STRING
+    email: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+      comment: '邮箱'
+    },
+    uid: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+      comment: '游戏id'
+    }
   },
   {
     freezeTableName: true,

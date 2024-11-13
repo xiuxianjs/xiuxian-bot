@@ -8,17 +8,6 @@ SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
--- Table structure for constitution
--- ----------------------------
-DROP TABLE IF EXISTS `constitution`;
-CREATE TABLE `constitution` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `grade` int(11) DEFAULT '1',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
-
--- ----------------------------
 -- Records of constitution
 -- ----------------------------
 BEGIN;

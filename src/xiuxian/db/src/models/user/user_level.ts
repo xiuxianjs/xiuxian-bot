@@ -10,6 +10,7 @@ export const user_level = sequelize.define<
     realm: number // 等级
     experience: number // 经验
     doc: string // 说明
+    updateAt: Date
   }>
 >(
   'user_level',
@@ -17,15 +18,49 @@ export const user_level = sequelize.define<
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      unique: true
+      autoIncrement: true,
+      allowNull: false
     },
-    uid: DataTypes.STRING, // 编号
-    type: DataTypes.INET, // 境界类型
-    career: DataTypes.INET, // 职业类型
-    addition: DataTypes.INET, // 突破概率加成
-    realm: DataTypes.INTEGER, // 等级
-    experience: DataTypes.INTEGER, // 经验
-    doc: DataTypes.STRING // 说明
+    uid: {
+      type: DataTypes.STRING(50),
+      allowNull: false
+    },
+    type: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      comment: '境界类型'
+    },
+    career: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+      comment: '职业类型,非职业为0'
+    },
+    addition: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      comment: '突破概率加成'
+    },
+    realm: {
+      type: DataTypes.BIGINT,
+      allowNull: true,
+      comment: '等级'
+    },
+    experience: {
+      type: DataTypes.BIGINT,
+      allowNull: true,
+      comment: '经验'
+    },
+    doc: {
+      type: DataTypes.STRING(20),
+      allowNull: true,
+      comment: '说明'
+    },
+    updateAt: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: DataTypes.NOW
+      // onUpdate: DataTypes.NOW
+    }
   },
   {
     freezeTableName: true,

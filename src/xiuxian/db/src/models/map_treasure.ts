@@ -18,16 +18,41 @@ export const map_treasure = sequelize.define<
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      unique: true
+      autoIncrement: true,
+      allowNull: false
     },
-    name: DataTypes.STRING, //string
-    type: DataTypes.INTEGER, //int
-    acount: DataTypes.INTEGER, //int
-    attribute: DataTypes.INTEGER, //int
-    x: DataTypes.INTEGER, //int
-    y: DataTypes.INTEGER, //int
-    z: DataTypes.INTEGER, //int
-    doc: DataTypes.STRING //string
+    name: {
+      type: DataTypes.STRING(20),
+      allowNull: true
+    },
+    type: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    attribute: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    acount: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    x: {
+      type: DataTypes.BIGINT,
+      allowNull: true
+    },
+    y: {
+      type: DataTypes.BIGINT,
+      allowNull: true
+    },
+    z: {
+      type: DataTypes.BIGINT,
+      allowNull: true
+    },
+    doc: {
+      type: DataTypes.STRING(20),
+      allowNull: true
+    }
   },
   {
     freezeTableName: true,

@@ -8,20 +8,6 @@ SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
--- Table structure for fate_level
--- ----------------------------
-DROP TABLE IF EXISTS `fate_level`;
-CREATE TABLE `fate_level` (
-  `id` int(11) NOT NULL,
-  `grade` int(11) DEFAULT NULL COMMENT '等级',
-  `exp_gaspractice` int(11) DEFAULT '0',
-  `exp_bodypractice` int(11) DEFAULT '0',
-  `exp_soul` int(11) DEFAULT '0',
-  `doc` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- ----------------------------
 -- Records of fate_level
 -- ----------------------------
 BEGIN;

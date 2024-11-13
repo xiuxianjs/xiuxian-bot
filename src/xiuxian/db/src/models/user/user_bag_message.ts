@@ -10,12 +10,21 @@ export const user_bag_message = sequelize.define<
   'user_bag_message',
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       primaryKey: true,
-      unique: true
+      autoIncrement: true,
+      allowNull: false
     },
-    uid: DataTypes.STRING, //编号
-    grade: DataTypes.INET // 背包等级_默认1
+    uid: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+      comment: '用户编号'
+    },
+    grade: {
+      type: DataTypes.INTEGER,
+      defaultValue: 1,
+      comment: '背包等级'
+    }
   },
   {
     freezeTableName: true,

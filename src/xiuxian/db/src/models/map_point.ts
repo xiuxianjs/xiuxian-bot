@@ -19,16 +19,41 @@ export const map_point = sequelize.define<
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      unique: true
+      unique: true,
+      allowNull: false
     },
-    name: DataTypes.STRING, //string
-    type: DataTypes.INTEGER, //int
-    grade: DataTypes.INTEGER, //int
-    attribute: DataTypes.INTEGER, //int
-    x: DataTypes.INTEGER, //int
-    y: DataTypes.INTEGER, //int
-    z: DataTypes.INTEGER, //int
-    doc: DataTypes.STRING //string
+    name: {
+      type: DataTypes.STRING,
+      allowNull: true // 根据需要设置为 true 或 false
+    },
+    type: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    grade: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    attribute: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    x: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    y: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    z: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    doc: {
+      type: DataTypes.STRING,
+      allowNull: true
+    }
   },
   {
     freezeTableName: true,

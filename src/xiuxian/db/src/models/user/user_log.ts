@@ -8,6 +8,7 @@ export const user_log = sequelize.define<
     create_time: number
     message: string
     doc: string
+    updateAt: Date
   }>
 >(
   'user_log',
@@ -15,13 +16,35 @@ export const user_log = sequelize.define<
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      unique: true
+      autoIncrement: true,
+      allowNull: false
     },
-    uid: DataTypes.STRING,
-    type: DataTypes.INET,
-    create_time: DataTypes.BIGINT,
-    message: DataTypes.STRING,
-    doc: DataTypes.STRING
+    uid: {
+      type: DataTypes.STRING(50),
+      allowNull: true
+    },
+    type: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    create_time: {
+      type: DataTypes.BIGINT,
+      allowNull: true
+    },
+    message: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
+    doc: {
+      type: DataTypes.STRING(20),
+      allowNull: true
+    },
+    updateAt: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: DataTypes.NOW
+      // onUpdate: DataTypes.NOW
+    }
   },
   {
     freezeTableName: true,

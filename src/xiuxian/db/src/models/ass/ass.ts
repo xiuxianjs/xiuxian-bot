@@ -17,23 +17,67 @@ export const ass = sequelize.define<
   'ass',
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       primaryKey: true,
-      unique: true
+      autoIncrement: true,
+      allowNull: false
     },
-    create_time: DataTypes.INTEGER,
-    name: DataTypes.STRING,
-    typing: DataTypes.INTEGER,
-    grade: DataTypes.INTEGER,
-    bag_grade: DataTypes.INTEGER,
-    property: DataTypes.INTEGER,
-    fame: DataTypes.INTEGER,
-    activation: DataTypes.INTEGER,
-    doc: DataTypes.STRING
+    create_time: {
+      type: DataTypes.BIGINT,
+      allowNull: true,
+      comment: '创建时间'
+    },
+    name: {
+      type: DataTypes.STRING(50),
+      allowNull: false
+    },
+    typing: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      comment: '类型, 不同的类型文本不同'
+    },
+    grade: {
+      type: DataTypes.BIGINT,
+      defaultValue: 0,
+      comment: '等级, 限制人数'
+    },
+    bag_grade: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+      comment: '藏宝阁等级'
+    },
+    property: {
+      type: DataTypes.BIGINT,
+      allowNull: false,
+      comment: '灵石'
+    },
+    fame: {
+      type: DataTypes.BIGINT,
+      defaultValue: 0,
+      comment: '名气'
+    },
+    activation: {
+      type: DataTypes.BIGINT,
+      defaultValue: 0,
+      comment: '活跃度'
+    },
+    doc: {
+      type: DataTypes.STRING(50),
+      allowNull: true,
+      comment: '说明'
+    }
   },
   {
     freezeTableName: true,
     createdAt: false,
-    updatedAt: false
+    updatedAt: false,
+    indexes: [
+      {
+        name: 'ass:pk:ass_type:typing', // 索引名称
+        unique: false, // 非唯一索引
+        fields: ['typing'], // 索引字段
+        using: 'BTREE' // 索引方法
+      }
+    ]
   }
 )

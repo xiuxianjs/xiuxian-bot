@@ -23,6 +23,7 @@ export * from './models/map_point.js'
 export * from './models/map_position.js'
 export * from './models/map_treasure.js'
 export * from './models/constitution.js'
+export * from './models/npc.js'
 /**
  * 增值表
  */

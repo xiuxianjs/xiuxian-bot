@@ -6,18 +6,32 @@ export const user_sky_ranking = sequelize.define<
     id: number
     uid: string // string
     doc: string //
+    updateAt: Date
   }>
 >(
   'user_sky_ranking',
   {
-    // 定义模型属性
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      unique: true
+      autoIncrement: true,
+      allowNull: false,
+      comment: '通天塔'
     },
-    uid: DataTypes.STRING, // string
-    doc: DataTypes.STRING //
+    uid: {
+      type: DataTypes.STRING(50),
+      allowNull: true
+    },
+    updateAt: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: DataTypes.NOW
+      // onUpdate: DataTypes.NOW
+    },
+    doc: {
+      type: DataTypes.STRING(20),
+      allowNull: true
+    }
   },
   {
     freezeTableName: true,

@@ -8,17 +8,6 @@ SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
--- Table structure for talent
--- ----------------------------
-DROP TABLE IF EXISTS `talent`;
-CREATE TABLE `talent` (
-  `id` int(11) NOT NULL,
-  `name` varchar(20) DEFAULT NULL,
-  `doc` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
 -- Records of talent
 -- ----------------------------
 BEGIN;

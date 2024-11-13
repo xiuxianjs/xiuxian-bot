@@ -1,13 +1,13 @@
 import { sequelize } from '../connect.js'
 import { DataTypes, Model } from 'sequelize'
-export const levels_limit = sequelize.define<
+export const npc = sequelize.define<
   Model<{
     id: number
-    grade: number
-    gids: string
+    name: string //string
+    need: number
   }>
 >(
-  'levels_limit',
+  'npc',
   {
     id: {
       type: DataTypes.BIGINT,
@@ -15,15 +15,12 @@ export const levels_limit = sequelize.define<
       autoIncrement: true,
       allowNull: false
     },
-    grade: {
-      type: DataTypes.BIGINT,
-      allowNull: true,
-      comment: '对应等级'
+    name: {
+      type: DataTypes.STRING(255)
     },
-    gids: {
-      type: DataTypes.STRING(255),
-      allowNull: true,
-      comment: '需要的物品'
+    need: {
+      type: DataTypes.INTEGER,
+      defaultValue: 1
     }
   },
   {

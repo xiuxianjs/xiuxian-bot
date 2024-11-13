@@ -7,28 +7,6 @@
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
--- ----------------------------
--- Table structure for levels
--- ----------------------------
-DROP TABLE IF EXISTS `levels`;
-CREATE TABLE `levels` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `type` int(11) DEFAULT NULL,
-  `grade` int(20) DEFAULT NULL,
-  `name` varchar(20) DEFAULT NULL,
-  `attack` int(11) DEFAULT NULL,
-  `defense` int(11) DEFAULT NULL,
-  `blood` int(11) DEFAULT NULL,
-  `critical_hit` int(11) DEFAULT NULL COMMENT '暴击率',
-  `critical_damage` int(11) DEFAULT NULL COMMENT '暴击伤害',
-  `speed` int(11) DEFAULT NULL,
-  `size` int(11) DEFAULT NULL,
-  `soul` int(11) DEFAULT NULL,
-  `exp_needed` int(11) DEFAULT NULL,
-  `success_rate` int(11) DEFAULT '10' COMMENT '成功率',
-  `doc` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=143 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of levels

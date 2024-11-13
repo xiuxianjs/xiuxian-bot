@@ -8,26 +8,6 @@ SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
--- Table structure for ass_typing
--- ----------------------------
-DROP TABLE IF EXISTS `ass_typing`;
-CREATE TABLE `ass_typing` (
-  `id` int(11) NOT NULL,
-  `master` varchar(255) DEFAULT NULL COMMENT '主人',
-  `vice_master` varchar(255) DEFAULT NULL COMMENT '副主人',
-  `super_admin` varchar(255) DEFAULT NULL COMMENT '超级管理员',
-  `admin` varchar(255) DEFAULT NULL COMMENT '管理员',
-  `core_member` varchar(255) DEFAULT NULL COMMENT '核心成员',
-  `senior_menber` varchar(255) DEFAULT NULL COMMENT '高级成员',
-  `intermediate_member` varchar(255) DEFAULT NULL COMMENT '中级成员',
-  `lowerlevel_member` varchar(255) DEFAULT NULL COMMENT '低级成员',
-  `tagged_member` varchar(255) DEFAULT NULL COMMENT '标记成员',
-  `reviewed_member` varchar(255) DEFAULT NULL COMMENT '待审核成员',
-  `doc` varchar(255) DEFAULT NULL COMMENT '说明',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- ----------------------------
 -- Records of ass_typing
 -- ----------------------------
 BEGIN;

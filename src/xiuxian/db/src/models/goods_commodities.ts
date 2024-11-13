@@ -10,18 +10,34 @@ export const goods_commodities = sequelize.define<
 >(
   'goods_commodities',
   {
-    // 定义模型属性
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       primaryKey: true,
-      unique: true
+      autoIncrement: true,
+      allowNull: false
     },
-    gid: DataTypes.INTEGER, // bigint
-    limit_buy: DataTypes.INTEGER // 购买限制
+    gid: {
+      type: DataTypes.BIGINT,
+      allowNull: true,
+      comment: '商品编号'
+    },
+    limit_buy: {
+      type: DataTypes.BIGINT,
+      allowNull: true,
+      comment: '购买限制'
+    }
   },
   {
     freezeTableName: true,
     createdAt: false,
-    updatedAt: false
+    updatedAt: false,
+    indexes: [
+      {
+        name: 'goods_commodities:pk:goods:gid', // 索引名称
+        unique: false, // 非唯一索引
+        fields: ['gid'], // 索引字段
+        using: 'BTREE' // 索引方法
+      }
+    ]
   }
 )

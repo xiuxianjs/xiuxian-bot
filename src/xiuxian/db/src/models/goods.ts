@@ -30,43 +30,140 @@ export const goods = sequelize.define<
     palace: number // 浩瀚宫调 tudo 废弃
     limit: number // 浩瀚宫调限定 tudo 废弃
     limit_buy: number // 购买上限 tudo 废弃
-    doc: string
   }>
 >(
   'goods',
   {
-    // 定义模型属性
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      unique: true
+      allowNull: false
     },
-    type: DataTypes.INTEGER, //int
-    monster_type: DataTypes.INTEGER, //int
-    name: DataTypes.STRING, //string
-    grade: DataTypes.INTEGER, //int   // 等级
-    addition: DataTypes.STRING, // 属于
-    talent: DataTypes.JSON, // json  // shouw?
-    attack: DataTypes.INTEGER, //* 1  // acount *
-    defense: DataTypes.INTEGER, //* 1
-    blood: DataTypes.INTEGER, //* 1
-    boolere_covery: DataTypes.INTEGER, //* 1
-    critical_hit: DataTypes.INTEGER, //* 1
-    critical_damage: DataTypes.INTEGER, //* 1
-    exp_bodypractice: DataTypes.INTEGER, //** */
-    exp_gaspractice: DataTypes.INTEGER, //** */
-    exp_soul: DataTypes.INTEGER, //** */
-    speed: DataTypes.INTEGER, //* 1
-    size: DataTypes.INTEGER, //* 1
-    price: DataTypes.INTEGER, //* 1
-    drops: DataTypes.INTEGER, // 怪物掉落
-    wheeldisc: DataTypes.INTEGER, // 命运转盘
-    alliancemall: DataTypes.INTEGER, //  联盟商城
-    commodities: DataTypes.INTEGER, // 万宝楼
-    palace: DataTypes.INTEGER, // 浩瀚宫调
-    limit: DataTypes.INTEGER, // 限定
-    limit_buy: DataTypes.INTEGER, // 限定
-    doc: DataTypes.STRING
+    name: {
+      type: DataTypes.STRING(20),
+      allowNull: false,
+      unique: true,
+      comment: '名字唯一'
+    },
+    type: {
+      type: DataTypes.INTEGER,
+      defaultValue: 1,
+      comment: '类型'
+    },
+    monster_type: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+      comment: '怪物类型'
+    },
+    grade: {
+      type: DataTypes.INTEGER,
+      defaultValue: 1,
+      comment: '物品种类等级'
+    },
+    addition: {
+      type: DataTypes.STRING(20),
+      defaultValue: 'blood',
+      comment: '属性'
+    },
+    talent: {
+      type: DataTypes.JSON,
+      allowNull: true,
+      comment: '属性'
+    },
+    wheeldisc: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+      comment: '命运转盘----特殊物品'
+    },
+    commodities: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+      comment: '万宝楼------基础物品'
+    },
+    alliancemall: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+      comment: '联盟商城------稀有物品'
+    },
+    palace: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+      comment: '日常物品'
+    },
+    limit: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+      comment: '限定物品---1为普通 2为版本|绝版 3为极品'
+    },
+    drops: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+      comment: '怪物掉落：材料'
+    },
+    boolere_covery: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    attack: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+      comment: '攻击'
+    },
+    defense: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+      comment: '防御'
+    },
+    blood: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+      comment: '血量'
+    },
+    critical_hit: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+      comment: '暴击'
+    },
+    critical_damage: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+      comment: '暴伤'
+    },
+    exp_gaspractice: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+      comment: '气境'
+    },
+    exp_bodypractice: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+      comment: '体境'
+    },
+    exp_soul: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+      comment: '魂境'
+    },
+    size: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
+    speed: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+      comment: '敏捷'
+    },
+    price: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 100,
+      comment: '价格'
+    },
+    limit_buy: {
+      type: DataTypes.INTEGER,
+      defaultValue: 99999,
+      comment: '购买限制'
+    }
   },
   {
     freezeTableName: true,

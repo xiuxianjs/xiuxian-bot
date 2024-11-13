@@ -8,19 +8,6 @@ SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
--- Table structure for monster
--- ----------------------------
-DROP TABLE IF EXISTS `monster`;
-CREATE TABLE `monster` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `type` int(20) DEFAULT NULL,
-  `grade` int(11) DEFAULT NULL COMMENT '最低等级',
-  `name` varchar(20) DEFAULT NULL,
-  `doc` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8mb4;
-
--- ----------------------------
 -- Records of monster
 -- ----------------------------
 BEGIN;

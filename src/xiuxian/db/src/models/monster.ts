@@ -12,16 +12,29 @@ export const monster = sequelize.define<
 >(
   'monster',
   {
-    // 定义模型属性
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      unique: true
+      autoIncrement: true,
+      allowNull: false
     },
-    type: DataTypes.INTEGER, //int
-    grade: DataTypes.INTEGER, //int
-    name: DataTypes.STRING, //string
-    doc: DataTypes.STRING
+    type: {
+      type: DataTypes.BIGINT,
+      allowNull: true
+    },
+    grade: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      comment: '最低等级'
+    },
+    name: {
+      type: DataTypes.STRING(20),
+      allowNull: true
+    },
+    doc: {
+      type: DataTypes.STRING(20),
+      allowNull: true
+    }
   },
   {
     freezeTableName: true,

@@ -11,6 +11,7 @@ export const levels = sequelize.define<
     blood: number //int
     critical_hit: number //int
     critical_damage: number //int
+    success_rate: number
     speed: number
     size: number
     soul: number
@@ -23,21 +24,68 @@ export const levels = sequelize.define<
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      unique: true
+      autoIncrement: true,
+      allowNull: false
     },
-    type: DataTypes.INTEGER, //int
-    grade: DataTypes.INTEGER, //int
-    name: DataTypes.STRING, //string
-    attack: DataTypes.INTEGER, //int
-    defense: DataTypes.INTEGER, //int
-    blood: DataTypes.INTEGER, //int
-    critical_hit: DataTypes.INTEGER, //int
-    critical_damage: DataTypes.INTEGER, //int
-    speed: DataTypes.INTEGER,
-    size: DataTypes.INTEGER,
-    soul: DataTypes.INTEGER,
-    exp_needed: DataTypes.INTEGER, //int
-    doc: DataTypes.STRING //string
+    type: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    grade: {
+      type: DataTypes.BIGINT,
+      allowNull: true
+    },
+    name: {
+      type: DataTypes.STRING(20),
+      allowNull: true
+    },
+    attack: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    defense: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    blood: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    critical_hit: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      comment: '暴击率'
+    },
+    critical_damage: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      comment: '暴击伤害'
+    },
+    speed: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    size: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    soul: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    exp_needed: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    success_rate: {
+      type: DataTypes.INTEGER,
+      defaultValue: 10,
+      comment: '成功率'
+    },
+    doc: {
+      type: DataTypes.STRING(20),
+      allowNull: true
+    }
   },
   {
     freezeTableName: true,

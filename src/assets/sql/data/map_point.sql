@@ -8,24 +8,6 @@ SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
--- Table structure for map_point
--- ----------------------------
-DROP TABLE IF EXISTS `map_point`;
-CREATE TABLE `map_point` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(20) DEFAULT NULL COMMENT '名称',
-  `type` int(11) DEFAULT NULL COMMENT '地点编号',
-  `grade` int(11) DEFAULT NULL COMMENT '等级',
-  `attribute` int(11) DEFAULT NULL COMMENT '属性',
-  `x` int(11) DEFAULT NULL,
-  `y` int(11) DEFAULT NULL,
-  `z` int(11) DEFAULT NULL,
-  `doc` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `idx_name_unique` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=1303 DEFAULT CHARSET=utf8mb4;
-
--- ----------------------------
 -- Records of map_point
 -- ----------------------------
 BEGIN;
