@@ -9,7 +9,7 @@ import {
   operationLock
 } from '@xiuxian/core/index'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
-import { levels, user_level } from '@src/xiuxian/db'
+import { levels, user, user_level } from '@src/xiuxian/db'
 import { NAMEMAP } from '@src/xiuxian/core/src/users/additional/levels'
 export default OnResponse(
   async e => {
@@ -23,53 +23,19 @@ export default OnResponse(
 
     const CDID = 7
     const ID = 2
-    const p = 80
+
     const UID = await getEmailUID(e.UserId)
 
     // 校验
     const UserData = await isUser(e, UID)
 
-    //
+    // 数据拦截
     if (typeof UserData === 'boolean') return
 
     // 冷却
     if (!(await victoryCooling(e, UID, CDID))) return
 
-    const LevelMsg = await user_level
-      .findOne({
-        attributes: ['addition', 'realm', 'experience'],
-        where: {
-          uid: UID,
-          type: ID
-        }
-      })
-      .then(res => res?.dataValues)
-
-    //
-    if (LevelMsg.experience <= 100) {
-      Send(Text('毫无自知之明'))
-      return
-    }
-
-    // 取值范围 [1 100 ] 突破概率为 (68-realm)/100
-    const number = LevelMsg.realm ?? 0
-
-    if (!Method.isTrueInRange(1, 100, p - LevelMsg.realm + number)) {
-      // 设置突破冷却
-      Burial.set(UID, CDID, Cooling.CD_Level_up)
-      /** 随机顺序损失经验  */
-      const randomKey = Levels.getRandomKey()
-      const size = Math.floor(LevelMsg.experience / (randomKey + 1))
-      await Levels.reduceExperience(UID, ID, size)
-      const msg = await Levels.getCopywriting(
-        ID,
-        randomKey,
-        size > 999999 ? 999999 : size
-      )
-      Send(Text(msg))
-      return
-    }
-
+    // 得到数据
     const UserLevel = await user_level
       .findOne({
         attributes: ['addition', 'realm', 'experience'],
@@ -80,62 +46,135 @@ export default OnResponse(
       })
       .then(res => res?.dataValues)
 
-    const realm = UserLevel.realm
-
-    // 查看是否是渡劫
-    const LevelListMax = await levels
+    // 查看当前境界所在位置
+    const LevelsData = await levels
       .findAll({
         attributes: ['id', 'exp_needed', 'grade', 'type', 'name'],
         where: {
           type: ID
         },
+        // 排序
         order: [['grade', 'DESC']],
         limit: 3
       })
       .then(res => res.map(item => item?.dataValues))
 
-    const data = LevelListMax[1]
+    // 渡劫期数据
+    const TribulationData = LevelsData[1]
 
-    if (!data || UserLevel.realm == data.grade) {
+    // 目前境界在渡劫期
+    if (!TribulationData || UserLevel.realm == TribulationData.grade) {
       Send(Text(`道友已至瓶颈,唯寻得真理,方成大道`))
       return
     }
 
+    if (UserLevel?.experience <= 100) {
+      Send(Text('毫无自知之明'))
+      return
+    }
+
+    const realm = UserLevel?.realm ?? 0
+
     // 查看下一个境界
-    const LevelList = await levels
-      .findAll({
+    const nextLevel = await levels
+      .findOne({
         attributes: ['id', 'exp_needed', 'grade', 'type', 'name'],
         where: {
           type: ID,
-          grade: [realm + 1, realm]
+          grade: realm + 1
         },
+        // 按 grade 排序
         order: [['grade', 'DESC']],
         limit: 3
       })
-      .then(res => res.map(item => item?.dataValues))
+      .then(res => res?.dataValues)
 
-    const next = LevelList[0]
-    const now = LevelList[1]
-    if (!next || !now) {
-      Send(Text('已看破天机'))
+    const levelUp = async () => {
+      const p = 80 - realm - UserData.immortal_grade * 3
+      // console.log('突破概率为', p)
+      // 取值范围 [1 100 ] 突破概率为 (value-realm-grade)/100
+      // 至少5%的概率突破成功
+      if (!Method.isTrueInRange(1, 100, p < 5 ? 5 : p)) {
+        // 设置突破冷却
+        Burial.set(UID, CDID, Cooling.CD_Level_up)
+        /** 随机顺序损失经验  */
+        const randomKey = Levels.getRandomKey()
+        const size = Math.floor((UserLevel?.experience ?? 0) / (randomKey + 1))
+        // 清理经验
+        await Levels.reduceExperience(UID, ID, size)
+        // 返回突破失败信息
+        const msg = await Levels.getCopywriting(
+          ID,
+          randomKey,
+          size > 999999 ? 999999 : size
+        )
+        //
+        Send(Text(msg))
+        return false
+      }
+      return true
+    }
+
+    const isUp = await levelUp()
+
+    if (!isUp) {
+      // 突破失败
       return
     }
+
+    // 设置
+    Burial.set(UID, CDID, Cooling.CD_Level_up)
+
+    // 下一个境界不存在，表示目前是最高境界
+    if (!nextLevel) {
+      Send(Text('已至极限'))
+      return
+    }
+
+    // 现在的境界数据
+    const nowLevel = await levels
+      .findOne({
+        attributes: ['id', 'exp_needed', 'grade', 'type', 'name'],
+        where: {
+          type: ID,
+          grade: realm
+        },
+        // 按 grade 排序
+        order: [['grade', 'DESC']],
+        limit: 3
+      })
+      .then(res => res?.dataValues)
+
     // 判断经验够不够
-    if (UserLevel.experience < now.exp_needed) {
+    if (UserLevel.experience < nowLevel.exp_needed) {
       Send(Text(`${NAMEMAP[ID]}不足`))
       return
     }
 
     // 减少境界
-    UserLevel.experience -= now.exp_needed
+    UserLevel.experience -= nowLevel.exp_needed
+
     // 调整境界
     UserLevel.realm += 1
+
+    /***
+     * 境界变动的时候更新
+     */
+    user.update(
+      {
+        special_spiritual_limit: 100 + UserLevel.realm
+      },
+      {
+        where: {
+          uid: UID
+        }
+      }
+    )
 
     // 调整叠加
     UserLevel.addition = 0
 
     // 保存境界信息
-
     await user_level.update(UserLevel, {
       where: {
         type: ID,
@@ -143,10 +182,7 @@ export default OnResponse(
       }
     })
 
-    Send(Text(`境界提升至${next.name}`))
-
-    // 设置
-    Burial.set(UID, CDID, Cooling.CD_Level_up)
+    Send(Text(`境界提升至${nextLevel.name}`))
 
     // 突破直接满血
     setTimeout(async () => {

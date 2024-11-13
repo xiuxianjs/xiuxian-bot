@@ -89,6 +89,10 @@ export default OnResponse(
       })
       .then(res => res?.dataValues)
 
+    /**
+     *
+     * @returns
+     */
     const levelUp = async () => {
       const p = 90 - realm - UserData.immortal_grade * 3
       // console.log('突破概率为', p)
@@ -121,6 +125,9 @@ export default OnResponse(
       // 突破失败
       return
     }
+
+    // 设置
+    Burial.set(UID, CDID, Cooling.CD_Level_up)
 
     // 下一个境界不存在，表示目前是最高境界
     if (!nextLevel) {
@@ -192,9 +199,6 @@ export default OnResponse(
     })
 
     Send(Text(`境界提升至${nextLevel.name}`))
-
-    // 设置
-    Burial.set(UID, CDID, Cooling.CD_Level_up)
 
     // 突破直接满血
     setTimeout(async () => {

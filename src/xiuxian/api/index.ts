@@ -627,6 +627,10 @@ export async function upgrade(
   if (isNaN(other)) {
     other = 1
   }
+  // 上限是100w
+  if (other > 1000000) {
+    other = 1000000
+  }
   const msg: string[] = []
   if (type != 1) {
     msg.push(`锻体凝脉\n[气血]*${other}`)
