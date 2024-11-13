@@ -27,14 +27,44 @@ type UserBattleType = {
 }
 
 /**
- * 和boss战斗的模型
- * 战斗只会攻击一下
- * 他反击一下
- * 没有回合
+ * 计算增值
+ * @param value
+ * @returns
+ */
+export const getImmortalValue = (value: number, grade: number) => {
+  return Math.floor(value * getImmortalGradeValue(grade))
+}
+
+/**
+ *
+ * @param grade
+ * @returns
+ */
+export const getImmortalGradeValue = (grade: number) => {
+  return Number((1 + 0.1 * grade).toFixed(1))
+}
+
+const getSize = (UserA: UserBattleType, UserB: UserBattleType) => {
+  return (
+    getImmortalValue(UserA.battle_critical_damage, UserA.immortal_grade) -
+    getImmortalValue(UserB.battle_defense, UserB.immortal_grade)
+  )
+}
+
+const getOutbreak = (HurtA, UserA: UserBattleType) => {
+  return getImmortalValue(
+    (HurtA.original * (100 + UserA.battle_critical_damage)) / 100,
+    UserA.immortal_grade
+  )
+}
+
+/**
+ *
  * @param UserA
  * @param UserB
+ * @returns
  */
-export function startBoss(UserA: UserBattleType, UserB: UserBattleType) {
+const getHurt = (UserA: UserBattleType, UserB: UserBattleType) => {
   const HurtA = {
     original: 0, // 原始伤害
     outbreak: 0 // 暴伤
@@ -43,13 +73,43 @@ export function startBoss(UserA: UserBattleType, UserB: UserBattleType) {
     original: 0, // 原始伤害
     outbreak: 0 // 暴伤
   }
-  const sizeA = UserA.battle_attack - UserB.battle_defense
+  const sizeA = getSize(UserA, UserB)
   HurtA.original = sizeA > 50 ? sizeA : 50
   // 暴击结算
-  HurtA.outbreak = Math.floor(
-    ((HurtA.original * (100 + UserA.battle_critical_damage)) / 100) *
-      (1 + UserA.immortal_grade * 0.1)
+  HurtA.outbreak = getOutbreak(HurtA, UserA)
+  // boss 反击
+  const sizeB = getSize(UserB, UserA)
+  // 原始伤害计算
+  HurtB.original = sizeB > 50 ? sizeB : 50
+  // 暴击结算
+  HurtB.outbreak = getOutbreak(HurtB, UserB)
+  return {
+    HurtA,
+    HurtB
+  }
+}
+
+/**
+ * 和boss战斗的模型
+ * 战斗只会攻击一下
+ * 他反击一下
+ * 没有回合
+ * @param UserA
+ * @param UserB
+ */
+export function startBoss(UserA: UserBattleType, UserB: UserBattleType) {
+  const { HurtA, HurtB } = getHurt(UserA, UserB)
+
+  UserA.battle_blood_now = getImmortalValue(
+    UserA.battle_blood_now,
+    UserA.immortal_grade
   )
+
+  UserB.battle_blood_now = getImmortalValue(
+    UserB.battle_blood_now,
+    UserB.immortal_grade
+  )
+
   const msg = []
 
   // 玩家造成的伤害
@@ -93,15 +153,11 @@ export function startBoss(UserA: UserBattleType, UserB: UserBattleType) {
   }
 
   // boss 反击
-  const sizeB = UserB.battle_attack - UserA.battle_defense
+  const sizeB = getSize(UserB, UserA)
   // 原始伤害计算
   HurtB.original = sizeB > 50 ? sizeB : 50
-
-  // 暴击伤害计算
-  HurtB.outbreak = Math.floor(
-    ((HurtB.original * (100 + UserB.battle_critical_damage)) / 100) *
-      (1 + UserB.immortal_grade * 0.1)
-  )
+  // 暴击结算
+  HurtB.outbreak = getOutbreak(HurtB, UserB)
 
   //
   const Bac = () => {
@@ -159,30 +215,24 @@ export function startBoss(UserA: UserBattleType, UserB: UserBattleType) {
  * @returns
  */
 export function start(UserA: UserBattleType, UserB: UserBattleType) {
-  // UserA.
-
   // 战斗消息
   const msg: string[] = []
-  const HurtA = {
-    original: 0, // 原始伤害
-    outbreak: 0 // 暴伤
-  }
-  const HurtB = {
-    original: 0, // 原始伤害
-    outbreak: 0 // 暴伤
-  }
+
+  const { HurtA, HurtB } = getHurt(UserA, UserB)
+
+  UserA.battle_blood_now = getImmortalValue(
+    UserA.battle_blood_now,
+    UserA.immortal_grade
+  )
+
+  UserB.battle_blood_now = getImmortalValue(
+    UserB.battle_blood_now,
+    UserB.immortal_grade
+  )
 
   // 胜利判断
 
   let victory = '0'
-
-  const sizeA = UserA.battle_attack - UserB.battle_defense
-  HurtA.original = sizeA > 50 ? sizeA : 50
-  // 暴击结算
-  HurtA.outbreak = Math.floor(
-    ((HurtA.original * (100 + UserA.battle_critical_damage)) / 100) *
-      (1 + UserA.immortal_grade * 0.1)
-  )
 
   const Aac = () => {
     if (isProbability(UserA.battle_critical_hit)) {
@@ -227,19 +277,6 @@ export function start(UserA: UserBattleType, UserB: UserBattleType) {
       }
     }
   }
-
-  /**
-   * Bbao
-   */
-
-  const sizeB = UserB.battle_attack - UserA.battle_defense
-  // 原始伤害计算
-  HurtB.original = sizeB > 50 ? sizeB : 50
-  // 暴击伤害计算
-  HurtB.outbreak = Math.floor(
-    ((HurtB.original * (100 + UserB.battle_critical_damage)) / 100) *
-      (1 + UserB.immortal_grade * 0.1)
-  )
 
   const Bac = () => {
     if (isProbability(UserB.battle_critical_hit)) {

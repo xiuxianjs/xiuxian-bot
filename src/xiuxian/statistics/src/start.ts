@@ -1,6 +1,7 @@
 import * as DB from '@xiuxian/db/index'
 import { type KillListType } from './types.js'
 import { Redis } from '@xiuxian/db/index'
+import { getImmortalValue } from '@src/xiuxian/core/src/system/fight.js'
 
 // 启动刷新时间   // 一小时刷新一次  // 响应控制
 const start_time = 30000
@@ -60,7 +61,7 @@ export async function getKillList() {
       autograph: item?.autograph, // 道宣
       lifeName: item?.name, // 道号
       prestige: item?.special_prestige, // 煞气
-      power: item?.battle_power, // 战力
+      power: getImmortalValue(item?.battle_power, item.immortal_grade), // 战力
       UserAvatar: item?.avatar // 头像
     }
   }) as KillListType[]

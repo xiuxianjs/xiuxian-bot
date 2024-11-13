@@ -6,6 +6,8 @@ import { EquipmentInformationType } from '@xiuxian/statistics/index'
 import css_output from './input.scss'
 import { LinkStyleSheet } from 'jsxp'
 import ThemeBackground, { ThemesEmun } from './con/ThemeBackground.js'
+import { getImmortalGradeValue } from '@src/xiuxian/core/src/system/fight.js'
+
 type PropsType = {
   data: EquipmentInformationType
   theme?: ThemesEmun
@@ -43,11 +45,10 @@ export default function App({ data, theme }: PropsType) {
                   />
                 </div>
                 <div className=" bg-black bg-opacity-30">
-                  {[`战力 : ${data.battle_power}`].map((item, index) => (
-                    <div key={index} className=" text-white text-2xl p-3">
-                      {item}
-                    </div>
-                  ))}
+                  <div className=" text-white text-2xl p-3">
+                    战力: {data.battle_power} *{' '}
+                    {getImmortalGradeValue(data.immortal_grade)}
+                  </div>
                 </div>
               </div>
               <div className="flex-1 bg-black bg-opacity-30">

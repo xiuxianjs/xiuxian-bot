@@ -239,6 +239,7 @@ export async function equipmentInformation(UID: string, UserAvatar: string) {
     battle_speed: UserData.battle_speed,
     battle_critical_hit: UserData.battle_critical_hit,
     battle_critical_damage: UserData.battle_critical_damage,
+    immortal_grade: UserData.immortal_grade,
     equipment: equipment,
     fate: arr,
     avatar: UserAvatar

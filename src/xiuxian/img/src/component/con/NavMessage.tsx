@@ -3,6 +3,7 @@ import Header from './header.js'
 import classNames from 'classnames'
 import { createUID } from '../../core/index.js'
 import { PersonalInformationType } from '@xiuxian/statistics/index'
+import { getImmortalGradeValue } from '@src/xiuxian/core/src/system/fight.js'
 
 type PropsType = {
   data: PersonalInformationType
@@ -163,7 +164,7 @@ export default function NavMessage({ data }: PropsType) {
             <span>
               {' '}
               战力 {Math.floor(data.battle_power)} *{' '}
-              {Math.floor(1 + 0.1 * data.immortal_grade)}
+              {getImmortalGradeValue(data.immortal_grade)}
             </span>
           </div>
           <div className=" overflow-hidden whitespace-nowrap">
