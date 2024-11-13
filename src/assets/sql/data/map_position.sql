@@ -1,10 +1,33 @@
 /*
  Navicat Premium Data Transfer
- Date: 12/11/2024 12:20:21
+
+ Date: 13/11/2024 21:00:00
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for map_position
+-- ----------------------------
+DROP TABLE IF EXISTS `map_position`;
+CREATE TABLE `map_position` (
+  `id` int(11) NOT NULL,
+  `name` varchar(20) DEFAULT NULL,
+  `type` int(11) DEFAULT NULL,
+  `grade` int(11) DEFAULT NULL,
+  `attribute` int(11) DEFAULT NULL,
+  `size` int(11) DEFAULT NULL,
+  `x1` int(11) DEFAULT NULL,
+  `x2` int(11) DEFAULT NULL,
+  `y1` int(11) DEFAULT NULL,
+  `y2` int(11) DEFAULT NULL,
+  `z1` int(11) DEFAULT NULL,
+  `z2` int(11) DEFAULT NULL,
+  `doc` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `idx_name_unique` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of map_position

@@ -1,56 +1,11 @@
 import React from 'react'
 import Header from './header.js'
-import { ThemesEmun } from './ThemeBackground.js'
 import classNames from 'classnames'
 import { createUID } from '../../core/index.js'
+import { PersonalInformationType } from '@xiuxian/statistics/index'
 
 type PropsType = {
-  data: {
-    UID: string
-    avatar: string
-    //
-    linggenName: string
-    talentsize: string
-    talent_show: number
-    talent: number[]
-    special_reputation: number
-    battle_power: number
-    // UserData
-    name: string
-    battle_blood_now: number
-    battle_blood_limit: number
-    age: number
-    age_limit: number
-    autograph: string
-    special_spiritual: number
-    special_spiritual_limit: number
-    special_prestige: number
-    //
-    level: {
-      gaspractice: {
-        Name: string
-        Experience: number
-        ExperienceLimit: number
-      }
-      bodypractice: {
-        Name: string
-        Experience: number
-        ExperienceLimit: number
-      }
-      soul: {
-        Name: string
-        Experience: number
-        ExperienceLimit: number
-      }
-    }
-    skills: {
-      id: number
-      uid: string
-      name: string
-      doc: string
-    }[]
-    theme: ThemesEmun
-  }
+  data: PersonalInformationType
 }
 
 /**
@@ -118,6 +73,7 @@ export default function NavMessage({ data }: PropsType) {
       }
     }
   ]
+
   return (
     <div className="p-4 text-white">
       <Header />
@@ -155,7 +111,12 @@ export default function NavMessage({ data }: PropsType) {
             <span className="  font-bold ">{data.name}</span>
           </div>
           <div className="flex justify-center overflow-hidden whitespace-nowrap">
-            <span>{data.level?.gaspractice?.Name}</span>
+            <span>
+              {data.level?.gaspractice?.Name}{' '}
+              {data.level?.gaspractice?.Name == '仙人'
+                ? `+ ${data.immortal_grade}`
+                : ''}
+            </span>
           </div>
           <div className="flex justify-center overflow-hidden whitespace-nowrap">
             {data.level?.gaspractice?.Experience}/
@@ -199,7 +160,11 @@ export default function NavMessage({ data }: PropsType) {
             // 战力
           }
           <div className=" overflow-hidden whitespace-nowrap">
-            <span> 战力 {data.battle_power}</span>
+            <span>
+              {' '}
+              战力 {Math.floor(data.battle_power)} *{' '}
+              {Math.floor(1 + 0.1 * data.immortal_grade)}
+            </span>
           </div>
           <div className=" overflow-hidden whitespace-nowrap">
             <span>天赋 {data.talentsize}</span>{' '}

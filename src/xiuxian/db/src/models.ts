@@ -15,12 +15,14 @@ export * from './models/user/users_email.js'
 //
 export * from './models/fate_level.js'
 export * from './models/levels.js'
+export * from './models/levels_limit.js'
 //
 export * from './models/talent.js'
 //
 export * from './models/map_point.js'
 export * from './models/map_position.js'
 export * from './models/map_treasure.js'
+export * from './models/constitution.js'
 /**
  * 增值表
  */

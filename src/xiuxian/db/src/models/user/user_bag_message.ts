@@ -18,8 +18,8 @@ export const user_bag_message = sequelize.define<
     grade: DataTypes.INET // 背包等级_默认1
   },
   {
-    freezeTableName: true, //不增加复数表名
-    createdAt: false, //去掉
-    updatedAt: false //去掉
+    freezeTableName: true,
+    createdAt: false,
+    updatedAt: false
   }
 )

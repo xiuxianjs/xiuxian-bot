@@ -1,3 +1,4 @@
+import '@src/sql'
 import React from 'react'
 import { defineConfig } from 'jsxp'
 import { Component } from '@xiuxian/img/index'
@@ -14,6 +15,7 @@ import { ass, ass_typing, user_ass } from '@xiuxian/db/index'
 import update_josn from '@src/assets/defset/update.json'
 import json_base_help from '@src/assets/defset/base_help.json'
 import event from '@src/assets/defset/user.json'
+
 export default defineConfig({
   routes: {
     '/AssMessage': {

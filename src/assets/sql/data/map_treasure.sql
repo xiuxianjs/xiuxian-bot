@@ -1,10 +1,28 @@
 /*
  Navicat Premium Data Transfer
- Date: 12/11/2024 12:20:28
+
+ Date: 13/11/2024 20:59:54
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for map_treasure
+-- ----------------------------
+DROP TABLE IF EXISTS `map_treasure`;
+CREATE TABLE `map_treasure` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) DEFAULT NULL,
+  `type` int(11) DEFAULT NULL,
+  `attribute` int(11) DEFAULT NULL,
+  `acount` int(11) DEFAULT NULL,
+  `x` bigint(20) DEFAULT NULL,
+  `y` bigint(20) DEFAULT NULL,
+  `z` bigint(20) DEFAULT NULL,
+  `doc` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3163 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of map_treasure

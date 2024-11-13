@@ -123,6 +123,7 @@ export async function personalInformation(UID: string, UserAvatar: string) {
     special_spiritual: UserData.special_spiritual,
     special_spiritual_limit: UserData.special_spiritual_limit,
     special_prestige: UserData.special_prestige,
+    immortal_grade: UserData.immortal_grade,
     // 境界信息
     level: {
       gaspractice: {

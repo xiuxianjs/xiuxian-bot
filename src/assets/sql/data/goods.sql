@@ -1,10 +1,48 @@
 /*
  Navicat Premium Data Transfer
- Date: 12/11/2024 12:19:42
+
+ Date: 13/11/2024 21:01:16
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for goods
+-- ----------------------------
+DROP TABLE IF EXISTS `goods`;
+CREATE TABLE `goods` (
+  `id` int(11) NOT NULL,
+  `name` varchar(20) NOT NULL COMMENT '名字唯一',
+  `type` int(11) DEFAULT '1' COMMENT '类型',
+  `monster_type` int(11) DEFAULT '0' COMMENT '怪物类型',
+  `grade` int(11) DEFAULT '1' COMMENT '物品种类等级',
+  `addition` varchar(20) DEFAULT 'blood' COMMENT '属性',
+  `talent` json DEFAULT NULL COMMENT '属性',
+  `wheeldisc` int(11) DEFAULT '0' COMMENT '命运转盘----特殊物品',
+  `commodities` int(11) DEFAULT '0' COMMENT '万宝楼------基础物品',
+  `alliancemall` int(11) DEFAULT '0' COMMENT '联盟商城------稀有物品',
+  `palace` int(11) DEFAULT '0' COMMENT '日常物品',
+  `limit` int(11) DEFAULT '0' COMMENT '限定物品---1为普通 2为版本|绝版 3为极品',
+  `drops` int(11) DEFAULT '0' COMMENT '怪物掉落：材料',
+  `boolere_covery` int(11) DEFAULT NULL,
+  `attack` int(11) DEFAULT '0' COMMENT '攻击',
+  `defense` int(11) DEFAULT '0' COMMENT '防御',
+  `blood` int(11) DEFAULT '0' COMMENT '血量',
+  `critical_hit` int(11) DEFAULT '0' COMMENT '暴击',
+  `critical_damage` int(11) DEFAULT '0' COMMENT '暴伤',
+  `exp_gaspractice` int(11) DEFAULT '0' COMMENT '气境',
+  `exp_bodypractice` int(11) DEFAULT '0' COMMENT '体境',
+  `exp_soul` int(11) DEFAULT '0' COMMENT '魂境',
+  `size` int(11) DEFAULT '0',
+  `speed` int(11) DEFAULT '0' COMMENT '敏捷',
+  `price` int(11) NOT NULL DEFAULT '100' COMMENT '价格',
+  `limit_buy` int(11) DEFAULT '99999' COMMENT '购买限制',
+  `doc` varchar(20) DEFAULT NULL COMMENT '说明',
+  PRIMARY KEY (`id`,`name`) USING BTREE,
+  UNIQUE KEY `idx_name_unique` (`name`),
+  UNIQUE KEY `uq_goods_name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of goods
