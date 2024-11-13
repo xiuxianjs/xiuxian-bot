@@ -1,13 +1,13 @@
-import { sequelize } from '../connect.js'
+import { sequelize } from '../../connect.js'
 import { DataTypes, Model } from 'sequelize'
-export const email = sequelize.define<
+export const users_email = sequelize.define<
   Model<{
     id: number
     email: string
     uid: string
   }>
 >(
-  'email',
+  'users_email',
   {
     id: {
       type: DataTypes.INTEGER,

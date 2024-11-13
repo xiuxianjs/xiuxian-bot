@@ -9,12 +9,38 @@ import { ass } from './models/ass/ass.js'
 import { ass_typing } from './models/ass_typing.js'
 import { ass_bag } from './models/ass/ass_bag.js'
 import { user } from './models/user/user.js'
-import { transactions } from './models/transactions/transactions.js'
-import { user_transactions_logs } from './models/log/user_transactions_logs.js'
+import { user_transactions } from './models/user/user_transactions.js'
+import { user_transactions_logs } from './models/user/user_transactions_logs.js'
 import { ass_bag_message } from './models/ass/ass_bag_message.js'
-import { user_buy_log } from './models/log/user_buy_log.js'
+import { user_buy_log } from './models/user/user_buy_log.js'
 import { user_ass_apply } from './models/user/user_ass_apply.js'
-import { goods_alliancemall, goods_commodities, goods_drops } from './models.js'
+import { goods_alliancemall } from './models/goods_alliancemall.js'
+import { goods_commodities } from './models/goods_commodities.js'
+import { goods_drops } from './models/goods_drops.js'
+import { monster } from './models.js'
+import { fate_level } from './models.js'
+import { map_treasure } from './models.js'
+import { map_point } from './models.js'
+import { talent } from './models.js'
+import { map_position } from './models.js'
+import { levels } from './models.js'
+import { skys } from './models.js'
+
+export const BaseModels = {
+  ass_typing,
+  skys,
+  monster,
+  goods,
+  goods_alliancemall,
+  goods_commodities,
+  goods_drops,
+  fate_level,
+  levels,
+  talent,
+  map_point,
+  map_position,
+  map_treasure
+}
 
 export const useBelongsTo = () => {
   /**
@@ -46,8 +72,8 @@ export const useBelongsTo = () => {
   /**
    * transactions
    */
-  transactions.belongsTo(goods, { foreignKey: 'name', targetKey: 'name' })
-  transactions.belongsTo(user, { foreignKey: 'uid', targetKey: 'uid' })
+  user_transactions.belongsTo(goods, { foreignKey: 'name', targetKey: 'name' })
+  user_transactions.belongsTo(user, { foreignKey: 'uid', targetKey: 'uid' })
   user_transactions_logs.belongsTo(goods, {
     foreignKey: 'name',
     targetKey: 'name'

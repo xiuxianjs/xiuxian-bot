@@ -5,7 +5,6 @@ import monster from './assets/sql/data/monster.sql'
 import goods_alliancemall from './assets/sql/data/goods_alliancemall.sql'
 import goods_commodities from './assets/sql/data/goods_commodities.sql'
 import goods_drops from './assets/sql/data/goods_drops.sql'
-import email from './assets/sql/data/email.sql'
 import fate_level from './assets/sql/data/fate_level.sql'
 import levels from './assets/sql/data/levels.sql'
 import talent from './assets/sql/data/talent.sql'
@@ -20,7 +19,6 @@ export const SqlMap = {
   goods_alliancemall,
   goods_commodities,
   goods_drops,
-  email,
   fate_level,
   levels,
   talent,

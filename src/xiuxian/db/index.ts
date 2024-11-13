@@ -1,5 +1,6 @@
 export * from './src/connect.js'
 export * from './src/models.js'
+export * from './src/main.js'
 import { Model, ModelCtor } from 'sequelize'
 import './src/main.js'
 import { getIoRedis } from 'alemonjs'

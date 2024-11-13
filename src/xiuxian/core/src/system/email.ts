@@ -2,7 +2,7 @@ import nodemailer, { Transporter, SentMessageInfo } from 'nodemailer'
 import { getConfig } from 'alemonjs'
 import SMTPPool from 'nodemailer/lib/smtp-pool'
 import crypto from 'crypto'
-import { email, user_email } from '@src/xiuxian/db'
+import { users_email, user_email } from '@src/xiuxian/db'
 
 const config = getConfig()
 const ConfigEMail = config.value?.email
@@ -68,7 +68,7 @@ export const getEmailUID = async (uid: string) => {
     .then(res => res?.dataValues)
     .then(async res => {
       if (res) {
-        return await email
+        return await users_email
           .findOne({
             where: {
               email: res.email

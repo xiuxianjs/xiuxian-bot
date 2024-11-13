@@ -1,7 +1,7 @@
 import { sequelize } from '../../connect.js'
 import { DataTypes, Model } from 'sequelize'
 
-export const transactions = sequelize.define<
+export const user_transactions = sequelize.define<
   Model<{
     id: number
     uid: string //string
@@ -13,7 +13,7 @@ export const transactions = sequelize.define<
     deleteAt: Date
   }>
 >(
-  'transactions',
+  'user_transactions',
   {
     id: {
       type: DataTypes.INTEGER, // integer

@@ -12,3 +12,6 @@ alemon*.env
 alemon*.yaml
 *.logs.ts
 yarn.lock
+custom.properties
+mysql-connector-j-9.1.0
+/liquibase

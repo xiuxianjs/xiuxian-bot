@@ -2,7 +2,7 @@ import { Text, useParse, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 import { isUser } from '@xiuxian/api/index'
 import { Bag, operationLock, order } from '@xiuxian/core/index'
-import { transactions } from '@xiuxian/db/index'
+import { user_transactions } from '@xiuxian/db/index'
 export default OnResponse(
   async e => {
     const T = await operationLock(e.UserId)
@@ -23,7 +23,7 @@ export default OnResponse(
     }
 
     // 查询物品
-    const data = await transactions
+    const data = await user_transactions
       .findOne({
         where: {
           uid: UID,

@@ -1,5 +1,5 @@
 import { generateCaptcha, sendEmail } from '@src/xiuxian/core/src/system/email'
-import { Redis, email as Email } from '@src/xiuxian/db'
+import { Redis, users_email } from '@src/xiuxian/db'
 import { user_email } from '@src/xiuxian/db/src/models/user/user_email'
 import { Text, useOberver, useParse, useSend } from 'alemonjs'
 /**
@@ -75,22 +75,23 @@ export default OnResponse(
           }
 
           // 查找映射
-          Email.findOne({
-            where: {
-              email
-            }
-          })
+          users_email
+            .findOne({
+              where: {
+                email
+              }
+            })
             .then(res => res?.dataValues)
             .then(res => {
               //
               if (!res) {
                 // 不存在
-                Email.create({
+                users_email.create({
                   uid: UID,
                   email
                 })
               } else {
-                Email.update(
+                users_email.update(
                   {
                     uid: UID
                   },

@@ -1,4 +1,4 @@
-import { transactions, user_transactions_logs } from '@xiuxian/db/index'
+import { user_transactions, user_transactions_logs } from '@xiuxian/db/index'
 import { acquireLock, releaseLock } from '../wrap/lock.js'
 
 /**
@@ -11,7 +11,7 @@ export async function delThing(ID: number) {
   let t = false
   try {
     // 搜索物品。
-    const data = await transactions
+    const data = await user_transactions
       .findOne({
         where: {
           id: ID
@@ -22,7 +22,7 @@ export async function delThing(ID: number) {
     if (!data) return t
 
     // 删除交易物品
-    await transactions.destroy({
+    await user_transactions.destroy({
       where: {
         id: data.id
       }

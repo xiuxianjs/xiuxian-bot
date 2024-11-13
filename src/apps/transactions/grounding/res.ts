@@ -2,7 +2,7 @@ import { Text, useParse, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 import { isUser } from '@xiuxian/api/index'
 import { Bag, Cooling, operationLock } from '@xiuxian/core/index'
-import { goods, transactions, user_bag } from '@xiuxian/db/index'
+import { goods, user_transactions, user_bag } from '@xiuxian/db/index'
 export default OnResponse(
   async e => {
     const T = await operationLock(e.UserId)
@@ -25,7 +25,7 @@ export default OnResponse(
     const count = Math.floor(isNaN(Number(countx)) ? 1 : Number(countx))
     const price = Math.floor(isNaN(Number(pricex)) ? 1 : Number(pricex))
     // 查询物品
-    const data = await transactions
+    const data = await user_transactions
       .findOne({
         where: {
           uid: UID
@@ -83,7 +83,7 @@ export default OnResponse(
     // count 超出了范围。
     // 也就是 count 不能超过 9999
 
-    await transactions
+    await user_transactions
       .create({
         uid: UID,
         name: name,
@@ -104,7 +104,7 @@ export default OnResponse(
       .catch(err => {
         console.error(err)
         // 确保物品被删除
-        transactions.destroy({
+        user_transactions.destroy({
           where: {
             uid: UID,
             name: name,
