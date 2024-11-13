@@ -1,10 +1,29 @@
 /*
  Navicat Premium Data Transfer
- Date: 12/11/2024 12:20:14
+
+ Date: 13/11/2024 21:00:05
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for map_point
+-- ----------------------------
+DROP TABLE IF EXISTS `map_point`;
+CREATE TABLE `map_point` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) DEFAULT NULL COMMENT '名称',
+  `type` int(11) DEFAULT NULL COMMENT '地点编号',
+  `grade` int(11) DEFAULT NULL COMMENT '等级',
+  `attribute` int(11) DEFAULT NULL COMMENT '属性',
+  `x` int(11) DEFAULT NULL,
+  `y` int(11) DEFAULT NULL,
+  `z` int(11) DEFAULT NULL,
+  `doc` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `idx_name_unique` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=1303 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of map_point
@@ -44,6 +63,7 @@ INSERT INTO `map_point` (`id`, `name`, `type`, `grade`, `attribute`, `x`, `y`, `
 INSERT INTO `map_point` (`id`, `name`, `type`, `grade`, `attribute`, `x`, `y`, `z`, `doc`) VALUES (1204, '蛮狐万宝楼', 12, 13, 1, 304, 204, 0, '城池');
 INSERT INTO `map_point` (`id`, `name`, `type`, `grade`, `attribute`, `x`, `y`, `z`, `doc`) VALUES (1205, '蛮狐天机门', 12, 13, 1, 305, 205, 0, '城池');
 INSERT INTO `map_point` (`id`, `name`, `type`, `grade`, `attribute`, `x`, `y`, `z`, `doc`) VALUES (1301, '灭仙', 13, 1, 5, 101, 201, 0, '');
+INSERT INTO `map_point` (`id`, `name`, `type`, `grade`, `attribute`, `x`, `y`, `z`, `doc`) VALUES (1302, '蓬莱深境', 10, 13, 6, 550, 850, 0, '岛屿');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

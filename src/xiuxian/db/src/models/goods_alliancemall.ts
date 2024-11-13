@@ -20,8 +20,8 @@ export const goods_alliancemall = sequelize.define<
     limit_buy: DataTypes.INTEGER // 购买限制
   },
   {
-    freezeTableName: true, //不增加复数表名
-    createdAt: false, //去掉
-    updatedAt: false //去掉
+    freezeTableName: true,
+    createdAt: false,
+    updatedAt: false
   }
 )

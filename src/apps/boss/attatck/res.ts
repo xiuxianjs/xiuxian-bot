@@ -83,7 +83,10 @@ export default OnResponse(
       }
 
       // 怪物没有那么多的字段
-      const BMSG = Fight.startBoss(UserData, bossInfo.data)
+      const BMSG = Fight.startBoss(UserData, {
+        ...bossInfo.data,
+        immortal_grade: 1
+      })
 
       //
       if (bossInfo.data.battle_blood_now <= 1) {

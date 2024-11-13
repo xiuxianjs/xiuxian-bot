@@ -138,7 +138,8 @@ export default OnResponse(
       battle_critical_hit: mon.level + 30,
       battle_critical_damage: LevelMax.critical_damage + mon.level,
       battle_speed: LevelMax.speed + 10,
-      battle_power: 0
+      battle_power: 0,
+      immortal_grade: 1
     })
 
     await DB.user.update(

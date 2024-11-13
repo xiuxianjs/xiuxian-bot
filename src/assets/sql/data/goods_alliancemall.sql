@@ -1,10 +1,23 @@
 /*
  Navicat Premium Data Transfer
- Date: 12/11/2024 12:19:46
+
+ Date: 13/11/2024 21:01:09
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for goods_alliancemall
+-- ----------------------------
+DROP TABLE IF EXISTS `goods_alliancemall`;
+CREATE TABLE `goods_alliancemall` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `gid` bigint(20) DEFAULT NULL,
+  `limit_buy` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_goods_alliancemall_item_gid` (`gid`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=210 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of goods_alliancemall

@@ -36,8 +36,8 @@ export const map_position = sequelize.define<
     doc: DataTypes.STRING //string
   },
   {
-    freezeTableName: true, //不增加复数表名
-    createdAt: false, //去掉
-    updatedAt: false //去掉
+    freezeTableName: true,
+    createdAt: false,
+    updatedAt: false
   }
 )

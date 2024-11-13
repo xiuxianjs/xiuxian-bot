@@ -22,6 +22,8 @@ type UserBattleType = {
   battle_critical_damage: number
   battle_speed: number
   battle_power: number
+  // 仙人等级。在伤害 = 战力 * （1 + grade * 0.1）
+  immortal_grade: number
 }
 
 /**
@@ -45,7 +47,8 @@ export function startBoss(UserA: UserBattleType, UserB: UserBattleType) {
   HurtA.original = sizeA > 50 ? sizeA : 50
   // 暴击结算
   HurtA.outbreak = Math.floor(
-    (HurtA.original * (100 + UserA.battle_critical_damage)) / 100
+    ((HurtA.original * (100 + UserA.battle_critical_damage)) / 100) *
+      (1 + UserA.immortal_grade * 0.1)
   )
   const msg = []
 
@@ -93,9 +96,11 @@ export function startBoss(UserA: UserBattleType, UserB: UserBattleType) {
   const sizeB = UserB.battle_attack - UserA.battle_defense
   // 原始伤害计算
   HurtB.original = sizeB > 50 ? sizeB : 50
+
   // 暴击伤害计算
   HurtB.outbreak = Math.floor(
-    (HurtB.original * (100 + UserB.battle_critical_damage)) / 100
+    ((HurtB.original * (100 + UserB.battle_critical_damage)) / 100) *
+      (1 + UserB.immortal_grade * 0.1)
   )
 
   //
@@ -154,6 +159,8 @@ export function startBoss(UserA: UserBattleType, UserB: UserBattleType) {
  * @returns
  */
 export function start(UserA: UserBattleType, UserB: UserBattleType) {
+  // UserA.
+
   // 战斗消息
   const msg: string[] = []
   const HurtA = {
@@ -173,7 +180,8 @@ export function start(UserA: UserBattleType, UserB: UserBattleType) {
   HurtA.original = sizeA > 50 ? sizeA : 50
   // 暴击结算
   HurtA.outbreak = Math.floor(
-    (HurtA.original * (100 + UserA.battle_critical_damage)) / 100
+    ((HurtA.original * (100 + UserA.battle_critical_damage)) / 100) *
+      (1 + UserA.immortal_grade * 0.1)
   )
 
   const Aac = () => {
@@ -229,7 +237,8 @@ export function start(UserA: UserBattleType, UserB: UserBattleType) {
   HurtB.original = sizeB > 50 ? sizeB : 50
   // 暴击伤害计算
   HurtB.outbreak = Math.floor(
-    (HurtB.original * (100 + UserB.battle_critical_damage)) / 100
+    ((HurtB.original * (100 + UserB.battle_critical_damage)) / 100) *
+      (1 + UserB.immortal_grade * 0.1)
   )
 
   const Bac = () => {

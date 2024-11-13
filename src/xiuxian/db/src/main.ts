@@ -25,6 +25,8 @@ import { talent } from './models.js'
 import { map_position } from './models.js'
 import { levels } from './models.js'
 import { skys } from './models.js'
+import { constitution } from './models/constitution.js'
+import { levels_limit } from './models/levels_limit.js'
 
 export const BaseModels = {
   ass_typing,
@@ -39,7 +41,9 @@ export const BaseModels = {
   talent,
   map_point,
   map_position,
-  map_treasure
+  map_treasure,
+  constitution,
+  levels_limit
 }
 
 export const useBelongsTo = () => {
