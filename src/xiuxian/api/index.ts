@@ -627,9 +627,9 @@ export async function upgrade(
   if (isNaN(other)) {
     other = 1
   }
-  // 上限是100w
-  if (other > 1000000) {
-    other = 1000000
+  // 上限是10w
+  if (other > 100000) {
+    other = 100000
   }
   const msg: string[] = []
   if (type != 1) {
