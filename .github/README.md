@@ -55,42 +55,10 @@ gui:
 docker-compose up -d
 ```
 
-- 连接
-
-```sh
-docker exec -it mysql-container bash
-```
-
-```sh
-mysql -u root -p
-```
-
-> password: My002580!
-
-- 创建数据库
-
-数据库名 `xiuxian_test`
-
-字符集 `utf8mb4`
-
-排序规则 `utf8mb4_german2_ci`
-
-```sql
-CREATE DATABASE IF NOT EXISTS `xiuxian_test`
-CHARACTER SET utf8mb4
-COLLATE utf8mb4_german2_ci;
-```
-
-- 退出
-
-```sql
-exit;
-```
-
 - 停止
 
 ```sh
-docker-compose unpause
+docker-compose pause
 ```
 
 ## 测试客户端
