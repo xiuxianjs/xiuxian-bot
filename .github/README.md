@@ -47,7 +47,7 @@ gui:
 
 > 必须安装mysql8才能运行
 
-以下是docker如何有安装docker，可执行
+以下是docker如何安装数据库等步骤
 
 - 启动
 
@@ -65,10 +65,14 @@ docker exec -it mysql-container bash
 mysql -u root -p
 ```
 
+> password: My002580!
+
 - 创建数据库
 
 数据库名 `xiuxian_test`
+
 字符集 `utf8mb4`
+
 排序规则 `utf8mb4_german2_ci`
 
 ```sql
