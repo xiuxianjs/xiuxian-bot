@@ -162,16 +162,18 @@ export default function NavMessage({ data }: PropsType) {
           }
           <div className=" overflow-hidden whitespace-nowrap">
             <span>
-              {' '}
-              战力 {Math.floor(data.battle_power)} *{' '}
+              战力 {Math.floor(data.battle_power)} *
               {getImmortalGradeValue(data.immortal_grade)}
             </span>
           </div>
           <div className=" overflow-hidden whitespace-nowrap">
-            <span>天赋 {data.talentsize}</span>{' '}
+            <span>天赋 {data.talentsize}</span>
           </div>
           <div className=" overflow-hidden whitespace-nowrap">
             灵力 {data.special_spiritual}/{data.special_spiritual_limit}
+          </div>
+          <div className=" overflow-hidden whitespace-nowrap">
+            煞气 {data.special_prestige}/100
           </div>
         </div>
       </div>

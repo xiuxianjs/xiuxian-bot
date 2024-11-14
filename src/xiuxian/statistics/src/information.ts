@@ -103,6 +103,15 @@ export async function personalInformation(UID: string, UserAvatar: string) {
     })
     .then(res => res.map(item => item?.dataValues))
 
+  const constitution_name = await DB.constitution
+    .findOne({
+      where: {
+        id: UserData.constitution
+      }
+    })
+    .then(res => res?.dataValues)
+    .then(res => res?.name)
+
   return {
     UID: UID,
     avatar: UserAvatar,
@@ -124,6 +133,7 @@ export async function personalInformation(UID: string, UserAvatar: string) {
     special_spiritual_limit: UserData.special_spiritual_limit,
     special_prestige: UserData.special_prestige,
     immortal_grade: UserData.immortal_grade,
+    constitution_name: constitution_name,
     // 境界信息
     level: {
       gaspractice: {

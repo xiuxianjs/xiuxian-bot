@@ -16,6 +16,7 @@ import {
 } from '@xiuxian/db/index'
 import * as Method from '../wrap/method.js'
 import * as Talent from '../users/base/talent.js'
+import { getRandomConstitutionOnId } from './constitution.js'
 
 /**
  * 设置玩家
@@ -49,6 +50,8 @@ export async function setPlayer(UID: string, UserAvatar: string) {
     .then(res => res?.dataValues)
 
   if (!MapPointData || !MapPointData?.type) return false
+
+  const constitutionId = await getRandomConstitutionOnId()
 
   //
   return Promise.all([
@@ -87,6 +90,7 @@ export async function setPlayer(UID: string, UserAvatar: string) {
       battle_speed: 0, // 敏捷_默认0
       battle_power: 0, // 战力_默认0
       talent: Talent.getTalent(), // 灵根
+      constitution: constitutionId, // 体质ID
       create_time: new Date().getTime() // 创建时间搓
     }),
     // 创建背包信息

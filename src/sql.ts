@@ -48,33 +48,30 @@ await sequelize
         console.error(key, '表同步失败:', err)
       })
     }
-
-    setTimeout(async () => {
-      // SET FOREIGN_KEY_CHECKS = 0;
-      await sequelize.query('SET FOREIGN_KEY_CHECKS = 0')
-      // 以当前本地文件为准
-      for (const key in SqlMap) {
-        const sql = readFileSync(SqlMap[key], 'utf8')
-        const statements = sql.trim().split(';').filter(Boolean) // 拆分并过滤空语句
-        const count = await models[key].count()
-        if (statements.length > count) {
-          // 删除重建
-          for (const statement of statements) {
-            const str = statement.trim()
-            if (str.length > 0) {
-              await sequelize.query(str)
-            }
+    // SET FOREIGN_KEY_CHECKS = 0;
+    await sequelize.query('SET FOREIGN_KEY_CHECKS = 0')
+    // 以当前本地文件为准
+    for (const key in SqlMap) {
+      const sql = readFileSync(SqlMap[key], 'utf8')
+      const statements = sql.trim().split(';').filter(Boolean) // 拆分并过滤空语句
+      const count = await models[key].count()
+      if (statements.length > count) {
+        // 删除重建
+        for (const statement of statements) {
+          const str = statement.trim()
+          if (str.length > 0) {
+            await sequelize.query(str)
           }
-          console.log('存在未加入数据,', key, '载入数据完成')
-          return
         }
+        console.log('存在未加入数据,', key, '载入数据完成')
+        return
       }
-      await sequelize.query('SET FOREIGN_KEY_CHECKS = 1')
-      //
-      console.log('数据库同步完成')
-      // 建立索引
-      useBelongsTo()
-    }, 0)
+    }
+    await sequelize.query('SET FOREIGN_KEY_CHECKS = 1')
+    //
+    console.log('数据库同步完成')
+    // 建立索引
+    useBelongsTo()
   })
   .catch(err => {
     console.error(err)

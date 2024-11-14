@@ -1,7 +1,7 @@
 import React from 'react'
 import { BackgroundImage } from 'jsxp'
 import Header from './con/header.js'
-import { AttributesType, transactions } from '@xiuxian/db/index'
+import { AttributesType, user_transactions } from '@xiuxian/db/index'
 import img_equipment from '@src/assets/img/equipment.jpg'
 import css_output from './input.scss'
 import { LinkStyleSheet } from 'jsxp'
@@ -10,7 +10,7 @@ import { ThemesEmun } from './con/ThemeBackground.js'
 type PropsType = {
   data: {
     page: number
-    goods: AttributesType<typeof transactions>[]
+    goods: AttributesType<typeof user_transactions>[]
   }
   theme?: ThemesEmun
 }
