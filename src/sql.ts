@@ -1,6 +1,3 @@
-// import { sequelize } from '@src/xiuxian/db'
-// import { useBelongsTo } from '@src/xiuxian/db/src/main'
-// // import { readFileSync } from 'fs'
 import ass_typing from './assets/sql/data/ass_typing.sql'
 import levels_limit from './assets/sql/data/levels_limit.sql'
 import levels from './assets/sql/data/levels.sql'
@@ -17,6 +14,7 @@ import map_treasure from './assets/sql/data/map_treasure.sql'
 import monster from './assets/sql/data/monster.sql'
 import skys from './assets/sql/data/skys.sql'
 import talent from './assets/sql/data/talent.sql'
+
 const SqlMap = {
   constitution,
   ass_typing,
@@ -50,27 +48,33 @@ await sequelize
         console.error(key, '表同步失败:', err)
       })
     }
-    // 以当前本地文件为准
-    for (const key in SqlMap) {
-      const count = await models[key].count()
-      // SqlMap
-      if (count <= 0) {
-        // 删除重建
+
+    setTimeout(async () => {
+      // SET FOREIGN_KEY_CHECKS = 0;
+      await sequelize.query('SET FOREIGN_KEY_CHECKS = 0')
+      // 以当前本地文件为准
+      for (const key in SqlMap) {
         const sql = readFileSync(SqlMap[key], 'utf8')
-        const statements = sql.split(';').filter(Boolean) // 拆分并过滤空语句
-        for (const statement of statements) {
-          const str = statement.trim()
-          if (str.length > 0) {
-            await sequelize.query(str)
+        const statements = sql.trim().split(';').filter(Boolean) // 拆分并过滤空语句
+        const count = await models[key].count()
+        if (statements.length > count) {
+          // 删除重建
+          for (const statement of statements) {
+            const str = statement.trim()
+            if (str.length > 0) {
+              await sequelize.query(str)
+            }
           }
+          console.log('存在未加入数据,', key, '载入数据完成')
+          return
         }
-        console.log('存在未加入数据,', key, '载入数据完成')
       }
-    }
-    //
-    console.log('数据库同步完成')
-    // 建立索引
-    useBelongsTo()
+      await sequelize.query('SET FOREIGN_KEY_CHECKS = 1')
+      //
+      console.log('数据库同步完成')
+      // 建立索引
+      useBelongsTo()
+    }, 0)
   })
   .catch(err => {
     console.error(err)

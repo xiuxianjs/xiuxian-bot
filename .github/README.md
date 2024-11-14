@@ -49,16 +49,10 @@ gui:
 
 以下是docker如何安装数据库等步骤
 
-- 启动
-
 ```sh
-docker-compose up -d
-```
-
-- 停止
-
-```sh
-docker-compose pause
+docker-compose up -d # 启动
+docker-compose restart -d # 重启
+docker-compose pause -d # 暂停
 ```
 
 ## 测试客户端
