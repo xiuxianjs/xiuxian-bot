@@ -3,6 +3,7 @@ import { DataTypes, Model } from 'sequelize'
 export const levels_limit = sequelize.define<
   Model<{
     id: number
+    typing: number
     grade: number
     gids: string
   }>
@@ -14,6 +15,11 @@ export const levels_limit = sequelize.define<
       primaryKey: true,
       autoIncrement: true,
       allowNull: false
+    },
+    typing: {
+      type: DataTypes.BIGINT,
+      allowNull: true,
+      comment: '境界类型'
     },
     grade: {
       type: DataTypes.BIGINT,

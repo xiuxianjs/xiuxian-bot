@@ -30,6 +30,7 @@ export const goods = sequelize.define<
     palace: number // 浩瀚宫调 tudo 废弃
     limit: number // 浩瀚宫调限定 tudo 废弃
     limit_buy: number // 购买上限 tudo 废弃
+    doc: string
   }>
 >(
   'goods',
@@ -163,6 +164,9 @@ export const goods = sequelize.define<
       type: DataTypes.INTEGER,
       defaultValue: 99999,
       comment: '购买限制'
+    },
+    doc: {
+      type: DataTypes.STRING(20)
     }
   },
   {

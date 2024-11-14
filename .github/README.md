@@ -2,9 +2,7 @@
 
 使用AlemonJS+VlyJS进行开发的修仙机器人。
 
-https://alemonjs.com/
-
-https://lvyjs.dev/
+环境相关 https://lvyjs.dev/ 根据对应系统部署环境
 
 ### 本地调试
 
@@ -29,13 +27,13 @@ yarn --ignore-engines
 ```yaml
 # 新增redis配置
 redis:
-  host: 'locahost'
+  host: 'localhost'
   port: '6379'
   password: ''
   db: '1'
 # 新增db配置
 db:
-  host: 'locahost'
+  host: 'localhost'
   port: '3306'
   user: 'root'
   password: 'My002580!'
@@ -45,9 +43,29 @@ gui:
   port: 9601
 ```
 
-- MySQL80
+## MySQL&Redis
 
-> 必须安装mysql8才能才能运行
+> 必须安装mysql8才能运行
+
+以下是docker如何有安装docker，可执行
+
+- 启动
+
+```sh
+docker-compose up -d
+```
+
+- 连接
+
+```sh
+docker exec -it mysql-container bash
+```
+
+```sh
+mysql -u root -p
+```
+
+- 创建数据库
 
 数据库名 `xiuxian_test`
 字符集 `utf8mb4`
@@ -57,6 +75,18 @@ gui:
 CREATE DATABASE IF NOT EXISTS `xiuxian_test`
 CHARACTER SET utf8mb4
 COLLATE utf8mb4_german2_ci;
+```
+
+- 退出
+
+```sql
+exit;
+```
+
+- 停止
+
+```sh
+docker-compose unpause
 ```
 
 ## 测试客户端
@@ -80,6 +110,12 @@ yarn dev --login gui
 - 测试
 
 发送指令`/修仙帮助`
+
+## 登录平台
+
+> 推荐先使用测试客户端进行测试再登录
+
+登录相关 https://alemonjs.com/ 阅读对应平台包`README.md`
 
 ## Github自动化部署
 

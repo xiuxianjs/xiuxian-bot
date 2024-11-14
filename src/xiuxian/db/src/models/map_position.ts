@@ -71,8 +71,7 @@ export const map_position = sequelize.define<
       allowNull: true
     },
     doc: {
-      type: DataTypes.STRING(20),
-      allowNull: true
+      type: DataTypes.STRING(20)
     }
   },
   {
