@@ -44,18 +44,16 @@ export const getImmortalGradeValue = (grade: number) => {
   return Number((1 + 0.1 * grade).toFixed(1))
 }
 
-const getSize = (UserA: UserBattleType, UserB: UserBattleType) => {
+const getOriginal = (UserA: UserBattleType, UserB: UserBattleType) => {
   return (
-    getImmortalValue(UserA.battle_critical_damage, UserA.immortal_grade) -
-    getImmortalValue(UserB.battle_defense, UserB.immortal_grade)
+    // 攻击 - 防御
+    getImmortalValue(UserA.battle_attack, UserA.immortal_grade) -
+    UserB.battle_defense
   )
 }
 
 const getOutbreak = (HurtA, UserA: UserBattleType) => {
-  return getImmortalValue(
-    (HurtA.original * (100 + UserA.battle_critical_damage)) / 100,
-    UserA.immortal_grade
-  )
+  return (HurtA.original * (100 + UserA.battle_critical_damage)) / 100
 }
 
 /**
@@ -73,14 +71,19 @@ const getHurt = (UserA: UserBattleType, UserB: UserBattleType) => {
     original: 0, // 原始伤害
     outbreak: 0 // 暴伤
   }
-  const sizeA = getSize(UserA, UserB)
-  HurtA.original = sizeA > 50 ? sizeA : 50
+
+  console.log('U', UserA, UserB)
+
+  // 原始伤害计算
+  const originalA = getOriginal(UserA, UserB)
+
+  HurtA.original = originalA > 50 ? originalA : 50
   // 暴击结算
   HurtA.outbreak = getOutbreak(HurtA, UserA)
   // boss 反击
-  const sizeB = getSize(UserB, UserA)
+  const originalB = getOriginal(UserB, UserA)
   // 原始伤害计算
-  HurtB.original = sizeB > 50 ? sizeB : 50
+  HurtB.original = originalB > 50 ? originalB : 50
   // 暴击结算
   HurtB.outbreak = getOutbreak(HurtB, UserB)
   return {
@@ -151,13 +154,6 @@ export function startBoss(UserA: UserBattleType, UserB: UserBattleType) {
       msg
     }
   }
-
-  // boss 反击
-  const sizeB = getSize(UserB, UserA)
-  // 原始伤害计算
-  HurtB.original = sizeB > 50 ? sizeB : 50
-  // 暴击结算
-  HurtB.outbreak = getOutbreak(HurtB, UserB)
 
   //
   const Bac = () => {
