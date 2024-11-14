@@ -3,7 +3,7 @@ import { BackgroundImage } from 'jsxp'
 import img_equipment from '@src/assets/img/equipment.jpg'
 import css_output from './input.scss'
 import { LinkStyleSheet } from 'jsxp'
-import { ThemesEmun } from './con/ThemeBackground.js'
+import { ThemesEmun } from './pub/ThemeBackground.js'
 type PropsType = {
   data: {
     group: string

@@ -1,9 +1,9 @@
 import React from 'react'
-import Header from './con/header.js'
-import Footer from './con/footer.js'
+import Header from './pub/header.js'
+import Footer from './pub/footer.js'
 import css_output from './input.scss'
 import { LinkStyleSheet } from 'jsxp'
-import ThemeBackground, { ThemesEmun } from './con/ThemeBackground.js'
+import ThemeBackground, { ThemesEmun } from './pub/ThemeBackground.js'
 
 type PropsType = {
   data: any

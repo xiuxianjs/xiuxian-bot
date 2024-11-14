@@ -1,11 +1,11 @@
 import React from 'react'
-import NavMessage from './con/NavMessage.js'
-import Footer from './con/footer.js'
+import NavMessage from './pub/NavMessage.js'
+import Footer from './pub/footer.js'
 import { PersonalInformationType } from '@xiuxian/statistics/index'
 import css_output from './input.scss'
 import { LinkStyleSheet } from 'jsxp'
-import ThemeBackground from './con/ThemeBackground.js'
-import { ThemesEmun } from './con/ThemeBackground.js'
+import ThemeBackground from './pub/ThemeBackground.js'
+import { ThemesEmun } from './pub/ThemeBackground.js'
 type PropsType = {
   data: PersonalInformationType
   theme?: ThemesEmun

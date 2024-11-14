@@ -3,4 +3,4 @@ import { renders } from 'jsxp'
 export const pictureRender = renders(Component)
 export * from './src/core/index.js'
 export { Component }
-export { Themes } from './src/component/con/ThemeBackground.js'
+export { Themes } from './src/component/pub/ThemeBackground.js'

@@ -1,10 +1,10 @@
 import React from 'react'
-import Footer from './con/footer.js'
+import Footer from './pub/footer.js'
 import { AttributesType, user_ass } from '@xiuxian/db/index'
-import Header from './con/header.js'
+import Header from './pub/header.js'
 import css_ox from './input.scss'
 import { LinkStyleSheet } from 'jsxp'
-import ThemeBackground, { ThemesEmun } from './con/ThemeBackground.js'
+import ThemeBackground, { ThemesEmun } from './pub/ThemeBackground.js'
 type PropsType = {
   data: AttributesType<typeof user_ass>[]
   theme?: ThemesEmun

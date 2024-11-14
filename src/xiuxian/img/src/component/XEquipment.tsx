@@ -1,11 +1,11 @@
 import React from 'react'
 import { createUID } from '../core/index.js'
-import Header from './con/header.js'
-import Footer from './con/footer.js'
+import Header from './pub/header.js'
+import Footer from './pub/footer.js'
 import { EquipmentInformationType } from '@xiuxian/statistics/index'
 import css_output from './input.scss'
 import { LinkStyleSheet } from 'jsxp'
-import ThemeBackground, { ThemesEmun } from './con/ThemeBackground.js'
+import ThemeBackground, { ThemesEmun } from './pub/ThemeBackground.js'
 import { getImmortalGradeValue } from '@src/xiuxian/core/src/system/fight.js'
 
 type PropsType = {

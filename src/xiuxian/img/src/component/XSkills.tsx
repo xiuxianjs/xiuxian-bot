@@ -2,12 +2,12 @@ import React from 'react'
 import { BackgroundImage } from 'jsxp'
 import { createUID } from '../core/index.js'
 import { SkillInformationType } from '@xiuxian/statistics/index'
-import Header from './con/header.js'
-import Footer from './con/footer.js'
+import Header from './pub/header.js'
+import Footer from './pub/footer.js'
 import img_equipment from '@src/assets/img/equipment.jpg'
 import css_output from './input.scss'
 import { LinkStyleSheet } from 'jsxp'
-import ThemeBackground, { ThemesEmun } from './con/ThemeBackground.js'
+import ThemeBackground, { ThemesEmun } from './pub/ThemeBackground.js'
 type PropsType = {
   data: SkillInformationType
   theme?: ThemesEmun

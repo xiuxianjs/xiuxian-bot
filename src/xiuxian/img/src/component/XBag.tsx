@@ -1,13 +1,13 @@
 import React from 'react'
 import { createUID } from '../core/index.js'
-import Nav from './con/Naved.js'
-import Header from './con/header.js'
+import Nav from './pub/Naved.js'
+import Header from './pub/header.js'
 import { BackpackInformationType } from '@xiuxian/statistics/index'
-import Footer from './con/footer.js'
+import Footer from './pub/footer.js'
 import css_output from './input.scss'
 import { LinkStyleSheet } from 'jsxp'
-import ThemeBackground, { ThemesEmun } from './con/ThemeBackground.js'
-import GoodInfo from './con/GoodIndo.js'
+import ThemeBackground, { ThemesEmun } from './pub/ThemeBackground.js'
+import GoodInfo from './pub/GoodIndo.js'
 import { AttributesType, goods } from '@src/xiuxian/db/index.js'
 
 type PropsType = {

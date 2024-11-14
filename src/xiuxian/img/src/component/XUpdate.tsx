@@ -1,10 +1,10 @@
 import React from 'react'
-import Header from './con/header.js'
-import Footer from './con/footer.js'
+import Header from './pub/header.js'
+import Footer from './pub/footer.js'
 import css_output from './input.scss'
 import { LinkStyleSheet } from 'jsxp'
-import ThemeBackground from './con/ThemeBackground.js'
-import { ThemesEmun } from './con/ThemeBackground.js'
+import ThemeBackground from './pub/ThemeBackground.js'
+import { ThemesEmun } from './pub/ThemeBackground.js'
 
 type PropsType = {
   data: {
