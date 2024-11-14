@@ -36,7 +36,7 @@ db:
   host: 'localhost'
   port: '3306'
   user: 'root'
-  password: 'My002580!'
+  password: 'Mm002580!'
   database: 'xiuxian_test'
 # 新增客户端配置
 gui:

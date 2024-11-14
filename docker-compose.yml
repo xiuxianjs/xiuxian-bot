@@ -5,6 +5,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 'Mm002580!'
       MYSQL_ROOT_HOST: '%'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
     ports:
       - '3306:3306'
     networks:
