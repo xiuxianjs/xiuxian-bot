@@ -24,7 +24,6 @@ export const user_skills = sequelize.define<InitModel<ModelProps>>(
     },
     uid: {
       type: DataTypes.STRING(50),
-      allowNull: false,
       comment: '玩家编号',
       references: {
         model: user,
@@ -33,7 +32,6 @@ export const user_skills = sequelize.define<InitModel<ModelProps>>(
     },
     name: {
       type: DataTypes.STRING(20),
-      allowNull: true,
       comment: '功法名',
       references: {
         model: goods,

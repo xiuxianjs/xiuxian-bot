@@ -26,7 +26,6 @@ export const user_buy_log = sequelize.define<InitModel<ModelProps>>(
     },
     uid: {
       type: DataTypes.STRING(50),
-      allowNull: true,
       references: {
         model: user,
         key: 'uid'
@@ -34,7 +33,6 @@ export const user_buy_log = sequelize.define<InitModel<ModelProps>>(
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: true,
       references: {
         model: goods,
         key: 'name'

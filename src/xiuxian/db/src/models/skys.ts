@@ -23,7 +23,6 @@ export const skys = sequelize.define<InitModel<ModelProps>>(
     },
     name: {
       type: DataTypes.STRING(255),
-      allowNull: true,
       references: {
         model: 'goods',
         key: 'name'
@@ -47,7 +46,6 @@ export const skys = sequelize.define<InitModel<ModelProps>>(
       type: DataTypes.DATE,
       allowNull: true,
       defaultValue: DataTypes.NOW
-      // onUpdate: DataTypes.NOW
     },
     deleteAt: {
       type: DataTypes.DATE,

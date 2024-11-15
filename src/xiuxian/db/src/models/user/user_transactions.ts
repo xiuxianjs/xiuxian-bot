@@ -27,7 +27,6 @@ export const user_transactions = sequelize.define<InitModel<ModelProps>>(
     },
     uid: {
       type: DataTypes.STRING(50),
-      allowNull: true,
       comment: '用户编号',
       references: {
         model: user,
@@ -36,7 +35,6 @@ export const user_transactions = sequelize.define<InitModel<ModelProps>>(
     },
     name: {
       type: DataTypes.STRING(255),
-      allowNull: true,
       comment: '物品名',
       references: {
         model: goods,

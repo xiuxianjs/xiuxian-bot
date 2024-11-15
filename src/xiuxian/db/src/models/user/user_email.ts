@@ -21,7 +21,6 @@ export const user_email = sequelize.define<InitModel<ModelProps>>(
     },
     uid: {
       type: DataTypes.STRING(50),
-      allowNull: true,
       comment: '平台uid',
       references: {
         model: user,

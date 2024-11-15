@@ -2,7 +2,7 @@ import { sequelize, Model } from '../../connect.js'
 import { DataTypes } from 'sequelize'
 // 定义User属性接口
 
-interface User {
+interface ModelProps {
   id: number
   uid: string
   password: string
@@ -71,8 +71,7 @@ interface User {
 
 class InitModel<T> extends Model<T> {}
 
-export const user = sequelize.define<InitModel<User>>(
-  'user',
+export const user = InitModel.init<typeof Model<ModelProps>, Model<ModelProps>>(
   {
     id: {
       type: DataTypes.BIGINT,
@@ -384,6 +383,8 @@ export const user = sequelize.define<InitModel<User>>(
     }
   },
   {
+    sequelize,
+    tableName: 'user',
     freezeTableName: true,
     createdAt: false,
     updatedAt: false,

@@ -26,7 +26,6 @@ export const user_fate = sequelize.define<InitModel<ModelProps>>(
     },
     uid: {
       type: DataTypes.STRING(50),
-      allowNull: false,
       comment: '编号',
       references: {
         model: user,
@@ -35,7 +34,6 @@ export const user_fate = sequelize.define<InitModel<ModelProps>>(
     },
     name: {
       type: DataTypes.STRING(20),
-      allowNull: true,
       comment: '物品名',
       references: {
         model: goods,

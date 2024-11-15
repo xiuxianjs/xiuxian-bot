@@ -23,7 +23,6 @@ export const ass_bag_message = InitModel.init<
     },
     aid: {
       type: DataTypes.BIGINT,
-      allowNull: false,
       comment: '编号',
       references: {
         model: ass,

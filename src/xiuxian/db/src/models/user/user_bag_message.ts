@@ -21,7 +21,6 @@ export const user_bag_message = sequelize.define<InitModel<ModelProps>>(
     },
     uid: {
       type: DataTypes.STRING(50),
-      allowNull: false,
       comment: '用户编号',
       references: {
         model: user,

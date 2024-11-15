@@ -25,7 +25,6 @@ export const user_log = sequelize.define<InitModel<ModelProps>>(
     },
     uid: {
       type: DataTypes.STRING(50),
-      allowNull: true,
       references: {
         model: user,
         key: 'uid'

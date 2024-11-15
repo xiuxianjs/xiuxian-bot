@@ -21,7 +21,6 @@ export const user_ass_apply = sequelize.define<InitModel<ModelProps>>(
     },
     aid: {
       type: DataTypes.BIGINT,
-      allowNull: true,
       references: {
         model: ass,
         key: 'id'
@@ -29,7 +28,6 @@ export const user_ass_apply = sequelize.define<InitModel<ModelProps>>(
     },
     uid: {
       type: DataTypes.STRING(50),
-      allowNull: true,
       references: {
         model: user,
         key: 'uid'

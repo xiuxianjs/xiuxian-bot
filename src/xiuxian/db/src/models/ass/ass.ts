@@ -36,7 +36,6 @@ export const ass = InitModel.init<typeof Model<ModelProps>, Model<ModelProps>>(
     },
     typing: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       comment: '类型, 不同的类型文本不同',
       references: {
         model: ass_typing,

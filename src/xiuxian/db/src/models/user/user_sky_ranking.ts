@@ -23,7 +23,6 @@ export const user_sky_ranking = sequelize.define<InitModel<ModelProps>>(
     },
     uid: {
       type: DataTypes.STRING(50),
-      allowNull: true,
       references: {
         model: user,
         key: 'uid'

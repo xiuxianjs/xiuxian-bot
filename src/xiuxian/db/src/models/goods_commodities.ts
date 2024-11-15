@@ -21,7 +21,6 @@ export const goods_commodities = sequelize.define<InitModel<ModelProps>>(
     },
     gid: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       comment: '商品编号',
       references: {
         model: goods,

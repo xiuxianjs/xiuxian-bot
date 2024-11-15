@@ -27,7 +27,6 @@ export const user_level = sequelize.define<InitModel<ModelProps>>(
     },
     uid: {
       type: DataTypes.STRING(50),
-      allowNull: false,
       references: {
         model: user,
         key: 'uid'
