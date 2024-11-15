@@ -1,5 +1,6 @@
-import { Model, sequelize } from '../connect.js'
-import { DataTypes } from 'sequelize'
+import { sequelize } from '../connect.js'
+import { DataTypes, Model } from 'sequelize'
+import { Attributes, FindOptions, ModelStatic } from 'sequelize'
 
 type ModelProps = {
   id: number
@@ -23,12 +24,58 @@ type ModelProps = {
   price: number
 }
 
-class InitModel<T> extends Model<T> {}
+class goods extends Model<ModelProps> {
+  /**
+   * 找到所有数据
+   * @param this
+   * @param options
+   * @returns
+   */
+  public static async findAllValues<M extends Model>(
+    this: ModelStatic<M>,
+    options?: FindOptions<Attributes<M>>
+  ): Promise<Attributes<M>[]> {
+    return this.findAll({
+      ...options,
+      raw: true
+    })
+  }
 
-export const goods = InitModel.init<
-  typeof Model<ModelProps>,
-  Model<ModelProps>
->(
+  /**
+   * 找到一条数据
+   * @param this
+   * @param options
+   * @returns
+   */
+  public static async findOneValue<M extends Model>(
+    this: ModelStatic<M>,
+    options?: FindOptions<Attributes<M>>
+  ): Promise<Attributes<M>> {
+    return this.findOne({
+      ...options,
+      raw: true
+    })
+  }
+
+  /**
+   * 随机找到一条数据
+   * @param this
+   * @param options
+   * @returns
+   */
+  public static async findOneRandomValue<M extends Model>(
+    this: ModelStatic<M>,
+    options?: FindOptions<Attributes<M>>
+  ): Promise<Attributes<M>> {
+    return this.findOne({
+      ...options,
+      order: sequelize.random(),
+      raw: true
+    })
+  }
+}
+
+goods.init(
   {
     id: {
       type: DataTypes.BIGINT,
@@ -145,3 +192,5 @@ export const goods = InitModel.init<
     ]
   }
 )
+
+export { goods }

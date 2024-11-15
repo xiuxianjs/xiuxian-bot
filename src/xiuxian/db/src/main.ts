@@ -115,8 +115,8 @@ export const useBelongsTo = () => {
     targetKey: 'id'
   })
   models.ass_bag.belongsTo(models.goods, {
-    foreignKey: 'uid',
-    targetKey: 'uid'
+    foreignKey: 'name',
+    targetKey: 'name'
   })
   models.ass_bag.belongsTo(models.goods, {
     foreignKey: 'name',

@@ -1,9 +1,59 @@
-import { sequelize, Model } from '../../connect.js'
-import { DataTypes } from 'sequelize'
+import { sequelize } from '../../connect.js'
+import { DataTypes, Model } from 'sequelize'
+import { Attributes, FindOptions, ModelStatic } from 'sequelize'
 import { user } from './user.js'
 import { goods } from '../goods.js'
 
-class InitModel<T> extends Model<T> {}
+class InitModel extends Model<ModelProps> {
+  /**
+   * 找到所有数据
+   * @param this
+   * @param options
+   * @returns
+   */
+  public static async findAllValues<M extends Model>(
+    this: ModelStatic<M>,
+    options?: FindOptions<Attributes<M>>
+  ): Promise<Attributes<M>[]> {
+    return this.findAll({
+      ...options,
+      raw: true
+    })
+  }
+
+  /**
+   * 找到一条数据
+   * @param this
+   * @param options
+   * @returns
+   */
+  public static async findOneValue<M extends Model>(
+    this: ModelStatic<M>,
+    options?: FindOptions<Attributes<M>>
+  ): Promise<Attributes<M>> {
+    return this.findOne({
+      ...options,
+      raw: true
+    })
+  }
+
+  /**
+   * 随机找到一条数据
+   * @param this
+   * @param options
+   * @returns
+   */
+  public static async findOneRandomValue<M extends Model>(
+    this: ModelStatic<M>,
+    options?: FindOptions<Attributes<M>>
+  ): Promise<Attributes<M>> {
+    return this.findOne({
+      ...options,
+      order: sequelize.random(),
+      raw: true
+    })
+  }
+}
 
 type ModelProps = {
   id: number
@@ -16,7 +66,7 @@ type ModelProps = {
   deleteAt: Date
 }
 
-export const user_transactions_logs = sequelize.define<InitModel<ModelProps>>(
+export const user_transactions_logs = sequelize.define(
   'user_transactions_logs',
   {
     id: {

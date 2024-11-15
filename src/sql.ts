@@ -35,9 +35,9 @@ const SqlData = {
 
 const sequelizeInit = async () => {
   console.log('数据库连接成功.')
-  // // 得到当前数据库中的所有表
-  await sequelize.query('SET FOREIGN_KEY_CHECKS = 0')
-  // // const tableExists = await sequelize.getQueryInterface().showAllTables()
+  // 建立索引
+  useBelongsTo()
+  // 开始同步
   for (const key in models) {
     const model = models[key]
     await model
@@ -47,6 +47,7 @@ const sequelizeInit = async () => {
         console.error(key, '表同步失败:', err)
       })
   }
+  // 插入数据
   for (const key in models) {
     if (SqlData[key]) {
       for (const data of SqlData[key]) {
@@ -59,9 +60,6 @@ const sequelizeInit = async () => {
       }
     }
   }
-  await sequelize.query('SET FOREIGN_KEY_CHECKS = 1')
-  // 建立索引
-  useBelongsTo()
 }
 
 // 在这里开始检查数据库

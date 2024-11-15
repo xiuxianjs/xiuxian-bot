@@ -1,12 +1,6 @@
 import { appendFile, mkdirSync } from 'fs'
 import { join } from 'path'
-import {
-  Attributes,
-  FindOptions,
-  Model as SequelizeModel,
-  ModelStatic,
-  Sequelize
-} from 'sequelize'
+import { Sequelize } from 'sequelize'
 import { getConfig } from 'alemonjs'
 
 const formatDate = (date: Date) => {
@@ -45,54 +39,3 @@ export const sequelize = new Sequelize(db.database, db.user, db.password, {
   dialect: 'mysql',
   logging: logging
 })
-
-export class Model<T> extends SequelizeModel<T> {
-  /**
-   * 找到所有数据
-   * @param this
-   * @param options
-   * @returns
-   */
-  public static async findAllValues<M extends SequelizeModel>(
-    this: ModelStatic<M>,
-    options?: FindOptions<Attributes<M>>
-  ): Promise<Attributes<M>[]> {
-    return this.findAll({
-      ...options,
-      raw: true
-    })
-  }
-
-  /**
-   * 找到一条数据
-   * @param this
-   * @param options
-   * @returns
-   */
-  public static async findOneValue<M extends SequelizeModel>(
-    this: ModelStatic<M>,
-    options?: FindOptions<Attributes<M>>
-  ): Promise<Attributes<M>> {
-    return this.findOne({
-      ...options,
-      raw: true
-    })
-  }
-
-  /**
-   * 随机找到一条数据
-   * @param this
-   * @param options
-   * @returns
-   */
-  public static async findOneRandomValue<M extends SequelizeModel>(
-    this: ModelStatic<M>,
-    options?: FindOptions<Attributes<M>>
-  ): Promise<Attributes<M>> {
-    return this.findOne({
-      ...options,
-      order: sequelize.random(),
-      raw: true
-    })
-  }
-}

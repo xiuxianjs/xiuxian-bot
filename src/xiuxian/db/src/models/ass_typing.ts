@@ -1,5 +1,6 @@
-import { sequelize, Model } from '../connect.js'
-import { DataTypes } from 'sequelize'
+import { sequelize } from '../connect.js'
+import { DataTypes, Model } from 'sequelize'
+import { Attributes, FindOptions, ModelStatic } from 'sequelize'
 
 type ModelProps = {
   id: number
@@ -15,12 +16,57 @@ type ModelProps = {
   reviewed_member: string
 }
 
-class InitModel<T> extends Model<T> {}
+class ass_typing extends Model<ModelProps> {
+  /**
+   * 找到所有数据
+   * @param this
+   * @param options
+   * @returns
+   */
+  public static async findAllValues<M extends Model>(
+    this: ModelStatic<M>,
+    options?: FindOptions<Attributes<M>>
+  ): Promise<Attributes<M>[]> {
+    return this.findAll({
+      ...options,
+      raw: true
+    })
+  }
 
-export const ass_typing = InitModel.init<
-  typeof Model<ModelProps>,
-  Model<ModelProps>
->(
+  /**
+   * 找到一条数据
+   * @param this
+   * @param options
+   * @returns
+   */
+  public static async findOneValue<M extends Model>(
+    this: ModelStatic<M>,
+    options?: FindOptions<Attributes<M>>
+  ): Promise<Attributes<M>> {
+    return this.findOne({
+      ...options,
+      raw: true
+    })
+  }
+
+  /**
+   * 随机找到一条数据
+   * @param this
+   * @param options
+   * @returns
+   */
+  public static async findOneRandomValue<M extends Model>(
+    this: ModelStatic<M>,
+    options?: FindOptions<Attributes<M>>
+  ): Promise<Attributes<M>> {
+    return this.findOne({
+      ...options,
+      order: sequelize.random(),
+      raw: true
+    })
+  }
+}
+ass_typing.init(
   {
     id: {
       type: DataTypes.BIGINT,
@@ -92,3 +138,5 @@ export const ass_typing = InitModel.init<
     ]
   }
 )
+
+export { ass_typing }
