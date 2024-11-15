@@ -1,5 +1,6 @@
 import { sequelize, Model } from '../../connect.js'
 import { DataTypes } from 'sequelize'
+import { user } from './user.js'
 
 class InitModel<T> extends Model<T> {}
 
@@ -25,7 +26,11 @@ export const user_sky_reward = sequelize.define<InitModel<ModelProps>>(
     },
     uid: {
       type: DataTypes.STRING(50),
-      allowNull: true
+      allowNull: true,
+      references: {
+        model: user,
+        key: 'uid'
+      }
     },
     sid: {
       type: DataTypes.INTEGER,

@@ -1,5 +1,6 @@
 import { sequelize, Model } from '../../connect.js'
 import { DataTypes } from 'sequelize'
+import { user } from './user.js'
 
 type ModelProps = {
   id: number
@@ -21,7 +22,11 @@ export const user_bag_message = sequelize.define<InitModel<ModelProps>>(
     uid: {
       type: DataTypes.STRING(50),
       allowNull: false,
-      comment: '用户编号'
+      comment: '用户编号',
+      references: {
+        model: user,
+        key: 'uid'
+      }
     },
     grade: {
       type: DataTypes.INTEGER,

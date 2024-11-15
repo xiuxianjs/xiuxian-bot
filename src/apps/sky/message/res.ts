@@ -66,32 +66,28 @@ export default OnResponse(
     }
 
     try {
+      //
       if (/面板/.test(text)) {
-        await Equipment.updatePanel(UIDB, UserData.battle_blood_now).then(
-          () => {
-            equipmentInformation(UIDB, e.UserAvatar).then(res => {
-              pictureRender('Equipmentcomponent', {
-                data: res,
-                theme: UserData?.theme ?? 'dark'
-              }).then(img => {
-                if (typeof img != 'boolean') {
-                  Send(Image(img))
-                }
-              })
-            })
-          }
-        )
+        await equipmentInformation(UIDB).then(res => {
+          pictureRender('Equipmentcomponent', {
+            data: res,
+            theme: UserData?.theme ?? 'dark'
+          }).then(img => {
+            if (typeof img != 'boolean') {
+              Send(Image(img))
+            }
+          })
+        })
         return
       }
 
-      await Promise.all([
-        Skills.updataEfficiency(UIDB, UserData.talent),
-        Equipment.updatePanel(UIDB, UserData.battle_blood_now),
-        showUserMsg(e)
-      ]).catch(err => {
-        Send(Text('数据处理错误'))
-        console.error(err)
+      await showUserMsg({
+        ...e,
+        UserId: UIDB,
+        UserAvatar: undefined
       })
+
+      //
     } catch (err) {
       console.error(err)
     }

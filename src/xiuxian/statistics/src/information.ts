@@ -8,7 +8,7 @@ import { Talent, Equipment } from '@xiuxian/core/index'
  * @param UserAvatar
  * @returns
  */
-export async function personalInformation(UID: string, UserAvatar: string) {
+export async function personalInformation(UID: string, UserAvatar?: string) {
   const UserData = await DB.user
     .findOne({
       where: {
@@ -114,7 +114,7 @@ export async function personalInformation(UID: string, UserAvatar: string) {
 
   return {
     UID: UID,
-    avatar: UserAvatar,
+    avatar: UserAvatar ?? UserData.avatar,
     // 天赋
     linggenName: name,
     talentsize: size,
@@ -167,7 +167,7 @@ export type PersonalInformationType =
  * @param UserAvatar
  * @returns
  */
-export async function equipmentInformation(UID: string, UserAvatar: string) {
+export async function equipmentInformation(UID: string, UserAvatar?: string) {
   // 得到用户数据
   const UserData = await DB.user
     .findOne({
@@ -252,7 +252,7 @@ export async function equipmentInformation(UID: string, UserAvatar: string) {
     immortal_grade: UserData.immortal_grade,
     equipment: equipment,
     fate: arr,
-    avatar: UserAvatar
+    avatar: UserAvatar ?? UserData.avatar
   }
 }
 

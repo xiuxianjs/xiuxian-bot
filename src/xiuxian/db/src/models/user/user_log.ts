@@ -1,5 +1,6 @@
 import { sequelize, Model } from '../../connect.js'
 import { DataTypes } from 'sequelize'
+import { user } from './user.js'
 
 type ModelProps = {
   id: number
@@ -24,7 +25,11 @@ export const user_log = sequelize.define<InitModel<ModelProps>>(
     },
     uid: {
       type: DataTypes.STRING(50),
-      allowNull: true
+      allowNull: true,
+      references: {
+        model: user,
+        key: 'uid'
+      }
     },
     type: {
       type: DataTypes.INTEGER,
