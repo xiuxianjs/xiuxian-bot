@@ -50,7 +50,7 @@ export default OnResponse(
     }
 
     //
-    const UIDB = data.uid
+    const UIDB = dataB.uid
 
     const UserDataB = await user
       .findOne({

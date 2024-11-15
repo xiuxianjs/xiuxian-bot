@@ -90,58 +90,60 @@ export default OnResponse(
       })
       .then(res => res?.dataValues)
 
-    // 得到该境界所需要的物品
-    const LevelsLimit = await levels_limit
-      .findOne({
-        where: {
-          grade: nextLevel.grade,
-          // 境界类型1
-          typing: 1
-        }
-      })
-      .then(res => res?.dataValues)
-
     let things = []
 
-    // 该境界存在门槛。
-    if (LevelsLimit) {
-      //
-      const length = UserData.talent.length
-      //
-      const gids = LevelsLimit.gids.split('.')
-      //
-      const goodsData = await goods.findAllValues({
-        where: {
-          id: gids
-        }
-      })
-      let pass = false
-      things = await Bag.searchAllByName(
-        UID,
-        goodsData.map(item => item.name)
-      )
-      for (const item of goodsData) {
-        const thing = things.find(thing => thing.name === item.name)
-        // 不存在
-        if (!thing) {
-          pass = true
-          break
-        }
-        if (thing.acount < length * length) {
-          pass = true
-          break
-        }
-      }
-      // 物品不满足要求
-      if (pass) {
-        const msgs = goodsData.map(item => `${item.name}*${length * length}`)
-        // gids
-        Send(Text(['突破到下境界需要:', ...msgs].join('\n')))
-        return
-      }
-      // 扣除突破物品
+    if (nextLevel) {
+      // 得到该境界所需要的物品
+      const LevelsLimit = await levels_limit
+        .findOne({
+          where: {
+            grade: nextLevel.grade,
+            // 境界类型1
+            typing: 1
+          }
+        })
+        .then(res => res?.dataValues)
 
-      //
+      // 该境界存在门槛。
+      if (LevelsLimit) {
+        //
+        const length = UserData.talent.length
+        //
+        const gids = LevelsLimit.gids.split('.')
+        //
+        const goodsData = await goods.findAllValues({
+          where: {
+            id: gids
+          }
+        })
+        let pass = false
+        things = await Bag.searchAllByName(
+          UID,
+          goodsData.map(item => item.name)
+        )
+        for (const item of goodsData) {
+          const thing = things.find(thing => thing.name === item.name)
+          // 不存在
+          if (!thing) {
+            pass = true
+            break
+          }
+          if (thing.acount < length * length) {
+            pass = true
+            break
+          }
+        }
+        // 物品不满足要求
+        if (pass) {
+          const msgs = goodsData.map(item => `${item.name}*${length * length}`)
+          // gids
+          Send(Text(['突破到下境界需要:', ...msgs].join('\n')))
+          return
+        }
+        // 扣除突破物品
+
+        //
+      }
     }
 
     /**
