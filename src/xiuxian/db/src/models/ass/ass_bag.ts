@@ -1,5 +1,7 @@
 import { Model, sequelize } from '../../connect.js'
 import { DataTypes } from 'sequelize'
+import { ass } from './ass.js'
+import { goods } from '../goods.js'
 
 type ModelProps = {
   id: number
@@ -27,7 +29,11 @@ export const ass_bag = InitModel.init<
     aid: {
       type: DataTypes.BIGINT,
       allowNull: false,
-      comment: '编号'
+      comment: '编号',
+      references: {
+        model: ass,
+        key: 'id'
+      }
     },
     tid: {
       type: DataTypes.INTEGER,
@@ -42,7 +48,11 @@ export const ass_bag = InitModel.init<
     name: {
       type: DataTypes.STRING(20),
       defaultValue: '10',
-      comment: '物品名'
+      comment: '物品名',
+      references: {
+        model: goods,
+        key: 'name'
+      }
     },
     acount: {
       type: DataTypes.BIGINT,
@@ -60,14 +70,6 @@ export const ass_bag = InitModel.init<
     tableName: 'ass_bag',
     freezeTableName: true,
     createdAt: false,
-    updatedAt: false,
-    indexes: [
-      {
-        name: 'ass_bag:pk:goods:name', // 索引名称
-        unique: false, // 非唯一索引
-        fields: ['name'], // 索引字段
-        using: 'BTREE' // 索引方法
-      }
-    ]
+    updatedAt: false
   }
 )

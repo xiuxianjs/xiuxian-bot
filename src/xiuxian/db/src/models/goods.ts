@@ -31,12 +31,13 @@ export const goods = InitModel.init<
 >(
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       primaryKey: true,
       allowNull: false
     },
     name: {
       type: DataTypes.STRING(20),
+      primaryKey: true, // 确保此字段是主键或唯一键
       allowNull: false,
       comment: '名字唯一'
     },
@@ -131,6 +132,16 @@ export const goods = InitModel.init<
     tableName: 'goods',
     freezeTableName: true,
     createdAt: false,
-    updatedAt: false
+    updatedAt: false,
+    indexes: [
+      {
+        unique: true,
+        fields: ['id']
+      },
+      {
+        unique: true,
+        fields: ['name']
+      }
+    ]
   }
 )

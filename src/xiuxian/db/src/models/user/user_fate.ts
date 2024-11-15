@@ -1,33 +1,41 @@
-import { sequelize } from '../../connect.js'
-import { DataTypes, Model } from 'sequelize'
-export const user_fate = sequelize.define<
-  Model<{
-    id: number
-    uid: string // 编号
-    name: string // 装备名
-    grade: number // 装备名
-    doc: string // 说明
-    update: Date
-  }>
->(
+import { sequelize, Model } from '../../connect.js'
+import { DataTypes } from 'sequelize'
+import { goods } from '../goods.js'
+
+type ModelProps = {
+  id: number
+  uid: string // 编号
+  name: string // 装备名
+  grade: number // 装备名
+  doc: string // 说明
+  update: Date
+}
+
+class InitModel<T> extends Model<T> {}
+
+export const user_fate = sequelize.define<InitModel<ModelProps>>(
   'user_fate',
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       primaryKey: true,
       autoIncrement: true,
       allowNull: false,
       comment: '本命数据'
     },
     uid: {
-      type: DataTypes.BLOB, // 使用 BLOB 以支持 varbinary
+      type: DataTypes.STRING(50),
       allowNull: false,
       comment: '编号'
     },
     name: {
       type: DataTypes.STRING(20),
       allowNull: true,
-      comment: '物品名'
+      comment: '物品名',
+      references: {
+        model: goods,
+        key: 'name'
+      }
     },
     grade: {
       type: DataTypes.BIGINT, // 使用 BIGINT 以匹配 int(20)
@@ -49,14 +57,6 @@ export const user_fate = sequelize.define<
   {
     freezeTableName: true,
     createdAt: false,
-    updatedAt: false,
-    indexes: [
-      {
-        name: 'user_fate:pk:goods:name', // 索引名称
-        unique: false, // 非唯一索引
-        fields: ['name'], // 索引字段
-        using: 'BTREE' // 索引方法
-      }
-    ]
+    updatedAt: false
   }
 )

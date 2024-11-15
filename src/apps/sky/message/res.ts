@@ -65,44 +65,36 @@ export default OnResponse(
       return
     }
 
-    if (/面板/.test(text)) {
-      Equipment.updatePanel(UIDB, UserData.battle_blood_now).then(() => {
-        equipmentInformation(UIDB, e.UserAvatar).then(res => {
-          pictureRender('Equipmentcomponent', {
-            data: res,
-            theme: UserData?.theme ?? 'dark'
-          }).then(img => {
-            if (typeof img != 'boolean') {
-              Send(Image(img))
-            }
-          })
-        })
-      })
-      return
-    }
-
-    user
-      .update(
-        {
-          avatar: e.UserAvatar
-        },
-        {
-          where: {
-            uid: UIDB
+    try {
+      if (/面板/.test(text)) {
+        await Equipment.updatePanel(UIDB, UserData.battle_blood_now).then(
+          () => {
+            equipmentInformation(UIDB, e.UserAvatar).then(res => {
+              pictureRender('Equipmentcomponent', {
+                data: res,
+                theme: UserData?.theme ?? 'dark'
+              }).then(img => {
+                if (typeof img != 'boolean') {
+                  Send(Image(img))
+                }
+              })
+            })
           }
-        }
-      )
-      .then(() => {
-        Promise.all([
-          Skills.updataEfficiency(UIDB, UserData.talent),
-          Equipment.updatePanel(UIDB, UserData.battle_blood_now),
-          showUserMsg(e)
-        ]).catch(err => {
-          console.error(err)
-          const Send = useSend(e)
-          Send(Text('数据处理错误'))
-        })
+        )
+        return
+      }
+
+      await Promise.all([
+        Skills.updataEfficiency(UIDB, UserData.talent),
+        Equipment.updatePanel(UIDB, UserData.battle_blood_now),
+        showUserMsg(e)
+      ]).catch(err => {
+        Send(Text('数据处理错误'))
+        console.error(err)
       })
+    } catch (err) {
+      console.error(err)
+    }
 
     //
   },

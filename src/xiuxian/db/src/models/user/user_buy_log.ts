@@ -1,5 +1,7 @@
-import { sequelize } from '../../connect.js'
-import { DataTypes, Model } from 'sequelize'
+import { sequelize, Model } from '../../connect.js'
+import { DataTypes } from 'sequelize'
+import { goods } from '../goods.js'
+import { user } from './user.js'
 type ModelProps = {
   id: number
   uid: string
@@ -17,18 +19,26 @@ export const user_buy_log = sequelize.define<InitModel<ModelProps>>(
   'user_buy_log',
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       primaryKey: true,
       autoIncrement: true,
       allowNull: false
     },
     uid: {
-      type: DataTypes.STRING(255),
-      allowNull: true
+      type: DataTypes.STRING(50),
+      allowNull: true,
+      references: {
+        model: user,
+        key: 'uid'
+      }
     },
     name: {
-      type: DataTypes.STRING(20),
-      allowNull: true
+      type: DataTypes.STRING,
+      allowNull: true,
+      references: {
+        model: goods,
+        key: 'name'
+      }
     },
     count: {
       type: DataTypes.INTEGER,
@@ -56,20 +66,6 @@ export const user_buy_log = sequelize.define<InitModel<ModelProps>>(
   {
     freezeTableName: true,
     createdAt: false,
-    updatedAt: false,
-    indexes: [
-      {
-        name: 'user_buy_log:pk:goods:name', // 索引名称
-        unique: false, // 非唯一索引
-        fields: ['name'], // 索引字段
-        using: 'BTREE' // 索引方法
-      },
-      {
-        name: 'user_buy_log:pk:user:uid', // 索引名称
-        unique: false, // 非唯一索引
-        fields: ['uid'], // 索引字段
-        using: 'BTREE' // 索引方法
-      }
-    ]
+    updatedAt: false
   }
 )

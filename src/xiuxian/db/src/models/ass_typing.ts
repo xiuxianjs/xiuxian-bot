@@ -23,7 +23,7 @@ export const ass_typing = InitModel.init<
 >(
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       primaryKey: true,
       allowNull: false
     },
@@ -83,6 +83,12 @@ export const ass_typing = InitModel.init<
     tableName: 'ass_typing',
     freezeTableName: true,
     createdAt: false,
-    updatedAt: false
+    updatedAt: false,
+    indexes: [
+      {
+        unique: true,
+        fields: ['id']
+      }
+    ]
   }
 )

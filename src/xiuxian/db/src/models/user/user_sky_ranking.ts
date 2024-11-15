@@ -1,18 +1,20 @@
-import { sequelize } from '../../connect.js'
-import { DataTypes, Model } from 'sequelize'
-export const user_sky_ranking = sequelize.define<
-  Model<{
-    // 定义模型属性
-    id: number
-    uid: string // string
-    doc: string //
-    updateAt: Date
-  }>
->(
+import { sequelize, Model } from '../../connect.js'
+import { DataTypes } from 'sequelize'
+
+type ModelProps = {
+  id: number
+  uid: string // string
+  doc: string //
+  updateAt: Date
+}
+
+class InitModel<T> extends Model<T> {}
+
+export const user_sky_ranking = sequelize.define<InitModel<ModelProps>>(
   'user_sky_ranking',
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       primaryKey: true,
       autoIncrement: true,
       allowNull: false,

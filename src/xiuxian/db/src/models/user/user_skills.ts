@@ -1,18 +1,22 @@
-import { sequelize } from '../../connect.js'
-import { DataTypes, Model } from 'sequelize'
-export const user_skills = sequelize.define<
-  Model<{
-    id: number
-    uid: string // 编号
-    name: string // 功法名
-    doc: string // 说明
-    updateAt: Date
-  }>
->(
+import { sequelize, Model } from '../../connect.js'
+import { DataTypes } from 'sequelize'
+import { goods } from '../goods.js'
+
+type ModelProps = {
+  id: number
+  uid: string // 编号
+  name: string // 功法名
+  doc: string // 说明
+  updateAt: Date
+}
+
+class InitModel<T> extends Model<T> {}
+
+export const user_skills = sequelize.define<InitModel<ModelProps>>(
   'user_skills',
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       primaryKey: true,
       autoIncrement: true,
       allowNull: false
@@ -25,7 +29,11 @@ export const user_skills = sequelize.define<
     name: {
       type: DataTypes.STRING(20),
       allowNull: true,
-      comment: '功法名'
+      comment: '功法名',
+      references: {
+        model: goods,
+        key: 'name'
+      }
     },
     doc: {
       type: DataTypes.STRING(20),
@@ -41,14 +49,6 @@ export const user_skills = sequelize.define<
   {
     freezeTableName: true,
     createdAt: false,
-    updatedAt: false,
-    indexes: [
-      {
-        name: 'user_skills:pk:goods:name', // 索引名称
-        unique: false, // 非唯一索引
-        fields: ['name'], // 索引字段
-        using: 'BTREE' // 索引方法
-      }
-    ]
+    updatedAt: false
   }
 )

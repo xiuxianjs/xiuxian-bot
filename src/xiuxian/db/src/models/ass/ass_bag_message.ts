@@ -1,5 +1,6 @@
 import { Model, sequelize } from '../../connect.js'
 import { DataTypes } from 'sequelize'
+import { ass } from './ass.js'
 
 type ModelProps = {
   id: number
@@ -21,9 +22,13 @@ export const ass_bag_message = InitModel.init<
       allowNull: false
     },
     aid: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.BIGINT,
       allowNull: false,
-      comment: '宗门编号'
+      comment: '编号',
+      references: {
+        model: ass,
+        key: 'id'
+      }
     },
     grade: {
       type: DataTypes.INTEGER,

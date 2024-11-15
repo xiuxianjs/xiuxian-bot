@@ -1,5 +1,6 @@
-import { sequelize } from '../connect.js'
-import { DataTypes, Model } from 'sequelize'
+import { sequelize, Model } from '../connect.js'
+import { DataTypes } from 'sequelize'
+import { goods } from './goods.js'
 
 type ModelProps = {
   id: number
@@ -19,9 +20,13 @@ export const goods_commodities = sequelize.define<InitModel<ModelProps>>(
       allowNull: false
     },
     gid: {
-      type: DataTypes.BIGINT,
-      allowNull: true,
-      comment: '商品编号'
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      comment: '商品编号',
+      references: {
+        model: goods,
+        key: 'id'
+      }
     },
     limit_buy: {
       type: DataTypes.BIGINT,
@@ -35,10 +40,8 @@ export const goods_commodities = sequelize.define<InitModel<ModelProps>>(
     updatedAt: false,
     indexes: [
       {
-        name: 'goods_commodities:pk:goods:gid', // 索引名称
-        unique: false, // 非唯一索引
-        fields: ['gid'], // 索引字段
-        using: 'BTREE' // 索引方法
+        unique: true,
+        fields: ['id']
       }
     ]
   }

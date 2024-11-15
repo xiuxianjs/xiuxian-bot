@@ -1,27 +1,30 @@
-import { sequelize } from '../../connect.js'
-import { DataTypes, Model } from 'sequelize'
-export const user_sky_reward = sequelize.define<
-  Model<{
-    // 定义模型属性
-    id: number
-    uid: string // string
-    sid: number //
-    time: Date
-    createAt: Date
-    updateAt: Date
-    deleteAt: Date
-  }>
->(
+import { sequelize, Model } from '../../connect.js'
+import { DataTypes } from 'sequelize'
+
+class InitModel<T> extends Model<T> {}
+
+type ModelProps = {
+  // 定义模型属性
+  id: number
+  uid: string // string
+  sid: number //
+  time: Date
+  createAt: Date
+  updateAt: Date
+  deleteAt: Date
+}
+
+export const user_sky_reward = sequelize.define<InitModel<ModelProps>>(
   'user_sky_reward',
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       primaryKey: true,
       autoIncrement: true,
       allowNull: false
     },
     uid: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.STRING(50),
       allowNull: true
     },
     sid: {
@@ -52,20 +55,6 @@ export const user_sky_reward = sequelize.define<
   {
     freezeTableName: true,
     createdAt: false,
-    updatedAt: false,
-    indexes: [
-      {
-        name: 'user_sky_reward:pk:user:uid', // 索引名称
-        unique: false, // 非唯一索引
-        fields: ['uid'], // 索引字段
-        using: 'BTREE' // 索引方法
-      },
-      {
-        name: 'user_sky_reward:pk:skys:sid', // 索引名称
-        unique: false, // 非唯一索引
-        fields: ['sid'], // 索引字段
-        using: 'BTREE' // 索引方法
-      }
-    ]
+    updatedAt: false
   }
 )

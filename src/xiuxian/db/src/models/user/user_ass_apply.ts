@@ -1,5 +1,7 @@
-import { sequelize } from '../../connect.js'
-import { DataTypes, Model } from 'sequelize'
+import { sequelize, Model } from '../../connect.js'
+import { DataTypes } from 'sequelize'
+import { ass } from '../ass/ass.js'
+import { user } from './user.js'
 type ModelProps = {
   id: number
   aid: number
@@ -19,30 +21,24 @@ export const user_ass_apply = sequelize.define<InitModel<ModelProps>>(
     },
     aid: {
       type: DataTypes.BIGINT,
-      allowNull: true
+      allowNull: true,
+      references: {
+        model: ass,
+        key: 'id'
+      }
     },
     uid: {
-      type: DataTypes.STRING(255),
-      allowNull: true
+      type: DataTypes.STRING(50),
+      allowNull: true,
+      references: {
+        model: user,
+        key: 'uid'
+      }
     }
   },
   {
     freezeTableName: true,
     createdAt: false,
-    updatedAt: false,
-    indexes: [
-      {
-        name: 'user_ass_apply:pk:user:uid', // 索引名称
-        unique: false, // 非唯一索引
-        fields: ['uid'], // 索引字段
-        using: 'BTREE' // 索引方法
-      },
-      {
-        name: 'user_ass_apply:pk:ass:aid', // 索引名称
-        unique: false, // 非唯一索引
-        fields: ['aid'], // 索引字段
-        using: 'BTREE' // 索引方法
-      }
-    ]
+    updatedAt: false
   }
 )

@@ -1,5 +1,6 @@
-import { sequelize } from '../../connect.js'
-import { DataTypes, Model } from 'sequelize'
+import { sequelize, Model } from '../../connect.js'
+import { DataTypes } from 'sequelize'
+import { goods } from '../goods.js'
 
 type ModelProps = {
   id: number
@@ -15,7 +16,7 @@ export const user_equipment = sequelize.define<InitModel<ModelProps>>(
   'user_equipment',
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       primaryKey: true,
       autoIncrement: true,
       allowNull: false
@@ -26,7 +27,11 @@ export const user_equipment = sequelize.define<InitModel<ModelProps>>(
     },
     name: {
       type: DataTypes.STRING(20),
-      allowNull: true
+      allowNull: true,
+      references: {
+        model: goods,
+        key: 'name'
+      }
     },
     doc: {
       type: DataTypes.STRING(20),
@@ -42,14 +47,6 @@ export const user_equipment = sequelize.define<InitModel<ModelProps>>(
   {
     freezeTableName: true,
     createdAt: false,
-    updatedAt: false,
-    indexes: [
-      {
-        name: 'user_equipment:pk:goods:name', // 索引名称
-        unique: false, // 非唯一索引
-        fields: ['name'], // 索引字段
-        using: 'BTREE' // 索引方法
-      }
-    ]
+    updatedAt: false
   }
 )

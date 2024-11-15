@@ -1,21 +1,25 @@
-import { sequelize } from '../../connect.js'
-import { DataTypes, Model } from 'sequelize'
-export const user_ring = sequelize.define<
-  Model<{
-    id: number
-    uid: string // 编号
-    tid: number // 物品编号
-    type: number // 物品类型
-    name: string // 物品名
-    acount: number // 数量
-    doc: number // 说明
-    updateAt: Date
-  }>
->(
+import { sequelize, Model } from '../../connect.js'
+import { DataTypes } from 'sequelize'
+import { goods } from '../goods.js'
+
+type ModelProps = {
+  id: number
+  uid: string // 编号
+  tid: number // 物品编号
+  type: number // 物品类型
+  name: string // 物品名
+  acount: number // 数量
+  doc: number // 说明
+  updateAt: Date
+}
+
+class InitModel<T> extends Model<T> {}
+
+export const user_ring = sequelize.define<InitModel<ModelProps>>(
   'user_ring',
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       primaryKey: true,
       autoIncrement: true,
       allowNull: false
@@ -38,7 +42,11 @@ export const user_ring = sequelize.define<
     name: {
       type: DataTypes.STRING(20),
       defaultValue: '10',
-      comment: '物品名'
+      comment: '物品名',
+      references: {
+        model: goods,
+        key: 'name'
+      }
     },
     acount: {
       type: DataTypes.BIGINT,
@@ -60,14 +68,6 @@ export const user_ring = sequelize.define<
   {
     freezeTableName: true,
     createdAt: false,
-    updatedAt: false,
-    indexes: [
-      {
-        name: 'user_ring:pk:goods:name', // 索引名称
-        unique: false, // 非唯一索引
-        fields: ['name'], // 索引字段
-        using: 'BTREE' // 索引方法
-      }
-    ]
+    updatedAt: false
   }
 )

@@ -1,20 +1,23 @@
-import { sequelize } from '../../connect.js'
-import { DataTypes, Model } from 'sequelize'
-export const user_log = sequelize.define<
-  Model<{
-    id: number
-    uid: string
-    type: number
-    create_time: number
-    message: string
-    doc: string
-    updateAt: Date
-  }>
->(
+import { sequelize, Model } from '../../connect.js'
+import { DataTypes } from 'sequelize'
+
+type ModelProps = {
+  id: number
+  uid: string
+  type: number
+  create_time: number
+  message: string
+  doc: string
+  updateAt: Date
+}
+
+class InitModel<T> extends Model<T> {}
+
+export const user_log = sequelize.define<InitModel<ModelProps>>(
   'user_log',
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       primaryKey: true,
       autoIncrement: true,
       allowNull: false

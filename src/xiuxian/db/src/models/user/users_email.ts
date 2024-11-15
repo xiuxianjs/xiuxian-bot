@@ -1,12 +1,15 @@
-import { sequelize } from '../../connect.js'
-import { DataTypes, Model } from 'sequelize'
-export const users_email = sequelize.define<
-  Model<{
-    id: number
-    email: string
-    uid: string
-  }>
->(
+import { sequelize, Model } from '../../connect.js'
+import { DataTypes } from 'sequelize'
+
+class InitModel<T> extends Model<T> {}
+
+type ModelProps = {
+  id: number
+  email: string
+  uid: string
+}
+
+export const users_email = sequelize.define<InitModel<ModelProps>>(
   'users_email',
   {
     id: {
@@ -22,7 +25,7 @@ export const users_email = sequelize.define<
       comment: '邮箱'
     },
     uid: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.STRING(50),
       allowNull: true,
       comment: '游戏id'
     }

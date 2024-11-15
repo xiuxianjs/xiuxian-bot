@@ -1,5 +1,5 @@
-import { sequelize } from '../../connect.js'
-import { DataTypes, Model } from 'sequelize'
+import { sequelize, Model } from '../../connect.js'
+import { DataTypes } from 'sequelize'
 // 定义User属性接口
 
 interface User {
@@ -69,7 +69,9 @@ interface User {
   deleteAt: Date
 }
 
-export const user = sequelize.define<Model<User>>(
+class InitModel<T> extends Model<T> {}
+
+export const user = sequelize.define<InitModel<User>>(
   'user',
   {
     id: {
@@ -80,7 +82,8 @@ export const user = sequelize.define<Model<User>>(
     },
     uid: {
       type: DataTypes.STRING(50),
-      allowNull: true,
+      primaryKey: true,
+      allowNull: false,
       comment: '编号'
     },
     create_time: {
@@ -383,6 +386,16 @@ export const user = sequelize.define<Model<User>>(
   {
     freezeTableName: true,
     createdAt: false,
-    updatedAt: false
+    updatedAt: false,
+    indexes: [
+      {
+        unique: true,
+        fields: ['id']
+      },
+      {
+        unique: true,
+        fields: ['uid']
+      }
+    ]
   }
 )

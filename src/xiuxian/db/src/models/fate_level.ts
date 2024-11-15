@@ -1,5 +1,5 @@
-import { sequelize } from '../connect.js'
-import { DataTypes, Model } from 'sequelize'
+import { sequelize, Model } from '../connect.js'
+import { DataTypes } from 'sequelize'
 
 type ModelProps = {
   id: number
@@ -16,7 +16,7 @@ export const fate_level = sequelize.define<InitModel<ModelProps>>(
   'fate_level',
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       primaryKey: true,
       allowNull: false
     },
@@ -49,6 +49,12 @@ export const fate_level = sequelize.define<InitModel<ModelProps>>(
   {
     freezeTableName: true,
     createdAt: false,
-    updatedAt: false
+    updatedAt: false,
+    indexes: [
+      {
+        unique: true,
+        fields: ['id']
+      }
+    ]
   }
 )

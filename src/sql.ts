@@ -43,21 +43,21 @@ const sequelizeInit = async () => {
     await model
       // .sync({ alter: true })
       .sync({ alter: true })
-      .then(async () => {
-        if (SqlData[key]) {
-          for (const data of SqlData[key]) {
-            await models[key].findOrCreate({
-              // 查找条件 id 不一致
-              where: { id: data.id },
-              // 如果找不到，则插入的默认值
-              defaults: data
-            })
-          }
-        }
-      })
       .catch(err => {
         console.error(key, '表同步失败:', err)
       })
+  }
+  for (const key in models) {
+    if (SqlData[key]) {
+      for (const data of SqlData[key]) {
+        await models[key].findOrCreate({
+          // 查找条件 id 不一致
+          where: { id: data.id },
+          // 如果找不到，则插入的默认值
+          defaults: data
+        })
+      }
+    }
   }
   await sequelize.query('SET FOREIGN_KEY_CHECKS = 1')
   // 建立索引

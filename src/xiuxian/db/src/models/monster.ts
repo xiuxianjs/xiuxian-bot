@@ -1,5 +1,5 @@
-import { sequelize } from '../connect.js'
-import { DataTypes, Model } from 'sequelize'
+import { sequelize, Model } from '../connect.js'
+import { DataTypes } from 'sequelize'
 type ModelProps = {
   id: number
   type: number //int
@@ -14,7 +14,7 @@ export const monster = sequelize.define<InitModel<ModelProps>>(
   'monster',
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       primaryKey: true,
       autoIncrement: true,
       allowNull: false
@@ -40,6 +40,12 @@ export const monster = sequelize.define<InitModel<ModelProps>>(
   {
     freezeTableName: true,
     createdAt: false,
-    updatedAt: false
+    updatedAt: false,
+    indexes: [
+      {
+        unique: true,
+        fields: ['id']
+      }
+    ]
   }
 )

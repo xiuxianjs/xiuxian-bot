@@ -1,35 +1,47 @@
-import { sequelize } from '../../connect.js'
-import { DataTypes, Model } from 'sequelize'
+import { sequelize, Model } from '../../connect.js'
+import { DataTypes } from 'sequelize'
+import { user } from './user.js'
+import { goods } from '../goods.js'
 
-export const user_transactions_logs = sequelize.define<
-  Model<{
-    id: number
-    uid: string //string
-    name: string //string
-    count: number
-    price: number
-    createAt: Date
-    updateAt: Date
-    deleteAt: Date
-  }>
->(
+class InitModel<T> extends Model<T> {}
+
+type ModelProps = {
+  id: number
+  uid: string //string
+  name: string //string
+  count: number
+  price: number
+  createAt: Date
+  updateAt: Date
+  deleteAt: Date
+}
+
+export const user_transactions_logs = sequelize.define<InitModel<ModelProps>>(
   'user_transactions_logs',
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       primaryKey: true,
       autoIncrement: true,
       allowNull: false
     },
     uid: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.STRING(50),
       allowNull: true,
-      comment: '用户编号'
+      comment: '用户编号',
+      references: {
+        model: user,
+        key: 'uid'
+      }
     },
     name: {
       type: DataTypes.STRING(255),
       allowNull: true,
-      comment: '物品名'
+      comment: '物品名',
+      references: {
+        model: goods,
+        key: 'name'
+      }
     },
     count: {
       type: DataTypes.INTEGER,
@@ -40,10 +52,6 @@ export const user_transactions_logs = sequelize.define<
       type: DataTypes.INTEGER,
       defaultValue: 0
     },
-    createAt: {
-      type: DataTypes.DATE,
-      allowNull: true
-    },
     updateAt: {
       type: DataTypes.DATE,
       allowNull: true,
@@ -53,25 +61,15 @@ export const user_transactions_logs = sequelize.define<
     deleteAt: {
       type: DataTypes.DATE,
       allowNull: true
+    },
+    createAt: {
+      type: DataTypes.DATE,
+      allowNull: true
     }
   },
   {
     freezeTableName: true,
     createdAt: false,
-    updatedAt: false,
-    indexes: [
-      {
-        name: 'user_transactions_logs:pk:user:uid', // 索引名称
-        unique: false, // 非唯一索引
-        fields: ['uid'], // 索引字段
-        using: 'BTREE' // 索引方法
-      },
-      {
-        name: 'user_transactions_logs:pk:goods:name', // 索引名称
-        unique: false, // 非唯一索引
-        fields: ['name'], // 索引字段
-        using: 'BTREE' // 索引方法
-      }
-    ]
+    updatedAt: false
   }
 )

@@ -1,5 +1,5 @@
-import { sequelize } from '../connect.js'
-import { DataTypes, Model } from 'sequelize'
+import { sequelize, Model } from '../connect.js'
+import { DataTypes } from 'sequelize'
 type ModelProps = {
   id: number
   name: string // string
@@ -16,14 +16,18 @@ export const skys = sequelize.define<InitModel<ModelProps>>(
   'skys',
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       primaryKey: true,
       autoIncrement: true,
       allowNull: false
     },
     name: {
       type: DataTypes.STRING(255),
-      allowNull: true
+      allowNull: true,
+      references: {
+        model: 'goods',
+        key: 'name'
+      }
     },
     count: {
       type: DataTypes.INTEGER,
@@ -56,10 +60,8 @@ export const skys = sequelize.define<InitModel<ModelProps>>(
     updatedAt: false,
     indexes: [
       {
-        name: 'skys:pk:goods:name', // 索引名称
-        unique: false, // 非唯一索引
-        fields: ['name'], // 索引字段
-        using: 'BTREE' // 索引方法
+        unique: true,
+        fields: ['id']
       }
     ]
   }

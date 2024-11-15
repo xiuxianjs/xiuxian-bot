@@ -1,5 +1,5 @@
-import { sequelize } from '../../connect.js'
-import { DataTypes, Model } from 'sequelize'
+import { sequelize, Model } from '../../connect.js'
+import { DataTypes } from 'sequelize'
 
 type ModelProps = {
   id: number
@@ -19,7 +19,7 @@ export const user_email = sequelize.define<InitModel<ModelProps>>(
       allowNull: false
     },
     uid: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.STRING(50),
       allowNull: true,
       comment: '平台uid'
     },

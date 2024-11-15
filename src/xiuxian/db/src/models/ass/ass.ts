@@ -1,5 +1,6 @@
 import { Model, sequelize } from '../../connect.js'
 import { DataTypes } from 'sequelize'
+import { ass_typing } from '../ass_typing.js'
 
 type ModelProps = {
   id: number
@@ -36,7 +37,11 @@ export const ass = InitModel.init<typeof Model<ModelProps>, Model<ModelProps>>(
     typing: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      comment: '类型, 不同的类型文本不同'
+      comment: '类型, 不同的类型文本不同',
+      references: {
+        model: ass_typing,
+        key: 'id'
+      }
     },
     grade: {
       type: DataTypes.BIGINT,
@@ -77,10 +82,8 @@ export const ass = InitModel.init<typeof Model<ModelProps>, Model<ModelProps>>(
     updatedAt: false,
     indexes: [
       {
-        name: 'ass:pk:ass_type:typing', // 索引名称
-        unique: false, // 非唯一索引
-        fields: ['typing'], // 索引字段
-        using: 'BTREE' // 索引方法
+        unique: true,
+        fields: ['id']
       }
     ]
   }
