@@ -1,12 +1,15 @@
 import { sequelize } from '../connect.js'
 import { DataTypes, Model } from 'sequelize'
-export const constitution = sequelize.define<
-  Model<{
-    id: number
-    name: string
-    grade: number
-  }>
->(
+
+type ModelProps = {
+  id: number
+  name: string
+  grade: number
+}
+
+class InitModel<T> extends Model<T> {}
+
+export const constitution = sequelize.define<InitModel<ModelProps>>(
   'constitution',
   {
     id: {

@@ -1,24 +1,26 @@
 import { sequelize } from '../connect.js'
 import { DataTypes, Model } from 'sequelize'
-export const levels = sequelize.define<
-  Model<{
-    id: number
-    type: number //int
-    grade: number //int
-    name: string //string
-    attack: number //int
-    defense: number //int
-    blood: number //int
-    critical_hit: number //int
-    critical_damage: number //int
-    success_rate: number
-    speed: number
-    size: number
-    soul: number
-    exp_needed: number //int
-    doc: string //string
-  }>
->(
+type ModelProps = {
+  id: number
+  type: number //int
+  grade: number //int
+  name: string //string
+  attack: number //int
+  defense: number //int
+  blood: number //int
+  critical_hit: number //int
+  critical_damage: number //int
+  success_rate: number
+  speed: number
+  size: number
+  soul: number
+  exp_needed: number //int
+  doc: string //string
+}
+
+class InitModel<T> extends Model<T> {}
+
+export const levels = sequelize.define<InitModel<ModelProps>>(
   'levels',
   {
     id: {

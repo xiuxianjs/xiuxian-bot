@@ -1,13 +1,14 @@
 import { sequelize } from '../connect.js'
 import { DataTypes, Model } from 'sequelize'
-export const goods_drops = sequelize.define<
-  Model<{
-    // 定义模型属性
-    id: number
-    gid: number //int
-    limit_buy: number // 购买上限
-  }>
->(
+type ModelProps = {
+  id: number
+  gid: number //int
+  limit_buy: number // 购买上限
+}
+
+class InitModel<T> extends Model<T> {}
+
+export const goods_drops = sequelize.define<InitModel<ModelProps>>(
   'goods_drops',
   {
     id: {

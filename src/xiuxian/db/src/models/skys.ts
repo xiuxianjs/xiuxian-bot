@@ -1,17 +1,18 @@
 import { sequelize } from '../connect.js'
 import { DataTypes, Model } from 'sequelize'
-export const skys = sequelize.define<
-  Model<{
-    // 定义模型属性
-    id: number
-    name: string // string
-    count: number //
-    ranking: number
-    createAt: Date
-    updateAt: Date
-    deleteAt: Date
-  }>
->(
+type ModelProps = {
+  id: number
+  name: string // string
+  count: number //
+  ranking: number
+  createAt: Date
+  updateAt: Date
+  deleteAt: Date
+}
+
+class InitModel<T> extends Model<T> {}
+
+export const skys = sequelize.define<InitModel<ModelProps>>(
   'skys',
   {
     id: {

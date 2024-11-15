@@ -1,13 +1,15 @@
 import { sequelize } from '../connect.js'
 import { DataTypes, Model } from 'sequelize'
-export const levels_limit = sequelize.define<
-  Model<{
-    id: number
-    typing: number
-    grade: number
-    gids: string
-  }>
->(
+type ModelProps = {
+  id: number
+  typing: number
+  grade: number
+  gids: string
+}
+
+class InitModel<T> extends Model<T> {}
+
+export const levels_limit = sequelize.define<InitModel<ModelProps>>(
   'levels_limit',
   {
     id: {

@@ -67,13 +67,11 @@ export default OnResponse(
       .then(res => res?.dataValues)
       .then(res => res.experience)
 
-    const goodThing = await goods
-      .findOne({
-        where: {
-          name: thing.name
-        }
-      })
-      .then(res => res?.dataValues)
+    const goodThing = await goods.findOneValue({
+      where: {
+        name: thing.name
+      }
+    })
 
     // 强化等级*1000*物品等级
     const size = 1000 * goodThing.grade

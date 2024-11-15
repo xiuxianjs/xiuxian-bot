@@ -141,7 +141,7 @@ export default OnResponse(
           .then(res => res.dataValues)
 
         await DB.user_ass.create({
-          create_tiime: new Date().getTime(),
+          create_time: new Date().getTime(),
           uid: UID,
           aid: res.id,
           // 0 级权限，最高

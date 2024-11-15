@@ -1,18 +1,20 @@
 import { sequelize } from '../connect.js'
 import { DataTypes, Model } from 'sequelize'
-export const map_treasure = sequelize.define<
-  Model<{
-    id: number
-    name: string //string
-    type: number //int
-    acount: number //int
-    attribute: number //int
-    x: number //int
-    y: number //int
-    z: number //int
-    doc: string //string
-  }>
->(
+type ModelProps = {
+  id: number
+  name: string //string
+  type: number //int
+  acount: number //int
+  attribute: number //int
+  x: number //int
+  y: number //int
+  z: number //int
+  doc: string //string
+}
+
+class InitModel<T> extends Model<T> {}
+
+export const map_treasure = sequelize.define<InitModel<ModelProps>>(
   'map_treasure',
   {
     id: {

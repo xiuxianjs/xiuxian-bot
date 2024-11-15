@@ -154,6 +154,18 @@ export async function backpackFull(UID: string) {
   return n >= 1 ? n : false
 }
 
+export async function searchAllByName(UID: string, name: string[]) {
+  const data = await user_bag
+    .findAll({
+      where: {
+        uid: UID,
+        name
+      }
+    })
+    .then(res => res?.map(item => item.dataValues))
+  return data
+}
+
 /**
  * 搜索UID的储物袋有没有物品名为NAME
  * @param UID

@@ -1,6 +1,7 @@
 import { Text, useSend } from 'alemonjs'
 import { isUser, victoryCooling } from '@xiuxian/api/index'
 import {
+  Bag,
   Burial,
   Cooling,
   Equipment,
@@ -100,6 +101,8 @@ export default OnResponse(
       })
       .then(res => res?.dataValues)
 
+    let things = []
+
     // 该境界存在门槛。
     if (LevelsLimit) {
       //
@@ -107,24 +110,38 @@ export default OnResponse(
       //
       const gids = LevelsLimit.gids.split('.')
       //
-      const goodsData = await goods
-        .findAll({
-          where: {
-            id: gids
-          }
-        })
-        .then(res => res.map(item => item?.dataValues))
-
-      // gids
-      Send(
-        Text(
-          [
-            '突破到下境界需要:',
-            ...goodsData.map(item => `[${item.name}]*${length * length}`)
-          ].join('\n')
-        )
+      const goodsData = await goods.findAllValues({
+        where: {
+          id: gids
+        }
+      })
+      let pass = false
+      things = await Bag.searchAllByName(
+        UID,
+        goodsData.map(item => item.name)
       )
-      return
+      for (const item of goodsData) {
+        const thing = things.find(thing => thing.name === item.name)
+        // 不存在
+        if (!thing) {
+          pass = true
+          break
+        }
+        if (thing.acount < length * length) {
+          pass = true
+          break
+        }
+      }
+      // 物品不满足要求
+      if (pass) {
+        const msgs = goodsData.map(item => `${item.name}*${length * length}`)
+        // gids
+        Send(Text(['突破到下境界需要:', ...msgs].join('\n')))
+        return
+      }
+      // 扣除突破物品
+
+      //
     }
 
     /**
@@ -169,6 +186,20 @@ export default OnResponse(
 
     // 设置
     Burial.set(UID, CDID, Cooling.CD_Level_up)
+
+    // 扣除突破物品
+    if (things.length >= 1) {
+      // 扣除物品
+      Bag.reduceBagThing(
+        UID,
+        things.map(item => {
+          return {
+            name: item.name,
+            acount: item.acount
+          }
+        })
+      )
+    }
 
     // 下一个境界不存在，表示目前是最高境界
     if (!nextLevel) {

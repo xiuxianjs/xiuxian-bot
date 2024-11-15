@@ -1,14 +1,17 @@
 import { sequelize } from '../../connect.js'
 import { DataTypes, Model } from 'sequelize'
-export const user_equipment = sequelize.define<
-  Model<{
-    id: number
-    uid: string // 编号
-    name: string // 装备名
-    updateAt: Date
-    doc: string // 说明
-  }>
->(
+
+type ModelProps = {
+  id: number
+  uid: string // 编号
+  name: string // 装备名
+  updateAt: Date
+  doc: string // 说明
+}
+
+class InitModel<T> extends Model<T> {}
+
+export const user_equipment = sequelize.define<InitModel<ModelProps>>(
   'user_equipment',
   {
     id: {

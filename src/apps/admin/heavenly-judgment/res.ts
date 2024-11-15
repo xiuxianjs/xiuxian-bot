@@ -13,13 +13,11 @@ export default OnResponse(
     const UserData = await isSideUser(e, UID)
     if (typeof UserData == 'boolean') return
     // 查阅物品
-    const ifexist = await goods
-      .findOne({
-        where: {
-          name: Name // 找到物品名
-        }
-      })
-      .then(res => res?.dataValues)
+    const ifexist = await goods.findOneValue({
+      where: {
+        name: Name // 找到物品名
+      }
+    })
     const Send = useSend(e)
     // 物品不存在
     if (!ifexist) {

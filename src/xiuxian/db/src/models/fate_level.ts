@@ -1,16 +1,18 @@
 import { sequelize } from '../connect.js'
 import { DataTypes, Model } from 'sequelize'
 
-export const fate_level = sequelize.define<
-  Model<{
-    id: number
-    grade: number //int
-    exp_bodypractice: number //int
-    exp_gaspractice: number //int
-    exp_soul: number //int
-    doc: string //string
-  }>
->(
+type ModelProps = {
+  id: number
+  grade: number //int
+  exp_bodypractice: number //int
+  exp_gaspractice: number //int
+  exp_soul: number //int
+  doc: string //string
+}
+
+class InitModel<T> extends Model<T> {}
+
+export const fate_level = sequelize.define<InitModel<ModelProps>>(
   'fate_level',
   {
     id: {

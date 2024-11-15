@@ -1,19 +1,20 @@
 import { sequelize } from '../connect.js'
 import { DataTypes, Model } from 'sequelize'
+type ModelProps = {
+  id: number
+  name: string //string
+  type: number //int
+  grade: number //int
+  attribute: number //int
+  x: number //int
+  y: number //int
+  z: number //int
+  doc: string //string
+}
 
-export const map_point = sequelize.define<
-  Model<{
-    id: number
-    name: string //string
-    type: number //int
-    grade: number //int
-    attribute: number //int
-    x: number //int
-    y: number //int
-    z: number //int
-    doc: string //string
-  }>
->(
+class InitModel<T> extends Model<T> {}
+
+export const map_point = sequelize.define<InitModel<ModelProps>>(
   'map_point',
   {
     id: {
