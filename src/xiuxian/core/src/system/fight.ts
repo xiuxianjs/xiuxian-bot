@@ -72,8 +72,6 @@ const getHurt = (UserA: UserBattleType, UserB: UserBattleType) => {
     outbreak: 0 // 暴伤
   }
 
-  console.log('U', UserA, UserB)
-
   // 原始伤害计算
   const originalA = getOriginal(UserA, UserB)
 

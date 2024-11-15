@@ -29,7 +29,7 @@ export default OnResponse(
 
     // 不存在
     if (!aData) {
-      console.log('势力不存在', aData)
+      Send(Text('势力不存在'))
       return false
     }
 

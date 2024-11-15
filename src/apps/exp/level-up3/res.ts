@@ -155,7 +155,6 @@ export default OnResponse(
         UserData.immortal_grade > 20
           ? 2
           : 90 - realm - UserData.immortal_grade * 3
-      // console.log('突破概率为', p)
       // 取值范围 [1 100 ] 突破概率为 (value-realm-grade)/100
       // 至少5%的概率突破成功
       if (!Method.isTrueInRange(1, 100, p < 5 ? 5 : p)) {

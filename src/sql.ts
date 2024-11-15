@@ -14,6 +14,7 @@ import map_treasure from './assets/db/map_treasure.json'
 import monster from './assets/db/monster.json'
 import skys from './assets/db/skys.json'
 import talent from './assets/db/talent.json'
+import { Model } from 'sequelize'
 
 const SqlData = {
   constitution,
@@ -39,13 +40,10 @@ const sequelizeInit = async () => {
   useBelongsTo()
   // 开始同步
   for (const key in models) {
-    const model = models[key]
-    await model
-      // .sync({ alter: true })
-      .sync({ alter: true })
-      .catch(err => {
-        console.error(key, '表同步失败:', err)
-      })
+    const model: typeof Model = models[key]
+    await model.sync({ alter: true }).catch(err => {
+      console.error('表同步失败:', key, err)
+    })
   }
   // 插入数据
   for (const key in models) {

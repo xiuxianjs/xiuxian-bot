@@ -56,7 +56,7 @@ export default OnResponse(
 
     // 不存在
     if (!aData) {
-      console.log('势力不存在', aData)
+      Send(Text('不存在该势力'))
       return false
     }
 
