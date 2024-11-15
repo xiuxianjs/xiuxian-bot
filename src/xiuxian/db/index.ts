@@ -10,7 +10,7 @@ export const Redis = getIoRedis()
  */
 export type AttributesType<T extends ModelCtor<Model>> =
   T extends ModelCtor<infer M>
-    ? M extends Model<infer U, any>
+    ? M extends Model<infer U, object>
       ? U
       : never
     : never

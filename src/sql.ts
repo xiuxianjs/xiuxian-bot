@@ -1,21 +1,21 @@
-import ass_typing from './assets/sql/data/ass_typing.sql'
-import levels_limit from './assets/sql/data/levels_limit.sql'
-import levels from './assets/sql/data/levels.sql'
-import constitution from './assets/sql/data/constitution.sql'
-import fate_level from './assets/sql/data/fate_level.sql'
-import goods_alliancemall from './assets/sql/data/goods_alliancemall.sql'
-import goods_commodities from './assets/sql/data/goods_commodities.sql'
-import goods_drops from './assets/sql/data/goods_drops.sql'
-import { readFileSync } from 'fs'
-import goods from './assets/sql/data/goods.sql'
-import map_point from './assets/sql/data/map_point.sql'
-import map_position from './assets/sql/data/map_position.sql'
-import map_treasure from './assets/sql/data/map_treasure.sql'
-import monster from './assets/sql/data/monster.sql'
-import skys from './assets/sql/data/skys.sql'
-import talent from './assets/sql/data/talent.sql'
+import { models, sequelize, useBelongsTo } from './xiuxian/db'
+import ass_typing from './assets/db/ass_typing.json'
+import levels_limit from './assets/db/levels_limit.json'
+import levels from './assets/db/levels.json'
+import constitution from './assets/db/constitution.json'
+import fate_level from './assets/db/fate_level.json'
+import goods_alliancemall from './assets/db/goods_alliancemall.json'
+import goods_commodities from './assets/db/goods_commodities.json'
+import goods_drops from './assets/db/goods_drops.json'
+import goods from './assets/db/goods.json'
+import map_point from './assets/db/map_point.json'
+import map_position from './assets/db/map_position.json'
+import map_treasure from './assets/db/map_treasure.json'
+import monster from './assets/db/monster.json'
+import skys from './assets/db/skys.json'
+import talent from './assets/db/talent.json'
 
-const SqlMap = {
+const SqlData = {
   constitution,
   ass_typing,
   levels_limit,
@@ -33,46 +33,41 @@ const SqlMap = {
   map_treasure
 }
 
-import { models, sequelize, useBelongsTo } from './xiuxian/db'
+const sequelizeInit = async () => {
+  console.log('数据库连接成功.')
+  // // 得到当前数据库中的所有表
+  await sequelize.query('SET FOREIGN_KEY_CHECKS = 0')
+  // // const tableExists = await sequelize.getQueryInterface().showAllTables()
+  for (const key in models) {
+    const model = models[key]
+    await model
+      // .sync({ alter: true })
+      .sync({ alter: true })
+      .then(async () => {
+        if (SqlData[key]) {
+          for (const data of SqlData[key]) {
+            await models[key].findOrCreate({
+              // 查找条件 id 不一致
+              where: { id: data.id },
+              // 如果找不到，则插入的默认值
+              defaults: data
+            })
+          }
+        }
+      })
+      .catch(err => {
+        console.error(key, '表同步失败:', err)
+      })
+  }
+  await sequelize.query('SET FOREIGN_KEY_CHECKS = 1')
+  // 建立索引
+  useBelongsTo()
+}
 
 // 在这里开始检查数据库
 await sequelize
   .authenticate()
-  .then(async () => {
-    console.log('数据库连接成功.')
-    // 得到当前数据库中的所有表
-    // const tableExists = await sequelize.getQueryInterface().showAllTables()
-    for (const key in models) {
-      const model = models[key]
-      await model.sync({ alter: true }).catch(err => {
-        console.error(key, '表同步失败:', err)
-      })
-    }
-    // SET FOREIGN_KEY_CHECKS = 0;
-    await sequelize.query('SET FOREIGN_KEY_CHECKS = 0')
-    // 以当前本地文件为准
-    for (const key in SqlMap) {
-      const sql = readFileSync(SqlMap[key], 'utf8')
-      const statements = sql.trim().split(';').filter(Boolean) // 拆分并过滤空语句
-      const count = await models[key].count()
-      if (statements.length > count) {
-        // 删除重建
-        for (const statement of statements) {
-          const str = statement.trim()
-          if (str.length > 0) {
-            await sequelize.query(str)
-          }
-        }
-        console.log('存在未加入数据,', key, '载入数据完成')
-        return
-      }
-    }
-    await sequelize.query('SET FOREIGN_KEY_CHECKS = 1')
-    //
-    console.log('数据库同步完成')
-    // 建立索引
-    useBelongsTo()
-  })
+  .then(sequelizeInit)
   .catch(err => {
     console.error(err)
     console.log('数据库连接失败.')

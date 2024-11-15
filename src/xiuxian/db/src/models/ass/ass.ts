@@ -1,20 +1,22 @@
-import { sequelize } from '../../connect.js'
-import { DataTypes, Model } from 'sequelize'
-export const ass = sequelize.define<
-  Model<{
-    id: number
-    create_time: number
-    name: string
-    typing: number
-    grade: number
-    bag_grade: number
-    property: number
-    fame: number
-    activation: number
-    doc: string
-  }>
->(
-  'ass',
+import { Model, sequelize } from '../../connect.js'
+import { DataTypes } from 'sequelize'
+
+type ModelProps = {
+  id: number
+  create_time: number
+  name: string
+  typing: number
+  grade: number
+  bag_grade: number
+  property: number
+  fame: number
+  activation: number
+  doc: string
+}
+
+class InitModel<T> extends Model<T> {}
+
+export const ass = InitModel.init<typeof Model<ModelProps>, Model<ModelProps>>(
   {
     id: {
       type: DataTypes.BIGINT,
@@ -68,6 +70,8 @@ export const ass = sequelize.define<
     }
   },
   {
+    sequelize,
+    tableName: 'ass',
     freezeTableName: true,
     createdAt: false,
     updatedAt: false,

@@ -1,0 +1,12 @@
+[
+  { "id": 1, "name": "金", "doc": null },
+  { "id": 2, "name": "木", "doc": null },
+  { "id": 3, "name": "水", "doc": null },
+  { "id": 4, "name": "火", "doc": null },
+  { "id": 5, "name": "土", "doc": null },
+  { "id": 6, "name": "暗", "doc": null },
+  { "id": 7, "name": "雷", "doc": null },
+  { "id": 8, "name": "冰", "doc": null },
+  { "id": 9, "name": "光", "doc": null },
+  { "id": 10, "name": "风", "doc": null }
+]

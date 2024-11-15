@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "name": "极品灵石",
+    "count": 500,
+    "ranking": 20,
+    "createAt": null,
+    "updateAt": "2024-05-05T18:38:22.000Z",
+    "deleteAt": null
+  },
+  {
+    "id": 2,
+    "name": "极品灵石",
+    "count": 800,
+    "ranking": 10,
+    "createAt": null,
+    "updateAt": "2024-05-05T18:38:26.000Z",
+    "deleteAt": null
+  },
+  {
+    "id": 3,
+    "name": "饮血剑",
+    "count": 1,
+    "ranking": 3,
+    "createAt": null,
+    "updateAt": "2024-05-05T02:40:26.000Z",
+    "deleteAt": null
+  },
+  {
+    "id": 4,
+    "name": "开灵铲",
+    "count": 10,
+    "ranking": 10,
+    "createAt": null,
+    "updateAt": "2024-05-05T02:40:22.000Z",
+    "deleteAt": null
+  },
+  {
+    "id": 5,
+    "name": "极品灵石",
+    "count": 300,
+    "ranking": 30,
+    "createAt": null,
+    "updateAt": "2024-05-05T18:36:10.000Z",
+    "deleteAt": null
+  },
+  {
+    "id": 6,
+    "name": "极品灵石",
+    "count": 200,
+    "ranking": 40,
+    "createAt": null,
+    "updateAt": "2024-05-05T18:36:08.000Z",
+    "deleteAt": null
+  },
+  {
+    "id": 7,
+    "name": "极品灵石",
+    "count": 100,
+    "ranking": 50,
+    "createAt": null,
+    "updateAt": null,
+    "deleteAt": null
+  },
+  {
+    "id": 8,
+    "name": "极品灵石",
+    "count": 50,
+    "ranking": 100,
+    "createAt": null,
+    "updateAt": "2024-10-17T22:39:30.000Z",
+    "deleteAt": null
+  }
+]

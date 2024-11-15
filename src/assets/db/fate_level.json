@@ -1,0 +1,90 @@
+[
+  {
+    "id": 0,
+    "grade": 0,
+    "exp_gaspractice": 72000,
+    "exp_bodypractice": 63000,
+    "exp_soul": 54000,
+    "doc": ""
+  },
+  {
+    "id": 1,
+    "grade": 1,
+    "exp_gaspractice": 81000,
+    "exp_bodypractice": 72000,
+    "exp_soul": 63000,
+    "doc": null
+  },
+  {
+    "id": 2,
+    "grade": 2,
+    "exp_gaspractice": 90000,
+    "exp_bodypractice": 81000,
+    "exp_soul": 72000,
+    "doc": null
+  },
+  {
+    "id": 3,
+    "grade": 3,
+    "exp_gaspractice": 180000,
+    "exp_bodypractice": 90000,
+    "exp_soul": 81000,
+    "doc": null
+  },
+  {
+    "id": 4,
+    "grade": 4,
+    "exp_gaspractice": 270000,
+    "exp_bodypractice": 180000,
+    "exp_soul": 90000,
+    "doc": null
+  },
+  {
+    "id": 5,
+    "grade": 5,
+    "exp_gaspractice": 360000,
+    "exp_bodypractice": 270000,
+    "exp_soul": 180000,
+    "doc": null
+  },
+  {
+    "id": 6,
+    "grade": 6,
+    "exp_gaspractice": 450000,
+    "exp_bodypractice": 360000,
+    "exp_soul": 270000,
+    "doc": null
+  },
+  {
+    "id": 7,
+    "grade": 7,
+    "exp_gaspractice": 540000,
+    "exp_bodypractice": 450000,
+    "exp_soul": 360000,
+    "doc": null
+  },
+  {
+    "id": 8,
+    "grade": 8,
+    "exp_gaspractice": 630000,
+    "exp_bodypractice": 540000,
+    "exp_soul": 450000,
+    "doc": null
+  },
+  {
+    "id": 9,
+    "grade": 9,
+    "exp_gaspractice": 720000,
+    "exp_bodypractice": 630000,
+    "exp_soul": 540000,
+    "doc": null
+  },
+  {
+    "id": 10,
+    "grade": 10,
+    "exp_gaspractice": 810000,
+    "exp_bodypractice": 720000,
+    "exp_soul": 630000,
+    "doc": null
+  }
+]

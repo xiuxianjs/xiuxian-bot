@@ -1,22 +1,26 @@
-import { sequelize } from '../connect.js'
-import { DataTypes, Model } from 'sequelize'
-export const ass_typing = sequelize.define<
-  Model<{
-    id: number
-    master: string
-    vice_master: string
-    super_admin: string
-    admin: string
-    core_member: string
-    senior_menber: string
-    intermediate_member: string
-    lowerlevel_member: string
-    tagged_member: string
-    reviewed_member: string
-    doc: string
-  }>
+import { sequelize, Model } from '../connect.js'
+import { DataTypes } from 'sequelize'
+
+type ModelProps = {
+  id: number
+  master: string
+  vice_master: string
+  super_admin: string
+  admin: string
+  core_member: string
+  senior_menber: string
+  intermediate_member: string
+  lowerlevel_member: string
+  tagged_member: string
+  reviewed_member: string
+}
+
+class InitModel<T> extends Model<T> {}
+
+export const ass_typing = InitModel.init<
+  typeof Model<ModelProps>,
+  Model<ModelProps>
 >(
-  'ass_typing',
   {
     id: {
       type: DataTypes.INTEGER,
@@ -72,14 +76,11 @@ export const ass_typing = sequelize.define<
       type: DataTypes.STRING(255),
       allowNull: true,
       comment: '待审核成员'
-    },
-    doc: {
-      type: DataTypes.STRING(255),
-      allowNull: true,
-      comment: '说明'
     }
   },
   {
+    sequelize,
+    tableName: 'ass_typing',
     freezeTableName: true,
     createdAt: false,
     updatedAt: false

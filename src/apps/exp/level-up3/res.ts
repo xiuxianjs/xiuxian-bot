@@ -9,7 +9,7 @@ import {
   operationLock
 } from '@xiuxian/core/index'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
-import { levels, user, user_level } from '@src/xiuxian/db'
+import { goods, levels, levels_limit, user, user_level } from '@src/xiuxian/db'
 import { NAMEMAP } from '@src/xiuxian/core/src/users/additional/levels'
 export default OnResponse(
   async e => {
@@ -88,6 +88,44 @@ export default OnResponse(
         limit: 3
       })
       .then(res => res?.dataValues)
+
+    // 得到该境界所需要的物品
+    const LevelsLimit = await levels_limit
+      .findOne({
+        where: {
+          grade: nextLevel.grade,
+          // 境界类型1
+          typing: 1
+        }
+      })
+      .then(res => res?.dataValues)
+
+    // 该境界存在门槛。
+    if (LevelsLimit) {
+      //
+      const length = UserData.talent.length
+      //
+      const gids = LevelsLimit.gids.split('.')
+      //
+      const goodsData = await goods
+        .findAll({
+          where: {
+            id: gids
+          }
+        })
+        .then(res => res.map(item => item?.dataValues))
+
+      // gids
+      Send(
+        Text(
+          [
+            '突破到下境界需要:',
+            ...goodsData.map(item => `[${item.name}]*${length * length}`)
+          ].join('\n')
+        )
+      )
+      return
+    }
 
     /**
      *

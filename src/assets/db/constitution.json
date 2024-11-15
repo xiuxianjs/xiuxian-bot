@@ -1,0 +1,19 @@
+[
+  { "id": 1, "name": "非酱体", "grade": 1 },
+  { "id": 2, "name": "无为体", "grade": 1 },
+  { "id": 3, "name": "霸王体", "grade": 1 },
+  { "id": 4, "name": "万雷灵体", "grade": 2 },
+  { "id": 5, "name": "不朽灵体", "grade": 2 },
+  { "id": 6, "name": "焚天灵体", "grade": 2 },
+  { "id": 7, "name": "纯水灵体", "grade": 2 },
+  { "id": 8, "name": "护岩灵体", "grade": 2 },
+  { "id": 9, "name": "星辰之体", "grade": 3 },
+  { "id": 10, "name": "九天之体", "grade": 3 },
+  { "id": 11, "name": "祖龙之体", "grade": 3 },
+  { "id": 12, "name": "恶魔圣体", "grade": 4 },
+  { "id": 13, "name": "无垢圣体", "grade": 4 },
+  { "id": 14, "name": "无极圣体", "grade": 4 },
+  { "id": 15, "name": "时空仙体", "grade": 5 },
+  { "id": 16, "name": "混沌仙体", "grade": 5 },
+  { "id": 17, "name": "鸿蒙仙体", "grade": 5 }
+]

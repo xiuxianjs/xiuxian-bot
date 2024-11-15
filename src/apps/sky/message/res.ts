@@ -50,12 +50,12 @@ export default OnResponse(
     }
 
     //
-    const uid = data.uid
+    const UIDB = data.uid
 
     const UserDataB = await user
       .findOne({
         where: {
-          uid: UID
+          uid: UIDB
         }
       })
       .then(res => res?.dataValues)
@@ -66,8 +66,8 @@ export default OnResponse(
     }
 
     if (/面板/.test(text)) {
-      Equipment.updatePanel(UID, UserData.battle_blood_now).then(() => {
-        equipmentInformation(UID, e.UserAvatar).then(res => {
+      Equipment.updatePanel(UIDB, UserData.battle_blood_now).then(() => {
+        equipmentInformation(UIDB, e.UserAvatar).then(res => {
           pictureRender('Equipmentcomponent', {
             data: res,
             theme: UserData?.theme ?? 'dark'
@@ -88,14 +88,14 @@ export default OnResponse(
         },
         {
           where: {
-            uid: uid
+            uid: UIDB
           }
         }
       )
       .then(() => {
         Promise.all([
-          Skills.updataEfficiency(uid, UserData.talent),
-          Equipment.updatePanel(uid, UserData.battle_blood_now),
+          Skills.updataEfficiency(UIDB, UserData.talent),
+          Equipment.updatePanel(UIDB, UserData.battle_blood_now),
           showUserMsg(e)
         ]).catch(err => {
           console.error(err)

@@ -1,39 +1,34 @@
-import { sequelize } from '../connect.js'
-import { DataTypes, Model } from 'sequelize'
+import { Model, sequelize } from '../connect.js'
+import { DataTypes } from 'sequelize'
 
-export const goods = sequelize.define<
-  Model<{
-    // 定义模型属性
-    id: number
-    type: number //int
-    monster_type: number //int
-    grade: number //int
-    name: string //string
-    addition: string
-    talent: number[] // json
-    attack: number
-    defense: number
-    blood: number
-    boolere_covery: number
-    critical_hit: number
-    critical_damage: number
-    exp_bodypractice: number
-    exp_gaspractice: number
-    exp_soul: number
-    speed: number
-    size: number
-    price: number
-    drops: number // 怪物掉落
-    alliancemall: number //  联盟商城
-    commodities: number // 万宝楼
-    wheeldisc: number // 命运转盘 tudo 废弃
-    palace: number // 浩瀚宫调 tudo 废弃
-    limit: number // 浩瀚宫调限定 tudo 废弃
-    limit_buy: number // 购买上限 tudo 废弃
-    doc: string
-  }>
+type ModelProps = {
+  id: number
+  type: number //int
+  monster_type: number //int
+  grade: number //int
+  name: string //string
+  addition: string
+  talent: number[] // json
+  attack: number
+  defense: number
+  blood: number
+  boolere_covery: number
+  critical_hit: number
+  critical_damage: number
+  exp_bodypractice: number
+  exp_gaspractice: number
+  exp_soul: number
+  speed: number
+  size: number
+  price: number
+}
+
+class InitModel<T> extends Model<T> {}
+
+export const goods = InitModel.init<
+  typeof Model<ModelProps>,
+  Model<ModelProps>
 >(
-  'goods',
   {
     id: {
       type: DataTypes.INTEGER,
@@ -71,36 +66,6 @@ export const goods = sequelize.define<
       allowNull: true,
       comment: '属性'
     },
-    wheeldisc: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0,
-      comment: '命运转盘----特殊物品'
-    },
-    commodities: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0,
-      comment: '万宝楼------基础物品'
-    },
-    alliancemall: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0,
-      comment: '联盟商城------稀有物品'
-    },
-    palace: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0,
-      comment: '日常物品'
-    },
-    limit: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0,
-      comment: '限定物品---1为普通 2为版本|绝版 3为极品'
-    },
-    drops: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0,
-      comment: '怪物掉落：材料'
-    },
     boolere_covery: {
       type: DataTypes.INTEGER,
       allowNull: true
@@ -133,21 +98,22 @@ export const goods = sequelize.define<
     exp_gaspractice: {
       type: DataTypes.INTEGER,
       defaultValue: 0,
-      comment: '气境'
+      comment: '气境增值'
     },
     exp_bodypractice: {
       type: DataTypes.INTEGER,
       defaultValue: 0,
-      comment: '体境'
+      comment: '体境增值'
     },
     exp_soul: {
       type: DataTypes.INTEGER,
       defaultValue: 0,
-      comment: '魂境'
+      comment: '魂境增值'
     },
     size: {
       type: DataTypes.INTEGER,
-      defaultValue: 0
+      defaultValue: 0,
+      comment: ''
     },
     speed: {
       type: DataTypes.INTEGER,
@@ -159,17 +125,11 @@ export const goods = sequelize.define<
       allowNull: false,
       defaultValue: 100,
       comment: '价格'
-    },
-    limit_buy: {
-      type: DataTypes.INTEGER,
-      defaultValue: 99999,
-      comment: '购买限制'
-    },
-    doc: {
-      type: DataTypes.STRING(20)
     }
   },
   {
+    sequelize,
+    tableName: 'goods',
     freezeTableName: true,
     createdAt: false,
     updatedAt: false
