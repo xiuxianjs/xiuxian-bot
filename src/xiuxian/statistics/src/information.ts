@@ -31,49 +31,49 @@ export async function personalInformation(UID: string, UserAvatar?: string) {
   const userLevelData = await DB.user_level
     .findAll({
       where: {
-        uid: UID,
-        type: [1, 2, 3]
-      },
-      order: [['type', 'DESC']]
+        uid: UID
+      }
     })
     .then(res => res.map(item => item?.dataValues))
+
+  const gLevelData = userLevelData.find(item => item.type == 1)
 
   // 境界数据
   const GaspracticeList = await DB.levels
     .findAll({
       attributes: ['name', 'type', 'exp_needed'],
       where: {
-        grade: [userLevelData[2]?.realm],
+        grade: gLevelData?.realm ?? 0,
         type: 1
       }
     })
     .then(res => res.map(item => item?.dataValues))
+
+  const bLevelData = userLevelData.find(item => item.type == 2)
 
   // 境界数据
   const BodypracticeList = await DB.levels
     .findAll({
       attributes: ['name', 'type', 'exp_needed'],
       where: {
-        grade: userLevelData[1]?.realm,
+        grade: bLevelData?.realm ?? 0,
         type: 2
       }
     })
     .then(res => res.map(item => item?.dataValues))
+
+  const sLevelData = userLevelData.find(item => item.type == 3)
 
   // 境界数据
   const SoulList = await DB.levels
     .findAll({
       attributes: ['name', 'type', 'exp_needed'],
       where: {
-        grade: userLevelData[0]?.realm,
+        grade: sLevelData?.realm ?? 0,
         type: 3
       }
     })
     .then(res => res.map(item => item?.dataValues))
-
-  /**
-   * 境界数据要关联起来
-   */
 
   // 固定数据读取
   const GaspracticeData = GaspracticeList[0]
@@ -138,17 +138,17 @@ export async function personalInformation(UID: string, UserAvatar?: string) {
     level: {
       gaspractice: {
         Name: GaspracticeData?.name,
-        Experience: userLevelData[2]?.experience,
+        Experience: gLevelData?.experience ?? 0,
         ExperienceLimit: GaspracticeData?.exp_needed
       },
       bodypractice: {
         Name: BodypracticeData?.name,
-        Experience: userLevelData[1]?.experience,
+        Experience: bLevelData?.experience ?? 0,
         ExperienceLimit: BodypracticeData?.exp_needed
       },
       soul: {
         Name: SoulData?.name,
-        Experience: userLevelData[0]?.experience,
+        Experience: sLevelData?.experience ?? 0,
         ExperienceLimit: SoulData?.exp_needed
       }
     },

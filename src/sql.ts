@@ -58,6 +58,7 @@ const sequelizeInit = async () => {
       }
     }
   }
+  console.log('数据库同步完成.')
 }
 
 // 在这里开始检查数据库
