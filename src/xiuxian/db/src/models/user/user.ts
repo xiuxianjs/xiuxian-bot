@@ -76,12 +76,10 @@ export const user = sequelize.define<Model<User>>(
       type: DataTypes.BIGINT,
       primaryKey: true,
       autoIncrement: true,
-      allowNull: false,
-      unique: true
+      allowNull: false
     },
     uid: {
       type: DataTypes.STRING(50),
-      unique: true,
       allowNull: true,
       comment: '编号'
     },

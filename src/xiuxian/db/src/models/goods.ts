@@ -38,7 +38,6 @@ export const goods = InitModel.init<
     name: {
       type: DataTypes.STRING(20),
       allowNull: false,
-      unique: true,
       comment: '名字唯一'
     },
     type: {

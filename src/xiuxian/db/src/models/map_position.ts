@@ -28,8 +28,7 @@ export const map_position = sequelize.define<InitModel<ModelProps>>(
     },
     name: {
       type: DataTypes.STRING(20),
-      allowNull: true,
-      unique: true
+      allowNull: true
     },
     type: {
       type: DataTypes.INTEGER,

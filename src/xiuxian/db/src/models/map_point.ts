@@ -20,7 +20,6 @@ export const map_point = sequelize.define<InitModel<ModelProps>>(
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      unique: true,
       allowNull: false
     },
     name: {
