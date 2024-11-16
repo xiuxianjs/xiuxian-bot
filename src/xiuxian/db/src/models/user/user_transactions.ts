@@ -84,7 +84,7 @@ export const user_transactions = sequelize.define(
       }
     },
     name: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.STRING(20),
       comment: '物品名',
       references: {
         model: goods,

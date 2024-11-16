@@ -33,9 +33,10 @@ const logging = (sql: string) => {
 
 const db = getConfig().value?.db
 
-export const sequelize = new Sequelize(db.database, db.user, db.password, {
-  host: db.host,
-  port: db.port,
-  dialect: 'mysql',
-  logging: logging
-})
+export const sequelize = new Sequelize(
+  `mysql://${db.user}:${db.password}@${db.host}:${db.port}/${db.database}`,
+  {
+    dialect: 'mysql',
+    logging: logging
+  }
+)

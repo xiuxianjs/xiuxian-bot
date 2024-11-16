@@ -7,47 +7,35 @@ export default OnResponse(
   async e => {
     //
     const UID = await getEmailUID(e.UserId)
+
     //
-    user
+    const UserData = await user
       .findOne({
         where: {
           uid: UID
         }
       })
       .then(res => res?.dataValues)
-      .then(UserData => {
-        if (!UserData) {
-          createUser(e)
-          return
-        }
-        user
-          .update(
-            {
-              avatar: e.UserAvatar
-            },
-            {
-              where: {
-                uid: UID
-              }
-            }
-          )
-          .then(() => {
-            Promise.all([
-              GameApi.Skills.updataEfficiency(UID, UserData.talent),
-              GameApi.Equipment.updatePanel(UID, UserData.battle_blood_now),
-              showUserMsg(e)
-            ]).catch(err => {
-              console.error(err)
-              const Send = useSend(e)
-              Send(Text('数据处理错误'))
-            })
-          })
-      })
       .catch(err => {
         console.error(err)
         const Send = useSend(e)
         Send(Text('数据处理错误'))
       })
+
+    if (!UserData) {
+      createUser(e)
+      return
+    }
+
+    Promise.all([
+      GameApi.Skills.updataEfficiency(UID, UserData.talent),
+      GameApi.Equipment.updatePanel(UID, UserData.battle_blood_now),
+      showUserMsg(e)
+    ]).catch(err => {
+      console.error(err)
+      const Send = useSend(e)
+      Send(Text('数据处理错误'))
+    })
 
     return
   },

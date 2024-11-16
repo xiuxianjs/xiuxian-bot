@@ -80,6 +80,15 @@ user_bag.init(
         key: 'uid'
       }
     },
+    name: {
+      type: DataTypes.STRING(20),
+      defaultValue: '10',
+      comment: '物品名',
+      references: {
+        model: goods,
+        key: 'name'
+      }
+    },
     tid: {
       type: DataTypes.INTEGER,
       allowNull: true,
@@ -89,15 +98,6 @@ user_bag.init(
       type: DataTypes.INTEGER,
       allowNull: true,
       comment: '物品类型'
-    },
-    name: {
-      type: DataTypes.STRING(20),
-      defaultValue: '10',
-      comment: '物品名',
-      references: {
-        model: goods,
-        key: 'name'
-      }
     },
     acount: {
       type: DataTypes.BIGINT,

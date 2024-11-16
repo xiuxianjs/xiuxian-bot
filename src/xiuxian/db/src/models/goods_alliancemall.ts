@@ -71,7 +71,7 @@ export const goods_alliancemall = sequelize.define(
       allowNull: false
     },
     gid: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       comment: '商品编号',
       references: {
         model: goods,

@@ -3,18 +3,27 @@ import * as models from './models.js'
 export { models }
 
 export const useBelongsTo = () => {
-  models.user_ass.belongsTo(models.ass, { foreignKey: 'aid', targetKey: 'id' })
-  models.user_ass.belongsTo(models.user, {
-    foreignKey: 'uid',
-    targetKey: 'uid'
-  })
-  models.user_ass_apply.belongsTo(models.ass, {
-    foreignKey: 'aid',
+  /**
+   * goods
+   */
+  models.goods_alliancemall.belongsTo(models.goods, {
+    foreignKey: 'gid',
     targetKey: 'id'
   })
-  models.user_ass_apply.belongsTo(models.user, {
-    foreignKey: 'uid',
-    targetKey: 'uid'
+  models.goods_commodities.belongsTo(models.goods, {
+    foreignKey: 'gid',
+    targetKey: 'id'
+  })
+  models.goods_drops.belongsTo(models.goods, {
+    foreignKey: 'gid',
+    targetKey: 'id'
+  })
+  /**
+   *
+   */
+  models.skys.belongsTo(models.goods, {
+    foreignKey: 'gid',
+    targetKey: 'id'
   })
   /**
    * user
@@ -26,14 +35,6 @@ export const useBelongsTo = () => {
   models.user_bag.belongsTo(models.user, {
     foreignKey: 'uid',
     targetKey: 'uid'
-  })
-  models.user_bag.belongsTo(models.goods, {
-    foreignKey: 'name',
-    targetKey: 'name'
-  })
-  models.user_buy_log.belongsTo(models.goods, {
-    foreignKey: 'name',
-    targetKey: 'name'
   })
   models.user_buy_log.belongsTo(models.user, {
     foreignKey: 'uid',
@@ -47,17 +48,9 @@ export const useBelongsTo = () => {
     foreignKey: 'uid',
     targetKey: 'uid'
   })
-  models.user_equipment.belongsTo(models.goods, {
-    foreignKey: 'name',
-    targetKey: 'name'
-  })
   models.user_fate.belongsTo(models.user, {
     foreignKey: 'uid',
     targetKey: 'uid'
-  })
-  models.user_fate.belongsTo(models.goods, {
-    foreignKey: 'name',
-    targetKey: 'name'
   })
   models.user_level.belongsTo(models.user, {
     foreignKey: 'uid',
@@ -67,17 +60,9 @@ export const useBelongsTo = () => {
     foreignKey: 'uid',
     targetKey: 'uid'
   })
-  models.user_ring.belongsTo(models.goods, {
-    foreignKey: 'name',
-    targetKey: 'name'
-  })
   models.user_ring.belongsTo(models.user, {
     foreignKey: 'uid',
     targetKey: 'uid'
-  })
-  models.user_skills.belongsTo(models.goods, {
-    foreignKey: 'name',
-    targetKey: 'name'
   })
   models.user_skills.belongsTo(models.user, {
     foreignKey: 'uid',
@@ -91,11 +76,11 @@ export const useBelongsTo = () => {
     foreignKey: 'uid',
     targetKey: 'uid'
   })
-  models.user_transactions.belongsTo(models.goods, {
-    foreignKey: 'name',
-    targetKey: 'name'
-  })
   models.user_transactions.belongsTo(models.user, {
+    foreignKey: 'uid',
+    targetKey: 'uid'
+  })
+  models.user_transactions_logs.belongsTo(models.user, {
     foreignKey: 'uid',
     targetKey: 'uid'
   })
@@ -103,9 +88,33 @@ export const useBelongsTo = () => {
     foreignKey: 'name',
     targetKey: 'name'
   })
-  models.user_transactions_logs.belongsTo(models.user, {
-    foreignKey: 'uid',
-    targetKey: 'uid'
+  models.user_fate.belongsTo(models.goods, {
+    foreignKey: 'name',
+    targetKey: 'name'
+  })
+  models.user_skills.belongsTo(models.goods, {
+    foreignKey: 'name',
+    targetKey: 'name'
+  })
+  models.user_transactions.belongsTo(models.goods, {
+    foreignKey: 'name',
+    targetKey: 'name'
+  })
+  models.user_equipment.belongsTo(models.goods, {
+    foreignKey: 'name',
+    targetKey: 'name'
+  })
+  models.user_ring.belongsTo(models.goods, {
+    foreignKey: 'name',
+    targetKey: 'name'
+  })
+  models.user_bag.belongsTo(models.goods, {
+    foreignKey: 'name',
+    targetKey: 'name'
+  })
+  models.user_buy_log.belongsTo(models.goods, {
+    foreignKey: 'name',
+    targetKey: 'name'
   })
   /**
    * ass
@@ -126,19 +135,17 @@ export const useBelongsTo = () => {
     foreignKey: 'aid',
     targetKey: 'id'
   })
-  /**
-   * goods
-   */
-  models.goods_alliancemall.belongsTo(models.goods, {
-    foreignKey: 'gid',
+  models.user_ass.belongsTo(models.ass, { foreignKey: 'aid', targetKey: 'id' })
+  models.user_ass.belongsTo(models.user, {
+    foreignKey: 'uid',
+    targetKey: 'uid'
+  })
+  models.user_ass_apply.belongsTo(models.ass, {
+    foreignKey: 'aid',
     targetKey: 'id'
   })
-  models.goods_commodities.belongsTo(models.goods, {
-    foreignKey: 'gid',
-    targetKey: 'id'
-  })
-  models.goods_drops.belongsTo(models.goods, {
-    foreignKey: 'gid',
-    targetKey: 'id'
+  models.user_ass_apply.belongsTo(models.user, {
+    foreignKey: 'uid',
+    targetKey: 'uid'
   })
 }

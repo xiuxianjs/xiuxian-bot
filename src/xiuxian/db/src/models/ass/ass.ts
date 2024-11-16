@@ -90,7 +90,7 @@ ass.init(
       allowNull: false
     },
     typing: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       comment: '类型, 不同的类型文本不同',
       references: {
         model: ass_typing,

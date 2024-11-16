@@ -358,7 +358,7 @@ export async function backpackInformation(
   return {
     UID,
     name: UserData.name,
-    bag_grade: bag_message.grade,
+    bag_grade: bag_message?.grade ?? 0,
     length: length,
     bag: bag,
     avatar: UserAvatar

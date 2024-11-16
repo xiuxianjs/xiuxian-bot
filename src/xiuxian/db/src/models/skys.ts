@@ -1,6 +1,7 @@
 import { sequelize } from '../connect.js'
 import { DataTypes, Model } from 'sequelize'
 import { Attributes, FindOptions, ModelStatic } from 'sequelize'
+import { goods } from './goods.js'
 type ModelProps = {
   id: number
   name: string // string
@@ -72,9 +73,9 @@ export const skys = sequelize.define(
       allowNull: false
     },
     name: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.STRING(20),
       references: {
-        model: 'goods',
+        model: goods,
         key: 'name'
       }
     },
