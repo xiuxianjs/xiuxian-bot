@@ -11,7 +11,7 @@ export default OnResponse(
     if (!(await controlByName(e, UserData, '联盟'))) return
     const start_msg = ['___[联盟商会]___', '[/兑换+物品名*数量]']
     const text = useParse(e.Megs, 'Text')
-    const type = text.replace(/^(#|\/)?(联盟商会|聯盟商會)/, '')
+    const type = text.replace(/^(#|\/)?查看(商会|商會)/, '')
     const commoditiesList = await DB.goods_alliancemall
       .findAll({
         include: [
@@ -30,5 +30,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?查看商会(武器|护具|法宝|丹药|功法|道具|材料|装备)?$/
+  /^(#|\/)?查看(商会|商會)(武器|护具|法宝|丹药|功法|道具|材料|装备)?$/
 )

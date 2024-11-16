@@ -10,7 +10,7 @@ export default OnResponse(
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
     const text = useParse(e.Megs, 'Text')
-    const type = text.replace(/^(#|\/)?(储物袋|儲物袋|背包)/, '')
+    const type = text.replace(/^(#|\/)?我的(储物袋|儲物袋|背包)/, '')
     const data = await backpackInformation(
       e.UserId,
       e.UserAvatar,
