@@ -2,7 +2,15 @@ import { sequelize } from '../../connect.js'
 import { DataTypes, Model } from 'sequelize'
 import { Attributes, FindOptions, ModelStatic } from 'sequelize'
 
-class InitModel extends Model<ModelProps> {
+type ModelProps = {
+  id: number
+  uid: string
+  email: string
+  password: string
+  identity: number
+}
+
+class users_email extends Model<ModelProps> {
   /**
    * 找到所有数据
    * @param this
@@ -53,14 +61,7 @@ class InitModel extends Model<ModelProps> {
   }
 }
 
-type ModelProps = {
-  id: number
-  email: string
-  uid: string
-}
-
-export const users_email = sequelize.define(
-  'users_email',
+users_email.init(
   {
     id: {
       type: DataTypes.BIGINT,
@@ -69,20 +70,32 @@ export const users_email = sequelize.define(
       allowNull: false,
       comment: '编号'
     },
-    email: {
-      type: DataTypes.STRING(255),
-      allowNull: true,
-      comment: '邮箱'
-    },
     uid: {
       type: DataTypes.STRING(50),
-      allowNull: true,
-      comment: '游戏id'
+      comment: '用户id'
+    },
+    email: {
+      type: DataTypes.STRING(255),
+      comment: '邮箱'
+    },
+    password: {
+      type: DataTypes.STRING(255),
+      comment: '密码',
+      defaultValue: ''
+    },
+    identity: {
+      type: DataTypes.INTEGER,
+      comment: '身份',
+      defaultValue: 9
     }
   },
   {
+    sequelize,
+    tableName: 'users_email',
     freezeTableName: true,
     createdAt: false,
     updatedAt: false
   }
 )
+
+export { users_email }

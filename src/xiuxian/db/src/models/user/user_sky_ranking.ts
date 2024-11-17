@@ -80,13 +80,11 @@ export const user_sky_ranking = sequelize.define(
     },
     updateAt: {
       type: DataTypes.DATE,
-      allowNull: true,
       defaultValue: DataTypes.NOW
       // onUpdate: DataTypes.NOW
     },
     doc: {
-      type: DataTypes.STRING(20),
-      allowNull: true
+      type: DataTypes.STRING(20)
     }
   },
   {

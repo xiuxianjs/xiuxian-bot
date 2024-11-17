@@ -88,12 +88,10 @@ user_skills.init(
       }
     },
     doc: {
-      type: DataTypes.STRING(20),
-      allowNull: true
+      type: DataTypes.STRING(20)
     },
     updateAt: {
       type: DataTypes.DATE,
-      allowNull: true,
       defaultValue: DataTypes.NOW
       // onUpdate: DataTypes.NOW
     }

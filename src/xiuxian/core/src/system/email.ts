@@ -32,7 +32,7 @@ export const sendEmail = ({
       text: text, // 邮件正文（纯文本）
       html: html // 邮件正文（HTML）
     },
-    (error: any, info: any) => {
+    (error, info) => {
       if (error) {
         return console.log('Error occurred:', error)
       }

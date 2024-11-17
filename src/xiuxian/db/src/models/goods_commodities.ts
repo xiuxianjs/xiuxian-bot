@@ -79,7 +79,6 @@ export const goods_commodities = sequelize.define(
     },
     limit_buy: {
       type: DataTypes.BIGINT,
-      allowNull: true,
       comment: '购买限制'
     }
   },

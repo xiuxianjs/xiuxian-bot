@@ -80,54 +80,42 @@ export const levels = sequelize.define(
       allowNull: false
     },
     type: {
-      type: DataTypes.INTEGER,
-      allowNull: true
+      type: DataTypes.INTEGER
     },
     grade: {
-      type: DataTypes.BIGINT,
-      allowNull: true
+      type: DataTypes.BIGINT
     },
     name: {
-      type: DataTypes.STRING(20),
-      allowNull: true
+      type: DataTypes.STRING(20)
     },
     attack: {
-      type: DataTypes.INTEGER,
-      allowNull: true
+      type: DataTypes.INTEGER
     },
     defense: {
-      type: DataTypes.INTEGER,
-      allowNull: true
+      type: DataTypes.INTEGER
     },
     blood: {
-      type: DataTypes.INTEGER,
-      allowNull: true
+      type: DataTypes.INTEGER
     },
     critical_hit: {
       type: DataTypes.INTEGER,
-      allowNull: true,
       comment: '暴击率'
     },
     critical_damage: {
       type: DataTypes.INTEGER,
-      allowNull: true,
       comment: '暴击伤害'
     },
     speed: {
-      type: DataTypes.INTEGER,
-      allowNull: true
+      type: DataTypes.INTEGER
     },
     size: {
-      type: DataTypes.INTEGER,
-      allowNull: true
+      type: DataTypes.INTEGER
     },
     soul: {
-      type: DataTypes.INTEGER,
-      allowNull: true
+      type: DataTypes.INTEGER
     },
     exp_needed: {
-      type: DataTypes.INTEGER,
-      allowNull: true
+      type: DataTypes.INTEGER
     },
     success_rate: {
       type: DataTypes.INTEGER,
@@ -135,8 +123,7 @@ export const levels = sequelize.define(
       comment: '成功率'
     },
     doc: {
-      type: DataTypes.STRING(20),
-      allowNull: true
+      type: DataTypes.STRING(20)
     }
   },
   {

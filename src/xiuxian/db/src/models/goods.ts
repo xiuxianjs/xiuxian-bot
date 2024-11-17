@@ -110,12 +110,10 @@ goods.init(
     },
     talent: {
       type: DataTypes.JSON,
-      allowNull: true,
       comment: '属性'
     },
     boolere_covery: {
-      type: DataTypes.INTEGER,
-      allowNull: true
+      type: DataTypes.INTEGER
     },
     attack: {
       type: DataTypes.INTEGER,

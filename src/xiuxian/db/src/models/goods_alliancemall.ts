@@ -80,7 +80,6 @@ export const goods_alliancemall = sequelize.define(
     },
     limit_buy: {
       type: DataTypes.BIGINT,
-      allowNull: true,
       comment: '购买限制'
     }
   },

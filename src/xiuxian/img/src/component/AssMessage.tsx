@@ -1,12 +1,12 @@
 import React from 'react'
 import Footer from './pub/footer.js'
-import { AttributesType, user_ass } from '@xiuxian/db/index'
+import { Attributes, user_ass } from '@xiuxian/db/index'
 import Header from './pub/header.js'
 import css_ox from './input.scss'
 import { LinkStyleSheet } from 'jsxp'
 import ThemeBackground, { ThemesEmun } from './pub/ThemeBackground.js'
 type PropsType = {
-  data: AttributesType<typeof user_ass>[]
+  data: Attributes<typeof user_ass>[]
   theme?: ThemesEmun
 }
 export default function AssMessage({ data, theme }: PropsType) {

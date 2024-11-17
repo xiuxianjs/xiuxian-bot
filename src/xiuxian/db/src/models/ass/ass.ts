@@ -82,7 +82,6 @@ ass.init(
     },
     create_time: {
       type: DataTypes.BIGINT,
-      allowNull: true,
       comment: '创建时间'
     },
     name: {
@@ -124,7 +123,6 @@ ass.init(
     },
     doc: {
       type: DataTypes.STRING(50),
-      allowNull: true,
       comment: '说明'
     }
   },

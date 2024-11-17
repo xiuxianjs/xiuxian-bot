@@ -67,12 +67,10 @@ export const talent = sequelize.define(
       allowNull: false
     },
     name: {
-      type: DataTypes.STRING(20),
-      allowNull: true
+      type: DataTypes.STRING(20)
     },
     doc: {
-      type: DataTypes.STRING(20),
-      allowNull: true
+      type: DataTypes.STRING(20)
     }
   },
   {

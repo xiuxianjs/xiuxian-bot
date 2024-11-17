@@ -7,7 +7,7 @@ type ModelProps = {
   need: number
 }
 
-class InitModel extends Model<ModelProps> {
+class npc extends Model<ModelProps> {
   /**
    * 找到所有数据
    * @param this
@@ -58,8 +58,7 @@ class InitModel extends Model<ModelProps> {
   }
 }
 
-export const npc = sequelize.define(
-  'npc',
+npc.init(
   {
     id: {
       type: DataTypes.BIGINT,
@@ -76,6 +75,8 @@ export const npc = sequelize.define(
     }
   },
   {
+    sequelize,
+    tableName: 'npc',
     freezeTableName: true,
     createdAt: false,
     updatedAt: false,
@@ -87,3 +88,5 @@ export const npc = sequelize.define(
     ]
   }
 )
+
+export { npc }

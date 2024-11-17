@@ -72,7 +72,6 @@ export const fate_level = sequelize.define(
     },
     grade: {
       type: DataTypes.INTEGER,
-      allowNull: true,
       comment: '等级'
     },
     exp_gaspractice: {
@@ -92,7 +91,6 @@ export const fate_level = sequelize.define(
     },
     doc: {
       type: DataTypes.STRING(20),
-      allowNull: true,
       comment: '说明'
     }
   },

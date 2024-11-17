@@ -69,7 +69,6 @@ constitution.init(
     },
     name: {
       type: DataTypes.STRING(255),
-      allowNull: true,
       comment: '名称'
     },
     grade: {

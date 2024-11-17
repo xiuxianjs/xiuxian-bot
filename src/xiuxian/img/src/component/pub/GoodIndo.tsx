@@ -1,8 +1,8 @@
 import React from 'react'
-import { AttributesType, goods } from '@xiuxian/db/index'
+import { Attributes, goods } from '@xiuxian/db/index'
 import { nameMap } from '../../core/index.js'
 type PropsType = {
-  data: AttributesType<typeof goods> & {
+  data: Attributes<typeof goods> & {
     addition_name: string
     acount: number
   }

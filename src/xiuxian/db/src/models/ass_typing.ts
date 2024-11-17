@@ -75,52 +75,42 @@ ass_typing.init(
     },
     master: {
       type: DataTypes.STRING(255),
-      allowNull: true,
       comment: '主人'
     },
     vice_master: {
       type: DataTypes.STRING(255),
-      allowNull: true,
       comment: '副主人'
     },
     super_admin: {
       type: DataTypes.STRING(255),
-      allowNull: true,
       comment: '超级管理员'
     },
     admin: {
       type: DataTypes.STRING(255),
-      allowNull: true,
       comment: '管理员'
     },
     core_member: {
       type: DataTypes.STRING(255),
-      allowNull: true,
       comment: '核心成员'
     },
     senior_menber: {
       type: DataTypes.STRING(255),
-      allowNull: true,
       comment: '高级成员'
     },
     intermediate_member: {
       type: DataTypes.STRING(255),
-      allowNull: true,
       comment: '中级成员'
     },
     lowerlevel_member: {
       type: DataTypes.STRING(255),
-      allowNull: true,
       comment: '低级成员'
     },
     tagged_member: {
       type: DataTypes.STRING(255),
-      allowNull: true,
       comment: '标记成员'
     },
     reviewed_member: {
       type: DataTypes.STRING(255),
-      allowNull: true,
       comment: '待审核成员'
     }
   },

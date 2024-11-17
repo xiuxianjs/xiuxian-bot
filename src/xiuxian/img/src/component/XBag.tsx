@@ -1,5 +1,5 @@
 import React from 'react'
-import { createUID } from '../core/index.js'
+import { createUID } from '@src/xiuxian/core/index.js'
 import Nav from './pub/Naved.js'
 import Header from './pub/header.js'
 import { BackpackInformationType } from '@xiuxian/statistics/index'
@@ -8,7 +8,7 @@ import css_output from './input.scss'
 import { LinkStyleSheet } from 'jsxp'
 import ThemeBackground, { ThemesEmun } from './pub/ThemeBackground.js'
 import GoodInfo from './pub/GoodIndo.js'
-import { AttributesType, goods } from '@src/xiuxian/db/index.js'
+import { Attributes, goods } from '@src/xiuxian/db'
 
 type PropsType = {
   data: BackpackInformationType
@@ -45,7 +45,7 @@ export default function App({ data, theme }: PropsType) {
             {
               // GoodInfo
               data.bag.map((item, index) => {
-                const good: AttributesType<typeof goods> =
+                const good: Attributes<typeof goods> =
                   item['good']['dataValues']
                 return (
                   <GoodInfo

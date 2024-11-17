@@ -9,7 +9,7 @@ type ModelProps = {
   doc: string
 }
 
-class InitModel extends Model<ModelProps> {
+class monster extends Model<ModelProps> {
   /**
    * 找到所有数据
    * @param this
@@ -60,8 +60,7 @@ class InitModel extends Model<ModelProps> {
   }
 }
 
-export const monster = sequelize.define(
-  'monster',
+monster.init(
   {
     id: {
       type: DataTypes.BIGINT,
@@ -70,24 +69,22 @@ export const monster = sequelize.define(
       allowNull: false
     },
     type: {
-      type: DataTypes.BIGINT,
-      allowNull: true
+      type: DataTypes.BIGINT
     },
     grade: {
       type: DataTypes.INTEGER,
-      allowNull: true,
       comment: '最低等级'
     },
     name: {
-      type: DataTypes.STRING(20),
-      allowNull: true
+      type: DataTypes.STRING(20)
     },
     doc: {
-      type: DataTypes.STRING(20),
-      allowNull: true
+      type: DataTypes.STRING(20)
     }
   },
   {
+    sequelize,
+    tableName: 'monster',
     freezeTableName: true,
     createdAt: false,
     updatedAt: false,
@@ -99,3 +96,5 @@ export const monster = sequelize.define(
     ]
   }
 )
+
+export { monster }

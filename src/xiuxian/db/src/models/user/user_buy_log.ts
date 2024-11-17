@@ -91,22 +91,18 @@ user_buy_log.init(
       defaultValue: 0
     },
     buy_time: {
-      type: DataTypes.DATE,
-      allowNull: true
+      type: DataTypes.DATE
     },
     createAt: {
-      type: DataTypes.DATE,
-      allowNull: true
+      type: DataTypes.DATE
     },
     updateAt: {
       type: DataTypes.DATE,
-      allowNull: true,
       defaultValue: DataTypes.NOW
       // onUpdate: DataTypes.NOW
     },
     deleteAt: {
-      type: DataTypes.DATE,
-      allowNull: true
+      type: DataTypes.DATE
     }
   },
   {

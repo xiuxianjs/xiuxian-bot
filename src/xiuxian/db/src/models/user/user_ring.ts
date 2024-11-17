@@ -94,12 +94,10 @@ export const user_ring = sequelize.define(
     },
     tid: {
       type: DataTypes.INTEGER,
-      allowNull: true,
       comment: '物品编号'
     },
     type: {
       type: DataTypes.INTEGER,
-      allowNull: true,
       comment: '物品类型'
     },
     acount: {
@@ -109,12 +107,10 @@ export const user_ring = sequelize.define(
     },
     doc: {
       type: DataTypes.STRING(20),
-      allowNull: true,
       comment: '说明'
     },
     updateAt: {
       type: DataTypes.DATE,
-      allowNull: true,
       defaultValue: DataTypes.NOW
       // onUpdate: DataTypes.NOW,
     }

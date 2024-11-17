@@ -10,11 +10,12 @@ export default OnResponse(
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
     const text = useParse(e.Megs, 'Text')
-    const type = text.replace(/^(#|\/)?我的(储物袋|儲物袋|背包)/, '')
+    const typing = text.replace(/^(#|\/)?我的(储物袋|儲物袋|背包)/, '')
+    console.log('typing', typing)
     const data = await backpackInformation(
       e.UserId,
       e.UserAvatar,
-      Goods.mapType[type] ?? Goods.mapType['道具']
+      Goods.mapType[typing] ?? Goods.mapType['道具']
     )
     const img = await pictureRender('BagComponent', {
       data,

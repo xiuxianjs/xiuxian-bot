@@ -81,24 +81,19 @@ export const user_log = sequelize.define(
       }
     },
     type: {
-      type: DataTypes.INTEGER,
-      allowNull: true
+      type: DataTypes.INTEGER
     },
     create_time: {
-      type: DataTypes.BIGINT,
-      allowNull: true
+      type: DataTypes.BIGINT
     },
     message: {
-      type: DataTypes.STRING(255),
-      allowNull: true
+      type: DataTypes.STRING(255)
     },
     doc: {
-      type: DataTypes.STRING(20),
-      allowNull: true
+      type: DataTypes.STRING(20)
     },
     updateAt: {
       type: DataTypes.DATE,
-      allowNull: true,
       defaultValue: DataTypes.NOW
       // onUpdate: DataTypes.NOW
     }

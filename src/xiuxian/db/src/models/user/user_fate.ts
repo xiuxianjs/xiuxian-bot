@@ -97,12 +97,10 @@ export const user_fate = sequelize.define(
     },
     doc: {
       type: DataTypes.STRING(20),
-      allowNull: true,
       comment: '说明'
     },
     update: {
       type: DataTypes.DATE,
-      allowNull: true,
       defaultValue: DataTypes.NOW
       // onUpdate: DataTypes.NOW
     }

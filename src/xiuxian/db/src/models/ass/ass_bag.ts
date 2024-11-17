@@ -83,12 +83,10 @@ ass_bag.init(
     },
     tid: {
       type: DataTypes.INTEGER,
-      allowNull: true,
       comment: '物品编号'
     },
     type: {
       type: DataTypes.INTEGER,
-      allowNull: true,
       comment: '物品类型'
     },
     name: {
@@ -107,7 +105,6 @@ ass_bag.init(
     },
     doc: {
       type: DataTypes.STRING(20),
-      allowNull: true,
       comment: '说明'
     }
   },

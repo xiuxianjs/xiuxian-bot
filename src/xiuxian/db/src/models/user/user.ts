@@ -137,17 +137,14 @@ export const user = InitModel.init(
     },
     create_time: {
       type: DataTypes.BIGINT,
-      allowNull: true,
       comment: '创建时间'
     },
     update_time: {
       type: DataTypes.DATE(3),
-      allowNull: true,
       comment: '更新时间'
     },
     email: {
       type: DataTypes.STRING(255),
-      allowNull: true,
       comment: '邮箱'
     },
     password: {
@@ -167,12 +164,10 @@ export const user = InitModel.init(
     },
     avatar: {
       type: DataTypes.STRING(255),
-      allowNull: true,
       comment: '头像地址'
     },
     phone: {
       type: DataTypes.BIGINT,
-      allowNull: true,
       comment: '手机号'
     },
     state: {
@@ -307,7 +302,6 @@ export const user = InitModel.init(
     },
     talent: {
       type: DataTypes.JSON,
-      allowNull: true,
       comment: '灵根'
     },
     talent_size: {
@@ -372,7 +366,6 @@ export const user = InitModel.init(
     },
     doc: {
       type: DataTypes.STRING(20),
-      allowNull: true,
       comment: '说明'
     },
     man_size: {
@@ -404,8 +397,7 @@ export const user = InitModel.init(
       defaultValue: 0
     },
     sign_in_time: {
-      type: DataTypes.DATE,
-      allowNull: true
+      type: DataTypes.DATE
     },
     typing: {
       type: DataTypes.INTEGER,
@@ -413,8 +405,7 @@ export const user = InitModel.init(
       comment: '类型'
     },
     deleteAt: {
-      type: DataTypes.DATE,
-      allowNull: true
+      type: DataTypes.DATE
     },
     constitution: {
       type: DataTypes.BIGINT,

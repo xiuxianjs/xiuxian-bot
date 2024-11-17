@@ -23,19 +23,18 @@ export default OnResponse(
       .replace(/^(#|\/)?(兑换|兌換)/, '')
       .split('*')
     //
-    const ifexist: DB.AttributesType<typeof DB.goods> =
-      await DB.goods_alliancemall
-        .findOne({
-          include: [
-            {
-              model: DB.goods,
-              where: {
-                name: thingName
-              }
+    const ifexist: DB.Attributes<typeof DB.goods> = await DB.goods_alliancemall
+      .findOne({
+        include: [
+          {
+            model: DB.goods,
+            where: {
+              name: thingName
             }
-          ]
-        })
-        .then(item => item?.dataValues['good']['dataValues'])
+          }
+        ]
+      })
+      .then(item => item?.dataValues['good']['dataValues'])
     if (!ifexist) {
       Send(Text(`[联盟]叶铭\n没有[${thingName}]`))
       return

@@ -1,6 +1,5 @@
 import { generateCaptcha, sendEmail } from '@src/xiuxian/core/src/system/email'
-import { Redis, users_email } from '@src/xiuxian/db'
-import { user_email } from '@src/xiuxian/db/src/models/user/user_email'
+import { Redis, users_email, user_email } from '@src/xiuxian/db'
 import { Text, useOberver, useParse, useSend } from 'alemonjs'
 /**
  *

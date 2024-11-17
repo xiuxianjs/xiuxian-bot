@@ -84,7 +84,6 @@ export const user_level = sequelize.define(
     },
     type: {
       type: DataTypes.INTEGER,
-      allowNull: true,
       comment: '境界类型'
     },
     career: {
@@ -94,27 +93,22 @@ export const user_level = sequelize.define(
     },
     addition: {
       type: DataTypes.INTEGER,
-      allowNull: true,
       comment: '突破概率加成'
     },
     realm: {
       type: DataTypes.BIGINT,
-      allowNull: true,
       comment: '等级'
     },
     experience: {
       type: DataTypes.BIGINT,
-      allowNull: true,
       comment: '经验'
     },
     doc: {
       type: DataTypes.STRING(20),
-      allowNull: true,
       comment: '说明'
     },
     updateAt: {
       type: DataTypes.DATE,
-      allowNull: true,
       defaultValue: DataTypes.NOW
       // onUpdate: DataTypes.NOW
     }

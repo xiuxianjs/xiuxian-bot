@@ -88,22 +88,18 @@ export const user_sky_reward = sequelize.define(
     },
     time: {
       type: DataTypes.DATE,
-      allowNull: true,
       comment: '本次记录'
     },
     createAt: {
-      type: DataTypes.DATE,
-      allowNull: true
+      type: DataTypes.DATE
     },
     updateAt: {
       type: DataTypes.DATE,
-      allowNull: true,
       defaultValue: DataTypes.NOW
       // onUpdate: DataTypes.NOW
     },
     deleteAt: {
-      type: DataTypes.DATE,
-      allowNull: true
+      type: DataTypes.DATE
     }
   },
   {

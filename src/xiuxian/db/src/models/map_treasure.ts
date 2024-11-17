@@ -74,36 +74,28 @@ export const map_treasure = sequelize.define(
       allowNull: false
     },
     name: {
-      type: DataTypes.STRING(20),
-      allowNull: true
+      type: DataTypes.STRING(20)
     },
     type: {
-      type: DataTypes.INTEGER,
-      allowNull: true
+      type: DataTypes.INTEGER
     },
     attribute: {
-      type: DataTypes.INTEGER,
-      allowNull: true
+      type: DataTypes.INTEGER
     },
     acount: {
-      type: DataTypes.INTEGER,
-      allowNull: true
+      type: DataTypes.INTEGER
     },
     x: {
-      type: DataTypes.BIGINT,
-      allowNull: true
+      type: DataTypes.BIGINT
     },
     y: {
-      type: DataTypes.BIGINT,
-      allowNull: true
+      type: DataTypes.BIGINT
     },
     z: {
-      type: DataTypes.BIGINT,
-      allowNull: true
+      type: DataTypes.BIGINT
     },
     doc: {
-      type: DataTypes.STRING(20),
-      allowNull: true
+      type: DataTypes.STRING(20)
     }
   },
   {

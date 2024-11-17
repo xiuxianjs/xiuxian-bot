@@ -77,7 +77,6 @@ user_ass.init(
     },
     create_time: {
       type: DataTypes.BIGINT,
-      allowNull: true,
       comment: '加入时间'
     },
     uid: {
@@ -101,27 +100,22 @@ user_ass.init(
     },
     authentication: {
       type: DataTypes.INTEGER,
-      allowNull: true,
       comment: '鉴权'
     },
     identity: {
       type: DataTypes.STRING(50),
-      allowNull: true,
       comment: '身份名'
     },
     signin: {
       type: DataTypes.BIGINT,
-      allowNull: true,
       comment: '签到'
     },
     doc: {
       type: DataTypes.STRING(50),
-      allowNull: true,
       comment: '关系表'
     },
     updateAt: {
       type: DataTypes.DATE,
-      allowNull: true,
       defaultValue: DataTypes.NOW
       // onUpdate: DataTypes.NOW
     }

@@ -5,12 +5,12 @@ import css_output from './input.scss'
 import { LinkStyleSheet } from 'jsxp'
 import ThemeBackground, { ThemesEmun } from './pub/ThemeBackground.js'
 import GoodInfo from './pub/GoodIndo.js'
-import { ass, AttributesType, goods } from '@src/xiuxian/db/index.js'
+import { ass, Attributes, goods } from '@src/xiuxian/db'
 import { BackpackInformationType } from '@src/xiuxian/statistics/index.js'
 
 type PropsType = {
   data: {
-    ass: AttributesType<typeof ass>
+    ass: Attributes<typeof ass>
     bag: BackpackInformationType['bag']
   }
   theme?: ThemesEmun
@@ -45,8 +45,7 @@ export default function AssBag({ data, theme }: PropsType) {
           </div>
           <main className="p-4">
             {data.bag.map((item, index) => {
-              const good: AttributesType<typeof goods> =
-                item['good']['dataValues']
+              const good: Attributes<typeof goods> = item['good']['dataValues']
               return (
                 <GoodInfo
                   key={index}

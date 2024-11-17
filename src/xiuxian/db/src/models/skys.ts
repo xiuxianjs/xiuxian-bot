@@ -86,21 +86,17 @@ export const skys = sequelize.define(
     },
     ranking: {
       type: DataTypes.INTEGER,
-      allowNull: true,
       comment: '排名'
     },
     createAt: {
-      type: DataTypes.DATE,
-      allowNull: true
+      type: DataTypes.DATE
     },
     updateAt: {
       type: DataTypes.DATE,
-      allowNull: true,
       defaultValue: DataTypes.NOW
     },
     deleteAt: {
-      type: DataTypes.DATE,
-      allowNull: true
+      type: DataTypes.DATE
     }
   },
   {

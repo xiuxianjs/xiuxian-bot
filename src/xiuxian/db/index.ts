@@ -8,7 +8,7 @@ export const Redis = getIoRedis()
 /**
  * 获取模型的属性类型
  */
-export type AttributesType<T extends ModelCtor<Model>> =
+export type Attributes<T extends ModelCtor<Model>> =
   T extends ModelCtor<infer M>
     ? M extends Model<infer U, object>
       ? U

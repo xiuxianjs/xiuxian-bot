@@ -77,7 +77,6 @@ user_email.init(
     },
     email: {
       type: DataTypes.STRING(255),
-      allowNull: true,
       comment: '邮箱'
     }
   },

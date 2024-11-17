@@ -70,17 +70,14 @@ export const levels_limit = sequelize.define(
     },
     typing: {
       type: DataTypes.BIGINT,
-      allowNull: true,
       comment: '境界类型'
     },
     grade: {
       type: DataTypes.BIGINT,
-      allowNull: true,
       comment: '对应等级'
     },
     gids: {
       type: DataTypes.STRING(255),
-      allowNull: true,
       comment: '需要的物品'
     }
   },
