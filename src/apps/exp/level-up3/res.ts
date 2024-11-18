@@ -21,12 +21,9 @@ export default OnResponse(
       Send(Text('操作频繁'))
       return
     }
-
     const CDID = 6
     const ID = 1
-
     const UID = await getEmailUID(e.UserId)
-
     // 校验
     const UserData = await isUser(e, UID)
 
@@ -75,6 +72,26 @@ export default OnResponse(
     }
 
     const realm = UserLevel?.realm ?? 0
+
+    // 现在的境界数据
+    const nowLevel = await levels
+      .findOne({
+        attributes: ['id', 'exp_needed', 'grade', 'type', 'name'],
+        where: {
+          type: ID,
+          grade: realm
+        },
+        // 按 grade 排序
+        order: [['grade', 'DESC']],
+        limit: 3
+      })
+      .then(res => res?.dataValues)
+
+    // 判断经验够不够
+    if (UserLevel.experience < nowLevel.exp_needed) {
+      Send(Text(`${NAMEMAP[ID]}不足`))
+      return
+    }
 
     // 查看下一个境界
     const nextLevel = await levels
@@ -141,8 +158,6 @@ export default OnResponse(
           return
         }
         // 扣除突破物品
-
-        //
       }
     }
 
@@ -152,14 +167,12 @@ export default OnResponse(
      */
     const levelUp = async () => {
       const p =
-        UserData.immortal_grade > 20
+        UserData.immortal_grade > 15
           ? 2
           : 90 - realm - UserData.immortal_grade * 3
       // 取值范围 [1 100 ] 突破概率为 (value-realm-grade)/100
       // 至少5%的概率突破成功
-      if (!Method.isTrueInRange(1, 100, p < 5 ? 5 : p)) {
-        // 设置突破冷却
-        Burial.set(UID, CDID, Cooling.CD_Level_up)
+      if (!Method.isTrueInRange(1, 100, p)) {
         /** 随机顺序损失经验  */
         const randomKey = Levels.getRandomKey()
         const size = Math.floor((UserLevel?.experience ?? 0) / (randomKey + 1))
@@ -180,13 +193,13 @@ export default OnResponse(
 
     const isUp = await levelUp()
 
+    // 设置
+    Burial.set(UID, CDID, Cooling.CD_Level_up)
+
     if (!isUp) {
       // 突破失败
       return
     }
-
-    // 设置
-    Burial.set(UID, CDID, Cooling.CD_Level_up)
 
     // 扣除突破物品
     if (things.length >= 1) {
@@ -217,26 +230,6 @@ export default OnResponse(
         }
       )
       Send(Text(`仙人境提升${size}`))
-      return
-    }
-
-    // 现在的境界数据
-    const nowLevel = await levels
-      .findOne({
-        attributes: ['id', 'exp_needed', 'grade', 'type', 'name'],
-        where: {
-          type: ID,
-          grade: realm
-        },
-        // 按 grade 排序
-        order: [['grade', 'DESC']],
-        limit: 3
-      })
-      .then(res => res?.dataValues)
-
-    // 判断经验够不够
-    if (UserLevel.experience < nowLevel.exp_needed) {
-      Send(Text(`${NAMEMAP[ID]}不足`))
       return
     }
 

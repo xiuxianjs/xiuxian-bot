@@ -11,6 +11,8 @@ export const createUID = (UID: string) => {
   return isNaN(Number(UID)) || UID.length > 11 ? hash(UID) : UID
 }
 
+const CD = {}
+
 /**
  *
  * @param UID
@@ -18,11 +20,18 @@ export const createUID = (UID: string) => {
  * @returns
  */
 export const operationLock = async (UID: string) => {
+  const Now = Date.now()
+  console.log('CD[UID]', CD[UID], Now)
+  // 存在程序CD，而且 冷却时间未过
+  if (CD[UID] && Number(CD[UID]) + 2300 > Now) {
+    return false
+  }
+  CD[UID] = Now
   const KEY = `xiuxian:open:${createUID(UID)}`
   // 当前的时间
   const LOCK = await Redis.get(KEY)
   // 现在的时间
-  const TIME = Date.now()
+  const TIME = Now
   // 不存在锁
   if (!LOCK || TIME + 6000 > Number(LOCK)) {
     // 记录锁
