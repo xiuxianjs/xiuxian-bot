@@ -1,10 +1,4 @@
-import {
-  isUser,
-  ControlByBlood,
-  sendReply,
-  killNPC,
-  victoryCooling
-} from '@xiuxian/api/index'
+import { isUser, ControlByBlood, sendReply, killNPC } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
 import * as DB from '@xiuxian/db/index'
 
@@ -69,14 +63,10 @@ export default OnResponse(
 
     // 血量不足
     if (!(await ControlByBlood(e, UserData))) return
-    const CDID = 10
-
-    // 冷却
-    if (!(await victoryCooling(e, UID, CDID))) return
 
     const text = useParse(e.Megs, 'Text')
 
-    const Mname = text.replace(/^(#|\/)?(击杀|擊殺)/, '')
+    const [Mname, count] = text.replace(/^(#|\/)?(击杀|擊殺)/, '').split('*')
 
     if (!(await killNPC(e, Mname, UID, UserData.special_prestige))) return
 
@@ -90,14 +80,31 @@ export default OnResponse(
     // 是否在城里 是否存在  是否充足
     if (UserData.pont_attribute == 1 || !mon || mon.acount < 1) {
       Send(Text(`这里没有[${Mname}],去别处看看吧`))
-
       return
     }
 
-    const need_spiritual = Math.floor((mon.level + 20) / 3)
+    // 看看境界
+    const gaspractice = await DB.user_level
+      .findOne({
+        attributes: ['addition', 'realm', 'experience'],
+        where: {
+          uid: UID,
+          type: 1
+        }
+      })
+      .then(res => res?.dataValues)
+      .then(item => item.realm)
+
+    const myCount = Number(
+      count == '' || count == undefined || gaspractice < 25 || Number(count) > 2
+        ? 1
+        : count
+    )
+
+    const need_spiritual = Math.floor((mon.level + 20) / 3) * myCount
+
     if (UserData.special_spiritual < need_spiritual) {
       Send(Text('灵力不足'))
-
       return
     }
 
@@ -107,7 +114,6 @@ export default OnResponse(
     // 背包未位置了直接返回了
     if (!BagSize) {
       Send(Text('储物袋空间不足'))
-
       return
     }
 
@@ -164,7 +170,6 @@ export default OnResponse(
     // 增加失败了有概率抢走物品
     if (BMSG.victory == '0') {
       Send(Text(`与${Mname}打成了平手${BooldMsg}`))
-
       return
     } else if (BMSG.victory == '1') {
       let thing: { name: string; type: number; acount: number }[] = []
@@ -179,7 +184,6 @@ export default OnResponse(
       }
       if (thing.length != 0) {
         Send(Text(`[${Mname}]击碎了你的[${thing[0].name}]`))
-
         return
       } else {
         Send(Text(`你被${Mname}击败了,未获得任何物品`))
@@ -196,21 +200,22 @@ export default OnResponse(
 
     if (p > 45) {
       const SIZE = Math.floor(s + 800)
-      msgRight.push(`[气血]增加了${SIZE}`)
-      await GameApi.Levels.addExperience(UID, 2, SIZE)
+      msgRight.push(`[气血]增加了${SIZE * myCount}`)
+      await GameApi.Levels.addExperience(UID, 2, SIZE * myCount)
     }
 
     if (p > 30) {
       const SIZE = Math.floor(s + 400)
-      msgRight.push(`[气血]增加了*${SIZE}`)
-      await GameApi.Levels.addExperience(UID, 2, SIZE)
+      msgRight.push(`[气血]增加了*${SIZE * myCount}`)
+      await GameApi.Levels.addExperience(UID, 2, SIZE * myCount)
     }
 
     if (p > 20) {
       const SIZE = Math.floor(s + 200)
-      msgRight.push(`[气血]增加了*${SIZE}`)
-      await GameApi.Levels.addExperience(UID, 2, SIZE)
+      msgRight.push(`[气血]增加了*${SIZE * myCount}`)
+      await GameApi.Levels.addExperience(UID, 2, SIZE * myCount)
     }
+
     /**
      * 检查储物袋位置
      */
@@ -236,9 +241,12 @@ export default OnResponse(
           .then(item => item?.dataValues['good']['dataValues'])
 
         const acount = GameApi.Method.leastOne(Math.floor(mon.level / mon.type))
+
+        const theCount = acount > 16 ? (type ? 17 : 13) : acount
+
         ThingArr.push({
           name: thing.name,
-          acount: acount > 16 ? (type ? 17 : 13) : acount
+          acount: theCount * myCount
         })
       }
 
@@ -286,9 +294,9 @@ export default OnResponse(
 
       //
       if (thing) {
-        const acount = GameApi.Method.leastOne(
-          Math.floor(mon.level / mon.type / 2)
-        )
+        const acount =
+          GameApi.Method.leastOne(Math.floor(mon.level / mon.type / 2)) *
+          myCount
         // 相同
         if (obj[thing.name]) {
           obj[thing.name] += acount
@@ -309,7 +317,7 @@ export default OnResponse(
       const lingshi = GameApi.Method.leastOne(mon.level * size + 100)
       ThingArr.push({
         name: '中品灵石',
-        acount: lingshi
+        acount: lingshi * myCount
       })
     }
 
@@ -317,15 +325,17 @@ export default OnResponse(
       const lingshi = GameApi.Method.leastOne(mon.level * size + 300)
       ThingArr.push({
         name: '下品灵石',
-        acount: lingshi
+        acount: lingshi * myCount
       })
     }
+
+    //
     const P1 = GameApi.Method.isProbability(5)
 
     if (P1) {
       ThingArr.push({
         name: '开天令',
-        acount: 1
+        acount: 1 * myCount
       })
     }
     // 添加物品
@@ -341,8 +351,7 @@ export default OnResponse(
     }
 
     msgRight.push(BooldMsg)
-    // 设置冷却
-    GameApi.Burial.set(UID, CDID, GameApi.Cooling.CD_Kill)
+
     // 减少怪物
     await GameApi.Monster.reduce(UserData.point_type, Mname)
 
@@ -351,5 +360,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?(击杀|擊殺)[\u4e00-\u9fa5]+$/
+  /^(#|\/)?(击杀|擊殺)[\u4e00-\u9fa5]+(\*1|\*2)?$/
 )

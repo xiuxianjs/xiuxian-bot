@@ -2,8 +2,16 @@ import { Text, useParse, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 import { isUser } from '@xiuxian/api/index'
 import * as DB from '@xiuxian/db/index'
+import { operationLock } from '@src/xiuxian/core'
 export default OnResponse(
   async e => {
+    const TT = await operationLock(e.UserId)
+    const Send = useSend(e)
+    if (!TT) {
+      Send(Text('操作频繁'))
+      return
+    }
+
     // 获取用户信息
     const UID = await getEmailUID(e.UserId)
     const UserData = await isUser(e, UID)
@@ -12,7 +20,7 @@ export default OnResponse(
     const text = useParse(e.Megs, 'Text')
     const password = text.replace(/^(#|\/)?设置密码/, '')
     const regex = /^[a-zA-Z0-9]+$/
-    const Send = useSend(e)
+
     if (!regex.test(password)) {
       Send(Text('密码必须只包含数字或字母'))
       return

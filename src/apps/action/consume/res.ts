@@ -1,18 +1,6 @@
-import {
-  showUserMsg,
-  victoryCooling,
-  isUser,
-  reCreateMsg
-} from '@xiuxian/api/index'
+import { showUserMsg, isUser, reCreateMsg } from '@xiuxian/api/index'
 import { map_position, user, user_level } from '@xiuxian/db/index'
-import {
-  Bag,
-  Burial,
-  Cooling,
-  Levels,
-  Skills,
-  Talent
-} from '@xiuxian/core/index'
+import { Bag, Levels, Skills, Talent } from '@xiuxian/core/index'
 import { operationLock } from '@xiuxian/core/index'
 import { Text, useParse, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
@@ -76,13 +64,6 @@ async function sendLing(e, UID: string, acount: number) {
     Send(Text('最多仅能2200'))
     return false
   }
-  const CDID = 12,
-    CDTime = Cooling.CD_Pconst_ractice
-
-  if (!(await victoryCooling(e, UID, CDID))) return false
-
-  Burial.set(UID, CDID, CDTime)
-
   const LevelData = await user_level
     .findOne({
       attributes: ['addition', 'realm', 'experience'],
@@ -114,6 +95,9 @@ export default OnResponse(
       Send(Text('操作频繁'))
       return
     }
+
+    //
+
     // 检查用户
     const UID = await getEmailUID(e.UserId)
 

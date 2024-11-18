@@ -2,8 +2,17 @@ import { isUser, sendReply } from '@xiuxian/api/index'
 import * as DB from '@xiuxian/db/index'
 import { Text, useParse, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
+import { operationLock } from '@src/xiuxian/core'
 export default OnResponse(
   async e => {
+    // 操作锁
+    const TT = await operationLock(e.UserId)
+    const Send = useSend(e)
+    if (!TT) {
+      Send(Text('操作频繁'))
+      return
+    }
+
     const UID = await getEmailUID(e.UserId)
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
@@ -24,8 +33,6 @@ export default OnResponse(
         ]
       })
       .then(res => res?.dataValues)
-
-    const Send = useSend(e)
 
     // 不存在
     if (!aData) {

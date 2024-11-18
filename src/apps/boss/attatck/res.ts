@@ -50,6 +50,7 @@ export default OnResponse(
 
     //
     const CDID = 25
+
     if (!(await victoryCooling(e, UID, CDID))) return
 
     // 一定时间解锁

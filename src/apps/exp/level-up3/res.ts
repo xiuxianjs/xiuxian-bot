@@ -1,9 +1,7 @@
 import { Text, useSend } from 'alemonjs'
-import { isUser, victoryCooling } from '@xiuxian/api/index'
+import { isUser } from '@xiuxian/api/index'
 import {
   Bag,
-  Burial,
-  Cooling,
   Equipment,
   Levels,
   Method,
@@ -21,7 +19,6 @@ export default OnResponse(
       Send(Text('操作频繁'))
       return
     }
-    const CDID = 6
     const ID = 1
     const UID = await getEmailUID(e.UserId)
     // 校验
@@ -29,9 +26,6 @@ export default OnResponse(
 
     // 数据拦截
     if (typeof UserData === 'boolean') return
-
-    // 冷却
-    if (!(await victoryCooling(e, UID, CDID))) return
 
     // 得到数据
     const UserLevel = await user_level
@@ -193,9 +187,6 @@ export default OnResponse(
 
     const isUp = await levelUp()
 
-    // 设置
-    Burial.set(UID, CDID, Cooling.CD_Level_up)
-
     if (!isUp) {
       // 突破失败
       return
@@ -221,7 +212,8 @@ export default OnResponse(
       const size = UserData.immortal_grade + 1
       user.update(
         {
-          immortal_grade: size
+          immortal_grade: size,
+          special_spiritual_limit: 100 + UserLevel.realm + size
         },
         {
           where: {
@@ -240,11 +232,12 @@ export default OnResponse(
     UserLevel.realm += 1
 
     /***
-     * 境界变动的时候更新
+     * 境界变动的时候
+     * 更新灵力上限
      */
     user.update(
       {
-        special_spiritual_limit: 100 + UserLevel.realm
+        special_spiritual_limit: 100 + UserLevel.realm + UserData.immortal_grade
       },
       {
         where: {

@@ -6,10 +6,18 @@ import { Text, useParse, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 export default OnResponse(
   async e => {
+    // 操作锁
+    const TT = await GameApi.operationLock(e.UserId)
+    const Send = useSend(e)
+    if (!TT) {
+      Send(Text('操作频繁'))
+      return
+    }
+
     const UID = await getEmailUID(e.UserId)
     const UserData = await isUser(e, UID)
-    if (!UserData) return
-    const Send = useSend(e)
+    if (typeof UserData == 'boolean') return
+
     // 闭关等长期状态自动结束
     if (UserData.state == 1 || UserData.state == 2 || UserData.state == 8) {
       await endAllWord(e, UID, UserData)

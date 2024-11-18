@@ -6,7 +6,13 @@ import { Text, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 export default OnResponse(
   async e => {
-    //
+    const TT = await GameApi.operationLock(e.UserId)
+    const Send = useSend(e)
+    if (!TT) {
+      Send(Text('操作频繁'))
+      return
+    }
+
     const UID = await getEmailUID(e.UserId)
 
     //

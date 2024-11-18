@@ -1,3 +1,4 @@
+import { operationLock } from '@src/xiuxian/core'
 import { generateCaptcha, sendEmail } from '@src/xiuxian/core/src/system/email'
 import { Redis, users_email, user_email } from '@src/xiuxian/db'
 import { Text, useOberver, useParse, useSend } from 'alemonjs'
@@ -31,10 +32,18 @@ const createCode = ({ uid, email, Send }) => {
 
 export default OnResponse(
   async e => {
+    // 操作锁
+    const TT = await operationLock(e.UserId)
+    const Send = useSend(e)
+    if (!TT) {
+      Send(Text('操作频繁'))
+      return
+    }
+
     const UID = e.UserId
     const txt = useParse(e.Megs, 'Text')
     const email = txt.replace(/^(\/|#)?绑定邮箱/, '')
-    const Send = useSend(e)
+
     //
     if (!email || email == '') {
       Send(Text('输入的邮箱错误'))

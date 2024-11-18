@@ -180,7 +180,6 @@ export default OnResponse(
 
     if (UserData.special_spiritual < levelsB.realm) {
       Send(Text('灵力不足'))
-
       return
     }
 

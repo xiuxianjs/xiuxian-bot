@@ -53,8 +53,8 @@ export default OnResponse(
 
     if (!dualVerificationAction(e, UserData.point_type, UserDataB.point_type))
       return
-    const CDID = 14,
-      CDTime = GameApi.Cooling.CD_Ambiguous
+    const CDID = 14
+    const CDTime = GameApi.Cooling.CD_Ambiguous
     if (!(await victoryCooling(e, UID, CDID))) return
 
     GameApi.Burial.set(UID, CDID, CDTime)

@@ -6,10 +6,10 @@ import { Text, useParse, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 export default OnResponse(
   async e => {
-    // lock start
-    const T = await operationLock(e.UserId)
+    // 操作锁
+    const TT = await operationLock(e.UserId)
     const Send = useSend(e)
-    if (!T) {
+    if (!TT) {
       Send(Text('操作频繁'))
       return
     }

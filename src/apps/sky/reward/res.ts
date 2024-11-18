@@ -2,16 +2,22 @@ import { isUser } from '@xiuxian/api/index'
 import * as DB from '@xiuxian/db/index'
 import { skys, user_sky_reward } from '@xiuxian/db/index'
 import { Op } from 'sequelize'
-import { Bag } from '@xiuxian/core/index'
+import { Bag, operationLock } from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 export default OnResponse(
   async e => {
+    // 操作锁
+    const TT = await operationLock(e.UserId)
+    const Send = useSend(e)
+    if (!TT) {
+      Send(Text('操作频繁'))
+      return
+    }
+
     const UID = await getEmailUID(e.UserId)
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
-
-    const Send = useSend(e)
 
     // 查看数据是否存在
     const data = await DB.user_sky_ranking

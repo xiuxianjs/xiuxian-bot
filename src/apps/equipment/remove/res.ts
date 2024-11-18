@@ -6,9 +6,10 @@ import { user, user_equipment } from '@xiuxian/db/index'
 export default OnResponse(
   async e => {
     // lock start
-    const T = await GameApi.operationLock(e.UserId)
+    // 操作锁
+    const TT = await GameApi.operationLock(e.UserId)
     const Send = useSend(e)
-    if (!T) {
+    if (!TT) {
       Send(Text('操作频繁'))
       return
     }

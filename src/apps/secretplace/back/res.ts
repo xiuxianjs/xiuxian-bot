@@ -4,10 +4,17 @@ import { isUser } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
 export default OnResponse(
   async e => {
+    const TT = await GameApi.operationLock(e.UserId)
+    const Send = useSend(e)
+    if (!TT) {
+      Send(Text('操作频繁'))
+      return
+    }
+
     const UID = await getEmailUID(e.UserId)
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
-    const Send = useSend(e)
+
     // 不是赶路状态
     if (UserData.state == 3) {
       // 取消行为

@@ -33,9 +33,9 @@ export const operationLock = async (UID: string) => {
   // 现在的时间
   const TIME = Now
   // 不存在锁
-  if (!LOCK || TIME + 6000 > Number(LOCK)) {
+  if (!LOCK || TIME + 5000 > Number(LOCK)) {
     // 记录锁
-    await Redis.set(KEY, TIME, 'EX', 6)
+    await Redis.set(KEY, TIME, 'EX', 5)
     // 放行
     return true
   }

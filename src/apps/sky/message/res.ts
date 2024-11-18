@@ -2,7 +2,6 @@ import { Image, Text, useParse, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 import { isUser, showUserMsg } from '@xiuxian/api/index'
 import { user, user_sky_ranking } from '@xiuxian/db/index'
-import { Equipment, Skills } from '@src/xiuxian/core'
 import { equipmentInformation } from '@src/xiuxian/statistics'
 import { pictureRender } from '@src/xiuxian/img'
 export default OnResponse(

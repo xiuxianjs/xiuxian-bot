@@ -5,6 +5,14 @@ import { Text, useParse, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 export default OnResponse(
   async e => {
+    // 操作锁
+    const TT = await GameApi.operationLock(e.UserId)
+    const Send = useSend(e)
+    if (!TT) {
+      Send(Text('操作频繁'))
+      return
+    }
+
     const UID = await getEmailUID(e.UserId)
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
@@ -19,7 +27,7 @@ export default OnResponse(
         }
       })
       .then(res => res?.dataValues)
-    const Send = useSend(e)
+
     if (!position) {
       Send(Text('未知地点'))
       return

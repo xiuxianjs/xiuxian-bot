@@ -1,15 +1,8 @@
 import { Text, useSend } from 'alemonjs'
-import { isUser, victoryCooling } from '@xiuxian/api/index'
-import {
-  Burial,
-  Cooling,
-  Equipment,
-  Levels,
-  Method,
-  operationLock
-} from '@xiuxian/core/index'
+import { isUser } from '@xiuxian/api/index'
+import { Equipment, Levels, Method, operationLock } from '@xiuxian/core/index'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
-import { levels, user, user_level } from '@src/xiuxian/db'
+import { levels, user_level } from '@src/xiuxian/db'
 import { NAMEMAP } from '@src/xiuxian/core/src/users/additional/levels'
 export default OnResponse(
   async e => {
@@ -21,7 +14,6 @@ export default OnResponse(
       return
     }
 
-    const CDID = 7
     const ID = 2
 
     const UID = await getEmailUID(e.UserId)
@@ -31,9 +23,6 @@ export default OnResponse(
 
     // 数据拦截
     if (typeof UserData === 'boolean') return
-
-    // 冷却
-    if (!(await victoryCooling(e, UID, CDID))) return
 
     // 得到数据
     const UserLevel = await user_level
@@ -75,6 +64,26 @@ export default OnResponse(
 
     const realm = UserLevel?.realm ?? 0
 
+    // 现在的境界数据
+    const nowLevel = await levels
+      .findOne({
+        attributes: ['id', 'exp_needed', 'grade', 'type', 'name'],
+        where: {
+          type: ID,
+          grade: realm
+        },
+        // 按 grade 排序
+        order: [['grade', 'DESC']],
+        limit: 3
+      })
+      .then(res => res?.dataValues)
+
+    // 判断经验够不够
+    if (UserLevel.experience < nowLevel.exp_needed) {
+      Send(Text(`${NAMEMAP[ID]}不足`))
+      return
+    }
+
     // 查看下一个境界
     const nextLevel = await levels
       .findOne({
@@ -94,8 +103,6 @@ export default OnResponse(
       // 取值范围 [1 100 ] 突破概率为 (value-realm-grade)/100
       // 至少5%的概率突破成功
       if (!Method.isTrueInRange(1, 100, p < 5 ? 5 : p)) {
-        // 设置突破冷却
-        Burial.set(UID, CDID, Cooling.CD_Level_up)
         /** 随机顺序损失经验  */
         const randomKey = Levels.getRandomKey()
         const size = Math.floor((UserLevel?.experience ?? 0) / (randomKey + 1))
@@ -121,32 +128,9 @@ export default OnResponse(
       return
     }
 
-    // 设置
-    Burial.set(UID, CDID, Cooling.CD_Level_up)
-
     // 下一个境界不存在，表示目前是最高境界
     if (!nextLevel) {
       Send(Text('已至极限'))
-      return
-    }
-
-    // 现在的境界数据
-    const nowLevel = await levels
-      .findOne({
-        attributes: ['id', 'exp_needed', 'grade', 'type', 'name'],
-        where: {
-          type: ID,
-          grade: realm
-        },
-        // 按 grade 排序
-        order: [['grade', 'DESC']],
-        limit: 3
-      })
-      .then(res => res?.dataValues)
-
-    // 判断经验够不够
-    if (UserLevel.experience < nowLevel.exp_needed) {
-      Send(Text(`${NAMEMAP[ID]}不足`))
       return
     }
 
@@ -155,20 +139,6 @@ export default OnResponse(
 
     // 调整境界
     UserLevel.realm += 1
-
-    /***
-     * 境界变动的时候更新
-     */
-    user.update(
-      {
-        special_spiritual_limit: 100 + UserLevel.realm
-      },
-      {
-        where: {
-          uid: UID
-        }
-      }
-    )
 
     // 调整叠加
     UserLevel.addition = 0

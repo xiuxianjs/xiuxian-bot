@@ -6,6 +6,14 @@ import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 import { AssGradesSize } from '@src/xiuxian/core/src/config/cooling'
 export default OnResponse(
   async e => {
+    // 操作锁
+    const TT = await GameApi.operationLock(e.UserId)
+    const Send = useSend(e)
+    if (!TT) {
+      Send(Text('操作频繁'))
+      return
+    }
+
     const UID = await getEmailUID(e.UserId)
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
@@ -19,7 +27,7 @@ export default OnResponse(
     if (!id) return
 
     const ID = Number(id)
-    const Send = useSend(e)
+
     if (isNaN(ID)) {
       Send(Text('错误标记..'))
       return

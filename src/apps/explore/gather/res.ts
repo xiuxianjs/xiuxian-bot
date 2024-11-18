@@ -1,11 +1,6 @@
 import { Text, useParse, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
-import {
-  isUser,
-  ControlByBlood,
-  killNPC,
-  victoryCooling
-} from '@xiuxian/api/index'
+import { isUser, killNPC } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
 import { user, user_level } from '@xiuxian/db/index'
 /**
@@ -36,11 +31,9 @@ export default OnResponse(
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
 
-    if (!(await ControlByBlood(e, UserData))) return
-
     const text = useParse(e.Megs, 'Text')
 
-    const [id, size] = text.replace(/^(#|\/)?开采/, '').split('*')
+    const [id, count] = text.replace(/^(#|\/)?开采/, '').split('*')
 
     // 看看境界
     const gaspractice = await user_level
@@ -54,22 +47,18 @@ export default OnResponse(
       .then(res => res?.dataValues)
       .then(item => item.realm)
 
-    const acount = Number(
-      size == '' || size == undefined || gaspractice < 25 || Number(size) > 2
+    const Size = Number(
+      count == '' || count == undefined || gaspractice < 25 || Number(count) > 2
         ? 1
-        : size
+        : count
     )
 
     // 检查
-    if (!(await GameApi.Bag.searchBagByName(UID, '开灵铲', acount))) {
-      Send(Text(`开灵铲不足${acount}个`))
+    if (!(await GameApi.Bag.searchBagByName(UID, '开灵铲', Size))) {
+      Send(Text(`开灵铲不足${Size}个`))
 
       return
     }
-
-    // 冷却检查
-    const CDID = 22
-    if (!(await victoryCooling(e, UID, CDID))) return
 
     if (!(await killNPC(e, id, UID, UserData.special_prestige))) return
 
@@ -86,20 +75,20 @@ export default OnResponse(
     }
 
     // 灵力不足
-    if (UserData.special_spiritual <= ep.spiritual * acount) {
-      Send(Text(`灵力不足${ep.spiritual * acount}`))
+    if (UserData.special_spiritual <= ep.spiritual * Size) {
+      Send(Text(`灵力不足${ep.spiritual * Size}`))
 
       return
     }
 
     // 减少灵矿
-    await GameApi.explore.reduce(UserData.point_type, id, acount)
+    await GameApi.explore.reduce(UserData.point_type, id, Size)
 
     // 减少铲子
     await GameApi.Bag.reduceBagThing(UID, [
       {
         name: '开灵铲',
-        acount: 1 * acount
+        acount: 1 * Size
       }
     ])
 
@@ -110,14 +99,14 @@ export default OnResponse(
     await GameApi.Bag.addBagThing(UID, [
       {
         name: name,
-        acount: ep.money * acount
+        acount: ep.money * Size
       }
     ])
 
     // 减少灵力 保存灵力信息
     await user.update(
       {
-        special_spiritual: UserData.special_spiritual - ep.spiritual * acount
+        special_spiritual: UserData.special_spiritual - ep.spiritual * Size
       },
       {
         where: {
@@ -126,13 +115,10 @@ export default OnResponse(
       }
     )
 
-    // 设置冷却
-    GameApi.Burial.set(UID, CDID, GameApi.Cooling.CD_Mine)
-
-    Send(Text(`采得[${name}]*${ep.money * acount}`))
+    Send(Text(`采得[${name}]*${ep.money * Size}`))
 
     return
   },
   'message.create',
-  /^(#|\/)?开采\d+\*?(1|2)?$/
+  /^(#|\/)?开采\d+(\*1|\*2)?$/
 )

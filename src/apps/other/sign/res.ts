@@ -1,20 +1,24 @@
 import { Text, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 import { isUser } from '@xiuxian/api/index'
-import { Bag, Method } from '@xiuxian/core/index'
+import { Bag, Method, operationLock } from '@xiuxian/core/index'
 import { user } from '@xiuxian/db/index'
 const MoenySize = 10
 export default OnResponse(
   async e => {
-    //
+    const TT = await operationLock(e.UserId)
+    const Send = useSend(e)
+    if (!TT) {
+      Send(Text('操作频繁'))
+      return
+    }
+
     const UID = await getEmailUID(e.UserId)
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
     //
     const time = new Date()
     let size = 0
-
-    const Send = useSend(e)
 
     if (UserData.sign_in_time) {
       if (Method.isSameDay(UserData.sign_in_time, time)) {

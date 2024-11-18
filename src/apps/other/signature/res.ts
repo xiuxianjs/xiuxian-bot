@@ -1,17 +1,17 @@
 import { Text, useParse, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
-import {
-  Control,
-  showUserMsg,
-  victoryCooling,
-  isUser
-} from '@xiuxian/api/index'
-import { Config } from '@xiuxian/core/index'
-import * as GameApi from '@xiuxian/core/index'
+import { Control, showUserMsg, isUser } from '@xiuxian/api/index'
+import { Config, operationLock } from '@xiuxian/core/index'
 import { user } from '@xiuxian/db/index'
 export default OnResponse(
   async e => {
-    //
+    const TT = await operationLock(e.UserId)
+    const Send = useSend(e)
+    if (!TT) {
+      Send(Text('操作频繁'))
+      return
+    }
+
     const UID = await getEmailUID(e.UserId)
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
@@ -20,9 +20,6 @@ export default OnResponse(
     // 解析文本
     const text = useParse(e.Megs, 'Text')
     const autograph = text.replace(/^(#|\/)?更改签名为/, '')
-
-    // 发送消息
-    const Send = useSend(e)
 
     // 非法字符
     if (Config.IllegalCharacters.test(autograph)) {
@@ -34,10 +31,7 @@ export default OnResponse(
       Send(Text('请正确设置\n且道宣最多50字符'))
       return
     }
-    const CDID = 4
-    const CDTime = GameApi.Cooling.CD_Autograph
-    if (!(await victoryCooling(e, UID, CDID))) return
-    GameApi.Burial.set(UID, CDID, CDTime)
+
     // 更新用户
     await user.update(
       { autograph: autograph },

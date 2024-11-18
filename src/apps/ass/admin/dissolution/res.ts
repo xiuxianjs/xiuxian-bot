@@ -6,6 +6,14 @@ import * as DB from '@xiuxian/db/index'
 const delCooling = {}
 export default OnResponse(
   async e => {
+    // 操作锁
+    const TT = await GameApi.operationLock(e.UserId)
+    const Send = useSend(e)
+    if (!TT) {
+      Send(Text('操作频繁'))
+      return
+    }
+
     const UID = await getEmailUID(e.UserId)
     const UserData = await isUser(e, UID)
     if (typeof UserData === 'boolean') return
@@ -20,8 +28,6 @@ export default OnResponse(
       })
       .then(res => res?.dataValues)
       .catch(err => console.error(err))
-
-    const Send = useSend(e)
 
     if (!UserAss) {
       Send(Text('未创立个人势力'))

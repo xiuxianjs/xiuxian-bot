@@ -20,7 +20,9 @@ export default OnResponse(
 
     const CDID = 23
     const CDTime = GameApi.Cooling.CD_B
+    // 冷却
     if (!(await victoryCooling(e, UID, CDID))) return
+
     // 查看数据是否存在
     const data = await DB.user_sky_ranking
       .findOne({

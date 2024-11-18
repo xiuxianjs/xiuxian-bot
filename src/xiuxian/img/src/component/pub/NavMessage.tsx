@@ -162,8 +162,10 @@ export default function NavMessage({ data }: PropsType) {
           }
           <div className=" overflow-hidden whitespace-nowrap">
             <span>
-              战力 {Math.floor(data.battle_power)} *
-              {getImmortalGradeValue(data.immortal_grade)}
+              战力 {Math.floor(data.battle_power)}
+              {data.immortal_grade > 0
+                ? ` * ${getImmortalGradeValue(data.immortal_grade)}`
+                : ''}
             </span>
           </div>
           <div className=" overflow-hidden whitespace-nowrap">

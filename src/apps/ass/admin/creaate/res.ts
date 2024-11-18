@@ -5,6 +5,13 @@ import * as GameApi from '@xiuxian/core/index'
 import * as DB from '@xiuxian/db/index'
 export default OnResponse(
   async e => {
+    // 操作锁
+    const TT = await GameApi.operationLock(e.UserId)
+    const Send = useSend(e)
+    if (!TT) {
+      Send(Text('操作频繁'))
+      return
+    }
     //
     const UID = await getEmailUID(e.UserId)
     const UserData = await isUser(e, UID)
@@ -22,8 +29,6 @@ export default OnResponse(
       .then(res => res?.dataValues)
       .then(res => res.realm)
       .catch(() => 0)
-
-    const Send = useSend(e)
 
     //
     if (!gaspractice || gaspractice <= GameApi.Cooling.AssLevel) {
