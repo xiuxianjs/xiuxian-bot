@@ -31,8 +31,8 @@ type UserBattleType = {
  * @param value
  * @returns
  */
-export const getImmortalValue = (value: number, grade: number) => {
-  return Math.floor(value * getImmortalGradeValue(grade))
+export const getImmortalValue = (value: number, grade: number, val = 0.01) => {
+  return Math.floor(value * getImmortalGradeValue(grade, val))
 }
 
 /**
@@ -40,8 +40,8 @@ export const getImmortalValue = (value: number, grade: number) => {
  * @param grade
  * @returns
  */
-export const getImmortalGradeValue = (grade: number) => {
-  return Number((1 + 0.1 * grade).toFixed(1))
+export const getImmortalGradeValue = (grade: number, val = 0.01) => {
+  return Number((1 + val * grade).toFixed(2))
 }
 
 const getOriginal = (UserA: UserBattleType, UserB: UserBattleType) => {
@@ -91,7 +91,7 @@ const getHurt = (UserA: UserBattleType, UserB: UserBattleType) => {
 }
 
 const getBlood = (User: UserBattleType) => {
-  return getImmortalValue(User.battle_blood_now, User.immortal_grade)
+  return getImmortalValue(User.battle_blood_now, User.immortal_grade, 0.1)
 }
 
 const getNowBlood = (User: UserBattleType, blood: number) => {
