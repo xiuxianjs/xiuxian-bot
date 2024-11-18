@@ -473,7 +473,13 @@ export async function isUser(e, UID: string) {
     })
     .then(res => res?.dataValues)
     .catch(() => false)
-  if (UserData && typeof UserData !== 'boolean') return UserData
+  if (UserData && typeof UserData !== 'boolean') {
+    // 确保血量不会超过limit
+    if (UserData.battle_blood_now > UserData.battle_blood_limit) {
+      UserData.battle_blood_now = UserData.battle_blood_limit
+    }
+    return UserData
+  }
   createUser(e)
   return false
 }

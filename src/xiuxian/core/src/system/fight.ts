@@ -90,6 +90,18 @@ const getHurt = (UserA: UserBattleType, UserB: UserBattleType) => {
   }
 }
 
+const getBlood = (User: UserBattleType) => {
+  return getImmortalValue(User.battle_blood_now, User.immortal_grade)
+}
+
+const getNowBlood = (User: UserBattleType, blood: number) => {
+  if (blood <= 1) {
+    return 1
+  }
+  const p = blood / getBlood(User)
+  return Math.floor(User.battle_blood_now * p)
+}
+
 /**
  * 和boss战斗的模型
  * 战斗只会攻击一下
@@ -99,35 +111,25 @@ const getHurt = (UserA: UserBattleType, UserB: UserBattleType) => {
  * @param UserB
  */
 export function startBoss(UserA: UserBattleType, UserB: UserBattleType) {
+  // 伤害
   const { HurtA, HurtB } = getHurt(UserA, UserB)
-
-  UserA.battle_blood_now = getImmortalValue(
-    UserA.battle_blood_now,
-    UserA.immortal_grade
-  )
-
-  UserB.battle_blood_now = getImmortalValue(
-    UserB.battle_blood_now,
-    UserB.immortal_grade
-  )
-
+  // 血量
+  let bloodA = getBlood(UserA)
+  let bloodB = getBlood(UserB)
   const msg = []
-
   // 玩家造成的伤害
-
   let size = 0
-
   const Aac = () => {
     if (isProbability(UserA.battle_critical_hit)) {
       // 暴击
-      UserB.battle_blood_now -= HurtA.outbreak
+      bloodB -= HurtA.outbreak
       size = HurtA.outbreak
       msg.push(
         `老六[${UserA.name}]对[${UserB.name}]造成 ${HurtA.outbreak} 暴击伤害`
       )
     } else {
       // 普通结算
-      UserB.battle_blood_now -= HurtA.original
+      bloodB -= HurtA.original
       size = HurtA.original
       msg.push(
         `老六[${UserA.name}]对[${UserB.name}]造成 ${HurtA.original} 普通伤害`
@@ -139,14 +141,14 @@ export function startBoss(UserA: UserBattleType, UserB: UserBattleType) {
   Aac()
 
   // 看看boss有没有死
-  if (UserB.battle_blood_now <= 0) {
+  if (bloodB <= 0) {
     msg.push(`[${UserA.name}]仅出此招,就击败了[${UserB.name}]!`)
-    UserB.battle_blood_now = 0
+    bloodB = 0
     return {
       size: size,
       battle_blood_now: {
-        a: UserA.battle_blood_now,
-        b: UserB.battle_blood_now
+        a: getNowBlood(UserA, bloodA),
+        b: getNowBlood(UserB, bloodB)
       },
       victory: UserA.uid, // a胜利了
       msg
@@ -156,13 +158,13 @@ export function startBoss(UserA: UserBattleType, UserB: UserBattleType) {
   //
   const Bac = () => {
     if (isProbability(UserB.battle_critical_hit)) {
-      UserA.battle_blood_now -= HurtB.outbreak
+      bloodA -= HurtB.outbreak
       msg.push(
         `[${UserB.name}]对[${UserA.name}]造成 ${HurtB.outbreak} 暴击伤害`
       )
     } else {
       // 普通结算
-      UserA.battle_blood_now -= HurtB.original
+      bloodA -= HurtB.original
       msg.push(
         `[${UserB.name}]对[${UserA.name}]造成 ${HurtB.original} 普通伤害`
       )
@@ -172,15 +174,15 @@ export function startBoss(UserA: UserBattleType, UserB: UserBattleType) {
 
   // 看看玩家有没有死
 
-  if (UserA.battle_blood_now <= 0) {
+  if (bloodA <= 0) {
     msg.push(`[${UserB.name}]打死了[${UserA.name}]!`)
-    UserA.battle_blood_now = 0
+    bloodA = 0
     return {
       // 造成的总伤害
       size: size,
       battle_blood_now: {
-        a: UserA.battle_blood_now,
-        b: UserB.battle_blood_now
+        a: getNowBlood(UserA, bloodA),
+        b: getNowBlood(UserB, bloodB)
       },
       victory: UserB.uid, // b胜利了
       msg
@@ -192,8 +194,8 @@ export function startBoss(UserA: UserBattleType, UserB: UserBattleType) {
     size: size,
     // 双方血量
     battle_blood_now: {
-      a: UserA.battle_blood_now,
-      b: UserB.battle_blood_now
+      a: getNowBlood(UserA, bloodA),
+      b: getNowBlood(UserB, bloodB)
     },
     // a赢了
     victory: '0',
@@ -209,20 +211,17 @@ export function startBoss(UserA: UserBattleType, UserB: UserBattleType) {
  * @returns
  */
 export function start(UserA: UserBattleType, UserB: UserBattleType) {
+  const { HurtA, HurtB } = getHurt(UserA, UserB)
+
+  let bloodA = getBlood(UserA)
+  let bloodB = getBlood(UserB)
+
   // 战斗消息
   const msg: string[] = []
 
-  const { HurtA, HurtB } = getHurt(UserA, UserB)
+  bloodA = getImmortalValue(bloodA, UserA.immortal_grade)
 
-  UserA.battle_blood_now = getImmortalValue(
-    UserA.battle_blood_now,
-    UserA.immortal_grade
-  )
-
-  UserB.battle_blood_now = getImmortalValue(
-    UserB.battle_blood_now,
-    UserB.immortal_grade
-  )
+  bloodB = getImmortalValue(bloodB, UserB.immortal_grade)
 
   // 胜利判断
 
@@ -230,13 +229,13 @@ export function start(UserA: UserBattleType, UserB: UserBattleType) {
 
   const Aac = () => {
     if (isProbability(UserA.battle_critical_hit)) {
-      UserB.battle_blood_now -= HurtA.outbreak
+      bloodB -= HurtA.outbreak
       msg.push(
         `老六[${UserA.name}]偷袭成功,对[${UserB.name}]造成 ${HurtA.outbreak} 暴击伤害`
       )
     } else {
       // 普通结算
-      UserB.battle_blood_now -= HurtA.original
+      bloodB -= HurtA.original
       msg.push(
         `老六[${UserA.name}]偷袭成功,对[${UserB.name}]造成 ${HurtA.original} 普通伤害`
       )
@@ -257,14 +256,14 @@ export function start(UserA: UserBattleType, UserB: UserBattleType) {
     /**
      * b血量减少
      */
-    if (UserB.battle_blood_now < 1) {
+    if (bloodB < 1) {
       msg.push(`[${UserA.name}]仅出此招,就击败了[${UserB.name}]!`)
-      UserB.battle_blood_now = 0
+      bloodB = 0
       // 返回双方变更值
       return {
         battle_blood_now: {
-          a: UserA.battle_blood_now,
-          b: UserB.battle_blood_now
+          a: getNowBlood(UserA, bloodA),
+          b: getNowBlood(UserB, bloodB)
         },
         victory: UserA.uid, // a胜利了
         msg
@@ -274,13 +273,13 @@ export function start(UserA: UserBattleType, UserB: UserBattleType) {
 
   const Bac = () => {
     if (isProbability(UserB.battle_critical_hit)) {
-      UserA.battle_blood_now -= HurtB.outbreak
+      bloodA -= HurtB.outbreak
       msg.push(
         `第${round}回合,[${UserB.name}]对[${UserA.name}]造成 ${HurtB.outbreak} 暴击伤害`
       )
     } else {
       // 普通结算
-      UserA.battle_blood_now -= HurtB.original
+      bloodA -= HurtB.original
       msg.push(
         `第${round}回合,[${UserB.name}]对[${UserA.name}]造成 ${HurtB.original} 普通伤害`
       )
@@ -304,16 +303,15 @@ export function start(UserA: UserBattleType, UserB: UserBattleType) {
     Bac()
 
     /**  判断血量  */
-    if (UserA.battle_blood_now <= 0) {
+    if (bloodA <= 0) {
       const replacements = {
         A: UserA.name,
         B: UserB.name
       }
       // A 没血了  b 赢了
       victory = UserB.uid
-      UserB.battle_blood_now =
-        UserB.battle_blood_now >= 0 ? UserB.battle_blood_now : 0
-      UserA.battle_blood_now = 0
+      bloodB = bloodB >= 0 ? bloodB : 0
+      bloodA = 0
       msg.push(
         `${Sneakattack[Math.ceil(Math.random() * 5) + 1].replace(
           /A|B/g,
@@ -336,7 +334,7 @@ export function start(UserA: UserBattleType, UserB: UserBattleType) {
     // Aac
     Aac()
 
-    if (UserB.battle_blood_now <= 0) {
+    if (bloodB <= 0) {
       // B 没血了  A 赢了
       const replacements = {
         A: UserB.name,
@@ -344,10 +342,9 @@ export function start(UserA: UserBattleType, UserB: UserBattleType) {
       }
       victory = UserA.uid
       //
-      UserA.battle_blood_now =
-        UserA.battle_blood_now >= 0 ? UserA.battle_blood_now : 0
+      bloodA = bloodA >= 0 ? bloodA : 0
       //
-      UserB.battle_blood_now = 0
+      bloodB = 0
       msg.push(
         `${Sneakattack[Math.ceil(Math.random() * 5) + 1].replace(
           /A|B/g,
@@ -361,8 +358,8 @@ export function start(UserA: UserBattleType, UserB: UserBattleType) {
 
   return {
     battle_blood_now: {
-      a: UserA.battle_blood_now,
-      b: UserB.battle_blood_now
+      a: getNowBlood(UserA, bloodA),
+      b: getNowBlood(UserB, bloodB)
     },
     victory,
     msg
