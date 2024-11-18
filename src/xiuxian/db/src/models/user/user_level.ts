@@ -15,7 +15,7 @@ type ModelProps = {
   updateAt: Date
 }
 
-class InitModel extends Model<ModelProps> {
+class user_level extends Model<ModelProps> {
   /**
    * 找到所有数据
    * @param this
@@ -66,8 +66,7 @@ class InitModel extends Model<ModelProps> {
   }
 }
 
-export const user_level = sequelize.define(
-  'user_level',
+user_level.init(
   {
     id: {
       type: DataTypes.BIGINT,
@@ -114,8 +113,12 @@ export const user_level = sequelize.define(
     }
   },
   {
+    sequelize,
+    tableName: 'user_level',
     freezeTableName: true,
     createdAt: false,
     updatedAt: false
   }
 )
+
+export { user_level }
