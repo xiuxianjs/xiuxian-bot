@@ -104,7 +104,7 @@ export default OnResponse(
     const need_spiritual = Math.floor((mon.level + 20) / 3) * myCount
 
     if (UserData.special_spiritual < need_spiritual) {
-      Send(Text('灵力不足'))
+      Send(Text(`${UserData.immortal_grade > 0 ? '仙力' : '灵力'}不足`))
       return
     }
 

@@ -106,7 +106,7 @@ export default OnResponse(
       Text(
         good
           .map(item => `${item.name}+${item.acount}`)
-          .concat(['灵力100%'])
+          .concat([`'灵力100%'`])
           .join('\n')
       )
     )

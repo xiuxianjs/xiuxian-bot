@@ -41,13 +41,11 @@ export default OnResponse(
     if (!(await dualVerification(e, UserData, UserDataB))) return
 
     if (UserData.special_spiritual < 5) {
-      Send(Text('灵力不足'))
-
+      Send(Text(`${UserData.immortal_grade > 0 ? '仙力' : '灵力'}不足`))
       return
     }
     if (UserDataB.special_spiritual < 5) {
-      Send(Text('对方灵力不足'))
-
+      Send(Text(`对方${UserDataB.immortal_grade > 0 ? '仙力' : '灵力'}不足`))
       return
     }
 

@@ -512,7 +512,14 @@ export async function condensateGas(e, UID: string, time: number, UserData) {
   )
   setTimeout(() => {
     const Send = useSend(e)
-    Send(Text(`聚灵成功\n当前灵力${special_spiritual}/${limit}`))
+    //
+    Send(
+      Text(
+        UserData.immortal_grade > 0
+          ? `当前仙力${special_spiritual}/${limit}`
+          : `当前灵力${special_spiritual}/${limit}`
+      )
+    )
   }, 1000)
 }
 

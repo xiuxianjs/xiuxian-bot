@@ -179,7 +179,7 @@ export default OnResponse(
     //
 
     if (UserData.special_spiritual < levelsB.realm) {
-      Send(Text('灵力不足'))
+      Send(Text(`${UserData.immortal_grade > 0 ? '仙力' : '灵力'}不足`))
       return
     }
 

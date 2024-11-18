@@ -76,8 +76,11 @@ export default OnResponse(
 
     // 灵力不足
     if (UserData.special_spiritual <= ep.spiritual * Size) {
-      Send(Text(`灵力不足${ep.spiritual * Size}`))
-
+      Send(
+        Text(
+          `${UserData.immortal_grade > 0 ? '仙力' : '灵力'}不足${ep.spiritual * Size}`
+        )
+      )
       return
     }
 
