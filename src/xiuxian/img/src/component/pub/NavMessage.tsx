@@ -4,6 +4,7 @@ import classNames from 'classnames'
 import { createUID } from '../../core/index.js'
 import { PersonalInformationType } from '@xiuxian/statistics/index'
 import { getImmortalGradeValue } from '@src/xiuxian/core/src/system/fight.js'
+import { Avatar } from './Avatar.js'
 
 type PropsType = {
   data: PersonalInformationType
@@ -129,7 +130,7 @@ export default function NavMessage({ data }: PropsType) {
           // 2
         }
         <div className="flex-1 m-auto relative text-center">
-          <img
+          <Avatar
             className="w-52 h-52 m-auto rounded-full border-2 border-white"
             src={data.avatar}
           />

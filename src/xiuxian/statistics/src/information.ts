@@ -440,7 +440,7 @@ export async function showSky(UID: string) {
     name: string
     power: number
     autograph: string
-    UserAvatar: string
+    avatar: string
   }[] = []
   for (const item of list) {
     const data = await DB.user
@@ -473,7 +473,7 @@ export async function showSky(UID: string) {
       name: data.name,
       power: data.battle_power,
       autograph: data.autograph,
-      UserAvatar: data.avatar
+      avatar: data.avatar
     })
   }
   return msg

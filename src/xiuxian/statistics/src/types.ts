@@ -8,7 +8,7 @@ export interface KillListType {
   lifeName: string
   prestige: number
   power: number
-  UserAvatar: string
+  avatar: string
 }
 
 export {}

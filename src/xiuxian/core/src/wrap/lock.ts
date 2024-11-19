@@ -21,7 +21,6 @@ const CD = {}
  */
 export const operationLock = async (UID: string) => {
   const Now = Date.now()
-  console.log('CD[UID]', CD[UID], Now)
   // 存在程序CD，而且 冷却时间未过
   if (CD[UID] && Number(CD[UID]) + 2300 > Now) {
     return false

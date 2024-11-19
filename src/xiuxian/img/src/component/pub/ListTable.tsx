@@ -5,9 +5,11 @@ import Header from './header.js'
 import img_information from '@src/assets/img/information.jpg'
 import img_left from '@src/assets/img/left.jpg'
 import img_right from '@src/assets/img/right.jpg'
+import { Avatar } from './Avatar.js'
+
 export default function ListTable<
   T extends {
-    UserAvatar: string
+    avatar: string
     autograph?: string
     // 其他可能的属性
   }
@@ -43,9 +45,9 @@ export default function ListTable<
                 size={'100% 100%'}
                 url={img_right}
               >
-                <img
+                <Avatar
                   className="rounded-full size-48 m-auto"
-                  src={item.UserAvatar}
+                  src={item.avatar}
                 />
               </BackgroundImage>
             </div>

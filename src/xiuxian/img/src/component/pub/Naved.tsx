@@ -1,4 +1,5 @@
 import React from 'react'
+import { Avatar } from './Avatar'
 export default function Naved({
   list,
   UID,
@@ -19,7 +20,7 @@ export default function Naved({
         ))}
       </div>
       <div className="flex-1 flex">
-        <img
+        <Avatar
           className="size-60 rounded-full m-auto"
           src={avatar}
           alt="User Avatar"

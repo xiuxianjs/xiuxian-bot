@@ -8,6 +8,7 @@ import img_equipment from '@src/assets/img/equipment.jpg'
 import css_output from './input.scss'
 import { LinkStyleSheet } from 'jsxp'
 import ThemeBackground, { ThemesEmun } from './pub/ThemeBackground.js'
+import { Avatar } from './pub/Avatar.js'
 type PropsType = {
   data: SkillInformationType
   theme?: ThemesEmun
@@ -40,7 +41,7 @@ export default function App({ data, theme }: PropsType) {
                   </div>
                 </div>
                 <div className="flex-1 flex">
-                  <img
+                  <Avatar
                     className="size-48 m-auto rounded-full"
                     src={data.avatar}
                     alt="User Agoodvatar"

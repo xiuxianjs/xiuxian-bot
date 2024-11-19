@@ -7,6 +7,7 @@ import css_output from './input.scss'
 import { LinkStyleSheet } from 'jsxp'
 import ThemeBackground, { ThemesEmun } from './pub/ThemeBackground.js'
 import { getImmortalGradeValue } from '@src/xiuxian/core/src/system/fight.js'
+import { Avatar } from './pub/Avatar.js'
 
 type PropsType = {
   data: EquipmentInformationType
@@ -38,7 +39,7 @@ export default function App({ data, theme }: PropsType) {
                   </div>
                 </div>
                 <div className="flex-1 flex">
-                  <img
+                  <Avatar
                     className="size-56 rounded-full m-auto"
                     src={data.avatar}
                     alt="User Avatar"
