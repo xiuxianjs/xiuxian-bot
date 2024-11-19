@@ -1,4 +1,3 @@
-import { isUser } from '@xiuxian/api/index'
 import * as DB from '@xiuxian/db/index'
 import * as GameApi from '@xiuxian/core/index'
 import { Text, useParse, useSend } from 'alemonjs'
@@ -15,8 +14,6 @@ export default OnResponse(
     }
 
     const UID = await getEmailUID(e.UserId)
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
     //
     const text = useParse(e.Megs, 'Text')
 

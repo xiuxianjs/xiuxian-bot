@@ -1,5 +1,4 @@
 import { Text, useSend } from 'alemonjs'
-import { isUser } from '@xiuxian/api/index'
 import {
   Bag,
   Equipment,
@@ -8,7 +7,14 @@ import {
   operationLock
 } from '@xiuxian/core/index'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
-import { goods, levels, levels_limit, user, user_level } from '@src/xiuxian/db'
+import {
+  Attributes,
+  goods,
+  levels,
+  levels_limit,
+  user,
+  user_level
+} from '@src/xiuxian/db'
 import { NAMEMAP } from '@src/xiuxian/core/src/users/additional/levels'
 export default OnResponse(
   async e => {
@@ -21,16 +27,13 @@ export default OnResponse(
     }
     const ID = 1
     const UID = await getEmailUID(e.UserId)
-    // 校验
-    const UserData = await isUser(e, UID)
 
-    // 数据拦截
-    if (typeof UserData === 'boolean') return
+    // 校验
+    const UserData = e['UserData'] as Attributes<typeof user>
 
     // 得到数据
     const UserLevel = await user_level
       .findOne({
-        attributes: ['addition', 'realm', 'experience'],
         where: {
           uid: UID,
           type: ID
@@ -41,11 +44,10 @@ export default OnResponse(
     // 查看当前境界所在位置
     const LevelsData = await levels
       .findAll({
-        attributes: ['id', 'exp_needed', 'grade', 'type', 'name'],
         where: {
           type: ID
         },
-        // 排序
+        //  grade 排序
         order: [['grade', 'DESC']],
         limit: 3
       })
@@ -70,7 +72,6 @@ export default OnResponse(
     // 现在的境界数据
     const nowLevel = await levels
       .findOne({
-        attributes: ['id', 'exp_needed', 'grade', 'type', 'name'],
         where: {
           type: ID,
           grade: realm
@@ -90,7 +91,6 @@ export default OnResponse(
     // 查看下一个境界
     const nextLevel = await levels
       .findOne({
-        attributes: ['id', 'exp_needed', 'grade', 'type', 'name'],
         where: {
           type: ID,
           grade: realm + 1
@@ -163,7 +163,21 @@ export default OnResponse(
       // 取值范围 [1 100 ] 突破概率为 (value-realm-grade)/100
       let p = 90 - realm - UserData.immortal_grade * 3
       let max = 100
-      if (UserData.immortal_grade >= 50) {
+      if (UserData.immortal_grade >= 200) {
+        //  1/1000
+        max = 100000
+        p = 1
+      } else if (
+        UserData.immortal_grade < 200 &&
+        UserData.immortal_grade >= 100
+      ) {
+        //    1/10000
+        max = 10000
+        p = 1
+      } else if (
+        UserData.immortal_grade < 100 &&
+        UserData.immortal_grade >= 50
+      ) {
         //  1/1000
         max = 1000
         p = 1
@@ -232,19 +246,13 @@ export default OnResponse(
       return
     }
 
-    // 减少境界
-    UserLevel.experience -= nowLevel.exp_needed
-
-    // 调整境界
-    UserLevel.realm += 1
-
     /***
      * 境界变动的时候
      * 更新灵力上限
      */
     user.update(
       {
-        special_spiritual_limit: 100 + UserLevel.realm + UserData.immortal_grade
+        special_spiritual_limit: 100 + nextLevel.grade + UserData.immortal_grade
       },
       {
         where: {
@@ -253,16 +261,20 @@ export default OnResponse(
       }
     )
 
-    // 调整叠加
-    UserLevel.addition = 0
-
     // 保存境界信息
-    await user_level.update(UserLevel, {
-      where: {
-        type: ID,
-        uid: UID
+    await user_level.update(
+      {
+        addition: 0,
+        realm: UserLevel.realm + 1,
+        experience: UserLevel.experience - nowLevel.exp_needed
+      },
+      {
+        where: {
+          type: ID,
+          uid: UID
+        }
       }
-    })
+    )
 
     Send(Text(`境界提升至${nextLevel.name}`))
 

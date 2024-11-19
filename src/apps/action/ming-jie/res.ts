@@ -1,4 +1,3 @@
-import { isUser } from '@xiuxian/api/index'
 import { Bag, Levels, operationLock } from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
@@ -15,8 +14,6 @@ export default OnResponse(
     }
     // 检查用户
     const UID = await getEmailUID(e.UserId)
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
     const thing = await user_fate
       .findOne({
         where: {
@@ -49,7 +46,6 @@ export default OnResponse(
     // 看看经验
     const LevelMsg = await user_level
       .findOne({
-        attributes: ['addition', 'realm', 'experience'],
         where: {
           uid: UID,
           type: 2

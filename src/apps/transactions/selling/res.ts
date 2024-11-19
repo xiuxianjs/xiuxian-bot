@@ -1,8 +1,7 @@
 import { Image, Text, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
-import { isUser } from '@xiuxian/api/index'
 import { operationLock } from '@xiuxian/core/index'
-import { user_transactions } from '@xiuxian/db/index'
+import { Attributes, user, user_transactions } from '@xiuxian/db/index'
 import { pictureRender } from '@xiuxian/img/index'
 export default OnResponse(
   async e => {
@@ -14,8 +13,7 @@ export default OnResponse(
     }
     //
     const UID = await getEmailUID(e.UserId)
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
+    const UserData = e['UserData'] as Attributes<typeof user>
     user_transactions
       .findAll({
         where: {

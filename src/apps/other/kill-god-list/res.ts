@@ -1,13 +1,10 @@
 import { Image, useSend } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
-import { isUser } from '@xiuxian/api/index'
 import { pictureRender } from '@xiuxian/img/index'
 import * as Server from '@xiuxian/statistics/index'
+import { Attributes, user } from '@src/xiuxian/db'
 export default OnResponse(
   async e => {
-    const UID = await getEmailUID(e.UserId)
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
+    const UserData = e['UserData'] as Attributes<typeof user>
     const data = await Server.getKillList()
     const img = await pictureRender('KillComponent', {
       data,

@@ -1,6 +1,5 @@
 import { Text, useParse, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
-import { isUser } from '@xiuxian/api/index'
 import { Bag, operationLock, order } from '@xiuxian/core/index'
 import { Redis, user_transactions, user_bag } from '@xiuxian/db/index'
 import { createUID } from '@xiuxian/img/index'
@@ -15,8 +14,6 @@ export default OnResponse(
     }
     //
     const UID = await getEmailUID(e.UserId)
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
     // 解析文本
     const text = useParse(e.Megs, 'Text')
     const id = text.replace(/^(#|\/)?选购/, '').trim()

@@ -1,8 +1,7 @@
 import { Text, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
-import { isUser } from '@xiuxian/api/index'
 import { Bag, Method, operationLock } from '@xiuxian/core/index'
-import { user } from '@xiuxian/db/index'
+import { Attributes, user } from '@xiuxian/db/index'
 const MoenySize = 10
 export default OnResponse(
   async e => {
@@ -14,8 +13,7 @@ export default OnResponse(
     }
 
     const UID = await getEmailUID(e.UserId)
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
+    const UserData = e['UserData'] as Attributes<typeof user>
     //
     const time = new Date()
     let size = 0

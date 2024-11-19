@@ -1,4 +1,3 @@
-import { isUser } from '@xiuxian/api/index'
 import { Text, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 import { fate_level, goods, user_fate, user_level } from '@xiuxian/db/index'
@@ -7,8 +6,6 @@ export default OnResponse(
   async e => {
     // 操作锁
     const UID = await getEmailUID(e.UserId)
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
     // 查看本命信息：武器名/等级/属性/强化需要消耗提示
     const thing = await user_fate
       .findOne({
@@ -36,7 +33,6 @@ export default OnResponse(
     // 得到该境界经验
     const exp_gaspractice = await user_level
       .findOne({
-        attributes: ['addition', 'realm', 'experience'],
         where: {
           uid: UID,
           type: 1
@@ -47,7 +43,6 @@ export default OnResponse(
     //
     const exp_bodypractice = await user_level
       .findOne({
-        attributes: ['addition', 'realm', 'experience'],
         where: {
           uid: UID,
           type: 2
@@ -58,7 +53,6 @@ export default OnResponse(
     //
     const exp_soul = await user_level
       .findOne({
-        attributes: ['addition', 'realm', 'experience'],
         where: {
           uid: UID,
           type: 3

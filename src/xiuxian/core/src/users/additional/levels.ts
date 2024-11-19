@@ -56,7 +56,6 @@ export function getCopywriting(id: number, randomKey: number, size: number) {
 export async function enhanceRealm(UID: string, type: 1 | 2 | 3) {
   const UserLevel = await user_level
     .findOne({
-      attributes: ['addition', 'realm', 'experience'],
       where: {
         uid: UID,
         type
@@ -67,7 +66,6 @@ export async function enhanceRealm(UID: string, type: 1 | 2 | 3) {
   // 查看是否是渡劫
   const LevelListMax = await levels
     .findAll({
-      attributes: ['id', 'exp_needed', 'grade', 'type', 'name'],
       where: {
         type
       },
@@ -85,7 +83,6 @@ export async function enhanceRealm(UID: string, type: 1 | 2 | 3) {
   // 查看下一个境界
   const LevelList = await levels
     .findAll({
-      attributes: ['id', 'exp_needed', 'grade', 'type', 'name'],
       where: {
         type,
         grade: [realm + 1, realm]
@@ -131,17 +128,20 @@ export async function enhanceRealm(UID: string, type: 1 | 2 | 3) {
     )
   }
 
-  // 调整叠加
-  UserLevel.addition = 0
-
   // 保存境界信息
-
-  await user_level.update(UserLevel, {
-    where: {
-      type,
-      uid: UID
+  await user_level.update(
+    {
+      addition: 0,
+      realm: UserLevel.realm,
+      experience: UserLevel.experience
+    },
+    {
+      where: {
+        type,
+        uid: UID
+      }
     }
-  })
+  )
 
   //
   return {
@@ -159,7 +159,6 @@ export async function enhanceRealm(UID: string, type: 1 | 2 | 3) {
 export async function fallingRealm(UID: string, type: 1 | 2 | 3, size = 1) {
   const UserLevel = await user_level
     .findOne({
-      attributes: ['addition', 'realm', 'experience'],
       where: {
         uid: UID,
         type
@@ -169,7 +168,6 @@ export async function fallingRealm(UID: string, type: 1 | 2 | 3, size = 1) {
   const realm = UserLevel.realm
   const data = await levels
     .findOne({
-      attributes: ['id', 'exp_needed', 'name'],
       where: {
         grade: realm - size,
         type
@@ -202,12 +200,19 @@ export async function fallingRealm(UID: string, type: 1 | 2 | 3, size = 1) {
   }
   // 保存境界信息
 
-  await user_level.update(UserLevel, {
-    where: {
-      type,
-      uid: UID
+  await user_level.update(
+    {
+      addition: 0,
+      realm: UserLevel.realm,
+      experience: UserLevel.experience
+    },
+    {
+      where: {
+        type,
+        uid: UID
+      }
     }
-  })
+  )
 
   return {
     state: 2000,
@@ -231,7 +236,6 @@ export async function addExperience(
 ) {
   const UserLevel = await user_level
     .findOne({
-      attributes: ['addition', 'realm', 'experience'],
       where: {
         uid: UID,
         type
@@ -248,12 +252,18 @@ export async function addExperience(
     const size = Number(UserLevel.addition)
     UserLevel.addition = size + number
   }
-  await user_level.update(UserLevel, {
-    where: {
-      type,
-      uid: UID
+  await user_level.update(
+    {
+      experience: UserLevel.experience,
+      addition: UserLevel.addition
+    },
+    {
+      where: {
+        type,
+        uid: UID
+      }
     }
-  })
+  )
   return {
     state: 2000,
     msg: `[${NAMEMAP[type]}]+${size}`
@@ -274,7 +284,6 @@ export async function reduceExperience(
 ) {
   const UserLevel = await user_level
     .findOne({
-      attributes: ['addition', 'realm', 'experience'],
       where: {
         uid: UID,
         type
@@ -284,12 +293,17 @@ export async function reduceExperience(
   UserLevel.experience -= size
   if (UserLevel.experience < 0) UserLevel.experience = 0
 
-  await user_level.update(UserLevel, {
-    where: {
-      type,
-      uid: UID
+  await user_level.update(
+    {
+      experience: UserLevel.experience
+    },
+    {
+      where: {
+        type,
+        uid: UID
+      }
     }
-  })
+  )
 
   return {
     state: 2000,
@@ -306,7 +320,6 @@ export async function reduceExperience(
 export async function isLevelPoint(UID: string, type: 1 | 2 | 3) {
   const UserLevel = await user_level
     .findOne({
-      attributes: ['addition', 'realm', 'experience'],
       where: {
         uid: UID,
         type
@@ -315,7 +328,6 @@ export async function isLevelPoint(UID: string, type: 1 | 2 | 3) {
     .then(res => res?.dataValues)
   const LevelList = await levels
     .findAll({
-      attributes: ['exp_needed', 'grade'],
       where: {
         type
       },

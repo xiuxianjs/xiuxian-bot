@@ -1,6 +1,5 @@
 import { Text, useParse, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
-import { isUser } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
 export default OnResponse(
   async e => {
@@ -12,8 +11,6 @@ export default OnResponse(
       return
     }
     const UID = await getEmailUID(e.UserId)
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
     const text = useParse(e.Megs, 'Text')
     const [thingName, quantity] = text
       .replace(/^(#|\/)?(储物袋|儲物袋|背包)(丢弃|丟棄)/, '')

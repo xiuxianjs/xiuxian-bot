@@ -1,6 +1,6 @@
 import { Text, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
-import { isUser, punishLevel } from '@xiuxian/api/index'
+import { punishLevel } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
 import * as DB from '@xiuxian/db/index'
 export default OnResponse(
@@ -15,8 +15,7 @@ export default OnResponse(
 
     const UID = await getEmailUID(e.UserId)
 
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
+    const UserData = e['UserData'] as DB.Attributes<typeof DB.user>
 
     if (!(await GameApi.Levels.isLevelPoint(UID, 1))) {
       Send(Text('尚未感知到雷劫'))
@@ -59,6 +58,8 @@ export default OnResponse(
         } else {
           GameApi.State.del(UID)
           Send(Text(`${UserData.name}成功渡过最后一道雷劫,渡劫成仙`))
+
+          // 境界更新
           await DB.user_level.update(
             { realm: 42 },
             { where: { uid: UID, type: 1 } }

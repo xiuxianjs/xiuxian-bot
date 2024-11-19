@@ -1,6 +1,5 @@
 import { Text, useParse, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
-import { isUser } from '@xiuxian/api/index'
 import { Bag, Cooling, operationLock } from '@xiuxian/core/index'
 import { goods, user_transactions, user_bag } from '@xiuxian/db/index'
 export default OnResponse(
@@ -12,9 +11,6 @@ export default OnResponse(
       return
     }
     const UID = await getEmailUID(e.UserId)
-    //
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
     // 解析文本
     const text = useParse(e.Megs, 'Text')
     //  /上架物品名*数量*价格

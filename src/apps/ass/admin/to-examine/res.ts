@@ -1,4 +1,4 @@
-import { isUser, sendReply } from '@xiuxian/api/index'
+import { sendReply } from '@xiuxian/api/index'
 import * as DB from '@xiuxian/db/index'
 import { Text, useParse, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
@@ -14,8 +14,6 @@ export default OnResponse(
     }
 
     const UID = await getEmailUID(e.UserId)
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
     const text = useParse(e.Megs, 'Text')
 
     // 审核 宗门名称

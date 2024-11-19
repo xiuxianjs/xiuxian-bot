@@ -8,7 +8,6 @@ import { user } from '@xiuxian/db/index'
 export async function getUserName(UID: string) {
   const data = await user
     .findOne({
-      attributes: ['name'],
       where: {
         uid: UID
       }

@@ -1,4 +1,4 @@
-import { isUser, ControlByBlood } from '@xiuxian/api/index'
+import { ControlByBlood } from '@xiuxian/api/index'
 import { Op } from 'sequelize'
 import * as DB from '@xiuxian/db/index'
 import { Text, useSend } from 'alemonjs'
@@ -6,8 +6,7 @@ import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 export default OnResponse(
   async e => {
     const UID = await getEmailUID(e.UserId)
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
+    const UserData = e['UserData'] as DB.Attributes<typeof DB.user>
     if (!(await ControlByBlood(e, UserData))) return
 
     const Send = useSend(e)
@@ -20,7 +19,6 @@ export default OnResponse(
     const battle_power = UserData.battle_power ?? 20
     const LevelData = await DB.user_level
       .findOne({
-        attributes: ['addition', 'realm', 'experience'],
         where: {
           uid: UID,
           type: 3
@@ -32,17 +30,6 @@ export default OnResponse(
     const minBattleBlood = 1
     const AllUser = await DB.user
       .findAll({
-        attributes: [
-          'id',
-          'uid',
-          'state',
-          'battle_blood_now',
-          'battle_power',
-          'pont_x',
-          'pont_y',
-          'point_type',
-          'name'
-        ],
         where: {
           // 不是自己的UID
           uid: {

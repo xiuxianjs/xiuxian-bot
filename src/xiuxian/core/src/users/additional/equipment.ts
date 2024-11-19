@@ -30,34 +30,22 @@ export async function updatePanel(UID: string, battle_blood_now: number) {
   }
 
   // 用户境界数据
-  const userLevelData = await user_level
-    .findAll({
-      where: {
-        uid: UID,
-        type: [1, 2, 3] // 只要123
-      }
-    })
-    .then(res => res.map(item => item?.dataValues))
+  const userLevelData = await user_level.findAllValues({
+    where: {
+      uid: UID
+    }
+  })
 
   // 计算数值
   for await (const item of userLevelData) {
     // 境界？
     await levels
-      .findOne({
-        attributes: [
-          'attack',
-          'defense',
-          'blood',
-          'critical_hit',
-          'critical_damage',
-          'speed'
-        ],
+      .findOneValue({
         where: {
           grade: item?.realm,
           type: item.type
         }
       })
-      .then(res => res?.dataValues)
       .then(res => {
         if (!res) return
         panel.battle_attack = panel.battle_attack + res.attack

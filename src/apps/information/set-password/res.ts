@@ -1,6 +1,5 @@
 import { Text, useParse, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
-import { isUser } from '@xiuxian/api/index'
 import * as DB from '@xiuxian/db/index'
 import { operationLock } from '@src/xiuxian/core'
 export default OnResponse(
@@ -14,8 +13,6 @@ export default OnResponse(
 
     // 获取用户信息
     const UID = await getEmailUID(e.UserId)
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
     // 解析密码
     const text = useParse(e.Megs, 'Text')
     const password = text.replace(/^(#|\/)?设置密码/, '')

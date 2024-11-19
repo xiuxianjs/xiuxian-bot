@@ -1,4 +1,4 @@
-import { isUser, ControlByBlood } from '@xiuxian/api/index'
+import { ControlByBlood } from '@xiuxian/api/index'
 import * as DB from '@xiuxian/db/index'
 import * as GameApi from '@xiuxian/core/index'
 import { Text, useParse, useSend } from 'alemonjs'
@@ -14,8 +14,7 @@ export default OnResponse(
     }
 
     const UID = await getEmailUID(e.UserId)
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
+    const UserData = e['UserData'] as DB.Attributes<typeof DB.user>
     if (!(await ControlByBlood(e, UserData))) return
     // 查看数据是否存在
     const text = useParse(e.Megs, 'Text')
@@ -34,7 +33,6 @@ export default OnResponse(
     }
     const LevelData = await DB.user_level
       .findOne({
-        attributes: ['addition', 'realm', 'experience'],
         where: {
           uid: UID,
           type: 1

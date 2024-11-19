@@ -1,12 +1,11 @@
 import {
-  isUser,
   isSideUser,
   dualVerification,
   dualVerificationAction,
   victoryCooling
 } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
-import { user, user_level } from '@xiuxian/db/index'
+import { Attributes, user, user_level } from '@xiuxian/db/index'
 import { Text, useParse, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 export default OnResponse(
@@ -19,8 +18,7 @@ export default OnResponse(
       return
     }
     const UID = await getEmailUID(e.UserId)
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
+    const UserData = e['UserData'] as Attributes<typeof user>
     const ats = useParse(e.Megs, 'At')
     let UIDB = null
     if (!ats || ats.length === 0) {
@@ -55,16 +53,16 @@ export default OnResponse(
     // 读取境界
     const LevelDataA = await user_level
       .findOne({
-        attributes: ['addition', 'realm', 'experience'],
         where: {
           uid: UID,
           type: 1
         }
       })
       .then(res => res?.dataValues)
+
+    //
     const LevelDataB = await user_level
       .findOne({
-        attributes: ['addition', 'realm', 'experience'],
         where: {
           uid: UIDB,
           type: 1

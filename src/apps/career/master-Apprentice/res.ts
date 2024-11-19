@@ -1,11 +1,9 @@
 import { Text, useSend } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
-import { isUser, controlByName } from '@xiuxian/api/index'
+import { controlByName } from '@xiuxian/api/index'
+import { Attributes, user } from '@src/xiuxian/db'
 export default OnResponse(
   async e => {
-    const UID = await getEmailUID(e.UserId)
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
+    const UserData = e['UserData'] as Attributes<typeof user>
     if (!(await controlByName(e, UserData, '协会'))) return
     const Send = useSend(e)
     Send(Text(['[协会执事]😳叶子凡\n', '目前职业阵法师\n'].join('')))

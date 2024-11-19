@@ -1,8 +1,9 @@
 import { Text, useParse, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
-import { isUser, controlByName } from '@xiuxian/api/index'
+import { controlByName } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
 import { operationLock } from '@xiuxian/core/index'
+import { Attributes, user } from '@src/xiuxian/db'
 
 const stones = ['下品灵石', '中品灵石', '上品灵石', '极品灵石']
 
@@ -48,8 +49,7 @@ export default OnResponse(
     }
     // lock end
     const UID = await getEmailUID(e.UserId)
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
+    const UserData = e['UserData'] as Attributes<typeof user>
     if (!(await controlByName(e, UserData, '金银坊'))) return
     const text = useParse(e.Megs, 'Text')
     const [account, LeftName, RightName] = text

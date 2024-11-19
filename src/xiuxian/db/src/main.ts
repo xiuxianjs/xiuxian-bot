@@ -2,6 +2,26 @@ import * as models from './models.js'
 
 export { models }
 
+export const users = {
+  msg: models.user,
+  user_ass: models.user_ass,
+  user_ass_apply: models.user_ass_apply,
+  user_bag: models.user_bag,
+  user_bag_message: models.user_bag_message,
+  user_buy_log: models.user_buy_log,
+  user_email: models.user_email,
+  user_equipment: models.user_equipment,
+  user_fate: models.user_fate,
+  user_level: models.user_level,
+  user_log: models.user_log,
+  user_ring: models.user_ring,
+  users_email: models.users_email,
+  user_sky_ranking: models.user_sky_ranking,
+  user_sky_reward: models.user_sky_reward,
+  user_transactions: models.user_transactions,
+  user_transactions_logs: models.user_transactions_logs
+}
+
 export const useBelongsTo = () => {
   /**
    * goods

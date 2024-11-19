@@ -1,6 +1,5 @@
 import { Text, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
-import { isUser } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
 import { user_bag_message } from '@xiuxian/db/index'
 export default OnResponse(
@@ -13,8 +12,6 @@ export default OnResponse(
       return
     }
     const UID = await getEmailUID(e.UserId)
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
 
     const UserBgData = await user_bag_message
       .findOne({

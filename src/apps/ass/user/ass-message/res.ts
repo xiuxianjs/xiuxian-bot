@@ -1,4 +1,3 @@
-import { isUser } from '@xiuxian/api/index'
 import { pictureRender } from '@xiuxian/img/index'
 import { ass, ass_typing, user_ass } from '@xiuxian/db/index'
 import { Image, Text, useSend } from 'alemonjs'
@@ -6,8 +5,6 @@ import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 export default OnResponse(
   async e => {
     const UID = await getEmailUID(e.UserId)
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
 
     // send
     const Send = useSend(e)

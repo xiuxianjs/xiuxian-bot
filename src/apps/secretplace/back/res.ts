@@ -1,7 +1,7 @@
 import { Text, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
-import { isUser } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
+import { Attributes, user } from '@src/xiuxian/db'
 export default OnResponse(
   async e => {
     const TT = await GameApi.operationLock(e.UserId)
@@ -12,8 +12,7 @@ export default OnResponse(
     }
 
     const UID = await getEmailUID(e.UserId)
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
+    const UserData = e['UserData'] as Attributes<typeof user>
 
     // 不是赶路状态
     if (UserData.state == 3) {

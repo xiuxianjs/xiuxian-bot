@@ -1,18 +1,10 @@
 import {
   map_point,
-  user_bag,
-  user_equipment,
-  user_skills,
   user_level,
   levels,
   user,
-  user_log,
-  user_fate,
-  user_ring,
   user_bag_message,
-  user_sky_reward,
-  user_buy_log,
-  user_ass
+  users
 } from '@xiuxian/db/index'
 import * as Method from '../wrap/method.js'
 import * as Talent from '../users/base/talent.js'
@@ -99,29 +91,29 @@ export async function setPlayer(UID: string, UserAvatar: string) {
       grade: 1
     }),
     // 创建境界信息1
-    user_level.create({
-      uid: UID,
-      type: 1,
-      addition: 0,
-      realm: 0,
-      experience: 0
-    }),
-    // 创建境界信息2
-    user_level.create({
-      uid: UID,
-      type: 2,
-      addition: 0,
-      realm: 0,
-      experience: 0
-    }),
-    // 创建境界信息3
-    user_level.create({
-      uid: UID,
-      type: 3,
-      addition: 0,
-      realm: 0,
-      experience: 0
-    })
+    user_level.bulkCreate([
+      {
+        uid: UID,
+        type: 1,
+        addition: 0,
+        realm: 0,
+        experience: 0
+      },
+      {
+        uid: UID,
+        type: 2,
+        addition: 0,
+        realm: 0,
+        experience: 0
+      },
+      {
+        uid: UID,
+        type: 3,
+        addition: 0,
+        realm: 0,
+        experience: 0
+      }
+    ])
   ])
 }
 
@@ -132,82 +124,15 @@ export async function setPlayer(UID: string, UserAvatar: string) {
  * @returns
  */
 export async function updatePlayer(UID: string, UserAvatar: string) {
-  // sky 排名记录不需要删除
-  return Promise.all([
-    // 删除用户
-    user.destroy({
-      where: {
-        uid: UID
-      }
-    }),
-    // 删除宗门管理关联信息
-    user_ass.destroy({
-      where: {
-        uid: UID
-      }
-    }),
-    // 删除背包
-    user_bag.destroy({
-      where: {
-        uid: UID
-      }
-    }),
-    // 删除背包信息
-    user_bag_message.destroy({
-      where: {
-        uid: UID
-      }
-    }),
-    // 删除购买记录
-    user_buy_log.destroy({
-      where: {
-        uid: UID
-      }
-    }),
-    // 删除装备
-    user_equipment.destroy({
-      where: {
-        uid: UID
-      }
-    }),
-    // 删除本命
-    user_fate.destroy({
-      where: {
-        uid: UID
-      }
-    }),
-    // 删除境界
-    user_level.destroy({
-      where: {
-        uid: UID
-      }
-    }),
-    // 删除记录
-    user_log.destroy({
-      where: {
-        uid: UID
-      }
-    }),
-    // 删除戒指
-    user_ring.destroy({
-      where: {
-        uid: UID
-      }
-    }),
-    // 删除功法
-    user_skills.destroy({
-      where: {
-        uid: UID
-      }
-    }),
-    // 删除
-    user_sky_reward.destroy({
-      where: {
-        uid: UID
-      }
-    })
-    // 成功了就执行并返回该结果
-  ])
+  return Promise.all(
+    Object.values(users).map(item =>
+      item.destroy({
+        where: {
+          uid: UID
+        }
+      })
+    )
+  )
     .then(() => setPlayer(UID, UserAvatar))
     .catch(err => {
       console.error(err)

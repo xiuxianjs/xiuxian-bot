@@ -1,9 +1,8 @@
-import { isUser } from '@xiuxian/api/index'
 import { pictureRender } from '@xiuxian/img/index'
 import { backpackInformation } from '@xiuxian/statistics/index'
 import { Goods, operationLock } from '@xiuxian/core/index'
 import { Image, Text, useParse, useSend } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
+import { Attributes, user } from '@src/xiuxian/db'
 export default OnResponse(
   async e => {
     const TT = await operationLock(e.UserId)
@@ -13,9 +12,7 @@ export default OnResponse(
       return
     }
 
-    const UID = await getEmailUID(e.UserId)
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
+    const UserData = e['UserData'] as Attributes<typeof user>
     const text = useParse(e.Megs, 'Text')
     const typing = text.replace(/^(#|\/)?我的(储物袋|儲物袋|背包)/, '')
     console.log('typing', typing)

@@ -1,5 +1,5 @@
-import { showUserMsg, isUser, reCreateMsg } from '@xiuxian/api/index'
-import { map_position, user, user_level } from '@xiuxian/db/index'
+import { showUserMsg, reCreateMsg } from '@xiuxian/api/index'
+import { Attributes, map_position, user, user_level } from '@xiuxian/db/index'
 import { Bag, Levels, Skills, Talent } from '@xiuxian/core/index'
 import { operationLock } from '@xiuxian/core/index'
 import { Text, useParse, useSend } from 'alemonjs'
@@ -66,7 +66,6 @@ async function sendLing(e, UID: string, acount: number) {
   }
   const LevelData = await user_level
     .findOne({
-      attributes: ['addition', 'realm', 'experience'],
       where: {
         uid: UID,
         type: 1
@@ -101,8 +100,8 @@ export default OnResponse(
     // 检查用户
     const UID = await getEmailUID(e.UserId)
 
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
+    const UserData = e['UserData'] as Attributes<typeof user>
+
     // 解析
     const text = useParse(e.Megs, 'Text')
     if (!text) return
@@ -192,7 +191,6 @@ export default OnResponse(
       case 600301: {
         const LevelData = await user_level
           .findOne({
-            attributes: ['addition', 'realm', 'experience'],
             where: {
               uid: UID,
               type: 1

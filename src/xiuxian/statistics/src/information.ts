@@ -41,7 +41,6 @@ export async function personalInformation(UID: string, UserAvatar?: string) {
   // 境界数据
   const GaspracticeList = await DB.levels
     .findAll({
-      attributes: ['name', 'type', 'exp_needed'],
       where: {
         grade: gLevelData?.realm ?? 0,
         type: 1
@@ -54,7 +53,6 @@ export async function personalInformation(UID: string, UserAvatar?: string) {
   // 境界数据
   const BodypracticeList = await DB.levels
     .findAll({
-      attributes: ['name', 'type', 'exp_needed'],
       where: {
         grade: bLevelData?.realm ?? 0,
         type: 2
@@ -67,7 +65,6 @@ export async function personalInformation(UID: string, UserAvatar?: string) {
   // 境界数据
   const SoulList = await DB.levels
     .findAll({
-      attributes: ['name', 'type', 'exp_needed'],
       where: {
         grade: sLevelData?.realm ?? 0,
         type: 3
@@ -445,14 +442,6 @@ export async function showSky(UID: string) {
   for (const item of list) {
     const data = await DB.user
       .findOne({
-        attributes: [
-          'id',
-          'uid',
-          'name',
-          'battle_power',
-          'autograph',
-          'avatar'
-        ],
         where: {
           uid: item.uid
         }

@@ -1,7 +1,8 @@
 import { Text, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
-import { isUser, endAllWord } from '@xiuxian/api/index'
+import { endAllWord } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
+import { Attributes, user } from '@src/xiuxian/db'
 export default OnResponse(
   async e => {
     // 操作锁
@@ -13,8 +14,7 @@ export default OnResponse(
     }
 
     const UID = await getEmailUID(e.UserId)
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
+    const UserData = e['UserData'] as Attributes<typeof user>
 
     // 已经是打坐了
     if (UserData?.state == 8) {

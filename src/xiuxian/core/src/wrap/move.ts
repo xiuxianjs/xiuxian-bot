@@ -17,7 +17,6 @@ new Worker(
     // 得到目的地
     const { pont_x, pont_y } = await user
       .findOne({
-        attributes: ['pont_x', 'pont_y'],
         where: {
           uid: UID
         }

@@ -1,4 +1,3 @@
-import { isUser } from '@xiuxian/api/index'
 import { user_log } from '@xiuxian/db/index'
 import { Method } from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
@@ -7,12 +6,8 @@ export default OnResponse(
   async e => {
     const UID = await getEmailUID(e.UserId)
 
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
-
     const logsData = await user_log
       .findAll({
-        attributes: ['type', 'create_time', 'message'],
         where: {
           uid: UID
         },
@@ -31,7 +26,6 @@ export default OnResponse(
 
     user_log
       .findAll({
-        attributes: ['type', 'create_time', 'message'],
         where: {
           uid: UID
         },

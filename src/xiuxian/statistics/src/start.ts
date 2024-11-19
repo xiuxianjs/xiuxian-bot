@@ -35,15 +35,6 @@ export async function getKillList() {
   //  得到玩家数据
   const ALLData = await DB.user
     .findAll({
-      attributes: [
-        'id',
-        'uid',
-        'battle_power',
-        'autograph',
-        'special_prestige',
-        'name',
-        'avatar'
-      ],
       where: {
         delete: 1
       },

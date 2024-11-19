@@ -1,7 +1,7 @@
 import { Text, useParse, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
-import { isUser } from '@xiuxian/api/index'
 import { Bag, Equipment, Levels, operationLock } from '@xiuxian/core/index'
+import { Attributes, user } from '@src/xiuxian/db'
 export default OnResponse(
   async e => {
     // lock
@@ -13,8 +13,7 @@ export default OnResponse(
     }
     // is user
     const UID = await getEmailUID(e.UserId)
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
+    const UserData = e['UserData'] as Attributes<typeof user>
     // message parse
     const text = useParse(e.Megs, 'Text')
     if (!text) return

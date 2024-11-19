@@ -9,9 +9,7 @@ export default OnResponse(
     const UID = text.replace(/(#|\/)?天道强制重生/, '')
     const Send = useSend(e)
     Player.updatePlayer(UID, e.UserAvatar)
-      .then(() => {
-        showUserMsg(e)
-      })
+      .then(() => showUserMsg(e))
       .catch(err => {
         console.error('err', err)
         Send(Text('数据查询错误'))

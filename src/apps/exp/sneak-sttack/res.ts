@@ -2,7 +2,6 @@ import { Text, useParse, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 import { Op } from 'sequelize'
 import {
-  isUser,
   dualVerification,
   dualVerificationAction,
   sendReply,
@@ -23,8 +22,7 @@ export default OnResponse(
 
     const UID = await getEmailUID(e.UserId)
 
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
+    const UserData = e['UserData'] as DB.Attributes<typeof DB.user>
 
     const minBattleBlood = 1
 
@@ -168,7 +166,6 @@ export default OnResponse(
 
     const levelsB = await DB.user_level
       .findOne({
-        attributes: ['addition', 'realm', 'experience'],
         where: {
           uid: UID,
           type: 1

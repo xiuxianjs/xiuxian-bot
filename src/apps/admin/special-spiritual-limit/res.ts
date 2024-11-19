@@ -11,7 +11,6 @@ export default OnResponse(
         data.map(item =>
           user_level
             .findOneValue({
-              attributes: ['addition', 'realm', 'experience'],
               where: {
                 uid: item.uid,
                 type: 1

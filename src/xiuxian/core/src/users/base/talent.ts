@@ -50,9 +50,7 @@ export function getTalent() {
 export async function getTalentName(arr: number[]) {
   let name = ''
   const TalentData = await talent
-    .findAll({
-      attributes: ['id', 'name']
-    })
+    .findAll()
     .then(res => res.map(item => item?.dataValues))
   for await (const item of arr) {
     // item是id

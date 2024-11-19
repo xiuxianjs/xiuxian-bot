@@ -11,21 +11,13 @@ export const createUID = (UID: string) => {
   return isNaN(Number(UID)) || UID.length > 11 ? hash(UID) : UID
 }
 
-const CD = {}
-
 /**
- *
  * @param UID
  * @param callBack
  * @returns
  */
 export const operationLock = async (UID: string) => {
   const Now = Date.now()
-  // 存在程序CD，而且 冷却时间未过
-  if (CD[UID] && Number(CD[UID]) + 2300 > Now) {
-    return false
-  }
-  CD[UID] = Now
   const KEY = `xiuxian:open:${createUID(UID)}`
   // 当前的时间
   const LOCK = await Redis.get(KEY)

@@ -1,4 +1,3 @@
-import { isUser } from '@xiuxian/api/index'
 import { Bag, Skills } from '@xiuxian/core/index'
 import { user, user_skills } from '@xiuxian/db/index'
 import { operationLock } from '@xiuxian/core/index'
@@ -15,8 +14,6 @@ export default OnResponse(
     }
     // 检查用户
     const UID = await getEmailUID(e.UserId)
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
     // 解析
     const text = useParse(e.Megs, 'Text')
     if (!text) return

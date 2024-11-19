@@ -55,7 +55,10 @@ interface ModelProps {
   sign_size: number
   typing: number
   sign_time: number
-  newcomer_gift: number
+
+  newcomer: number
+  newcomer_step: number
+
   point_attribute: number
   update_time: string
   create_time: number
@@ -339,10 +342,16 @@ export const user = InitModel.init(
       defaultValue: 1,
       comment: '背包等级'
     },
-    newcomer_gift: {
+    newcomer: {
       type: DataTypes.BIGINT,
+      // 0 是新人
       defaultValue: 0,
       comment: '是否是新人'
+    },
+    newcomer_step: {
+      type: DataTypes.BIGINT,
+      defaultValue: 0,
+      comment: '新手教程步骤'
     },
     point_attribute: {
       type: DataTypes.BIGINT,

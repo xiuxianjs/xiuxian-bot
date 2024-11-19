@@ -19,7 +19,7 @@ type ModelProps = {
   doc: string //string
 }
 
-class InitModel extends Model<ModelProps> {
+class levels extends Model<ModelProps> {
   /**
    * 找到所有数据
    * @param this
@@ -70,8 +70,7 @@ class InitModel extends Model<ModelProps> {
   }
 }
 
-export const levels = sequelize.define(
-  'levels',
+levels.init(
   {
     id: {
       type: DataTypes.BIGINT,
@@ -127,6 +126,8 @@ export const levels = sequelize.define(
     }
   },
   {
+    sequelize,
+    tableName: 'levels',
     freezeTableName: true,
     createdAt: false,
     updatedAt: false,
@@ -138,3 +139,5 @@ export const levels = sequelize.define(
     ]
   }
 )
+
+export { levels }

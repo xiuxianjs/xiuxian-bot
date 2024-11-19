@@ -1,4 +1,3 @@
-import { isUser } from '@xiuxian/api/index'
 import { fate_level, user_fate, user_level } from '@xiuxian/db/index'
 import { Bag, Levels } from '@xiuxian/core/index'
 import { operationLock } from '@xiuxian/core/index'
@@ -15,8 +14,6 @@ export default OnResponse(
     }
     // 检查用户
     const UID = await getEmailUID(e.UserId)
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
     const thing = await user_fate
       .findOne({
         where: {
@@ -60,7 +57,6 @@ export default OnResponse(
     // 得到境界剩余经验
     const exp_gaspractice = await user_level
       .findOne({
-        attributes: ['addition', 'realm', 'experience'],
         where: {
           uid: UID,
           type: 1
@@ -71,7 +67,6 @@ export default OnResponse(
 
     const exp_bodypractice = await user_level
       .findOne({
-        attributes: ['addition', 'realm', 'experience'],
         where: {
           uid: UID,
           type: 2
@@ -82,7 +77,6 @@ export default OnResponse(
 
     const exp_soul = await user_level
       .findOne({
-        attributes: ['addition', 'realm', 'experience'],
         where: {
           uid: UID,
           type: 3

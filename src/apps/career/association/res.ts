@@ -1,6 +1,6 @@
 import { Text, useSend } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
-import { isUser, controlByName } from '@xiuxian/api/index'
+import { controlByName } from '@xiuxian/api/index'
+import { Attributes, user } from '@src/xiuxian/db'
 /**
  * 职业经验够了之后
  * 需要前往协会交付灵石来考核
@@ -17,9 +17,7 @@ import { isUser, controlByName } from '@xiuxian/api/index'
  */
 export default OnResponse(
   async e => {
-    const UID = await getEmailUID(e.UserId)
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
+    const UserData = e['UserData'] as Attributes<typeof user>
     if (!(await controlByName(e, UserData, '协会'))) return
     const Send = useSend(e)
 

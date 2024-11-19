@@ -1,4 +1,3 @@
-import { isUser } from '@xiuxian/api/index'
 import * as DB from '@xiuxian/db/index'
 import { skys, user_sky_reward } from '@xiuxian/db/index'
 import { Op } from 'sequelize'
@@ -16,8 +15,6 @@ export default OnResponse(
     }
 
     const UID = await getEmailUID(e.UserId)
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
 
     // 查看数据是否存在
     const data = await DB.user_sky_ranking

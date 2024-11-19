@@ -1,4 +1,3 @@
-import { isUser } from '@xiuxian/api/index'
 import * as DB from '@xiuxian/db/index'
 import * as GameApi from '@xiuxian/core/index'
 import { operationLock } from '@xiuxian/core/index'
@@ -16,8 +15,6 @@ export default OnResponse(
     // lock end
     const UID = await getEmailUID(e.UserId)
     const msg = []
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
     // 金银置换
     const text = useParse(e.Megs, 'Text')
     let account = Number(text.replace(/^(#|\/)?治炼仙石/, '')) || 1

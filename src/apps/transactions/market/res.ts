@@ -1,8 +1,6 @@
 import { Image, Text, useParse, useSend } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
-import { isUser } from '@xiuxian/api/index'
 import { operationLock } from '@xiuxian/core/index'
-import { user_transactions } from '@xiuxian/db/index'
+import { Attributes, user, user_transactions } from '@xiuxian/db/index'
 import { pictureRender } from '@xiuxian/img/index'
 export default OnResponse(
   async e => {
@@ -13,10 +11,8 @@ export default OnResponse(
       Send(Text('操作频繁'))
       return
     }
-    const UID = await getEmailUID(e.UserId)
     // is user
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
+    const UserData = e['UserData'] as Attributes<typeof user>
     // message parse
     const text = useParse(e.Megs, 'Text')
     const [xpage = '1', name] = text

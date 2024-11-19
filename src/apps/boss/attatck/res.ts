@@ -1,8 +1,8 @@
 import { Text, useParse, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
-import { ControlByBlood, isUser, victoryCooling } from '@xiuxian/api/index'
+import { ControlByBlood, victoryCooling } from '@xiuxian/api/index'
 import { Boss, Fight, operationLock } from '@xiuxian/core/index'
-import { Redis, user } from '@xiuxian/db/index'
+import { Attributes, Redis, user } from '@xiuxian/db/index'
 // 攻击
 export default OnResponse(
   async e => {
@@ -23,8 +23,7 @@ export default OnResponse(
     }
 
     //
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
+    const UserData = e['UserData'] as Attributes<typeof user>
 
     //
     if (UserData.special_spiritual < 1) {

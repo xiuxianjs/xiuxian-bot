@@ -1,7 +1,7 @@
 import { Text, useSend } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
-import { isUser, ControlByBlood } from '@xiuxian/api/index'
+import { ControlByBlood } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
+import { Attributes, user } from '@src/xiuxian/db'
 /**
  *
  * @param grade
@@ -15,9 +15,7 @@ function getMoneyGrade(grade: number) {
 }
 export default OnResponse(
   async e => {
-    const UID = await getEmailUID(e.UserId)
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
+    const UserData = e['UserData'] as Attributes<typeof user>
     if (!(await ControlByBlood(e, UserData))) return
     const Send = useSend(e)
     if (UserData.pont_attribute == 1) {

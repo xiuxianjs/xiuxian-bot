@@ -1,8 +1,8 @@
 import { Text, useParse, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
-import { Control, showUserMsg, isUser } from '@xiuxian/api/index'
+import { Control, showUserMsg } from '@xiuxian/api/index'
 import { Config, operationLock } from '@xiuxian/core/index'
-import { user } from '@xiuxian/db/index'
+import { Attributes, user } from '@xiuxian/db/index'
 export default OnResponse(
   async e => {
     const TT = await operationLock(e.UserId)
@@ -13,8 +13,7 @@ export default OnResponse(
     }
 
     const UID = await getEmailUID(e.UserId)
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
+    const UserData = e['UserData'] as Attributes<typeof user>
     if (!(await Control(e, UserData))) return
     const text = useParse(e.Megs, 'Text')
     const name = text.replace(/^(#|\/)?更改昵称为/, '')

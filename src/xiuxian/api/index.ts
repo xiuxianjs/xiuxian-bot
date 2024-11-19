@@ -599,7 +599,6 @@ export async function punishLevel(e, UID: string, UserData) {
   // 得到用户数据
   const Userexp = await user_level
     .findOne({
-      attributes: ['addition', 'realm', 'experience'],
       where: {
         uid: UID,
         type: 1
@@ -609,7 +608,6 @@ export async function punishLevel(e, UID: string, UserData) {
   //
   const Userbool = await user_level
     .findOne({
-      attributes: ['addition', 'realm', 'experience'],
       where: {
         uid: UID,
         type: 2
@@ -619,7 +617,6 @@ export async function punishLevel(e, UID: string, UserData) {
   //
   const Usershen = await user_level
     .findOne({
-      attributes: ['addition', 'realm', 'experience'],
       where: {
         uid: UID,
         type: 3
@@ -641,9 +638,8 @@ export async function punishLevel(e, UID: string, UserData) {
   switch (UserData.talent.length) {
     case 1: {
       setTimeout(async () => {
-        user_level.update({ experience: 0 }, { where: { uid: UID, type: 1 } })
-        user_level.update({ experience: 0 }, { where: { uid: UID, type: 2 } })
-        user_level.update({ experience: 0 }, { where: { uid: UID, type: 3 } })
+        // 更新
+        user_level.update({ experience: 0 }, { where: { uid: UID } })
         Send(Text('[灭世之雷]击中了你的道韵,修为清空,化作尘埃'))
       }, 6000)
       break

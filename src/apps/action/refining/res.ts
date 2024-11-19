@@ -1,5 +1,4 @@
-import { isUser } from '@xiuxian/api/index'
-import { user_fate, user_level } from '@xiuxian/db/index'
+import { Attributes, user, user_fate, user_level } from '@xiuxian/db/index'
 import { Bag, Equipment, Levels } from '@xiuxian/core/index'
 import { operationLock } from '@xiuxian/core/index'
 import { Text, useParse, useSend } from 'alemonjs'
@@ -15,8 +14,7 @@ export default OnResponse(
     }
     // 检查用户
     const UID = await getEmailUID(e.UserId)
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
+    const UserData = e['UserData'] as Attributes<typeof user>
     const T = await user_fate
       .findOne({
         where: {
@@ -41,7 +39,6 @@ export default OnResponse(
     // 看看经验
     const LevelMsg = await user_level
       .findOne({
-        attributes: ['addition', 'realm', 'experience'],
         where: {
           uid: UID,
           type: 1

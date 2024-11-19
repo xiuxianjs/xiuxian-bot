@@ -1,16 +1,11 @@
-import { isUser } from '@xiuxian/api/index'
 import { ass, user_ass_apply } from '@xiuxian/db/index'
 import { Text, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 export default OnResponse(
   async e => {
     const UID = await getEmailUID(e.UserId)
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
-
     // send
     const Send = useSend(e)
-
     // 查看自己的我的势力
     user_ass_apply
       .findAll({
@@ -31,8 +26,6 @@ export default OnResponse(
         }
         Send(Text(res.map(item => `势力:${item.name}(待加入)`).join('\n')))
       })
-
-    //
     return
   },
   'message.create',

@@ -1,4 +1,4 @@
-import { isUser, ControlByBlood, sendReply, killNPC } from '@xiuxian/api/index'
+import { ControlByBlood, sendReply, killNPC } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
 import * as DB from '@xiuxian/db/index'
 
@@ -58,8 +58,7 @@ export default OnResponse(
 
     const UID = await getEmailUID(e.UserId)
 
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
+    const UserData = e['UserData'] as DB.Attributes<typeof DB.user>
 
     // 血量不足
     if (!(await ControlByBlood(e, UserData))) return
@@ -86,7 +85,6 @@ export default OnResponse(
     // 看看境界
     const gaspractice = await DB.user_level
       .findOne({
-        attributes: ['addition', 'realm', 'experience'],
         where: {
           uid: UID,
           type: 1
@@ -240,7 +238,7 @@ export default OnResponse(
           })
           .then(item => item?.dataValues['good']['dataValues'])
 
-        const acount = GameApi.Method.leastOne(Math.floor(mon.level / mon.type))
+        const acount = Math.floor(mon.level / mon.type)
 
         const theCount = acount > 16 ? (type ? 17 : 13) : acount
 
@@ -269,9 +267,7 @@ export default OnResponse(
           .then(item => item?.dataValues['good']['dataValues'])
 
         if (thing) {
-          obj[thing.name] = GameApi.Method.leastOne(
-            Math.floor(mon.level / mon.type)
-          )
+          obj[thing.name] = Math.floor(mon.level / mon.type)
         }
       }
 
@@ -294,9 +290,7 @@ export default OnResponse(
 
       //
       if (thing) {
-        const acount =
-          GameApi.Method.leastOne(Math.floor(mon.level / mon.type / 2)) *
-          myCount
+        const acount = Math.floor(mon.level / mon.type / 2) * myCount
         // 相同
         if (obj[thing.name]) {
           obj[thing.name] += acount
@@ -314,7 +308,7 @@ export default OnResponse(
     }
 
     if (p > 20) {
-      const lingshi = GameApi.Method.leastOne(mon.level * size + 100)
+      const lingshi = mon.level * size + 100
       ThingArr.push({
         name: '中品灵石',
         acount: lingshi * myCount
@@ -322,7 +316,7 @@ export default OnResponse(
     }
 
     if (p > 10) {
-      const lingshi = GameApi.Method.leastOne(mon.level * size + 300)
+      const lingshi = mon.level * size + 300
       ThingArr.push({
         name: '下品灵石',
         acount: lingshi * myCount

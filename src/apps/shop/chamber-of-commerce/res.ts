@@ -1,13 +1,10 @@
-import { controlByName, isUser } from '@xiuxian/api/index'
+import { controlByName } from '@xiuxian/api/index'
 import * as DB from '@xiuxian/db/index'
 import * as GameApi from '@xiuxian/core/index'
 import { Text, useParse, useSend } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 export default OnResponse(
   async e => {
-    const UID = await getEmailUID(e.UserId)
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
+    const UserData = e['UserData'] as DB.Attributes<typeof DB.user>
     if (!(await controlByName(e, UserData, '联盟'))) return
     const start_msg = ['___[联盟商会]___', '[/兑换+物品名*数量]']
     const text = useParse(e.Megs, 'Text')

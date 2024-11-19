@@ -1,5 +1,4 @@
 import { Bag, Cooling, operationLock } from '@src/xiuxian/core'
-import { isUser } from '@xiuxian/api/index'
 import { ass, user_ass } from '@xiuxian/db/index'
 import { Text, useParse, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
@@ -14,8 +13,6 @@ export default OnResponse(
     }
 
     const UID = await getEmailUID(e.UserId)
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
 
     const text = useParse(e.Megs, 'Text')
     const name = text.replace(/^(#|\/)?升级/, '')

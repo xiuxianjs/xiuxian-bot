@@ -1,19 +1,14 @@
 import { Text, useParse, useSend } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 import { console } from 'inspector'
-import { isUser } from '@xiuxian/api/index'
 import { Boss } from '@xiuxian/core/index'
 export default OnResponse(
   async e => {
-    const UID = await getEmailUID(e.UserId)
     const Send = useSend(e)
     // 检查活动时间
     if (!Boss.isBossActivityOpen()) {
       Send(Text('BOSS已经逃跑....'))
       return
     }
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
     const text = useParse(e.Megs, 'Text')
     let key: '1' | '2' = '1'
     if (/银角/.test(text)) {

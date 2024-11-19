@@ -1,7 +1,8 @@
 import { Text, useParse, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
-import { controlByName, isUser } from '@xiuxian/api/index'
+import { controlByName } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
+import { Attributes, user } from '@src/xiuxian/db'
 export default OnResponse(
   async e => {
     // lock start
@@ -14,8 +15,7 @@ export default OnResponse(
 
     const UID = await getEmailUID(e.UserId)
 
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
+    const UserData = e['UserData'] as Attributes<typeof user>
 
     if (!(await controlByName(e, UserData, '万宝楼'))) return
 

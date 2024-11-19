@@ -1,6 +1,5 @@
 import { Text, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
-import { isUser } from '@xiuxian/api/index'
 import { Bag, operationLock } from '@xiuxian/core/index'
 import { Redis } from '@xiuxian/db/index'
 import { createUID } from '@xiuxian/img/index'
@@ -13,8 +12,6 @@ export default OnResponse(
       return
     }
     const UID = await getEmailUID(e.UserId)
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
     // 存入临时数据
     const KEY = `xiuxian:money:${createUID(UID)}`
     const log = await Redis.get(KEY)

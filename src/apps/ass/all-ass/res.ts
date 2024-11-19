@@ -1,14 +1,10 @@
 import { Image, Text, useParse, useSend } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
-import { isUser } from '@xiuxian/api/index'
 import { Cooling } from '@xiuxian/core/index'
-import { ass } from '@xiuxian/db/index'
+import { ass, Attributes, user } from '@xiuxian/db/index'
 import { pictureRender } from '@xiuxian/img/index'
 export default OnResponse(
   async e => {
-    const UID = await getEmailUID(e.UserId)
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
+    const UserData = e['UserData'] as Attributes<typeof user>
     const text = useParse(e.Megs, 'Text')
     const p = text.replace(/^(#|\/)?查看势力/, '')
     const page = p == '' ? 1 : Number(p)

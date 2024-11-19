@@ -1,6 +1,5 @@
 import { Text, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
-import { isUser } from '@xiuxian/api/index'
 import * as DB from '@xiuxian/db/index'
 import { operationLock } from '@src/xiuxian/core'
 export default OnResponse(
@@ -14,9 +13,6 @@ export default OnResponse(
     }
 
     const UID = await getEmailUID(e.UserId)
-
-    const UserData = await isUser(e, UID)
-    if (typeof UserData === 'boolean') return
 
     //查看数据是否存在
     const data = await DB.user_sky_ranking

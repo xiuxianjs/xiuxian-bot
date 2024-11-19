@@ -1,4 +1,4 @@
-import { isUser, ControlByBlood, endAllWord } from '@xiuxian/api/index'
+import { ControlByBlood, endAllWord } from '@xiuxian/api/index'
 import { Op, literal } from 'sequelize'
 import * as DB from '@xiuxian/db/index'
 import * as GameApi from '@xiuxian/core/index'
@@ -15,16 +15,17 @@ export default OnResponse(
     }
 
     const UID = await getEmailUID(e.UserId)
-    const UserData = await isUser(e, UID)
-    if (typeof UserData == 'boolean') return
+
+    // 校验
+    const UserData = e['UserData'] as DB.Attributes<typeof DB.user>
 
     // 闭关等长期状态自动结束
     if (UserData.state == 1 || UserData.state == 2 || UserData.state == 8) {
       await endAllWord(e, UID, UserData)
       Send(Text('已自动结束闭关/打坐/锻体'))
-
       return
     }
+
     if (!(await ControlByBlood(e, UserData))) return
 
     const text = useParse(e.Megs, 'Text')
@@ -72,7 +73,6 @@ export default OnResponse(
     // 判断
     const LevelsMsg = await DB.user_level
       .findOne({
-        attributes: ['addition', 'realm', 'experience'],
         where: {
           uid: UID,
           type: 1

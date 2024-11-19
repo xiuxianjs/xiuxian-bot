@@ -13,23 +13,6 @@ export function randomArray<T>(arr: T[]) {
 }
 
 /**
- * 强制修正至少为1
- * @param value
- * @returns
- */
-export function leastOne(value: any) {
-  let size = value
-  if (isNaN(parseFloat(size)) && !isFinite(size)) {
-    return Number(1)
-  }
-  size = Number(Math.trunc(size))
-  if (size == null || size == undefined || size < 1 || isNaN(size)) {
-    return Number(1)
-  }
-  return Number(size)
-}
-
-/**
  * 转化为对象
  * @param time
  * @returns
