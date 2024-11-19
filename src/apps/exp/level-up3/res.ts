@@ -160,13 +160,20 @@ export default OnResponse(
      * @returns
      */
     const levelUp = async () => {
-      const p =
-        UserData.immortal_grade > 15
-          ? 2
-          : 90 - realm - UserData.immortal_grade * 3
       // 取值范围 [1 100 ] 突破概率为 (value-realm-grade)/100
+      let p = 90 - realm - UserData.immortal_grade * 3
+      let max = 100
+      if (UserData.immortal_grade >= 50) {
+        //  1/1000
+        max = 1000
+        p = 1
+      } else if (UserData.immortal_grade < 50 && UserData.immortal_grade > 15) {
+        //    1/100
+        max = 100
+        p = 1
+      }
       // 至少5%的概率突破成功
-      if (!Method.isTrueInRange(1, 100, p)) {
+      if (!Method.isTrueInRange(1, max, p)) {
         /** 随机顺序损失经验  */
         const randomKey = Levels.getRandomKey()
         const size = Math.floor((UserLevel?.experience ?? 0) / (randomKey + 1))
