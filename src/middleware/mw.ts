@@ -1,9 +1,3 @@
-/**
- * *****
- * 中间件
- * 处理用户数据和拦截
- * ****
- */
 import { Burial, Cooling, operationLock, Player } from '@src/xiuxian/core'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 import { user } from '@xiuxian/db/index'
@@ -13,11 +7,20 @@ import { operationLocalLock } from './util'
 import { ControlByBlood } from '@src/xiuxian/api'
 
 // 指引标记
-
 const UIDS = {}
 
 export default OnMiddleware(
   async e => {
+    // 获取 txt
+    const txt = useParse(e.Megs, 'Text')
+    // discord 和 kook 是全局域，需要挑过
+    if (process.argv.includes('discord') || process.argv.includes('kook')) {
+      // 不是  / 或 # 开头的，跳过
+      if (!/^(\/|#)/.test(txt)) {
+        e.Megs = []
+        return e
+      }
+    }
     const Send = useSend(e)
     if (!operationLocalLock(e.UserId)) {
       Send(Text('操作频繁'))
@@ -50,7 +53,7 @@ export default OnMiddleware(
                 '接下来跟随我的指引',
                 '学习如何踏入仙途吧～',
                 '发送[/我的资料]了解个人信息',
-                '发送[/跳过]可跳过指引'
+                '发送[/跳过]可跳过新手指引'
               ].join('\n')
             )
           )
@@ -79,18 +82,18 @@ export default OnMiddleware(
       user.update({ newcomer: 1 }, { where: { uid: data.uid } })
       return e
     }
+    // 没有提示跳过
     if (!UIDS[UID]) {
       UIDS[UID] = true
-      Send(Text('发送[/跳过]可跳过指引'))
+      Send(Text('发送[/跳过]可跳过新手指引'))
     }
-    const txt = useParse(e.Megs, 'Text')
     if (!txt) {
       Send(Text(['小柠檬：', '不对哦～', '你的指令是空的'].join('\n')))
       e.Megs = []
       return e
     }
     //
-    if (/^\/跳过/.test(txt)) {
+    if (/^\/(跳过|跳过新手指引|跳过指引)/.test(txt)) {
       Send(Text(['小柠檬：', '哎呀,我要消失啦～'].join('\n')))
       user.update({ newcomer: 1 }, { where: { uid: data.uid } })
       e.Megs = []
