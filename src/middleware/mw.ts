@@ -63,14 +63,6 @@ export default OnMiddleware(
       Send(Text('操作频繁'))
       return
     }
-    // 新人必须是满血的。
-    if (data.battle_blood_limit <= 800) {
-      data.battle_blood_now = 800
-    } else {
-      data.battle_blood_now = data.battle_blood_limit
-    }
-    //
-    e['UserData'] = data
     // 不是新手
     if (data.newcomer != 0) {
       return e
@@ -101,8 +93,19 @@ export default OnMiddleware(
       e.Megs = []
       return e
     }
+    // 新人必须是满血的。
+    if (data.battle_blood_limit <= 800) {
+      data.battle_blood_now = 800
+    } else {
+      data.battle_blood_now = data.battle_blood_limit
+    }
+    //
+    e['UserData'] = data
     // 状态进行中
-    if (!(await ControlByBlood(e, data))) return
+    if (!(await ControlByBlood(e, data))) {
+      e.Megs = []
+      return e
+    }
     // 刷新步骤
     await user.update(
       { newcomer_step: 1 + data.newcomer_step },
