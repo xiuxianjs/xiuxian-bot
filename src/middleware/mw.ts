@@ -11,6 +11,11 @@ import { Text, useParse, useSend } from 'alemonjs'
 import { newcomer } from './newcomer'
 import { operationLocalLock } from './util'
 import { ControlByBlood } from '@src/xiuxian/api'
+
+// 指引标记
+
+const UIDS = {}
+
 export default OnMiddleware(
   async e => {
     const Send = useSend(e)
@@ -49,6 +54,7 @@ export default OnMiddleware(
               ].join('\n')
             )
           )
+          UIDS[UID] = true
         })
         .catch(err => {
           console.error(err)
@@ -72,6 +78,10 @@ export default OnMiddleware(
       data.newcomer = 1
       user.update({ newcomer: 1 }, { where: { uid: data.uid } })
       return e
+    }
+    if (!UIDS[UID]) {
+      UIDS[UID] = true
+      Send(Text('发送[/跳过]可跳过指引'))
     }
     const txt = useParse(e.Megs, 'Text')
     if (!txt) {
