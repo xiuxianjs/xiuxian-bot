@@ -1,4 +1,4 @@
-import { user, user_level } from '@xiuxian/db/index'
+import { Attributes, user, user_level } from '@xiuxian/db/index'
 import {
   Cooling,
   Method,
@@ -168,7 +168,11 @@ export async function showUserMsg(e) {
  * @param UIDB
  * @returns
  */
-export async function dualVerification(e, UserData, UserDataB) {
+export async function dualVerification(
+  e,
+  UserData: Attributes<typeof user>,
+  UserDataB
+) {
   const Send = useSend(e)
   if (UserData.uid == UserDataB.uid) {
     Send(Text('自己打自己?'))
@@ -250,7 +254,7 @@ export async function Control(e, UserData) {
  * @param UID
  * @returns
  */
-export async function ControlByBlood(e, UserData) {
+export async function ControlByBlood(e, UserData: Attributes<typeof user>) {
   const { state, msg } = await State.goByBlood(UserData)
   const Send = useSend(e)
   if (state == 4001) {
@@ -267,7 +271,11 @@ export async function ControlByBlood(e, UserData) {
  * @param addressName
  * @returns
  */
-export async function controlByName(e, UserData, addressName: string) {
+export async function controlByName(
+  e,
+  UserData: Attributes<typeof user>,
+  addressName: string
+) {
   if (!(await ControlByBlood(e, UserData))) return false
   if (!(await Map.mapAction(UserData.pont_x, UserData.pont_y, addressName))) {
     const Send = useSend(e)

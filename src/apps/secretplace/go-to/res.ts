@@ -32,6 +32,7 @@ export default OnResponse(
 
     // 检查地点
     const address = text.replace(/^(#|\/)?前往/, '')
+
     // 得到地点数据
     const point = await DB.map_point
       .findOne({
@@ -66,7 +67,6 @@ export default OnResponse(
     // 判断
     if (!point) {
       Send(Text('未知地点'))
-
       return
     }
 

@@ -45,10 +45,9 @@ export async function setPlayer(UID: string, UserAvatar: string) {
 
   const constitutionId = await getRandomConstitutionOnId()
 
-  //
-  return Promise.all([
+  const players = [
     // 创建基础信息
-    user.create({
+    await user.create({
       uid: UID,
       name: Method.randomArray([
         '甲',
@@ -86,12 +85,12 @@ export async function setPlayer(UID: string, UserAvatar: string) {
       create_time: new Date().getTime() // 创建时间搓
     }),
     // 创建背包信息
-    user_bag_message.create({
+    await user_bag_message.create({
       uid: UID,
       grade: 1
     }),
     // 创建境界信息1
-    user_level.bulkCreate([
+    await user_level.bulkCreate([
       {
         uid: UID,
         type: 1,
@@ -114,7 +113,9 @@ export async function setPlayer(UID: string, UserAvatar: string) {
         experience: 0
       }
     ])
-  ])
+  ]
+  // 返回执行结果 ？
+  return players
 }
 
 /**

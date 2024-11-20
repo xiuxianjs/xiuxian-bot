@@ -18,13 +18,22 @@ export async function addBagThing(
   const resource = `bag:${UID}`
   const lockValue = await acquireLock(resource)
   try {
-    const bag_message = await user_bag_message
-      .findOne({
-        where: {
-          uid: UID
-        }
+    let bag_message = await user_bag_message.findOneValue({
+      where: {
+        uid: UID
+      }
+    })
+    if (!bag_message) {
+      bag_message = {
+        id: 1,
+        uid: UID,
+        grade: 1
+      }
+      await user_bag_message.create({
+        uid: UID,
+        grade: 1
       })
-      .then(res => res?.dataValues)
+    }
     for (const { name, acount } of arr) {
       const THING = await goods
         .findOne({
@@ -136,13 +145,22 @@ export async function reduceBagThing(
  * @returns
  */
 export async function backpackFull(UID: string) {
-  const bag_message = await user_bag_message
-    .findOne({
-      where: {
-        uid: UID
-      }
+  let bag_message = await user_bag_message.findOneValue({
+    where: {
+      uid: UID
+    }
+  })
+  if (!bag_message) {
+    bag_message = {
+      id: 1,
+      uid: UID,
+      grade: 1
+    }
+    await user_bag_message.create({
+      uid: UID,
+      grade: 1
     })
-    .then(res => res?.dataValues)
+  }
   const length = await user_bag.count({
     where: {
       uid: UID

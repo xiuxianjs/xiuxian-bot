@@ -35,18 +35,17 @@ export default OnResponse(
     const [id, count] = text.replace(/^(#|\/)?开采/, '').split('*')
 
     // 看看境界
-    const gaspractice = await user_level
-      .findOne({
+    const realm = await user_level
+      .findOneValue({
         where: {
           uid: UID,
           type: 1
         }
       })
-      .then(res => res?.dataValues)
       .then(item => item.realm)
 
     const Size = Number(
-      count == '' || count == undefined || gaspractice < 25 || Number(count) > 2
+      count == '' || count == undefined || realm < 25 || Number(count) > 2
         ? 1
         : count
     )

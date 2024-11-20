@@ -1,4 +1,4 @@
-import { user } from '@xiuxian/db/index'
+import { Attributes, user } from '@xiuxian/db/index'
 const ACTIONMAP = {
   0: '空闲',
   1: '闭关',
@@ -88,7 +88,7 @@ export async function Go(UserData) {
  * @param UID
  * @returns
  */
-export async function goByBlood(UserData) {
+export async function goByBlood(UserData: Attributes<typeof user>) {
   // 空闲状态
   if (UserData.state == 0) {
     if (UserData.battle_blood_now >= 1) {
