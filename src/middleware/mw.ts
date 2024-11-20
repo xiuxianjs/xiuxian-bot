@@ -37,7 +37,8 @@ export default OnMiddleware(
       const T = await operationLock(e.UserId)
       if (!T) {
         Send(Text('操作频繁'))
-        return
+        e.Megs = []
+        return e
       }
       Player.updatePlayer(UID, e.UserAvatar)
         .then(() => {
@@ -67,31 +68,41 @@ export default OnMiddleware(
       e.Megs = []
       return e
     }
-    const T = await operationLock(e.UserId)
-    if (!T) {
-      Send(Text('操作频繁'))
-      return
-    }
+
+    //
+    e['UserData'] = data
+
     // 不是新手
     if (data.newcomer != 0) {
       return e
     }
+
     // 不存在步骤
     if (!newcomer[data.newcomer_step]) {
       data.newcomer = 1
       user.update({ newcomer: 1 }, { where: { uid: data.uid } })
       return e
     }
+
+    const T = await operationLock(e.UserId)
+    if (!T) {
+      Send(Text('操作频繁'))
+      e.Megs = []
+      return e
+    }
+
     // 没有提示跳过
     if (!UIDS[UID]) {
       UIDS[UID] = true
       Send(Text('发送[/跳过]可跳过新手指引'))
     }
+
     if (!txt) {
       Send(Text(['小柠檬：', '不对哦～', '你的指令是空的'].join('\n')))
       e.Megs = []
       return e
     }
+
     //
     if (/^\/(跳过|跳过新手指引|跳过指引)/.test(txt)) {
       Send(Text(['小柠檬：', '哎呀,我要消失啦～'].join('\n')))
@@ -112,8 +123,6 @@ export default OnMiddleware(
     } else {
       data.battle_blood_now = data.battle_blood_limit
     }
-    //
-    e['UserData'] = data
     // 状态进行中
     if (!(await ControlByBlood(e, data))) {
       e.Megs = []
