@@ -54,63 +54,67 @@ export function getCopywriting(id: number, randomKey: number, size: number) {
  * @returns
  */
 export async function enhanceRealm(UID: string, type: 1 | 2 | 3) {
-  const UserLevel = await user_level
-    .findOne({
-      where: {
-        uid: UID,
-        type
-      }
-    })
-    .then(res => res?.dataValues)
-  const realm = UserLevel.realm
+  //
+  const UserLevel = await user_level.findOneValue({
+    where: {
+      uid: UID,
+      type
+    }
+  })
+
+  //
+  const realm = UserLevel?.realm
+
   // 查看是否是渡劫
-  const LevelListMax = await levels
-    .findAll({
-      where: {
-        type
-      },
-      order: [['grade', 'DESC']],
-      limit: 3
-    })
-    .then(res => res.map(item => item?.dataValues))
+  const LevelListMax = await levels.findAllValues({
+    where: {
+      type
+    },
+    order: [['grade', 'DESC']],
+    limit: 3
+  })
+
+  //
   const data = LevelListMax[1]
-  if (!data || UserLevel.realm == data.grade) {
+
+  //
+  if (!data || realm == data.grade) {
     return {
       state: 4001,
       msg: `道友已至瓶颈,唯寻得真理,方成大道`
     }
   }
-  // 查看下一个境界
-  const LevelList = await levels
-    .findAll({
-      where: {
-        type,
-        grade: [realm + 1, realm]
-      },
-      order: [['grade', 'DESC']],
-      limit: 3
-    })
-    .then(res => res.map(item => item?.dataValues))
-  const next = LevelList[0]
-  const now = LevelList[1]
-  if (!next || !now) {
+
+  //
+  const nowLevel = await levels.findOneValue({
+    where: {
+      type,
+      grade: realm
+    }
+  })
+
+  //
+  const nextLevel = await levels.findOneValue({
+    where: {
+      type,
+      grade: realm + 1
+    }
+  })
+
+  //
+  if (!nowLevel || !nextLevel) {
     return {
       state: 4001,
       msg: '已看破天机'
     }
   }
   // 判断经验够不够
-  if (UserLevel.experience < now.exp_needed) {
+  if (UserLevel.experience < nowLevel.exp_needed) {
     return {
       state: 4001,
       msg: `${NAMEMAP[type]}不足`
     }
   }
-
-  // 减少境界
-  UserLevel.experience -= now.exp_needed
-  // 调整境界
-  UserLevel.realm += 1
 
   /***
    * 境界变动的时候更新
@@ -132,8 +136,8 @@ export async function enhanceRealm(UID: string, type: 1 | 2 | 3) {
   await user_level.update(
     {
       addition: 0,
-      realm: UserLevel.realm,
-      experience: UserLevel.experience
+      realm: nextLevel.grade,
+      experience: UserLevel.experience - nextLevel.exp_needed
     },
     {
       where: {
@@ -146,7 +150,7 @@ export async function enhanceRealm(UID: string, type: 1 | 2 | 3) {
   //
   return {
     state: 2000,
-    msg: `境界提升至${next.name}`
+    msg: `境界提升至${nextLevel.name}`
   }
 }
 

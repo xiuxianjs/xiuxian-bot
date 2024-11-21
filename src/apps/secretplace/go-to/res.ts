@@ -21,9 +21,9 @@ export default OnResponse(
 
     // 闭关等长期状态自动结束
     if (UserData.state == 1 || UserData.state == 2 || UserData.state == 8) {
+      UserData.state = 0
       await endAllWord(e, UID, UserData)
       Send(Text('已自动结束闭关/打坐/锻体'))
-      return
     }
 
     if (!(await ControlByBlood(e, UserData))) return

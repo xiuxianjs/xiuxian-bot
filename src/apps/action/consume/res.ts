@@ -106,13 +106,17 @@ export default OnResponse(
     const text = useParse(e.Megs, 'Text')
     if (!text) return
     const [thingName, thingAcount] = text.replace(/^(#|\/)?消耗/, '').split('*')
+    let count = Number(thingAcount)
+    if (isNaN(Number(count))) {
+      count = 1
+    }
     const thing = await Bag.searchBagByName(UID, thingName)
     if (!thing) {
       Send(Text(`没有[${thingName}]`))
       return
     }
     // 检查数量
-    if (thing.acount < Number(thingAcount)) {
+    if (thing.acount < count) {
       Send(Text('数量不足'))
       return
     }
@@ -121,7 +125,7 @@ export default OnResponse(
       await Bag.reduceBagThing(UID, [
         {
           name: thing.name,
-          acount: Number(thingAcount)
+          acount: count
         }
       ])
       Send(Text(`[${thingName}]损坏`))
@@ -139,7 +143,7 @@ export default OnResponse(
             name: thing.name,
             experience: thing.exp_gaspractice
           },
-          Number(thingAcount)
+          count
         )
         break
       }
@@ -153,7 +157,7 @@ export default OnResponse(
             name: thing.name,
             experience: thing.exp_gaspractice
           },
-          Number(thingAcount)
+          count
         )
         break
       }
@@ -167,7 +171,7 @@ export default OnResponse(
             name: thing.name,
             experience: thing.exp_gaspractice
           },
-          Number(thingAcount)
+          count
         )
         break
       }
@@ -181,7 +185,7 @@ export default OnResponse(
             name: thing.name,
             experience: thing.exp_gaspractice
           },
-          Number(thingAcount)
+          count
         )
         break
       }
@@ -228,7 +232,7 @@ export default OnResponse(
         await Bag.reduceBagThing(UID, [
           {
             name: thing.name,
-            acount: Number(thingAcount)
+            acount: count
           }
         ])
         /**
@@ -262,7 +266,7 @@ export default OnResponse(
         await Bag.reduceBagThing(UID, [
           {
             name: thing.name,
-            acount: Number(thingAcount)
+            acount: count
           }
         ])
         /**
@@ -277,14 +281,14 @@ export default OnResponse(
        * 灵木
        */
       case 600304: {
-        const soul = thing.exp_soul * Number(thingAcount)
+        const soul = thing.exp_soul * count
         /**
          * 扣物品
          */
         await Bag.reduceBagThing(UID, [
           {
             name: thing.name,
-            acount: Number(thingAcount)
+            acount: count
           }
         ])
         /**
@@ -298,14 +302,14 @@ export default OnResponse(
        * 桃花酿
        */
       case 600306: {
-        const soul = thing.exp_soul * Number(thingAcount)
+        const soul = thing.exp_soul * count
         /**
          * 扣物品
          */
         await Bag.reduceBagThing(UID, [
           {
             name: thing.name,
-            acount: Number(thingAcount)
+            acount: count
           }
         ])
         /**
@@ -321,7 +325,7 @@ export default OnResponse(
           Send(Text('已心无杂念'))
           break
         }
-        UserData.special_prestige -= Number(thingAcount)
+        UserData.special_prestige -= count
         if (UserData.special_prestige <= 0) {
           UserData.special_prestige = 0
         }
@@ -342,7 +346,7 @@ export default OnResponse(
         await Bag.reduceBagThing(UID, [
           {
             name: thing.name,
-            acount: Number(thingAcount)
+            acount: count
           }
         ])
         Send(Text(`成功洗去[煞气]*${thingAcount}~`))
@@ -414,7 +418,7 @@ export default OnResponse(
         await Bag.reduceBagThing(UID, [
           {
             name: thing.name,
-            acount: Number(thingAcount)
+            acount: count
           }
         ])
         break
@@ -423,17 +427,14 @@ export default OnResponse(
        * 引魂灯
        */
       case 600403: {
-        // await Bag.reduceBagThing(UID, [
-        //   {
-        //     name: thing.name,
-        //     acount: Number(thingAcount)
-        //   }
-        // ])
-        // 还用扣掉物品码？  直接重生了。
         reCreateMsg(e)
-        // e.reply(['暂不可使用'], {
-        //   quote: e.msg_id
-        // })
+          .then(() => {
+            Send(Text('操作完成'))
+          })
+          .catch(err => {
+            console.error(err)
+            Send(Text('重生数据错误'))
+          })
         break
       }
       /**

@@ -3,7 +3,6 @@ import * as models from './models.js'
 export { models }
 
 export const users = {
-  msg: models.user,
   user_ass: models.user_ass,
   user_ass_apply: models.user_ass_apply,
   user_bag: models.user_bag,
@@ -19,7 +18,8 @@ export const users = {
   user_sky_ranking: models.user_sky_ranking,
   user_sky_reward: models.user_sky_reward,
   user_transactions: models.user_transactions,
-  user_transactions_logs: models.user_transactions_logs
+  user_transactions_logs: models.user_transactions_logs,
+  msg: models.user
 }
 
 export const useBelongsTo = () => {

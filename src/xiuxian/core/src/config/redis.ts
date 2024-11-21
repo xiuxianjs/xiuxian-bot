@@ -27,6 +27,26 @@ export const CD_MAP = {
   24: '打劫',
   25: '攻击BOSS'
 }
+
+export const ACTIONMAP = {
+  0: '空闲',
+  1: '闭关',
+  2: '锻体',
+  3: '赶路',
+  4: '传送',
+  5: '渡劫',
+  6: '扩建',
+  7: '秘境',
+  8: '打坐'
+}
+
+export type StateKey = {
+  // 闭关
+  1: string
+  2: string
+  8: string
+}
+
 // redis前缀  xiuxian   app  维护 redis 不好找了
 export const ReadiName = 'xiuxian-plugin'
 export const RedisMonster = 'xiuxian:monsters5'

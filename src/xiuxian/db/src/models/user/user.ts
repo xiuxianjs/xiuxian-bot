@@ -15,7 +15,6 @@ interface ModelProps {
   constitution: number
   immortal_grade: number
   immortal_constitution: number
-
   state: number
   state_start_time: number
   state_end_time: number

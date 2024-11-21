@@ -1,15 +1,5 @@
 import { Attributes, user } from '@xiuxian/db/index'
-const ACTIONMAP = {
-  0: '空闲',
-  1: '闭关',
-  2: '锻体',
-  3: '赶路',
-  4: '传送',
-  5: '渡劫',
-  6: '扩建',
-  7: '秘境',
-  8: '打坐'
-}
+import { ACTIONMAP } from '../../config'
 
 /**
  * 更改行为状态

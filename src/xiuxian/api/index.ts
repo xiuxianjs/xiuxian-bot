@@ -7,7 +7,6 @@ import {
   Treasure,
   Player,
   State,
-  Skills,
   Levels,
   Bag,
   Equipment
@@ -26,95 +25,28 @@ const reStart = {}
  * @returns
  */
 export async function reCreateMsg(e) {
+  //
   const UID = await getEmailUID(e.UserId)
-
+  //
   const Send = useSend(e)
-
-  // 确保是用户
-  user
-    .findOne({
-      where: {
-        uid: UID
-      }
-    })
-    .then(res => res?.dataValues)
-    .then(res => {
-      // 不存在
-      if (!res) {
-        createUser(e)
-        return
-      }
-
-      /**
-       * 不存在或者过期了
-       */
-      if (!reStart[UID] || reStart[UID] + 30000 < new Date().getTime()) {
-        reStart[UID] = new Date().getTime()
-        Send(Text('再次消耗道具\n以确认转世'))
-        return
-      }
-
-      /**
-       * 规定时间内操作
-       */
-
-      const CDID = 8
-      const CDTime = Cooling.CD_Reborn
-
-      // Burial.del(UID, CDID)
-
-      /**
-       * 检查冷却s
-       */
-      victoryCooling(e, UID, CDID).then(res => {
-        if (!res) return
-
-        /**
-         * 重置用户
-         */
-        Player.updatePlayer(UID, e.UserAvatar)
-          .then(() => {
-            // 设置redis
-            Burial.set(UID, CDID, CDTime)
-
-            // 重新查询用户
-            user
-              .findOne({
-                where: {
-                  uid: UID
-                }
-              })
-              .then(res => res?.dataValues)
-              .then(UserData => {
-                /**
-                 * 并发
-                 */
-                Promise.all([
-                  // 更新
-                  Equipment.updatePanel(UID, UserData.battle_blood_now),
-                  // 更新
-                  Skills.updataEfficiency(UID, UserData.talent),
-                  // 发送图片
-                  showUserMsg(e)
-                ])
-                // 清除询问
-                delete reStart[UID]
-              })
-              .catch(err => {
-                console.error(err)
-                Send(Text('数据查询失败'))
-              })
-          })
-          .catch(err => {
-            console.error(err)
-            Send(Text('未寻得仙缘'))
-          })
-      })
-    })
-    .catch(err => {
-      console.error(err)
-      Send(Text('数据查询失败'))
-    })
+  // 不存在或者过期了
+  if (!reStart[UID] || reStart[UID] + 30000 < new Date().getTime()) {
+    reStart[UID] = new Date().getTime()
+    Send(Text('再次消耗道具\n以确认转世'))
+    return
+  }
+  // 规定时间内操作
+  const CDID = 8
+  const CDTime = Cooling.CD_Reborn
+  if (!(await victoryCooling(e, UID, CDID))) {
+    return
+  }
+  // 重置用户
+  await Player.updatePlayer(UID, e.UserAvatar)
+  // 设置redis
+  Burial.set(UID, CDID, CDTime)
+  // 清除询问
+  delete reStart[UID]
   return
 }
 
@@ -427,15 +359,12 @@ export async function isUser(e, UID: string) {
  * @returns
  */
 export async function isSideUser(e, UID: string) {
-  const UserData = await user
-    .findOne({
-      where: {
-        uid: UID
-      }
-    })
-    .then(res => res?.dataValues)
-    .catch(() => false)
-  if (UserData && typeof UserData !== 'boolean') return UserData
+  const UserData = await user.findOneValue({
+    where: {
+      uid: UID
+    }
+  })
+  if (UserData) return UserData
   const Send = useSend(e)
   Send(Text('查无此人'))
   return false
@@ -449,6 +378,22 @@ export async function victoryCooling(e, UID: string, CDID: Burial.CDType) {
     return false
   }
   return true
+}
+
+// 根据状态来自动结束，确保能进行后续操作。
+
+export async function endState(
+  e,
+  UID: string,
+  UserData: {
+    state: number
+    state_start_time: number
+  }
+) {
+  //
+  if (UserData.state != 0) {
+    //
+  }
 }
 
 export async function endAllWord(

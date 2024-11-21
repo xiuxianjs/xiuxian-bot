@@ -4,7 +4,7 @@ import { user } from '@xiuxian/db/index'
 import { Text, useParse, useSend } from 'alemonjs'
 import { newcomer } from './newcomer'
 import { operationLocalLock } from './util'
-import { ControlByBlood } from '@src/xiuxian/api'
+import { ControlByBlood, endAllWord } from '@src/xiuxian/api'
 
 // 指引标记
 const UIDS = {}
@@ -93,8 +93,17 @@ export default OnMiddleware(
 
     // 没有提示跳过
     if (!UIDS[UID]) {
+      // 强制空闲状态
+      await user.update({ state: 0 }, { where: { uid: data.uid } })
+      // 记录跳过
       UIDS[UID] = true
+      // 发送
       Send(Text('发送[/跳过]可跳过新手指引'))
+      //
+      if (data.state == 1 || data.state == 2 || data.state == 8) {
+        // 自动结束闭关
+        await endAllWord(e, data.uid, data)
+      }
     }
 
     if (!txt) {
@@ -110,6 +119,7 @@ export default OnMiddleware(
       e.Megs = []
       return e
     }
+
     // 获得指引
     const c = newcomer[data.newcomer_step]
     if (!c.reg.test(txt)) {
@@ -117,25 +127,30 @@ export default OnMiddleware(
       e.Megs = []
       return e
     }
+
     // 新人必须是满血的。
     if (data.battle_blood_limit <= 800) {
       data.battle_blood_now = 800
     } else {
       data.battle_blood_now = data.battle_blood_limit
     }
+
     // 状态进行中
     if (!(await ControlByBlood(e, data))) {
       e.Megs = []
       return e
     }
+
     // 刷新步骤
     await user.update(
       { newcomer_step: 1 + data.newcomer_step },
       { where: { uid: data.uid } }
     )
+
+    // 发送
     setTimeout(() => {
       Send(Text(['小柠檬：', c.ok].join('\n')))
-    }, 2000)
+    }, 2300)
     return e
   },
   ['message.create', 'private.message.create']
