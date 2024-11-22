@@ -37,3 +37,7 @@ ssh 用户
 - SSH_SERVER_IP_QQ_BOT
 
 向qqbot推送的地址
+
+- SSH_SERVER_IP_API
+
+接口服务地址
