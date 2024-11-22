@@ -16,7 +16,7 @@ import { getRandomConstitutionOnId } from './constitution.js'
  * @param UserAvatar
  * @returns
  */
-export async function setPlayer(UID: string, UserAvatar: string) {
+export async function setPlayer(UID: string, UserAvatar = '') {
   const gaspractice = await levels.findOneValue({
     where: {
       grade: 0,
@@ -114,7 +114,7 @@ export async function setPlayer(UID: string, UserAvatar: string) {
  * @param UserAvatar
  * @returns
  */
-export async function updatePlayer(UID: string, UserAvatar: string) {
+export async function updatePlayer(UID: string, UserAvatar = '') {
   return Promise.all(
     Object.values(users).map(item =>
       item.destroy({
