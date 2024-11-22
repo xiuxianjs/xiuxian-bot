@@ -17,34 +17,24 @@ import { getRandomConstitutionOnId } from './constitution.js'
  * @returns
  */
 export async function setPlayer(UID: string, UserAvatar: string) {
-  //
-  const levelist = await levels
-    .findAll({
-      where: {
-        grade: 0,
-        type: [1, 2]
-      },
-      order: [['type', 'DESC']]
-    })
-    .then(res => res.map(item => item?.dataValues))
-
-  //
-  if (!levelist || levelist.length == 0) return false
-
-  const [gaspractice, bodypractice] = levelist
-
-  const MapPointData = await map_point
-    .findOne({
-      where: {
-        name: '天山'
-      }
-    })
-    .then(res => res?.dataValues)
-
-  if (!MapPointData || !MapPointData?.type) return false
-
+  const gaspractice = await levels.findOneValue({
+    where: {
+      grade: 0,
+      type: 1
+    }
+  })
+  const bodypractice = await levels.findOneValue({
+    where: {
+      grade: 0,
+      type: 2
+    }
+  })
+  const MapPointData = await map_point.findOneValue({
+    where: {
+      name: '天山'
+    }
+  })
   const constitutionId = await getRandomConstitutionOnId()
-
   const players = [
     // 创建基础信息
     await user.create({

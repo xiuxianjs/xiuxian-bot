@@ -18,7 +18,7 @@ export default OnRouter(
     })
     if (!data) {
       ctx.status = 401
-      ctx.body = { message: 'password' }
+      ctx.body = { message: 'password error' }
       return
     }
     // 不能存储重要信息

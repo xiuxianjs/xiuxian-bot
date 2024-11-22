@@ -40,7 +40,12 @@ db:
   database: 'xiuxian_test'
 # 新增客户端配置
 gui:
-  port: 9601
+  port: 9603
+  master_id:
+    - ''
+server:
+  port: 8787
+  secert_key: 'xiuxianjs_test'
 ```
 
 ## MySQL&Redis

@@ -13,7 +13,7 @@ type ModelProps = {
   doc: string //string
 }
 
-class InitModel extends Model<ModelProps> {
+class map_point extends Model<ModelProps> {
   /**
    * 找到所有数据
    * @param this
@@ -64,8 +64,7 @@ class InitModel extends Model<ModelProps> {
   }
 }
 
-export const map_point = sequelize.define(
-  'map_point',
+map_point.init(
   {
     id: {
       type: DataTypes.BIGINT,
@@ -98,6 +97,8 @@ export const map_point = sequelize.define(
     }
   },
   {
+    sequelize,
+    tableName: 'map_point',
     freezeTableName: true,
     createdAt: false,
     updatedAt: false,
@@ -109,3 +110,5 @@ export const map_point = sequelize.define(
     ]
   }
 )
+
+export { map_point }

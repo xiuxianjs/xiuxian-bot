@@ -114,7 +114,8 @@ const setTokenCookie = (ctx, { data, maxAge }) => {
 const updateTokenCookie = (ctx, { maxAge }) => {
   const token = getToken(ctx.user, { expiresIn: '1h' })
   ctx.cookies.set('token', token, {
-    secure: process.env.NODE_ENV === 'production', // 仅在生产环境中使用 HTTPS
+    // 仅在生产环境中使用 HTTPS
+    // secure: process.env.NODE_ENV === 'production', //
     httpOnly: true, // 仅允许服务器访问
     maxAge: maxAge ?? 3600000 // 1小时
   })

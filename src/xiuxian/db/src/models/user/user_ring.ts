@@ -15,7 +15,7 @@ type ModelProps = {
   updateAt: Date
 }
 
-class InitModel extends Model<ModelProps> {
+class user_ring extends Model<ModelProps> {
   /**
    * 找到所有数据
    * @param this
@@ -66,8 +66,7 @@ class InitModel extends Model<ModelProps> {
   }
 }
 
-export const user_ring = sequelize.define(
-  'user_ring',
+user_ring.init(
   {
     id: {
       type: DataTypes.BIGINT,
@@ -116,8 +115,12 @@ export const user_ring = sequelize.define(
     }
   },
   {
+    sequelize,
+    tableName: 'user_ring',
     freezeTableName: true,
     createdAt: false,
     updatedAt: false
   }
 )
+
+export { user_ring }

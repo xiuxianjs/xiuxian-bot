@@ -1,6 +1,6 @@
 import { Burial, Cooling, operationLock, Player } from '@src/xiuxian/core'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
-import { user } from '@xiuxian/db/index'
+import { map_point, user } from '@xiuxian/db/index'
 import { Text, useParse, useSend } from 'alemonjs'
 import { newcomer } from './newcomer'
 import { operationLocalLock } from './util'
@@ -98,11 +98,67 @@ export default OnMiddleware(
       // 记录跳过
       UIDS[UID] = true
       // 发送
-      Send(Text('发送[/跳过]可跳过新手指引'))
+      Send(Text(['小柠檬：', '发送[/跳过]可跳过新手指引～'].join('\n')))
       //
       if (data.state == 1 || data.state == 2 || data.state == 8) {
         // 自动结束闭关
         await endAllWord(e, data.uid, data)
+      }
+      //
+      if (data.newcomer > 2 && data.newcomer <= 7) {
+        const MapPointData = await map_point.findOneValue({
+          where: {
+            name: '天山'
+          }
+        })
+        //
+        data.point_type = MapPointData.type
+        data.pont_attribute = MapPointData.attribute
+        data.pont_x = MapPointData.x
+        data.pont_y = MapPointData.y
+        data.pont_z = MapPointData.z
+        //
+        await user.update(
+          {
+            point_type: MapPointData.type, // 地点类型_默认0
+            pont_attribute: MapPointData.attribute, // 地点属性_默认0
+            pont_x: MapPointData.x, // 地点x轴_默认0
+            pont_y: MapPointData.y, // 地点y轴_默认0
+            pont_z: MapPointData.z // 地点z轴_默认0
+          },
+          {
+            where: {
+              uid: data.uid
+            }
+          }
+        )
+      } else if (data.newcomer > 7) {
+        const MapPointData = await map_point.findOneValue({
+          where: {
+            name: '极西'
+          }
+        })
+        //
+        data.point_type = MapPointData.type
+        data.pont_attribute = MapPointData.attribute
+        data.pont_x = MapPointData.x
+        data.pont_y = MapPointData.y
+        data.pont_z = MapPointData.z
+        //
+        await user.update(
+          {
+            point_type: MapPointData.type, // 地点类型_默认0
+            pont_attribute: MapPointData.attribute, // 地点属性_默认0
+            pont_x: MapPointData.x, // 地点x轴_默认0
+            pont_y: MapPointData.y, // 地点y轴_默认0
+            pont_z: MapPointData.z // 地点z轴_默认0
+          },
+          {
+            where: {
+              uid: data.uid
+            }
+          }
+        )
       }
     }
 
@@ -114,7 +170,15 @@ export default OnMiddleware(
 
     //
     if (/^\/(跳过|跳过新手指引|跳过指引)/.test(txt)) {
-      Send(Text(['小柠檬：', '哎呀,我要消失啦～'].join('\n')))
+      Send(
+        Text(
+          [
+            '小柠檬：',
+            '哎呀,我要消失啦～',
+            '重新开始可发送[/启动新手指引]'
+          ].join('\n')
+        )
+      )
       user.update({ newcomer: 1 }, { where: { uid: data.uid } })
       e.Megs = []
       return e
