@@ -1,6 +1,11 @@
-import { sequelize } from '../connect.js'
-import { DataTypes, Model } from 'sequelize'
-import { Attributes, FindOptions, ModelStatic } from 'sequelize'
+import { sequelize } from '@src/xiuxian/db/src/connect.js'
+import {
+  Attributes,
+  FindOptions,
+  ModelStatic,
+  DataTypes,
+  Model
+} from 'sequelize'
 import { goods } from './goods.js'
 
 type ModelProps = {
@@ -10,7 +15,7 @@ type ModelProps = {
   limit_buy: number // 购买上限
 }
 
-class InitModel extends Model<ModelProps> {
+class goods_alliancemall extends Model<ModelProps> {
   /**
    * 找到所有数据
    * @param this
@@ -60,9 +65,7 @@ class InitModel extends Model<ModelProps> {
     })
   }
 }
-
-export const goods_alliancemall = sequelize.define(
-  'goods_alliancemall',
+goods_alliancemall.init(
   {
     id: {
       type: DataTypes.BIGINT,
@@ -84,6 +87,8 @@ export const goods_alliancemall = sequelize.define(
     }
   },
   {
+    sequelize,
+    tableName: 'goods_alliancemall',
     freezeTableName: true,
     createdAt: false,
     updatedAt: false,
@@ -95,3 +100,4 @@ export const goods_alliancemall = sequelize.define(
     ]
   }
 )
+export { goods_alliancemall }

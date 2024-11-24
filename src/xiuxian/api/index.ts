@@ -30,8 +30,8 @@ export async function reCreateMsg(e) {
   //
   const Send = useSend(e)
   // 不存在或者过期了
-  if (!reStart[UID] || reStart[UID] + 30000 < new Date().getTime()) {
-    reStart[UID] = new Date().getTime()
+  if (!reStart[UID] || reStart[UID] + 30000 < Date.now()) {
+    reStart[UID] = Date.now()
     Send(Text('再次消耗道具\n以确认转世'))
     return
   }
@@ -209,7 +209,14 @@ export async function controlByName(
   addressName: string
 ) {
   if (!(await ControlByBlood(e, UserData))) return false
-  if (!(await Map.mapAction(UserData.pont_x, UserData.pont_y, addressName))) {
+  if (
+    !(await Map.mapExistence(
+      UserData.pont_x,
+      UserData.pont_y,
+      UserData.point_z,
+      addressName
+    ))
+  ) {
     const Send = useSend(e)
     Send(Text(`你没有在这里哦！\n————————\n[/前往${addressName}]`))
     return false
@@ -417,7 +424,7 @@ export async function endAllWord(
     return true
   }
   const startTime = UserData.state_start_time
-  let time = Math.floor((new Date().getTime() - startTime) / 60000)
+  let time = Math.floor((Date.now() - startTime) / 60000)
   if (isNaN(time)) time = 10
   if (time <= 1) {
     setTimeout(() => {

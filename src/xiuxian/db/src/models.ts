@@ -32,6 +32,9 @@ export * from './models/user/user_email.js'
 export * from './models/user/user_sky_ranking.js'
 export * from './models/user/user_transactions_logs.js'
 export * from './models/user/user_transactions.js'
+// 组
+export * from './models/user/user_group.js'
+export * from './models/user/user_group_list.js'
 //
 export * from './models/user/users_email.js'
 // 势力

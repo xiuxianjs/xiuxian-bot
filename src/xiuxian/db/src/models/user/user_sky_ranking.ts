@@ -1,6 +1,11 @@
-import { sequelize } from '../../connect.js'
-import { DataTypes, Model } from 'sequelize'
-import { Attributes, FindOptions, ModelStatic } from 'sequelize'
+import { sequelize } from '@src/xiuxian/db/src/connect.js'
+import {
+  Attributes,
+  FindOptions,
+  ModelStatic,
+  DataTypes,
+  Model
+} from 'sequelize'
 import { user } from './user.js'
 
 type ModelProps = {
@@ -10,7 +15,7 @@ type ModelProps = {
   updateAt: Date
 }
 
-class InitModel extends Model<ModelProps> {
+class user_sky_ranking extends Model<ModelProps> {
   /**
    * 找到所有数据
    * @param this
@@ -60,9 +65,7 @@ class InitModel extends Model<ModelProps> {
     })
   }
 }
-
-export const user_sky_ranking = sequelize.define(
-  'user_sky_ranking',
+user_sky_ranking.init(
   {
     id: {
       type: DataTypes.BIGINT,
@@ -88,8 +91,12 @@ export const user_sky_ranking = sequelize.define(
     }
   },
   {
+    sequelize,
+    tableName: 'user_sky_ranking',
     freezeTableName: true,
     createdAt: false,
     updatedAt: false
   }
 )
+
+export { user_sky_ranking }

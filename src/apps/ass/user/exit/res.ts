@@ -17,7 +17,7 @@ export default OnResponse(
     const text = useParse(e.Megs, 'Text')
 
     // 势力名称
-    const name = text.replace(/^(#|\/)?退出/, '')
+    const name = text.replace(/^(#|\/)?退出势力/, '')
 
     // 存在该昵称的宗门
     const aData = await DB.ass
@@ -65,5 +65,5 @@ export default OnResponse(
     //
   },
   'message.create',
-  /^(#|\/)?退出[\u4e00-\u9fa5]+$/
+  /^(#|\/)?退出势力[\u4e00-\u9fa5]+$/
 )

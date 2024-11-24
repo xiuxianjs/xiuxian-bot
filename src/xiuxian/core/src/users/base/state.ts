@@ -57,10 +57,7 @@ export async function Go(UserData) {
     }
   }
   // 不是空闲状态
-  if (
-    new Date().getTime() >=
-    UserData.state_end_time + UserData.state_start_time
-  ) {
+  if (Date.now() >= UserData.state_end_time + UserData.state_start_time) {
     del(UserData.uid)
     return {
       state: 2000,
@@ -93,10 +90,7 @@ export async function goByBlood(UserData: Attributes<typeof user>) {
     }
   }
   // 不是空闲状态
-  if (
-    new Date().getTime() >=
-    UserData.state_end_time + UserData.state_start_time
-  ) {
+  if (Date.now() >= UserData.state_end_time + UserData.state_start_time) {
     del(UserData.uid)
     return {
       state: 2000,

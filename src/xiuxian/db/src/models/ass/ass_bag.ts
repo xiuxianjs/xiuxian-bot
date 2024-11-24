@@ -1,4 +1,4 @@
-import { sequelize } from '../../connect.js'
+import { sequelize } from '@src/xiuxian/db/src/connect.js'
 import { DataTypes, Model } from 'sequelize'
 import { ass } from './ass.js'
 import { goods } from '../goods.js'

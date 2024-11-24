@@ -40,7 +40,7 @@ export default function AssList({ data, theme }: PropsType) {
             list={[
               '/审核',
               '/通过',
-              '/踢出',
+              '/逐出',
               '/建立',
               '/解散',
               '/加入',

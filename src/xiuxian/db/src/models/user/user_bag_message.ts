@@ -1,6 +1,11 @@
-import { sequelize } from '../../connect.js'
-import { DataTypes, Model } from 'sequelize'
-import { Attributes, FindOptions, ModelStatic } from 'sequelize'
+import { sequelize } from '@src/xiuxian/db/src/connect.js'
+import {
+  Attributes,
+  FindOptions,
+  ModelStatic,
+  DataTypes,
+  Model
+} from 'sequelize'
 import { user } from './user.js'
 
 type ModelProps = {

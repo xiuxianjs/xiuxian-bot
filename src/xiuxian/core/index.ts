@@ -21,6 +21,8 @@ export * as explore from './src/system/explore.js'
 export * as order from './src/system/order.js'
 export * as Boss from './src/system/boss.js'
 
+export * as Status from './src/system/status.js'
+
 // 势力模型
 export * as Ass from './src/system/ass.js'
 

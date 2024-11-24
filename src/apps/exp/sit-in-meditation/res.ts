@@ -36,7 +36,7 @@ export default OnResponse(
     setTimeout(async () => {
       await GameApi.State.set(UID, {
         actionID: 8,
-        startTime: new Date().getTime(), // 记录了现在的时间
+        startTime: Date.now(), // 记录了现在的时间
         endTime: 9999999999999
       })
       Send(Text('开始打坐...'))

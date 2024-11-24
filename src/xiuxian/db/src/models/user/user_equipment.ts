@@ -1,6 +1,11 @@
-import { sequelize } from '../../connect.js'
-import { DataTypes, Model } from 'sequelize'
-import { Attributes, FindOptions, ModelStatic } from 'sequelize'
+import { sequelize } from '@src/xiuxian/db/src/connect.js'
+import {
+  Attributes,
+  FindOptions,
+  ModelStatic,
+  DataTypes,
+  Model
+} from 'sequelize'
 import { goods } from '../goods.js'
 import { user } from './user.js'
 
@@ -12,7 +17,7 @@ type ModelProps = {
   doc: string // 说明
 }
 
-class InitModel extends Model<ModelProps> {
+class user_equipment extends Model<ModelProps> {
   /**
    * 找到所有数据
    * @param this
@@ -62,9 +67,7 @@ class InitModel extends Model<ModelProps> {
     })
   }
 }
-
-export const user_equipment = sequelize.define(
-  'user_equipment',
+user_equipment.init(
   {
     id: {
       type: DataTypes.BIGINT,
@@ -96,8 +99,12 @@ export const user_equipment = sequelize.define(
     }
   },
   {
+    sequelize,
+    tableName: 'user_equipment',
     freezeTableName: true,
     createdAt: false,
     updatedAt: false
   }
 )
+
+export { user_equipment }

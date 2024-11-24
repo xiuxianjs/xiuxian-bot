@@ -1,13 +1,18 @@
-import { sequelize } from '../connect.js'
-import { DataTypes, Model } from 'sequelize'
-import { Attributes, FindOptions, ModelStatic } from 'sequelize'
+import { sequelize } from '@src/xiuxian/db/src/connect.js'
+import {
+  Attributes,
+  FindOptions,
+  ModelStatic,
+  DataTypes,
+  Model
+} from 'sequelize'
 type ModelProps = {
   id: number
   name: string //string
   doc: string //string
 }
 
-class InitModel extends Model<ModelProps> {
+class talent extends Model<ModelProps> {
   /**
    * 找到所有数据
    * @param this
@@ -57,9 +62,7 @@ class InitModel extends Model<ModelProps> {
     })
   }
 }
-
-export const talent = sequelize.define(
-  'talent',
+talent.init(
   {
     id: {
       type: DataTypes.BIGINT,
@@ -74,6 +77,8 @@ export const talent = sequelize.define(
     }
   },
   {
+    sequelize,
+    tableName: 'talent',
     freezeTableName: true,
     createdAt: false,
     updatedAt: false,
@@ -85,3 +90,5 @@ export const talent = sequelize.define(
     ]
   }
 )
+
+export { talent }

@@ -73,22 +73,20 @@ export default OnResponse(
       )
     )
 
-    const LevelDataA = await user_level
-      .findOne({
-        where: {
-          uid: UID,
-          type: 1
-        }
-      })
-      .then(res => res?.dataValues)
-    const LevelDataB = await user_level
-      .findOne({
-        where: {
-          uid: UIDB,
-          type: 1
-        }
-      })
-      .then(res => res?.dataValues)
+    const LevelDataA = await user_level.findOneValue({
+      where: {
+        uid: UID,
+        type: 1
+      }
+    })
+
+    //
+    const LevelDataB = await user_level.findOneValue({
+      where: {
+        uid: UIDB,
+        type: 1
+      }
+    })
 
     const sizeA = LevelDataA.experience * 0.15
     const sizeB = LevelDataB.experience * 0.1 // 被动的

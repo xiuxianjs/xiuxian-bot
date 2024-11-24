@@ -4,6 +4,7 @@ import { RedisBull, RedisBullAction } from '../config/index.js'
 import * as State from '../users/base/state.js'
 import * as Map from './map.js'
 import { Queue, Worker } from 'bullmq'
+import { Status } from '../../index.js'
 
 // 创建
 const QUEUE = new Queue(RedisBull, {
@@ -96,17 +97,17 @@ new Worker(
  * @returns
  */
 export async function setJob(
-  UID: any,
+  UID: string,
   x: number,
   y: number,
   z: number,
   size: number
 ) {
   // 设置行为赶路
-  await State.set(UID, {
+  await Status.setStatus({
+    UID,
     actionID: 3,
-    startTime: new Date().getTime(),
-    endTime: 99999999999
+    startTime: Date.now()
   })
 
   // 推送任务

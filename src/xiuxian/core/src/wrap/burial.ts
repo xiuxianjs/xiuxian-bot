@@ -14,7 +14,7 @@ export function set(UID: string, CDID: CDType, CDTime: number) {
   Redis.set(
     `${ReadiName}:${UID}:${CDID}`,
     JSON.stringify({
-      val: new Date().getTime(),
+      val: Date.now(),
       expire: CDTime * 60000
     })
   )
@@ -48,7 +48,7 @@ export async function cooling(UID: string, CDID: CDType) {
     // 得到数据
     const { val, expire } = JSON.parse(data)
     // 现在的时间
-    const NowTime = new Date().getTime()
+    const NowTime = Date.now()
     const onTime = val + expire
     if (NowTime >= onTime) {
       Redis.del(`${ReadiName}:${UID}:${CDID}`)

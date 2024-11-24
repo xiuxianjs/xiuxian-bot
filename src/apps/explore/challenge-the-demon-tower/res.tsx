@@ -21,8 +21,8 @@ export default OnResponse(
     // const UID = await getEmailUID(e.UserId)
     // const UserData = await isUser(e, UID)
     // if (typeof UserData === 'boolean') return
-    // if (!reStart[UID] || reStart[UID] + 120000 < new Date().getTime()) {
-    //   reStart[UID] = new Date().getTime()
+    // if (!reStart[UID] || reStart[UID] + 120000 < Date.now()) {
+    //   reStart[UID] = Date.now()
     //   Send(Text('CD中'))
     //   return
     // }

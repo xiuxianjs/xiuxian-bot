@@ -1,6 +1,11 @@
-import { sequelize } from '../connect.js'
-import { DataTypes, Model } from 'sequelize'
-import { Attributes, FindOptions, ModelStatic } from 'sequelize'
+import { sequelize } from '@src/xiuxian/db/src/connect.js'
+import {
+  Attributes,
+  FindOptions,
+  ModelStatic,
+  DataTypes,
+  Model
+} from 'sequelize'
 type ModelProps = {
   id: number
   typing: number
@@ -8,7 +13,7 @@ type ModelProps = {
   gids: string
 }
 
-class InitModel extends Model<ModelProps> {
+class levels_limit extends Model<ModelProps> {
   /**
    * 找到所有数据
    * @param this
@@ -58,9 +63,7 @@ class InitModel extends Model<ModelProps> {
     })
   }
 }
-
-export const levels_limit = sequelize.define(
-  'levels_limit',
+levels_limit.init(
   {
     id: {
       type: DataTypes.BIGINT,
@@ -82,6 +85,8 @@ export const levels_limit = sequelize.define(
     }
   },
   {
+    sequelize,
+    tableName: 'levels_limit',
     freezeTableName: true,
     createdAt: false,
     updatedAt: false,
@@ -93,3 +98,5 @@ export const levels_limit = sequelize.define(
     ]
   }
 )
+
+export { levels_limit }

@@ -6,10 +6,17 @@ import {
   DataTypes,
   Model
 } from 'sequelize'
-import { user } from './user.js'
-import { goods } from '../goods.js'
+import { user } from './user'
 
-class user_transactions_logs extends Model<ModelProps> {
+type ModelProps = {
+  id: number
+  // 队伍名
+  name: string
+  // 队长
+  leader: string
+}
+
+class user_group extends Model<ModelProps> {
   /**
    * 找到所有数据
    * @param this
@@ -60,68 +67,39 @@ class user_transactions_logs extends Model<ModelProps> {
   }
 }
 
-type ModelProps = {
-  id: number
-  uid: string //string
-  name: string //string
-  count: number
-  price: number
-  createAt: Date
-  updateAt: Date
-  deleteAt: Date
-}
-user_transactions_logs.init(
+user_group.init(
   {
     id: {
       type: DataTypes.BIGINT,
       primaryKey: true,
-      autoIncrement: true,
       allowNull: false
     },
-    uid: {
+    name: {
       type: DataTypes.STRING(50),
-      comment: '用户编号',
+      comment: '队长名'
+    },
+    leader: {
+      type: DataTypes.STRING(50),
+      comment: '编号',
       references: {
         model: user,
         key: 'uid'
       }
-    },
-    name: {
-      type: DataTypes.STRING(20),
-      comment: '物品名',
-      references: {
-        model: goods,
-        key: 'name'
-      }
-    },
-    count: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0,
-      comment: '物品数量'
-    },
-    price: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0
-    },
-    updateAt: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW
-      // onUpdate: DataTypes.NOW
-    },
-    deleteAt: {
-      type: DataTypes.DATE
-    },
-    createAt: {
-      type: DataTypes.DATE
     }
   },
   {
     sequelize,
-    tableName: 'user_transactions_logs',
+    tableName: 'user_group',
     freezeTableName: true,
     createdAt: false,
-    updatedAt: false
+    updatedAt: false,
+    indexes: [
+      {
+        unique: true,
+        fields: ['id']
+      }
+    ]
   }
 )
 
-export { user_transactions_logs }
+export { user_group }

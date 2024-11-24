@@ -1,6 +1,7 @@
 import { monster } from '@xiuxian/db/index'
 import { cache, get, set } from './resources.js'
 import { RedisMonster } from '../config/index.js'
+
 /**
  *  地点编号  最低等级  -- 最高等级
  */
@@ -20,22 +21,14 @@ const map = {
   '13': '30.42'
 }
 
-type FullType = { id: number; name: string; type: number; grade: number }[]
-
-const full: FullType = await monster
-  .findAll({})
-  .then(res => res.map(item => item?.dataValues))
-  .then(res => {
-    const data: any = res
-    return data
-  })
+const full = await monster.findAllValues()
 
 /**
  * 生成怪物
  * @param i
  * @returns
  */
-function createMonster(i: number) {
+const createMonster = (i: number) => {
   // 最低等级  最高等级
   const [mini, max] = map[i].split('.')
   // 当前地点怪物名{ 属性 }
@@ -74,14 +67,11 @@ function createMonster(i: number) {
 export async function reduce(i: number, name: string, size = 1) {
   const data = await get(`${RedisMonster}:${i}`)
   if (!data.resources[name]) return
-
   data.resources[name].acount -= size
-
   // 清除记录
   if (data.resources[name].acount <= 1) {
     delete data.resources[name]
   }
-
   // 这还有时间呢
   set(`${RedisMonster}:${i}`, data)
   return

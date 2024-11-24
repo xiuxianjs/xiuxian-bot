@@ -72,7 +72,7 @@ export default OnResponse(
     if (!(await victoryCooling(e, UID, CDID))) return
 
     // 增加玄玉天宫
-    const create_time = new Date().getTime()
+    const create_time = Date.now()
 
     //
     if (UserData.point_type == 2) {

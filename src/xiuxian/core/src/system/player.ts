@@ -35,22 +35,24 @@ export async function setPlayer(UID: string, UserAvatar = '') {
     }
   })
   const constitutionId = await getRandomConstitutionOnId()
+  //
+  const name = Method.randomArray([
+    '甲',
+    '乙',
+    '丙',
+    '丁',
+    '戊',
+    '己',
+    '庚',
+    '辛',
+    '壬',
+    '癸'
+  ])
   const players = [
     // 创建基础信息
     await user.create({
       uid: UID,
-      name: Method.randomArray([
-        '甲',
-        '乙',
-        '丙',
-        '丁',
-        '戊',
-        '己',
-        '庚',
-        '辛',
-        '壬',
-        '癸'
-      ]), // 道号
+      name: name, // 道号
       avatar: UserAvatar, // 头像地址
       state: 0, // 用户状态_默认0
       state_start_time: 9999999999, // 状态开始时间
@@ -72,7 +74,7 @@ export async function setPlayer(UID: string, UserAvatar = '') {
       battle_power: 0, // 战力_默认0
       talent: Talent.getTalent(), // 灵根
       constitution: constitutionId, // 体质ID
-      create_time: new Date().getTime() // 创建时间搓
+      create_time: Date.now() // 创建时间搓
     }),
     // 创建背包信息
     await user_bag_message.create({

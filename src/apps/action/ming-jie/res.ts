@@ -28,8 +28,8 @@ export default OnResponse(
     }
 
     // 不存在 或者过期了
-    if (!reGiveup[UID] || reGiveup[UID] + 30000 < new Date().getTime()) {
-      reGiveup[UID] = new Date().getTime()
+    if (!reGiveup[UID] || reGiveup[UID] + 30000 < Date.now()) {
+      reGiveup[UID] = Date.now()
       Send(
         Text(
           [

@@ -1,6 +1,11 @@
-import { sequelize } from '../../connect.js'
-import { DataTypes, Model } from 'sequelize'
-import { Attributes, FindOptions, ModelStatic } from 'sequelize'
+import { sequelize } from '@src/xiuxian/db/src/connect.js'
+import {
+  Attributes,
+  FindOptions,
+  ModelStatic,
+  DataTypes,
+  Model
+} from 'sequelize'
 import { goods } from '../goods.js'
 import { user } from './user.js'
 
@@ -15,7 +20,7 @@ type ModelProps = {
   deleteAt: Date
 }
 
-class InitModel extends Model<ModelProps> {
+class user_transactions extends Model<ModelProps> {
   /**
    * 找到所有数据
    * @param this
@@ -65,9 +70,7 @@ class InitModel extends Model<ModelProps> {
     })
   }
 }
-
-export const user_transactions = sequelize.define(
-  'user_transactions',
+user_transactions.init(
   {
     id: {
       type: DataTypes.BIGINT,
@@ -113,8 +116,12 @@ export const user_transactions = sequelize.define(
     }
   },
   {
+    sequelize,
+    tableName: 'user_transactions',
     freezeTableName: true,
     createdAt: false,
     updatedAt: false
   }
 )
+
+export { user_transactions }

@@ -1,0 +1,120 @@
+import { Attributes, user } from '@src/xiuxian/db'
+
+/**
+ * 行为
+ */
+export const Actions = {
+  kongxian: {
+    value: 0,
+    name: '空闲'
+  },
+  biguan: {
+    value: 1,
+    name: '闭关'
+  },
+  duanti: {
+    value: 2,
+    name: '锻体'
+  },
+  ganchu: {
+    value: 3,
+    name: '赶路'
+  },
+  chuansong: {
+    value: 4,
+    name: '传送'
+  },
+  dujie: {
+    value: 5,
+    name: '渡劫'
+  },
+  kuojian: {
+    value: 6,
+    name: '扩建'
+  },
+  mijing: {
+    value: 7,
+    name: '秘境'
+  },
+  dazuo: {
+    value: 8,
+    name: '聚灵'
+  },
+  zudui: {
+    value: 9,
+    name: '组队'
+  },
+  fuben: {
+    value: 10,
+    name: '副本'
+  }
+}
+
+export const isPass = (UserData: Attributes<typeof user>) => {
+  if (UserData.battle_blood_now >= 1) return true
+  return false
+}
+
+type Keys = keyof typeof Actions
+
+/**
+ *
+ * @param param0
+ * @returns
+ */
+export const setStatus = (options: {
+  UID: string
+  actionID?: number
+  startTime?: number
+  endTime?: number
+}) => {
+  const { UID, actionID, startTime, endTime } = options ?? {}
+  return user.update(
+    {
+      state: actionID ?? 0,
+      state_start_time: startTime ?? 9999999999999,
+      state_end_time: endTime ?? 9999999999999
+    },
+    {
+      where: {
+        uid: UID
+      }
+    }
+  )
+}
+
+/**
+ * 是否是某个状态
+ * @param UserData
+ * @returns
+ */
+export const getStatus = (
+  UserData: Attributes<typeof user>,
+  key: Keys = 'kongxian'
+) => {
+  const { state, state_end_time, state_start_time } = UserData
+  // 空闲状态
+  if (state == Actions[key].value) {
+    return {
+      action: state,
+      status: 200
+    }
+  }
+  /**
+   * state 状态
+   * state_end_time 结束时间
+   * state_start_time 开始时间
+   */
+  if (Date.now() >= state_end_time + state_start_time) {
+    return {
+      action: state,
+      status: 200
+    }
+  }
+  // 正在进行的状态
+  return {
+    action: state,
+    status: 400,
+    message: `${Actions[key].name}中...`
+  }
+}

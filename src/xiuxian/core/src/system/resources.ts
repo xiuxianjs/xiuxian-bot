@@ -1,4 +1,5 @@
 import { Redis } from '@xiuxian/db/index'
+
 /**
  * 得到数据
  * @param i

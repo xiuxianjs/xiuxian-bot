@@ -17,7 +17,7 @@ export default OnResponse(
 
     // 输入的是标记
 
-    const id = text.replace(/^(#|\/)?踢出/, '')
+    const id = text.replace(/^(#|\/)?逐出/, '')
     if (!id) return
 
     const ID = Number(id)
@@ -76,7 +76,7 @@ export default OnResponse(
 
     // 权能对比
     if (idData.authentication <= UserAss.authentication) {
-      Send(Text('你的权能无法对他进行踢出'))
+      Send(Text('你的权能无法对他进行逐出'))
       return
     }
 
@@ -86,10 +86,10 @@ export default OnResponse(
       }
     })
 
-    Send(Text('已踢出'))
+    Send(Text('已逐出'))
 
     return
   },
   'message.create',
-  /^(#|\/)?踢出/
+  /^(#|\/)?逐出/
 )

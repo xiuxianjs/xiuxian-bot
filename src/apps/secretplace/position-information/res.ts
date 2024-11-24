@@ -8,7 +8,7 @@ export default OnResponse(
       .findAll({})
       .then(res => res.map(item => item?.dataValues))
     const msg: string[] = []
-    for await (const item of PositionData) {
+    for (const item of PositionData) {
       if (
         item?.z == UserData.pont_z &&
         item?.attribute == UserData.pont_attribute &&

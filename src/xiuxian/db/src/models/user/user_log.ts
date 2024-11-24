@@ -1,6 +1,11 @@
-import { sequelize } from '../../connect.js'
-import { DataTypes, Model } from 'sequelize'
-import { Attributes, FindOptions, ModelStatic } from 'sequelize'
+import { sequelize } from '@src/xiuxian/db/src/connect.js'
+import {
+  Attributes,
+  FindOptions,
+  ModelStatic,
+  DataTypes,
+  Model
+} from 'sequelize'
 import { user } from './user.js'
 
 type ModelProps = {
@@ -13,7 +18,7 @@ type ModelProps = {
   updateAt: Date
 }
 
-class InitModel extends Model<ModelProps> {
+class user_log extends Model<ModelProps> {
   /**
    * 找到所有数据
    * @param this
@@ -63,9 +68,7 @@ class InitModel extends Model<ModelProps> {
     })
   }
 }
-
-export const user_log = sequelize.define(
-  'user_log',
+user_log.init(
   {
     id: {
       type: DataTypes.BIGINT,
@@ -99,8 +102,12 @@ export const user_log = sequelize.define(
     }
   },
   {
+    sequelize,
+    tableName: 'user_log',
     freezeTableName: true,
     createdAt: false,
     updatedAt: false
   }
 )
+
+export { user_log }

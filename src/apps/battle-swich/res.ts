@@ -41,7 +41,7 @@ export default OnResponse(
     const CDID = 24,
       CDTime = GameApi.Cooling.CD_Battle
     if (!(await victoryCooling(e, UID, CDID))) return
-    const create_time = new Date().getTime()
+    const create_time = Date.now()
     if (UserData.point_type == 2) {
       DB.user.update(
         {

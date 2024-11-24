@@ -32,8 +32,8 @@ export default OnResponse(
     }
 
     // 不存在 或者过期了
-    if (!delCooling[UID] || delCooling[UID] + 30000 < new Date().getTime()) {
-      delCooling[UID] = new Date().getTime()
+    if (!delCooling[UID] || delCooling[UID] + 30000 < Date.now()) {
+      delCooling[UID] = Date.now()
       Send(
         Text(
           [

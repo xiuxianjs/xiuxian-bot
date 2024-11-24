@@ -48,7 +48,7 @@ export default function AssMessage({ data, theme }: PropsType) {
             list={[
               '/审核',
               '/通过',
-              '/踢出',
+              '/逐出',
               '/提拔',
               '/贬职',
               '/建立',

@@ -1,4 +1,4 @@
-import { sequelize } from '../../connect.js'
+import { sequelize } from '@src/xiuxian/db/src/connect.js'
 import {
   DataTypes,
   Model,

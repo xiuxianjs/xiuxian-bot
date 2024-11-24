@@ -13,23 +13,6 @@ export function randomArray<T>(arr: T[]) {
 }
 
 /**
- * 转化为对象
- * @param time
- * @returns
- */
-export function timeInvert(time: number) {
-  const date = new Date(time)
-  return {
-    Y: date.getFullYear(),
-    M: date.getMonth() + 1,
-    D: date.getDate(),
-    h: date.getHours(),
-    m: date.getMinutes(),
-    s: date.getSeconds()
-  }
-}
-
-/**
  * 转换为字符
  * @param timestamp
  * @returns
@@ -98,26 +81,6 @@ export function convertTime(time: number) {
   const hrs = time % 24
   const days = (time - hrs) / 24
   return `${days}d${hrs}h${mins}m${secs}s`
-}
-
-/**
- * 未来时间
- * @param milliseconds
- * @returns
- */
-export function formatFutureDate(milliseconds: number): string {
-  const currentDate = new Date().getTime()
-  const futureDate = new Date(currentDate + milliseconds)
-  // 格式化日期
-  const formattedDate = futureDate.toLocaleDateString(undefined, {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-    second: 'numeric'
-  })
-  return formattedDate
 }
 
 // 判断是否是同一天

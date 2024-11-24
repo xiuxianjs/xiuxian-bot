@@ -114,7 +114,7 @@ export default OnResponse(
     // 传送行为记录
     await GameApi.State.set(UID, {
       actionID: 4,
-      startTime: new Date().getTime(), // 开始时间
+      startTime: Date.now(), // 开始时间
       endTime: 1000 * time
     })
     Send(Text(`[修仙联盟]守阵老者:\n传送对接${address}\n需要${time}秒`))

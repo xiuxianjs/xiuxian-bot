@@ -5,7 +5,7 @@ import { talent } from '@xiuxian/db/index'
  * @param data
  * @returns
  */
-export function talentSize(data: any[]) {
+export function talentSize(data: number[]) {
   let talentSize = 600
   for (const item of data) {
     if (item <= 5) talentSize -= 120

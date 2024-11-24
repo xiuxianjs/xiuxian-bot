@@ -1,6 +1,11 @@
-import { sequelize } from '../connect.js'
-import { DataTypes, Model } from 'sequelize'
-import { Attributes, FindOptions, ModelStatic } from 'sequelize'
+import { sequelize } from '@src/xiuxian/db/src/connect.js'
+import {
+  Attributes,
+  FindOptions,
+  ModelStatic,
+  DataTypes,
+  Model
+} from 'sequelize'
 type ModelProps = {
   id: number
   name: string //string
@@ -17,7 +22,7 @@ type ModelProps = {
   doc: string //string
 }
 
-class InitModel extends Model<ModelProps> {
+class map_position extends Model<ModelProps> {
   /**
    * 找到所有数据
    * @param this
@@ -67,9 +72,7 @@ class InitModel extends Model<ModelProps> {
     })
   }
 }
-
-export const map_position = sequelize.define(
-  'map_position',
+map_position.init(
   {
     id: {
       type: DataTypes.BIGINT,
@@ -114,6 +117,8 @@ export const map_position = sequelize.define(
     }
   },
   {
+    sequelize,
+    tableName: 'map_position',
     freezeTableName: true,
     createdAt: false,
     updatedAt: false,
@@ -125,3 +130,5 @@ export const map_position = sequelize.define(
     ]
   }
 )
+
+export { map_position }

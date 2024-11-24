@@ -1,6 +1,11 @@
-import { sequelize } from '../connect.js'
-import { DataTypes, Model } from 'sequelize'
-import { Attributes, FindOptions, ModelStatic } from 'sequelize'
+import { sequelize } from '@src/xiuxian/db/src/connect.js'
+import {
+  Attributes,
+  FindOptions,
+  ModelStatic,
+  DataTypes,
+  Model
+} from 'sequelize'
 import { goods } from './goods.js'
 type ModelProps = {
   id: number
@@ -12,7 +17,7 @@ type ModelProps = {
   deleteAt: Date
 }
 
-class InitModel extends Model<ModelProps> {
+class skys extends Model<ModelProps> {
   /**
    * 找到所有数据
    * @param this
@@ -62,9 +67,7 @@ class InitModel extends Model<ModelProps> {
     })
   }
 }
-
-export const skys = sequelize.define(
-  'skys',
+skys.init(
   {
     id: {
       type: DataTypes.BIGINT,
@@ -100,6 +103,8 @@ export const skys = sequelize.define(
     }
   },
   {
+    sequelize,
+    tableName: 'skys',
     freezeTableName: true,
     createdAt: false,
     updatedAt: false,
@@ -111,3 +116,5 @@ export const skys = sequelize.define(
     ]
   }
 )
+
+export { skys }

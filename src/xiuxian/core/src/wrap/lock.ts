@@ -34,6 +34,12 @@ export const operationLock = async (UID: string) => {
   return false
 }
 
+/**
+ *
+ * @param resource
+ * @param ttl
+ * @returns
+ */
 export async function acquireLock(resource: string, ttl: number = 5000) {
   const lockKey = `lock:${resource}`
   const lockValue = uuidv4()
@@ -47,6 +53,11 @@ export async function acquireLock(resource: string, ttl: number = 5000) {
   }
 }
 
+/**
+ *
+ * @param resource
+ * @param lockValue
+ */
 export async function releaseLock(resource: string, lockValue: string) {
   const lockKey = `lock:${resource}`
   const script = `

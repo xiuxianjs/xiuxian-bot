@@ -1,6 +1,11 @@
-import { sequelize } from '../connect.js'
-import { DataTypes, Model } from 'sequelize'
-import { Attributes, FindOptions, ModelStatic } from 'sequelize'
+import { sequelize } from '@src/xiuxian/db/src/connect.js'
+import {
+  Attributes,
+  FindOptions,
+  ModelStatic,
+  DataTypes,
+  Model
+} from 'sequelize'
 
 type ModelProps = {
   id: number
@@ -51,6 +56,15 @@ class goods extends Model<ModelProps> {
     this: ModelStatic<M>,
     options?: FindOptions<Attributes<M>>
   ): Promise<Attributes<M>> {
+    /**
+     * 可以设置ioredis中间件
+     * 把 optoins化为key。
+     * 当存在 key的时候，读取缓存。
+     * 这个缓存是本地的ioredis服务。
+     * 并设置过期时间
+     * 同时，每次重启应用时
+     * 需要把缓存key清理掉。
+     */
     return this.findOne({
       ...options,
       raw: true

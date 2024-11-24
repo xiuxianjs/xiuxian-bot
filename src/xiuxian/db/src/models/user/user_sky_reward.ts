@@ -1,9 +1,14 @@
-import { sequelize } from '../../connect.js'
-import { DataTypes, Model } from 'sequelize'
-import { Attributes, FindOptions, ModelStatic } from 'sequelize'
+import { sequelize } from '@src/xiuxian/db/src/connect.js'
+import {
+  Attributes,
+  FindOptions,
+  ModelStatic,
+  DataTypes,
+  Model
+} from 'sequelize'
 import { user } from './user.js'
 
-class InitModel extends Model<ModelProps> {
+class user_sky_reward extends Model<ModelProps> {
   /**
    * 找到所有数据
    * @param this
@@ -64,9 +69,7 @@ type ModelProps = {
   updateAt: Date
   deleteAt: Date
 }
-
-export const user_sky_reward = sequelize.define(
-  'user_sky_reward',
+user_sky_reward.init(
   {
     id: {
       type: DataTypes.BIGINT,
@@ -103,8 +106,12 @@ export const user_sky_reward = sequelize.define(
     }
   },
   {
+    sequelize,
+    tableName: 'user_sky_reward',
     freezeTableName: true,
     createdAt: false,
     updatedAt: false
   }
 )
+
+export { user_sky_reward }

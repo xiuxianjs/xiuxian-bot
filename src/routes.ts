@@ -16,19 +16,17 @@ type OnRouterTpe = (
   }
 ) => { func; options }
 
-// useServer()
-
 declare global {
   /**
    * 设置接口
    */
   var OnRouter: OnRouterTpe
   /**
-   * 设置token
+   * 设置 token
    */
   var setTokenCookie: (ctx, options: { maxAge?: number; data: any }) => void
   /**
-   * 更新token
+   * 更新 token
    */
   var updateTokenCookie: (ctx, options?: { maxAge?: number }) => void
 }
@@ -93,17 +91,27 @@ const getToken = (
 }
 
 /**
+ *
+ * @param ctx
+ * @param param1
+ */
+const createCookieToken = (ctx, { data, maxAge }) => {
+  const token = getToken(data, { expiresIn: '1h' })
+  ctx.cookies.set('token', token, {
+    // 仅在生产环境中使用 HTTPS
+    // secure: process.env.NODE_ENV === 'production', //
+    httpOnly: true, // 仅允许服务器访问
+    maxAge: maxAge ?? 3600000 // 1小时
+  })
+}
+
+/**
  * 设置token
  * @param ctx
  * @param param1
  */
 const setTokenCookie = (ctx, { data, maxAge }) => {
-  const token = getToken(data, { expiresIn: '1h' })
-  ctx.cookies.set('token', token, {
-    secure: process.env.NODE_ENV === 'production', // 仅在生产环境中使用 HTTPS
-    httpOnly: true, // 仅允许服务器访问
-    maxAge: maxAge ?? 3600000 // 1小时
-  })
+  createCookieToken(ctx, { data, maxAge })
 }
 
 /**
@@ -112,13 +120,7 @@ const setTokenCookie = (ctx, { data, maxAge }) => {
  * @param param1
  */
 const updateTokenCookie = (ctx, { maxAge }) => {
-  const token = getToken(ctx.user, { expiresIn: '1h' })
-  ctx.cookies.set('token', token, {
-    // 仅在生产环境中使用 HTTPS
-    // secure: process.env.NODE_ENV === 'production', //
-    httpOnly: true, // 仅允许服务器访问
-    maxAge: maxAge ?? 3600000 // 1小时
-  })
+  createCookieToken(ctx, { data: ctx.user, maxAge })
 }
 
 global.updateTokenCookie = updateTokenCookie
