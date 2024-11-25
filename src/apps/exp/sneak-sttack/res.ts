@@ -220,7 +220,7 @@ export default OnResponse(
     // 是否显示战斗结果
     if (UserData.battle_show || UserDataB.battle_show) {
       // 切割战斗信息
-      sendReply(e, '[战斗结果]', BMSG.msg)
+      sendReply(Send, '[战斗结果]', BMSG.msg)
     }
     // 平局了,保存双方存档即可
     if (BMSG.victory == '0') {

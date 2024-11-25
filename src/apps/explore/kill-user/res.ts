@@ -161,7 +161,7 @@ export default OnResponse(
 
     const BooldMsg = `🩸${BMSG.battle_blood_now.a}`
     if (UserData.battle_show) {
-      sendReply(e, '[战斗结果]', BMSG.msg)
+      sendReply(Send, '[战斗结果]', BMSG.msg)
     }
 
     const msgRight: string[] = []

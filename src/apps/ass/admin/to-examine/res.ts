@@ -84,7 +84,7 @@ export default OnResponse(
       const usermsg = item['user']['dataValues']
       msg.push(`标记:${item.id}_编号:${usermsg.uid}\n昵称:${usermsg.name}`)
     }
-    sendReply(e, `[${aData.name}名录]`, msg)
+    sendReply(Send, `[${aData.name}名录]`, msg)
     return
   },
   'message.create',

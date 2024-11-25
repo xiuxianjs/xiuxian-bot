@@ -11,8 +11,6 @@ export default OnResponse(
       return
     }
 
-    // const UserData = e['UserData'] as Attributes<typeof user>
-
     const UID = await getEmailUID(e.UserId)
 
     const myGroupList = user_group_list

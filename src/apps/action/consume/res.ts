@@ -1,9 +1,45 @@
-import { showUserMsg, reCreateMsg } from '@xiuxian/api/index'
+import { showUserMsg, victoryCooling } from '@xiuxian/api/index'
 import { Attributes, map_position, user, user_level } from '@xiuxian/db/index'
-import { Bag, Levels, Skills, Talent } from '@xiuxian/core/index'
+import {
+  Bag,
+  Burial,
+  Cooling,
+  Levels,
+  Player,
+  Skills,
+  Talent
+} from '@xiuxian/core/index'
 import { operationLock } from '@xiuxian/core/index'
 import { Text, useParse, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
+
+const reStart = {}
+
+async function reCreateMsg(e) {
+  //
+  const UID = await getEmailUID(e.UserId)
+  //
+  const Send = useSend(e)
+  // 不存在或者过期了
+  if (!reStart[UID] || reStart[UID] + 30000 < Date.now()) {
+    reStart[UID] = Date.now()
+    Send(Text('再次消耗道具\n以确认转世'))
+    return
+  }
+  // 规定时间内操作
+  const CDID = 8
+  const CDTime = Cooling.CD_Reborn
+  if (!(await victoryCooling(e, UID, CDID))) {
+    return
+  }
+  // 重置用户
+  await Player.updatePlayer(UID, e.UserAvatar)
+  // 设置redis
+  Burial.set(UID, CDID, CDTime)
+  // 清除询问
+  delete reStart[UID]
+  return
+}
 
 /**
  *
@@ -435,6 +471,7 @@ export default OnResponse(
             console.error(err)
             Send(Text('重生数据错误'))
           })
+
         break
       }
       /**

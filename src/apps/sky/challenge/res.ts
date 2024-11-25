@@ -95,7 +95,7 @@ export default OnResponse(
     // 是否显示战斗结果
     if (UserData.battle_show || UserDataB.battle_show) {
       // 切割战斗信息
-      sendReply(e, '[战斗结果]', BMSG.msg)
+      sendReply(Send, '[战斗结果]', BMSG.msg)
     }
     if (BMSG.victory == '0') {
       Send(Text('🤪挑战失败,你与对方打成了平手'))

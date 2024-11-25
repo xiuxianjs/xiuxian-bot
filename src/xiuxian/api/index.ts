@@ -5,7 +5,6 @@ import {
   Map,
   Burial,
   Treasure,
-  Player,
   State,
   Levels,
   Bag,
@@ -17,60 +16,6 @@ import { pictureRender } from '@xiuxian/img/index'
 import { Image, Text, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 
-const reStart = {}
-
-/**
- *再入仙途
- * @param e
- * @returns
- */
-export async function reCreateMsg(e) {
-  //
-  const UID = await getEmailUID(e.UserId)
-  //
-  const Send = useSend(e)
-  // 不存在或者过期了
-  if (!reStart[UID] || reStart[UID] + 30000 < Date.now()) {
-    reStart[UID] = Date.now()
-    Send(Text('再次消耗道具\n以确认转世'))
-    return
-  }
-  // 规定时间内操作
-  const CDID = 8
-  const CDTime = Cooling.CD_Reborn
-  if (!(await victoryCooling(e, UID, CDID))) {
-    return
-  }
-  // 重置用户
-  await Player.updatePlayer(UID, e.UserAvatar)
-  // 设置redis
-  Burial.set(UID, CDID, CDTime)
-  // 清除询问
-  delete reStart[UID]
-  return
-}
-
-/**
- * 踏入仙途
- */
-export async function createUser(e) {
-  const UID = await getEmailUID(e.UserId)
-  const Send = useSend(e)
-  // 刷新用户信息
-  Player.updatePlayer(UID, e.UserAvatar)
-    .then(() => {
-      // 设置冷却
-      Burial.set(UID, 8, Cooling.CD_Reborn)
-      Send(Text('欢迎萌新\n发送[/修仙帮助]了解更多'))
-      // 显示资料
-      showUserMsg(e)
-    })
-    .catch(err => {
-      console.error(err)
-      Send(Text('未寻得仙缘'))
-    })
-}
-
 /**
  * 显示我的资料
  * @param e
@@ -78,19 +23,28 @@ export async function createUser(e) {
 export async function showUserMsg(e) {
   const UID = await getEmailUID(e.UserId)
   const Send = useSend(e)
-  personalInformation(UID, e.UserAvatar).then(UserData => {
+  showUserMessage(UID, e.UserAvatar).then(img => {
+    if (typeof img != 'boolean') {
+      Send(Image(img))
+    } else {
+      Send(Text('数据错误'))
+    }
+  })
+}
+
+/**
+ *
+ * @param UID
+ * @param UserAvatar
+ * @returns
+ */
+export const showUserMessage = async (UID: string, UserAvatar: string) => {
+  return await personalInformation(UID, UserAvatar).then(UserData =>
     pictureRender('MessageComponent', {
       data: UserData,
       theme: UserData?.theme ?? 'dark'
-    }).then(img => {
-      if (typeof img != 'boolean') {
-        // 图片发送
-        Send(Image(img))
-      } else {
-        //
-      }
     })
-  })
+  )
 }
 
 /**
@@ -103,7 +57,7 @@ export async function showUserMsg(e) {
 export async function dualVerification(
   e,
   UserData: Attributes<typeof user>,
-  UserDataB
+  UserDataB: Attributes<typeof user>
 ) {
   const Send = useSend(e)
   if (UserData.uid == UserDataB.uid) {
@@ -146,13 +100,12 @@ export function dualVerificationAction(e, region: number, regionB: number) {
  * @returns
  */
 export async function sendReply(
-  e,
+  Send,
   title: string,
   msg: string[] = [],
   size = 8
 ) {
   // 按每7条消息分组并发送
-  const Send = useSend(e)
   for (let i = 0; i < msg.length; i += size) {
     const slicedMsg = msg.slice(i, i + size)
     slicedMsg.unshift(title)
@@ -308,7 +261,11 @@ export async function killNPC(e, Mname: string, UID: string, prestige: number) {
   return false
 }
 
-export async function showAction(e, UID: string, UserData) {
+export async function showAction(
+  e,
+  UID: string,
+  UserData: Attributes<typeof user>
+) {
   const mData = await Map.getRecordsByXYZ(
     UserData.pont_x,
     UserData.pont_y,
@@ -333,31 +290,6 @@ export async function showAction(e, UID: string, UserData) {
     Send(Text(`(${UserData.pont_x},${UserData.pont_y},${UserData.pont_z})`))
   }
   return
-}
-
-/**
- * 是否存在用户
- * @param UID
- * @returns
- */
-export async function isUser(e, UID: string) {
-  const UserData = await user
-    .findOne({
-      where: {
-        uid: UID
-      }
-    })
-    .then(res => res?.dataValues)
-    .catch(() => false)
-  if (UserData && typeof UserData !== 'boolean') {
-    // 确保血量不会超过limit
-    if (UserData.battle_blood_now > UserData.battle_blood_limit) {
-      UserData.battle_blood_now = UserData.battle_blood_limit
-    }
-    return UserData
-  }
-  createUser(e)
-  return false
 }
 
 /**
@@ -387,29 +319,10 @@ export async function victoryCooling(e, UID: string, CDID: Burial.CDType) {
   return true
 }
 
-// 根据状态来自动结束，确保能进行后续操作。
-
-export async function endState(
-  e,
-  UID: string,
-  UserData: {
-    state: number
-    state_start_time: number
-  }
-) {
-  //
-  if (UserData.state != 0) {
-    //
-  }
-}
-
 export async function endAllWord(
   e,
   UID: string,
-  UserData: {
-    state: number
-    state_start_time: number
-  }
+  UserData: Attributes<typeof user>
 ) {
   const mapText = {
     1: '只是呆了一会儿',
@@ -452,7 +365,12 @@ export async function endAllWord(
   return true
 }
 
-export async function condensateGas(e, UID: string, time: number, UserData) {
+export async function condensateGas(
+  e,
+  UID: string,
+  time: number,
+  UserData: Attributes<typeof user>
+) {
   const size = Math.floor((time * (UserData.talent_size + 100)) / 100)
   const limit = UserData.special_spiritual_limit
   let special_spiritual = UserData.special_spiritual
@@ -497,7 +415,7 @@ export async function upgrade(
   time: number,
   key: number,
   type: 1 | 2 | 3,
-  UserData
+  UserData: Attributes<typeof user>
 ) {
   const config = {
     1: Cooling.work_size,
@@ -544,7 +462,11 @@ export async function upgrade(
  * @param size
  * @returns
  */
-export async function punishLevel(e, UID: string, UserData) {
+export async function punishLevel(
+  e,
+  UID: string,
+  UserData: Attributes<typeof user>
+) {
   /**
    * 渡劫失败惩罚
    *

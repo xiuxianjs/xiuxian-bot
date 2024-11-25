@@ -1,4 +1,3 @@
-import { showUserMsg, createUser } from '@xiuxian/api/index'
 import { Themes } from '@xiuxian/img/index'
 import * as GameApi from '@xiuxian/core/index'
 import { user } from '@xiuxian/db/index'
@@ -15,61 +14,34 @@ export default OnResponse(
 
     const UID = await getEmailUID(e.UserId)
 
-    //
-    user
-      .findOne({
+    const UserData = e['UserData']
+
+    // 得到配置
+    const index = Themes.indexOf(UserData.theme)
+
+    // 如果存在
+    if (Themes[index + 1]) {
+      // 切换
+      UserData.theme = Themes[index + 1]
+      // 保存
+    } else {
+      // 不存在。返回第一个
+      UserData.theme = Themes[0]
+    }
+
+    user.update(
+      {
+        avatar: e.UserAvatar,
+        theme: UserData.theme
+      },
+      {
         where: {
           uid: UID
         }
-      })
-      .then(res => res?.dataValues)
-      .then(UserData => {
-        if (!UserData) {
-          createUser(e)
-          return
-        }
-        // 得到配置
-        const index = Themes.indexOf(UserData.theme)
+      }
+    )
 
-        // 如果存在
-        if (Themes[index + 1]) {
-          // 切换
-          UserData.theme = Themes[index + 1]
-          // 保存
-        } else {
-          // 不存在。返回第一个
-          UserData.theme = Themes[0]
-        }
-
-        user
-          .update(
-            {
-              avatar: e.UserAvatar,
-              theme: UserData.theme
-            },
-            {
-              where: {
-                uid: UID
-              }
-            }
-          )
-          .then(() => {
-            Promise.all([
-              GameApi.Skills.updataEfficiency(UID, UserData.talent),
-              GameApi.Equipment.updatePanel(UID, UserData.battle_blood_now),
-              showUserMsg(e)
-            ]).catch(err => {
-              console.error(err)
-              const Send = useSend(e)
-              Send(Text('数据处理错误'))
-            })
-          })
-      })
-      .catch(err => {
-        console.error(err)
-        const Send = useSend(e)
-        Send(Text('数据处理错误'))
-      })
+    Send(Text('更改成功'))
 
     //
   },
