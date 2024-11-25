@@ -16,7 +16,7 @@ export const Actions = {
     value: 2,
     name: '锻体'
   },
-  ganchu: {
+  ganlu: {
     value: 3,
     name: '赶路'
   },
@@ -64,16 +64,15 @@ type Keys = keyof typeof Actions
  */
 export const setStatus = (options: {
   UID: string
-  actionID?: number
-  startTime?: number
-  endTime?: number
+  key?: Keys
+  end?: number
 }) => {
-  const { UID, actionID, startTime, endTime } = options ?? {}
+  const { UID, key, end } = options ?? {}
   return user.update(
     {
-      state: actionID ?? 0,
-      state_start_time: startTime ?? 9999999999999,
-      state_end_time: endTime ?? 9999999999999
+      state: Actions[key]?.value ?? 0,
+      state_start_time: Date.now(),
+      state_end_time: end ?? 9999999999999
     },
     {
       where: {

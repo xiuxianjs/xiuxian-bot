@@ -1,4 +1,4 @@
-import { operationLock } from '@xiuxian/core/index'
+import { operationLock, Status } from '@xiuxian/core/index'
 import { Text, useParse, useSend } from 'alemonjs'
 import { Attributes, user_group, user_group_list } from '@src/xiuxian/db'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
@@ -13,7 +13,7 @@ export default OnResponse(
 
     const UID = await getEmailUID(e.UserId)
 
-    const myGroupList = user_group_list
+    const myGroupList = await user_group_list
       .findOne({
         where: {
           uid: UID
@@ -59,6 +59,7 @@ export default OnResponse(
     }
 
     if (UIDB == UID) {
+      Send(Text('你干嘛,哎哟～'))
       return
     }
 
@@ -69,6 +70,8 @@ export default OnResponse(
     })
 
     Send(Text('成功踢出'))
+
+    Status.setStatus({ UID: UIDB, key: 'kongxian' })
 
     return
   },

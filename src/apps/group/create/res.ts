@@ -1,4 +1,4 @@
-import { operationLock } from '@xiuxian/core/index'
+import { operationLock, Status } from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
 import { Attributes, user, user_group, user_group_list } from '@src/xiuxian/db'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
@@ -10,10 +10,9 @@ export default OnResponse(
       Send(Text('操作频繁'))
       return
     }
-    const UserData = e['UserData'] as Attributes<typeof user>
     const UID = await getEmailUID(e.UserId)
 
-    const group = user_group_list.findOneValue({
+    const group = await user_group_list.findOneValue({
       where: {
         uid: UID
       }
@@ -23,6 +22,8 @@ export default OnResponse(
       Send(Text('已有归属队伍'))
       return
     }
+
+    const UserData = e['UserData'] as Attributes<typeof user>
 
     user_group
       .create({
@@ -35,6 +36,7 @@ export default OnResponse(
           uid: UID
         })
       )
+      .then(() => Status.setStatus({ UID, key: 'zudui' }))
       .then(() => Send(Text(`创建:${UserData.name}的队伍`)))
       .catch(console.error)
 

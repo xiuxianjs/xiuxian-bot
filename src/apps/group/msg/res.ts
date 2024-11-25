@@ -11,7 +11,7 @@ export default OnResponse(
       return
     }
     const UID = await getEmailUID(e.UserId)
-    const myGroupList = user_group_list
+    const myGroupList = await user_group_list
       .findOne({
         where: {
           uid: UID

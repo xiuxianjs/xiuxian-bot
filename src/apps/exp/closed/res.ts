@@ -39,9 +39,7 @@ export default OnResponse(
 
     Status.setStatus({
       UID,
-      actionID: 1,
-      startTime: Date.now(), // 记录了现在的时间
-      endTime: 9999999999999 // 结束时间应该是无限的
+      key: 'biguan'
     })
 
     return

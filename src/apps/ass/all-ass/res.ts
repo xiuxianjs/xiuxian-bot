@@ -23,11 +23,10 @@ export default OnResponse(
 
     // 宗门数据
     ass
-      .findAll({
+      .findAllValues({
         limit: limit,
         offset: offset
       })
-      .then(res => res.map(item => item?.dataValues))
       .then(async res => {
         if (res.length === 0) {
           Send(Text('没有找到数据'))
@@ -48,5 +47,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?查看势力\d*$/
+  /^(#|\/)?查看势力(\d+)?$/
 )

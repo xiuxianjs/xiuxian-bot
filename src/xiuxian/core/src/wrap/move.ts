@@ -106,8 +106,7 @@ export async function setJob(
   // 设置行为赶路
   await Status.setStatus({
     UID,
-    actionID: 3,
-    startTime: Date.now()
+    key: 'ganlu'
   })
 
   // 推送任务
