@@ -70,7 +70,6 @@ goods_alliancemall.init(
     id: {
       type: DataTypes.BIGINT,
       primaryKey: true,
-      autoIncrement: true,
       allowNull: false
     },
     gid: {

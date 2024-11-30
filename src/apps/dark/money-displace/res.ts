@@ -53,7 +53,7 @@ export default OnResponse(
     if (!(await controlByName(e, UserData, '金银坊'))) return
     const text = useParse(e.Megs, 'Text')
     const [account, LeftName, RightName] = text
-      .replace(/^(#|\/)?(金银置换|金銀置換)/, '')
+      .replace(/^(#|\/)(金银置换|金銀置換)/, '')
       .split('*')
     const quantity = convertStoneQuantity(Number(account), LeftName, RightName)
     if (!quantity) {
@@ -107,5 +107,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?(金银坊置换|金銀坊置換)\d+\*[\u4e00-\u9fa5]+\*[\u4e00-\u9fa5]+$/
+  /^(#|\/)(金银坊置换|金銀坊置換)\d+\*[\u4e00-\u9fa5]+\*[\u4e00-\u9fa5]+$/
 )

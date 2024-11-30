@@ -147,5 +147,5 @@ export default OnResponse(
     }
   },
   'message.create',
-  /^(#|\/)?攻击(金角|银角)/
+  /^(#|\/)攻击(金角|银角)/
 )

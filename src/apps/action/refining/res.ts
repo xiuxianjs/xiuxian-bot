@@ -28,7 +28,7 @@ export default OnResponse(
     }
     // 解析
     const text = useParse(e.Megs, 'Text')
-    const thingName = text.replace(/^(#|\/)?炼化/, '')
+    const thingName = text.replace(/^(#|\/)炼化/, '')
     const bagThing = await Bag.searchBagByName(UID, thingName)
     if (!bagThing) {
       Send(Text(`没[${thingName}]`))
@@ -66,5 +66,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?炼化[\u4e00-\u9fa5]+$/
+  /^(#|\/)炼化[\u4e00-\u9fa5]+$/
 )

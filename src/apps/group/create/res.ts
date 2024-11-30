@@ -11,34 +11,30 @@ export default OnResponse(
       return
     }
     const UID = await getEmailUID(e.UserId)
-
     const group = await user_group_list.findOneValue({
       where: {
         uid: UID
       }
     })
-
     if (group) {
       Send(Text('已有归属队伍'))
       return
     }
-
     const UserData = e['UserData'] as Attributes<typeof user>
-
     user_group
       .create({
-        leader: UID,
+        uid: UID,
         name: `${UserData.name}的队伍`
       })
-      .then(res =>
+      .then(res => {
         user_group_list.create({
           gid: res.dataValues.id,
           uid: UID
         })
-      )
-      .then(() => Status.setStatus({ UID, key: 'zudui' }))
-      .then(() => Send(Text(`创建:${UserData.name}的队伍`)))
-      .catch(console.error)
+        Status.setStatus({ UID, key: 'zudui' })
+        Send(Text(`创建[${res.dataValues.id}]${UserData.name}的队伍`))
+      })
+      .catch(logger.error)
 
     return
   },

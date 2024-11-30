@@ -16,7 +16,7 @@ export default OnResponse(
     // 解析消息
     const text = useParse(e.Megs, 'Text')
     const [thingName, thingAcount] = text
-      .replace(/^(#|\/)?(戒指|(纳|呐|那)(借|介|戒))取出/, '')
+      .replace(/^(#|\/)(戒指|(纳|呐|那)(借|介|戒))取出/, '')
       .split('*')
     // 检查戒指
     const thing = await GameApi.Ring.searchRingByName(UID, thingName)
@@ -62,5 +62,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?(戒指|(纳|呐|那)(借|介|戒))取出[\u4e00-\u9fa5]+\*\d+$/
+  /^(#|\/)(戒指|(纳|呐|那)(借|介|戒))取出[\u4e00-\u9fa5]+\*\d+$/
 )

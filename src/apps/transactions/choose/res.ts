@@ -16,7 +16,7 @@ export default OnResponse(
     const UID = await getEmailUID(e.UserId)
     // 解析文本
     const text = useParse(e.Megs, 'Text')
-    const id = text.replace(/^(#|\/)?选购/, '').trim()
+    const id = text.replace(/^(#|\/)选购/, '').trim()
     if (!id || id == '' || isNaN(Number(id))) {
       Send(Text('请输入正确的编号'))
       return
@@ -106,5 +106,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?选购/
+  /^(#|\/)选购/
 )

@@ -14,7 +14,7 @@ export default OnResponse(
 
     const UserData = e['UserData'] as Attributes<typeof user>
     const text = useParse(e.Megs, 'Text')
-    const typing = text.replace(/^(#|\/)?我的(储物袋|儲物袋|背包)/, '')
+    const typing = text.replace(/^(#|\/)我的(储物袋|儲物袋|背包)/, '')
     console.log('typing', typing)
     const data = await backpackInformation(
       e.UserId,
@@ -31,5 +31,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?我的(储物袋|儲物袋|背包)(武器|护具|法宝|丹药|功法|道具|材料|装备)?$/
+  /^(#|\/)我的(储物袋|儲物袋|背包)(武器|护具|法宝|丹药|功法|道具|材料|装备)?$/
 )

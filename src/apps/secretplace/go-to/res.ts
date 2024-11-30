@@ -48,7 +48,7 @@ export default OnResponse(
     const text = useParse(e.Megs, 'Text')
 
     // 检查地点
-    const address = text.replace(/^(#|\/)?前往/, '')
+    const address = text.replace(/^(#|\/)前往/, '')
 
     // 得到地点数据
     const point = await map_point.findOneValue({
@@ -134,5 +134,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?前往[\u4e00-\u9fa5]+$/
+  /^(#|\/)前往[\u4e00-\u9fa5]+$/
 )

@@ -17,7 +17,7 @@ export default OnResponse(
     // message parse
     const text = useParse(e.Megs, 'Text')
     if (!text) return
-    const [thingName, thingAcount] = text.replace(/^(#|\/)?服用/, '').split('*')
+    const [thingName, thingAcount] = text.replace(/^(#|\/)服用/, '').split('*')
     const thing = await Bag.searchBagByName(UID, thingName)
     if (!thing) {
       Send(Text(`没有[${thingName}]`))
@@ -88,5 +88,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?服用[\u4e00-\u9fa5]+\*\d+$/
+  /^(#|\/)服用[\u4e00-\u9fa5]+\*\d+$/
 )

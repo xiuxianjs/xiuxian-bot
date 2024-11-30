@@ -90,5 +90,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?解散$/
+  /^(#|\/)解散$/
 )

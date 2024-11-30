@@ -38,7 +38,7 @@ export default OnResponse(
     >
 
     // 自己就是队长，触发解散
-    if (group.leader != UID) {
+    if (group.uid != UID) {
       Send(Text('不是队长'))
       return
     }
@@ -67,7 +67,7 @@ export default OnResponse(
       Status.setStatus({ UID: UIDB, key: 'kongxian' })
     } else {
       const text = useParse(e.Megs, 'Text')
-      const id = text.replace(/^(#|\/)?踢出/, '')
+      const id = text.replace(/^(#|\/)踢出/, '')
       // 查看标记
       const groupList = await user_group_list.findOneValue({
         where: {

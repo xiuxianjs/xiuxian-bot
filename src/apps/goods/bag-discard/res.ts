@@ -13,7 +13,7 @@ export default OnResponse(
     const UID = await getEmailUID(e.UserId)
     const text = useParse(e.Megs, 'Text')
     const [thingName, quantity] = text
-      .replace(/^(#|\/)?(储物袋|儲物袋|背包)(丢弃|丟棄)/, '')
+      .replace(/^(#|\/)(储物袋|儲物袋|背包)(丢弃|丟棄)/, '')
       .split('*')
     const thing = await GameApi.Bag.searchBagByName(UID, thingName)
     if (!thing) {
@@ -30,5 +30,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?(储物袋|儲物袋|背包)(丢弃|丟棄)[\u4e00-\u9fa5]+\*\d+$/
+  /^(#|\/)(储物袋|儲物袋|背包)(丢弃|丟棄)[\u4e00-\u9fa5]+\*\d+$/
 )

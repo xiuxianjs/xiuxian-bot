@@ -152,5 +152,5 @@ export default OnResponse(
     //
   },
   'message.create',
-  /^(#|\/)?(顿悟|頓悟)$/
+  /^(#|\/)(顿悟|頓悟)$/
 )

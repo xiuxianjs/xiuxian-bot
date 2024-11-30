@@ -15,7 +15,7 @@ export default OnResponse(
     const UID = await getEmailUID(e.UserId)
     // 解析密码
     const text = useParse(e.Megs, 'Text')
-    const password = text.replace(/^(#|\/)?设置密码/, '')
+    const password = text.replace(/^(#|\/)设置密码/, '')
     const regex = /^[a-zA-Z0-9]+$/
 
     if (!regex.test(password)) {
@@ -52,5 +52,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?设置密码/
+  /^(#|\/)设置密码/
 )

@@ -81,5 +81,5 @@ export default OnResponse(
     //
   },
   'message.create',
-  /^(#|\/)?领取势力俸禄$/
+  /^(#|\/)领取势力俸禄$/
 )

@@ -23,5 +23,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?我的功法$/
+  /^(#|\/)我的功法$/
 )

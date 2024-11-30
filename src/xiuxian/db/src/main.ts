@@ -169,7 +169,7 @@ export const useBelongsTo = () => {
     targetKey: 'uid'
   })
   models.user_group.belongsTo(models.user, {
-    foreignKey: 'leader',
+    foreignKey: 'uid',
     targetKey: 'uid'
   })
   models.user_group_list.belongsTo(models.user_group, {

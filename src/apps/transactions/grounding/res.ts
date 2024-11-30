@@ -15,7 +15,7 @@ export default OnResponse(
     const text = useParse(e.Megs, 'Text')
     //  /上架物品名*数量*价格
     const [name, countx, pricex] = text
-      .replace(/^(#|\/)?上架/, '')
+      .replace(/^(#|\/)上架/, '')
       .trim()
       .split('*')
     const count = Math.floor(isNaN(Number(countx)) ? 1 : Number(countx))
@@ -111,5 +111,5 @@ export default OnResponse(
       })
   },
   'message.create',
-  /^(#|\/)?上架/
+  /^(#|\/)上架/
 )

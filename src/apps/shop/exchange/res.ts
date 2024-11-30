@@ -19,7 +19,7 @@ export default OnResponse(
     // 解析消息
     const text = useParse(e.Megs, 'Text')
     const [thingName, quantity] = text
-      .replace(/^(#|\/)?(兑换|兌換)/, '')
+      .replace(/^(#|\/)(兑换|兌換)/, '')
       .split('*')
     //
     const ifexist: DB.Attributes<typeof DB.goods> = await DB.goods_alliancemall
@@ -77,5 +77,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?(兑换|兌換)[\u4e00-\u9fa5]+\*\d+$/
+  /^(#|\/)(兑换|兌換)[\u4e00-\u9fa5]+\*\d+$/
 )

@@ -15,7 +15,7 @@ export default OnResponse(
 
     const text = useParse(e.Megs, 'Text')
 
-    const email = text.replace(/^(#|\/)?设置邮箱/, '')
+    const email = text.replace(/^(#|\/)设置邮箱/, '')
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
     if (!regex.test(email)) {
@@ -73,5 +73,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?设置邮箱/
+  /^(#|\/)设置邮箱/
 )

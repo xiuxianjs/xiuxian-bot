@@ -12,8 +12,10 @@ type ModelProps = {
   id: number
   // 队伍名
   name: string
+  // 队伍锁
+  lock: number
   // 队长
-  leader: string
+  uid: string
 }
 
 class user_group extends Model<ModelProps> {
@@ -72,13 +74,20 @@ user_group.init(
     id: {
       type: DataTypes.BIGINT,
       primaryKey: true,
-      allowNull: false
+      autoIncrement: true,
+      allowNull: false,
+      comment: '组队列表'
     },
     name: {
       type: DataTypes.STRING(50),
       comment: '队长名'
     },
-    leader: {
+    lock: {
+      type: DataTypes.BIGINT,
+      comment: '是否开启申请',
+      defaultValue: 1
+    },
+    uid: {
       type: DataTypes.STRING(50),
       comment: '编号',
       references: {

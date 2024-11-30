@@ -19,5 +19,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?(归来|歸來|凝脉|出关|出關|聚灵|聚靈)$/
+  /^(#|\/)(归来|歸來|凝脉|出关|出關|聚灵|聚靈)$/
 )

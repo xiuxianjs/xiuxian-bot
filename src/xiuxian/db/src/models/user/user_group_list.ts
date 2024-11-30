@@ -71,7 +71,9 @@ user_group_list.init(
     id: {
       type: DataTypes.BIGINT,
       primaryKey: true,
-      allowNull: false
+      autoIncrement: true,
+      allowNull: false,
+      comment: '组队信息'
     },
     gid: {
       type: DataTypes.BIGINT,

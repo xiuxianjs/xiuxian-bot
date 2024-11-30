@@ -64,5 +64,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?打开([\u4e00-\u9fa5]+)宝库$/
+  /^(#|\/)打开([\u4e00-\u9fa5]+)宝库$/
 )

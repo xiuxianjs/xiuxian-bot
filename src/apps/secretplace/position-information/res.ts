@@ -23,5 +23,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?查看当前位置$/
+  /^(#|\/)查看当前位置$/
 )

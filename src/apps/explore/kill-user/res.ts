@@ -65,7 +65,7 @@ export default OnResponse(
 
     const text = useParse(e.Megs, 'Text')
 
-    const [Mname, count] = text.replace(/^(#|\/)?(击杀|擊殺)/, '').split('*')
+    const [Mname, count] = text.replace(/^(#|\/)(击杀|擊殺)/, '').split('*')
 
     if (!(await killNPC(e, Mname, UID, UserData.special_prestige))) return
 
@@ -354,5 +354,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?(击杀|擊殺)[\u4e00-\u9fa5]+(\*1|\*2)?$/
+  /^(#|\/)(击杀|擊殺)[\u4e00-\u9fa5]+(\*1|\*2)?$/
 )

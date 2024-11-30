@@ -41,5 +41,5 @@ export default OnResponse(
     Send(Text(msg.join('\n')))
   },
   'message.create',
-  /^(#|\/)?探索灵矿$/
+  /^(#|\/)探索灵矿$/
 )

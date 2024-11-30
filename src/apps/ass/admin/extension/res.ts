@@ -15,7 +15,7 @@ export default OnResponse(
     const UID = await getEmailUID(e.UserId)
 
     const text = useParse(e.Megs, 'Text')
-    const name = text.replace(/^(#|\/)?升级/, '')
+    const name = text.replace(/^(#|\/)升级/, '')
 
     const aData = await ass
       .findOne({
@@ -100,5 +100,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?升级[\u4e00-\u9fa5]+$/
+  /^(#|\/)升级[\u4e00-\u9fa5]+$/
 )

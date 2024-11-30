@@ -6,6 +6,7 @@ import { logging } from './utils'
 const dir = join(process.cwd(), 'logs', 'mysql')
 mkdirSync(dir, { recursive: true })
 const db = getConfig().value?.db
+logger.info('db', db)
 export const sequelize = new Sequelize(
   `mysql://${db.user}:${db.password}@${db.host}:${db.port}/${db.database}`,
   {

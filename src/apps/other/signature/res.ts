@@ -18,7 +18,7 @@ export default OnResponse(
 
     // 解析文本
     const text = useParse(e.Megs, 'Text')
-    const autograph = text.replace(/^(#|\/)?更改签名为/, '')
+    const autograph = text.replace(/^(#|\/)更改签名为/, '')
 
     // 非法字符
     if (Config.IllegalCharacters.test(autograph)) {
@@ -47,5 +47,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?更改签名为[\u4e00-\u9fa5]+$/
+  /^(#|\/)更改签名为[\u4e00-\u9fa5]+$/
 )

@@ -19,7 +19,7 @@ export default OnResponse(
     // 解析消息
     const text = useParse(e.Megs, 'Text')
     const [thingName, quantity] = text
-      .replace(/^(#|\/)?(贡献|貢獻)/, '')
+      .replace(/^(#|\/)(贡献|貢獻)/, '')
       .split('*')
     const thing = await GameApi.Bag.searchBagByName(UID, thingName)
     if (!thing) {
@@ -57,5 +57,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?(贡献|貢獻)[\u4e00-\u9fa5]+\*\d+$/
+  /^(#|\/)(贡献|貢獻)[\u4e00-\u9fa5]+\*\d+$/
 )

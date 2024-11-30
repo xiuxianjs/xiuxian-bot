@@ -1,4 +1,4 @@
-import { operationLock, Status } from '@xiuxian/core/index'
+import { operationLock } from '@xiuxian/core/index'
 import { Text, useParse, useSend } from 'alemonjs'
 import { Attributes, user_group, user_group_list } from '@src/xiuxian/db'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
@@ -10,6 +10,7 @@ export default OnResponse(
       Send(Text('操作频繁'))
       return
     }
+
     const UID = await getEmailUID(e.UserId)
     const myGroupList = await user_group_list
       .findOne({
@@ -32,46 +33,39 @@ export default OnResponse(
     const group = myGroupList['user_group']['dataValues'] as Attributes<
       typeof user_group
     >
+
     // 自己就是队长，触发解散
     if (group.uid == UID) {
-      // 解除
-      await user_group_list
-        .findAllValues()
-        .then(res =>
-          res.map(item => Status.setStatus({ UID: item.uid, key: 'kongxian' }))
-        )
-      // 删除
-      await user_group_list.destroy({
-        where: {
-          gid: group.id
-        }
-      })
-      // 删除
-      user_group.destroy({
-        where: {
-          id: group.id
-        }
-      })
-      Send(Text('已解散队伍'))
-      // 解散要释放所有人。
-    } else {
       const text = useParse(e.Megs, 'Text')
-      if (/解散队伍/.test(text)) {
-        Send(Text('没有队长权限'))
-        return
-      } else {
-        await user_group_list.destroy({
-          where: {
-            uid: UID
+      if (/关闭/.test(text)) {
+        user_group.update(
+          {
+            lock: 0
+          },
+          {
+            where: {
+              id: group.id
+            }
           }
-        })
-        Send(Text('已退出队伍'))
-        Status.setStatus({ UID, key: 'kongxian' })
+        )
+        Send(Text('已锁定队伍'))
+      } else {
+        user_group.update(
+          {
+            lock: 1
+          },
+          {
+            where: {
+              id: group.id
+            }
+          }
+        )
+        Send(Text('已开放队伍'))
       }
+    } else {
+      Send(Text('没有队长权限'))
     }
-    // 变为空闲状态
-    return
   },
   'message.create',
-  /^(#|\/)(退出队伍|解散队伍)$/
+  /^(#|\/)(开启|关闭)队伍$/
 )

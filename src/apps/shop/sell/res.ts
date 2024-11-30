@@ -21,7 +21,7 @@ export default OnResponse(
 
     const text = useParse(e.Megs, 'Text')
 
-    const [thingName, quantity] = text.replace(/^(#|\/)?出售/, '').split('*')
+    const [thingName, quantity] = text.replace(/^(#|\/)出售/, '').split('*')
     // 检查物品
     const thing = await GameApi.Bag.searchBagByName(UID, thingName)
     if (!thing) {
@@ -60,5 +60,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?出售[\u4e00-\u9fa5]+\*\d+$/
+  /^(#|\/)出售[\u4e00-\u9fa5]+\*\d+$/
 )

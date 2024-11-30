@@ -95,7 +95,6 @@ export const getStatus = (
   // 空闲状态
   if (state == Actions[key].value) {
     return {
-      action: state,
       status: 200
     }
   }
@@ -106,14 +105,14 @@ export const getStatus = (
    */
   if (Date.now() >= state_end_time + state_start_time) {
     return {
-      action: state,
       status: 200
     }
   }
+  const values = Object.values(Actions)
+  const value = values.find(item => item.value == state)
   // 正在进行的状态
   return {
-    action: state,
     status: 400,
-    message: `${Actions[key].name}中...`
+    message: `${value.name}中...`
   }
 }

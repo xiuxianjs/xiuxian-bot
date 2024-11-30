@@ -15,5 +15,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?查看配置$/
+  /^(#|\/)查看配置$/
 )

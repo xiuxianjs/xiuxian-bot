@@ -17,7 +17,7 @@ export default OnResponse(
     // 解析
     const text = useParse(e.Megs, 'Text')
     if (!text) return
-    const thingName = text.replace(/^(#|\/)?忘掉/, '')
+    const thingName = text.replace(/^(#|\/)忘掉/, '')
     const AllSorcery = await user_skills
       .findAll({ where: { uid: UID } })
       .then(res => res.map(item => item?.dataValues))
@@ -49,5 +49,5 @@ export default OnResponse(
     Send(Text(`忘掉[${thingName}]`))
   },
   'message.create',
-  /^(#|\/)?忘掉[\u4e00-\u9fa5]+$/
+  /^(#|\/)忘掉[\u4e00-\u9fa5]+$/
 )

@@ -31,5 +31,5 @@ export default OnResponse(
     //
   },
   'message.create',
-  /^(#|\/)?查看(通天塔|至尊榜|天命榜)$/
+  /^(#|\/)查看(通天塔|至尊榜|天命榜)$/
 )

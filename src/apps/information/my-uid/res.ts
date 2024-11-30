@@ -5,5 +5,5 @@ export default OnResponse(
     Send(Text(e.UserId))
   },
   'message.create',
-  /^(#|\/)?我的编号$/
+  /^(#|\/)我的编号$/
 )

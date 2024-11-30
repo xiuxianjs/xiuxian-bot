@@ -16,7 +16,7 @@ export default OnResponse(
     // message parse
     const text = useParse(e.Megs, 'Text')
     const [xpage = '1', name] = text
-      .replace(/^(#|\/)?虚空镜/, '')
+      .replace(/^(#|\/)虚空镜/, '')
       .trim()
       .split('*')
 
@@ -68,5 +68,5 @@ export default OnResponse(
       })
   },
   'message.create',
-  /^(#|\/)?虚空镜/
+  /^(#|\/)虚空镜/
 )

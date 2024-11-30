@@ -86,5 +86,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?剥离本命物$/
+  /^(#|\/)剥离本命物$/
 )

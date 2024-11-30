@@ -46,5 +46,5 @@ export default OnResponse(
     //
   },
   'message.create',
-  /^(#|\/)?(更改|更换)主题$/
+  /^(#|\/)(更改|更换)主题$/
 )

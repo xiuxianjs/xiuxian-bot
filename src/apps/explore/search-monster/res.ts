@@ -53,5 +53,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?探索怪物$/
+  /^(#|\/)探索怪物$/
 )

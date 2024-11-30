@@ -102,5 +102,5 @@ export default OnResponse(
     }
   },
   'message.create',
-  /^(#|\/)?领取通天塔奖励$/
+  /^(#|\/)领取通天塔奖励$/
 )

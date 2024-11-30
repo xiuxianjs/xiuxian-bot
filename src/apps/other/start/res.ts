@@ -60,5 +60,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?踏入仙途$/
+  /^(#|\/)踏入仙途$/
 )

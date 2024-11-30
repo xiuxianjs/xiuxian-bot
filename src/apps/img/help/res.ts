@@ -6,7 +6,7 @@ export default OnResponse(
   async e => {
     const text = useParse(e.Megs, 'Text')
     if (!text) return
-    const size = Number(text.replace(/^(#|\/)?(修仙(帮|幫)助|帮助)/, ''))
+    const size = Number(text.replace(/^(#|\/)(修仙(帮|幫)助|帮助)/, ''))
     const n = isNaN(size) ? 0 : size
     const name = `help${n}`
     const Send = useSend(e)
@@ -21,5 +21,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?(修仙(帮|幫)助|帮助)/
+  /^(#|\/)(修仙(帮|幫)助|帮助)/
 )

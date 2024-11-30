@@ -8,5 +8,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?我的坐标$/
+  /^(#|\/)我的坐标$/
 )

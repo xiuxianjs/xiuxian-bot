@@ -141,7 +141,7 @@ export default OnResponse(
     // 解析
     const text = useParse(e.Megs, 'Text')
     if (!text) return
-    const [thingName, thingAcount] = text.replace(/^(#|\/)?消耗/, '').split('*')
+    const [thingName, thingAcount] = text.replace(/^(#|\/)消耗/, '').split('*')
     let count = Number(thingAcount)
     if (isNaN(Number(count))) {
       count = 1
@@ -485,5 +485,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?消耗[\u4e00-\u9fa5]+(\*\d+)?$/
+  /^(#|\/)消耗[\u4e00-\u9fa5]+(\*\d+)?$/
 )

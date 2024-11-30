@@ -26,7 +26,7 @@ export default OnResponse(
     let UIDB = null
     if (!ats || ats.length === 0) {
       const text = useParse(e.Megs, 'Text')
-      UIDB = text.replace(/^(#|\/)?打劫/, '')
+      UIDB = text.replace(/^(#|\/)打劫/, '')
     } else {
       const d = ats.find(item => item?.typing === 'user' && !item.bot)
       UIDB = d?.value
@@ -297,5 +297,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?打劫/
+  /^(#|\/)打劫/
 )

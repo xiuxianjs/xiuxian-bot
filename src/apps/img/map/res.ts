@@ -13,5 +13,5 @@ export default OnResponse(
     }
   },
   'message.create',
-  /^(#|\/)?(修仙)?(地图|地圖)$/
+  /^(#|\/)(修仙)?(地图|地圖)$/
 )

@@ -16,7 +16,7 @@ export default OnResponse(
     const UserData = e['UserData'] as Attributes<typeof user>
     if (!(await Control(e, UserData))) return
     const text = useParse(e.Megs, 'Text')
-    const name = text.replace(/^(#|\/)?更改昵称为/, '')
+    const name = text.replace(/^(#|\/)更改昵称为/, '')
 
     if (Config.IllegalCharacters.test(name)) {
       Send(Text('异常名称'))
@@ -45,5 +45,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?更改昵称为[\u4e00-\u9fa5]+$/
+  /^(#|\/)更改昵称为[\u4e00-\u9fa5]+$/
 )

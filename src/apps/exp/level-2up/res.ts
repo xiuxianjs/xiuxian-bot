@@ -152,5 +152,5 @@ export default OnResponse(
     //
   },
   'message.create',
-  /^(#|\/)?破境$/
+  /^(#|\/)破境$/
 )

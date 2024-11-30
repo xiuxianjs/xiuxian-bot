@@ -15,7 +15,7 @@ export default OnResponse(
     const UID = await getEmailUID(e.UserId)
 
     const text = useParse(e.Megs, 'Text')
-    const thingName = text.replace(/^(#|\/)?(装备|裝備)/, '')
+    const thingName = text.replace(/^(#|\/)(装备|裝備)/, '')
 
     const thing = await GameApi.Bag.searchBagByName(UID, thingName)
     if (!thing) {
@@ -63,5 +63,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?(装备|裝備)[\u4e00-\u9fa5]+$/
+  /^(#|\/)(装备|裝備)[\u4e00-\u9fa5]+$/
 )

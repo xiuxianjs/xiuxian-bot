@@ -23,7 +23,7 @@ export default OnResponse(
     let UIDB = null
     if (!ats || ats.length === 0) {
       const text = useParse(e.Megs, 'Text')
-      UIDB = text.replace(/^(#|\/)?(雙修|双修)/, '')
+      UIDB = text.replace(/^(#|\/)(雙修|双修)/, '')
     } else {
       const d = ats.find(item => item?.typing === 'user' && !item.bot)
       UIDB = d?.value
@@ -121,5 +121,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?(雙修|双修).*$/
+  /^(#|\/)(雙修|双修).*$/
 )

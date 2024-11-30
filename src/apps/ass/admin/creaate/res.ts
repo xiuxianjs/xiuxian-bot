@@ -53,7 +53,7 @@ export default OnResponse(
     }
 
     const text = useParse(e.Megs, 'Text')
-    const NAME = text.replace(/^(#|\/)?建立/, '')
+    const NAME = text.replace(/^(#|\/)建立/, '')
     const NAMES = NAME.split('')
 
     if (NAMES.length > 6) {
@@ -160,5 +160,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?建立[\u4e00-\u9fa5]+$/
+  /^(#|\/)建立[\u4e00-\u9fa5]+$/
 )

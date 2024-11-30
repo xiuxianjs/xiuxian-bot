@@ -93,5 +93,5 @@ export default OnResponse(
     //
   },
   'message.create',
-  /^(#|\/)?查看通天塔第(\d+)名(资料|面板)?$/
+  /^(#|\/)查看通天塔第(\d+)名(资料|面板)?$/
 )

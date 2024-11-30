@@ -28,7 +28,7 @@ export default OnResponse(
 
     const text = useParse(e.Megs, 'Text')
 
-    const ID = text.replace(/^(#|\/)?偷袭/, '')
+    const ID = text.replace(/^(#|\/)偷袭/, '')
     //
     const UserDataB = await DB.user
       .findOne({
@@ -330,5 +330,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?偷袭\d+$/
+  /^(#|\/)偷袭\d+$/
 )

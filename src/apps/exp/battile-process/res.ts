@@ -39,5 +39,5 @@ export default OnResponse(
     }
   },
   'message.create',
-  /^(#|\/)?战斗过程(开启|关闭)$/
+  /^(#|\/)战斗过程(开启|关闭)$/
 )

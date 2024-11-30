@@ -17,7 +17,7 @@ export default OnResponse(
     const msg = []
     // 金银置换
     const text = useParse(e.Megs, 'Text')
-    let account = Number(text.replace(/^(#|\/)?治炼仙石/, '')) || 1
+    let account = Number(text.replace(/^(#|\/)治炼仙石/, '')) || 1
     if (account > 10) account = 10
     const Userleve = await DB.user_level
       .findOne({
@@ -62,5 +62,5 @@ export default OnResponse(
     Send(Text(msg.join('')))
   },
   'message.create',
-  /^(#|\/)?治炼仙石\d+$/
+  /^(#|\/)治炼仙石\d+$/
 )

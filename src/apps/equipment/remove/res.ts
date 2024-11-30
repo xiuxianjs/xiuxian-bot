@@ -17,7 +17,7 @@ export default OnResponse(
     const UID = await getEmailUID(e.UserId)
     // message
     const text = useParse(e.Megs, 'Text')
-    const thingName = text.replace(/^(#|\/)?卸下/, '')
+    const thingName = text.replace(/^(#|\/)卸下/, '')
     // 得到数据
     const equipment = await user_equipment
       .findAll({ where: { uid: UID } })
@@ -62,5 +62,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?卸下[\u4e00-\u9fa5]+$/
+  /^(#|\/)卸下[\u4e00-\u9fa5]+$/
 )

@@ -77,7 +77,7 @@ ass.init(
     id: {
       type: DataTypes.BIGINT,
       primaryKey: true,
-      autoIncrement: true,
+
       allowNull: false
     },
     create_time: {

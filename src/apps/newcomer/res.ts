@@ -24,5 +24,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?启动新手指引$/
+  /^(#|\/)启动新手指引$/
 )

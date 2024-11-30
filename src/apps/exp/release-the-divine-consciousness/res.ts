@@ -80,5 +80,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?释放神识$/
+  /^(#|\/)释放神识$/
 )

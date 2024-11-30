@@ -8,7 +8,7 @@ export default OnResponse(
     if (!e.IsMaster) return
     const text = useParse(e.Megs, 'Text')
     if (!text) return
-    const [uid, Name, Count] = text.replace(/(#|\/)?天道裁决/, '').split('*')
+    const [uid, Name, Count] = text.replace(/(#|\/)天道裁决/, '').split('*')
     const UID = await getEmailUID(uid)
     const UserData = await isSideUser(e, UID)
     if (typeof UserData == 'boolean') return
@@ -42,5 +42,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?天道裁决/
+  /^(#|\/)天道裁决/
 )

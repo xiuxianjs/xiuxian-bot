@@ -5,22 +5,11 @@ import { Text, useParse, useSend } from 'alemonjs'
 import { newcomer } from './newcomer'
 import { operationLocalLock } from './util'
 import { ControlByBlood, endAllWord } from '@src/xiuxian/api'
-
 // 指引标记
 const UIDS = {}
-
 export default OnMiddleware(
   async e => {
     // 获取 txt
-    const txt = useParse(e.Megs, 'Text')
-    // discord 和 kook 是全局域，需要挑过
-    if (process.argv.includes('discord') || process.argv.includes('kook')) {
-      // 不是  / 或 # 开头的，跳过
-      if (!/^(\/|#)/.test(txt)) {
-        e.Megs = []
-        return e
-      }
-    }
     const Send = useSend(e)
     if (!operationLocalLock(e.UserId)) {
       Send(Text('操作频繁'))
@@ -161,6 +150,8 @@ export default OnMiddleware(
         )
       }
     }
+
+    const txt = useParse(e.Megs, 'Text')
 
     if (!txt) {
       Send(Text(['小柠檬：', '不对哦～', '你的指令是空的'].join('\n')))

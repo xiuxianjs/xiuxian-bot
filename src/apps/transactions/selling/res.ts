@@ -49,5 +49,5 @@ export default OnResponse(
       })
   },
   'message.create',
-  /^(#|\/)?我的虚空镜$/
+  /^(#|\/)我的虚空镜$/
 )

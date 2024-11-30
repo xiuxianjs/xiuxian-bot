@@ -11,5 +11,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?挑战妖塔$/
+  /^(#|\/)挑战妖塔$/
 )

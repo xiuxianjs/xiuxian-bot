@@ -20,7 +20,7 @@ export default OnResponse(
     // 解析消息
     const text = useParse(e.Megs, 'Text')
     const [thingName, quantity] = text
-      .replace(/^(#|\/)?(购买|購買)/, '')
+      .replace(/^(#|\/)(购买|購買)/, '')
       .split('*')
 
     //
@@ -132,5 +132,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?(购买|購買)[\u4e00-\u9fa5]+\*\d+$/
+  /^(#|\/)(购买|購買)[\u4e00-\u9fa5]+\*\d+$/
 )

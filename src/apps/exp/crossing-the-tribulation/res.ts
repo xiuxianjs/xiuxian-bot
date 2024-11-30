@@ -75,5 +75,5 @@ export default OnResponse(
     }, 60000) // 每分钟执行一次
   },
   'message.create',
-  /^(#|\/)?渡劫$/
+  /^(#|\/)渡劫$/
 )

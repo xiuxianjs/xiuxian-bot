@@ -32,7 +32,7 @@ export default OnResponse(
 
     const text = useParse(e.Megs, 'Text')
 
-    const [id, count] = text.replace(/^(#|\/)?开采/, '').split('*')
+    const [id, count] = text.replace(/^(#|\/)开采/, '').split('*')
 
     // 看看境界
     const realm = await user_level
@@ -120,5 +120,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?开采\d+(\*1|\*2)?$/
+  /^(#|\/)开采\d+(\*1|\*2)?$/
 )

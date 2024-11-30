@@ -11,5 +11,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?向左$/
+  /^(#|\/)向左$/
 )

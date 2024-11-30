@@ -74,5 +74,5 @@ export default OnResponse(
     Send(Text(msg.join('')))
   },
   'message.create',
-  /^(#|\/)?我的记录$/
+  /^(#|\/)我的记录$/
 )

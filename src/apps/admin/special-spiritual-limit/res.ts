@@ -36,5 +36,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?天道更新灵力/
+  /^(#|\/)天道更新灵力/
 )

@@ -66,5 +66,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?(储物袋|儲物袋|背包)(升级|升級)$/
+  /^(#|\/)(储物袋|儲物袋|背包)(升级|升級)$/
 )

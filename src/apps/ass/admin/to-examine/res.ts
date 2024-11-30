@@ -17,7 +17,7 @@ export default OnResponse(
     const text = useParse(e.Megs, 'Text')
 
     // 审核 宗门名称
-    const name = text.replace(/^(#|\/)?审核/, '')
+    const name = text.replace(/^(#|\/)审核/, '')
 
     const aData = await DB.ass
       .findOne({
@@ -88,5 +88,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?审核[\u4e00-\u9fa5]+$/
+  /^(#|\/)审核[\u4e00-\u9fa5]+$/
 )

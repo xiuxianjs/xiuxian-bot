@@ -44,5 +44,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?打坐$/
+  /^(#|\/)打坐$/
 )

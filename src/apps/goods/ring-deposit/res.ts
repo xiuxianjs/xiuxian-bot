@@ -16,7 +16,7 @@ export default OnResponse(
     const text = useParse(e.Megs, 'Text')
 
     const [thingName, thingAcount] = text
-      .replace(/^(#|\/)?(戒指|(纳|呐|那)(借|介|戒))存入/, '')
+      .replace(/^(#|\/)(戒指|(纳|呐|那)(借|介|戒))存入/, '')
       .split('*')
 
     // 检查储物袋
@@ -65,5 +65,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?(戒指|(纳|呐|那)(借|介|戒))存入[\u4e00-\u9fa5]+\*\d+$/
+  /^(#|\/)(戒指|(纳|呐|那)(借|介|戒))存入[\u4e00-\u9fa5]+\*\d+$/
 )

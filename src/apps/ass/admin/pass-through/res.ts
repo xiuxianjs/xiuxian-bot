@@ -18,7 +18,7 @@ export default OnResponse(
     const text = useParse(e.Megs, 'Text')
 
     //
-    const id = Number(text.replace(/^(#|\/)?通过/, ''))
+    const id = Number(text.replace(/^(#|\/)通过/, ''))
 
     //
     if (!id) return
@@ -137,5 +137,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?通过\d+$/
+  /^(#|\/)通过\d+$/
 )

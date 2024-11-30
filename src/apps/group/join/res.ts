@@ -1,4 +1,4 @@
-import { operationLock } from '@xiuxian/core/index'
+import { operationLock, Status } from '@xiuxian/core/index'
 import { Text, useParse, useSend } from 'alemonjs'
 import { user_group, user_group_list } from '@src/xiuxian/db'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
@@ -25,8 +25,10 @@ export default OnResponse(
     }
 
     const text = useParse(e.Megs, 'Text')
-    const p = text.replace(/^(#|\/)?加入队伍/, '')
+    const p = text.replace(/^(#|\/)加入队伍/, '')
     const id = p == '' ? 1 : Number(p)
+
+    //
     const group = await user_group.findOneValue({
       where: {
         id: id
@@ -35,6 +37,11 @@ export default OnResponse(
 
     if (!group) {
       Send(Text('未知队伍'))
+      return
+    }
+
+    if (group.lock != 1) {
+      Send(Text('该队伍不允许加入'))
       return
     }
 
@@ -49,12 +56,15 @@ export default OnResponse(
       return
     }
 
-    user_group_list.create({
-      gid: group.id,
-      uid: UID
-    })
+    user_group_list
+      .create({
+        gid: group.id,
+        uid: UID
+      })
+      .catch(console.error)
 
-    //
+    Status.setStatus({ UID, key: 'zudui' })
+
     Send(Text('加入成功'))
 
     //

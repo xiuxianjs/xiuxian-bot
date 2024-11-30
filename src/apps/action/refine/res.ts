@@ -127,5 +127,5 @@ export default OnResponse(
     Send(Text(`[${thing.name}]强化至${grade}级`))
   },
   'message.create',
-  /^(#|\/)?强化本命物$/
+  /^(#|\/)强化本命物$/
 )

@@ -17,7 +17,7 @@ export default OnResponse(
 
     // 输入的是标记
 
-    const id = text.replace(/^(#|\/)?提拔/, '')
+    const id = text.replace(/^(#|\/)提拔/, '')
     if (!id) return
 
     const ID = Number(id)
@@ -104,5 +104,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?提拔/
+  /^(#|\/)提拔/
 )

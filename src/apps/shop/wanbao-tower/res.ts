@@ -8,7 +8,7 @@ export default OnResponse(
     if (!(await controlByName(e, UserData, '万宝楼'))) return
     const start_msg = ['___[万宝楼]___', '欢迎光顾本店']
     const text = useParse(e.Megs, 'Text')
-    const type = text.replace(/^(#|\/)?查看(万宝楼|萬寶樓)/, '')
+    const type = text.replace(/^(#|\/)查看(万宝楼|萬寶樓)/, '')
     const commoditiesList = await DB.goods_commodities
       .findAll({
         include: [
@@ -31,5 +31,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?查看(万宝楼|萬寶樓)(武器|护具|法宝|丹药|功法|道具|材料|装备)?$/
+  /^(#|\/)查看(万宝楼|萬寶樓)(武器|护具|法宝|丹药|功法|道具|材料|装备)?$/
 )

@@ -101,5 +101,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?我的本命物$/
+  /^(#|\/)我的本命物$/
 )

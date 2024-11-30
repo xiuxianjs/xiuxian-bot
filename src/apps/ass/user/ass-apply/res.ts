@@ -29,5 +29,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?我的势力申请$/
+  /^(#|\/)我的势力申请$/
 )

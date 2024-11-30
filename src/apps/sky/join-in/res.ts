@@ -36,5 +36,5 @@ export default OnResponse(
     })
   },
   'message.create',
-  /^(#|\/)?进入通天塔$/
+  /^(#|\/)进入通天塔$/
 )

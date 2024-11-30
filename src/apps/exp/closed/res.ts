@@ -45,5 +45,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?(闭关|閉關)$/
+  /^(#|\/)(闭关|閉關)$/
 )

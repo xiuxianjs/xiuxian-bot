@@ -27,7 +27,7 @@ export default OnResponse(
 
     //检查是不是在联盟
     const text = useParse(e.Megs, 'Text')
-    const thingName = text.replace(/^(#|\/)?仙石兑换/, '')
+    const thingName = text.replace(/^(#|\/)仙石兑换/, '')
     // 检查背包
     const BagSize = await GameApi.Bag.backpackFull(UID)
     // 背包未位置了直接返回了
@@ -73,5 +73,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?仙石兑换.*$/
+  /^(#|\/)仙石兑换.*$/
 )

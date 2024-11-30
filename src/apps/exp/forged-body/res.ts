@@ -41,5 +41,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?(锻体|降妖)$/
+  /^(#|\/)(锻体|降妖)$/
 )

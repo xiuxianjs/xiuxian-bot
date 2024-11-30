@@ -4,7 +4,7 @@ import * as DB from '@xiuxian/db/index'
 export default OnResponse(
   async e => {
     const text = useParse(e.Megs, 'Text')
-    const name = text.replace(/^(#|\/)?我的势力/, '')
+    const name = text.replace(/^(#|\/)我的势力/, '')
 
     // 查看该宗门中。关于自己的信息和宗门的信息。
 
@@ -73,5 +73,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?我的势力[\u4e00-\u9fa5]+$/
+  /^(#|\/)我的势力[\u4e00-\u9fa5]+$/
 )

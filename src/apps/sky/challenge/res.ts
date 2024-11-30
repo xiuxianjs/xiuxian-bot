@@ -38,7 +38,7 @@ export default OnResponse(
 
     const text = useParse(e.Megs, 'Text')
 
-    const id = Number(text.replace(/^(#|\/)?挑战/, ''))
+    const id = Number(text.replace(/^(#|\/)挑战/, ''))
     if (id >= data.id || id < 1) {
       Send(Text('😅你干嘛'))
 
@@ -138,5 +138,5 @@ export default OnResponse(
     Send(Text(`😶挑战成功,当前排名${id}`))
   },
   'message.create',
-  /^(#|\/)?挑战\d+$/
+  /^(#|\/)挑战\d+$/
 )

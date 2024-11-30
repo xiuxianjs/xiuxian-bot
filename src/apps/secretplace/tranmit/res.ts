@@ -18,7 +18,7 @@ export default OnResponse(
     if (!(await ControlByBlood(e, UserData))) return
     // 查看数据是否存在
     const text = useParse(e.Megs, 'Text')
-    const address = text.replace(/^(#|\/)?(传送|傳送)/, '')
+    const address = text.replace(/^(#|\/)(传送|傳送)/, '')
     const position = await DB.map_position
       .findOne({
         where: {
@@ -121,5 +121,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?(传送|傳送)[\u4e00-\u9fa5]+$/
+  /^(#|\/)(传送|傳送)[\u4e00-\u9fa5]+$/
 )

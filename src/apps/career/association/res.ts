@@ -35,5 +35,5 @@ export default OnResponse(
     //
   },
   'message.create',
-  /^(#|\/)?查看协会$/
+  /^(#|\/)查看协会$/
 )

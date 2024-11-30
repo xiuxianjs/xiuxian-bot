@@ -41,5 +41,5 @@ export default OnResponse(
     }
   },
   'message.create',
-  /^(#|\/)?查看(日常|限时|特殊)活动$/
+  /^(#|\/)查看(日常|限时|特殊)活动$/
 )

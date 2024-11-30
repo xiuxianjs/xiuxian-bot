@@ -21,7 +21,7 @@ export default OnResponse(
 
     const text = useParse(e.Megs, 'Text')
 
-    const type = text.replace(/^(#|\/)?售出所有/, '')
+    const type = text.replace(/^(#|\/)售出所有/, '')
 
     // 金额累计
     let money = 0
@@ -79,5 +79,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?售出所有(武器|护具|法宝|丹药|功法|道具|材料|装备)$/
+  /^(#|\/)售出所有(武器|护具|法宝|丹药|功法|道具|材料|装备)$/
 )

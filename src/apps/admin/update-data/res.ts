@@ -16,5 +16,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?天道更新面板/
+  /^(#|\/)天道更新面板/
 )

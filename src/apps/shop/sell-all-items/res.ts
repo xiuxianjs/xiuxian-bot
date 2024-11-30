@@ -66,5 +66,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?售出所有物品$/
+  /^(#|\/)售出所有物品$/
 )

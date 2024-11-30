@@ -19,5 +19,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?查看更新$/
+  /^(#|\/)查看更新$/
 )

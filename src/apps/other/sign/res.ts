@@ -112,5 +112,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)?(联盟签到|聯盟簽到)$/
+  /^(#|\/)(联盟签到|聯盟簽到)$/
 )

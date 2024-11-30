@@ -287,5 +287,5 @@ export default OnResponse(
     //
   },
   'message.create',
-  /^(#|\/)?突破$/
+  /^(#|\/)突破$/
 )
