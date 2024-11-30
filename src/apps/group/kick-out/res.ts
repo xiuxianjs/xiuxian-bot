@@ -45,36 +45,55 @@ export default OnResponse(
 
     const ats = useParse(e.Megs, 'At')
     let UIDB = null
-    if (!ats || ats.length === 0) {
-      const text = useParse(e.Megs, 'Text')
-      UIDB = text.replace(/^(#|\/)?踢出/, '')
-    } else {
+    if (ats && ats.length > 0) {
       const d = ats.find(item => item?.typing === 'user' && !item.bot)
       UIDB = d?.value
-    }
-    //
-    if (!UIDB) {
-      Send(Text('未正确获取对方UID'))
-      return
-    }
-
-    if (UIDB == UID) {
-      Send(Text('你干嘛,哎哟～'))
-      return
-    }
-
-    user_group_list.destroy({
-      where: {
-        uid: UIDB
+      //
+      if (!UIDB) {
+        Send(Text('未正确获取对方UID'))
+        return
       }
-    })
-
-    Send(Text('成功踢出'))
-
-    Status.setStatus({ UID: UIDB, key: 'kongxian' })
-
+      if (UIDB == UID) {
+        Send(Text('你干嘛,哎哟～'))
+        return
+      }
+      //
+      user_group_list.destroy({
+        where: {
+          uid: UIDB
+        }
+      })
+      Send(Text('成功踢出'))
+      Status.setStatus({ UID: UIDB, key: 'kongxian' })
+    } else {
+      const text = useParse(e.Megs, 'Text')
+      const id = text.replace(/^(#|\/)?踢出/, '')
+      // 查看标记
+      const groupList = await user_group_list.findOneValue({
+        where: {
+          id: id,
+          gid: group.id
+        }
+      })
+      if (!groupList) {
+        Send(Text('未找到标记'))
+        return
+      }
+      UIDB = groupList.uid
+      if (UIDB == UID) {
+        Send(Text('你干嘛,哎哟～'))
+        return
+      }
+      user_group_list.destroy({
+        where: {
+          uid: UIDB
+        }
+      })
+      Send(Text('成功踢出'))
+      Status.setStatus({ UID: UIDB, key: 'kongxian' })
+    }
     return
   },
   'message.create',
-  /^(#|\/)踢出/
+  /^(#|\/)踢出(\d+)?$/
 )

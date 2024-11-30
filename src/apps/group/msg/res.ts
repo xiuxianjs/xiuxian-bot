@@ -35,8 +35,8 @@ export default OnResponse(
         gid: group.id
       }
     })
-    const msg = [`[${group.name}]`].concat(
-      groupList.map(item => `队友:${item.uid}`)
+    const msg = [`[${group.id}][${group.name}]`].concat(
+      groupList.map(item => `标记:${item.id}_队友:${item.uid}`)
     )
     Send(Text(msg.join('\n')))
     return
