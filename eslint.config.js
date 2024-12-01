@@ -3,7 +3,6 @@ import prettier from 'eslint-config-prettier'
 import globals from 'globals'
 import tseslint from 'typescript-eslint'
 import pluginReact from 'eslint-plugin-react'
-
 /** @type {import('eslint').Linter.Config[]} */
 export default [
   ...tseslint.configs.recommended,
@@ -13,8 +12,7 @@ export default [
       sourceType: 'module',
       globals: {
         ...globals.node,
-        ...globals.browser,
-        OnResponse: 'readonly'
+        ...globals.browser
       }
     },
     rules: {

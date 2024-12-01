@@ -44,3 +44,10 @@ export * from './models/ass/ass_bag.js'
 // 用户与势力
 export * from './models/user/user_ass.js'
 export * from './models/user/user_ass_apply.js'
+// 副本
+export * from './models/secret/demon.js'
+export * from './models/secret/demon_front.js'
+export * from './models/secret/front.js'
+export * from './models/secret/good_front.js'
+export * from './models/secret/world_front.js'
+export * from './models/secret/world.js'

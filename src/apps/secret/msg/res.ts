@@ -48,5 +48,5 @@ export default OnResponse(
     return
   },
   'message.create',
-  /^(#|\/)开启[\u4e00-\u9fa5]+秘境$/
+  /^(#|\/)查看秘境$/
 )

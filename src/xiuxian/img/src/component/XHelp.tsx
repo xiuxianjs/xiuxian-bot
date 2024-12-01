@@ -8,7 +8,6 @@ type PropsType = {
   data: {
     group: string
     list: {
-      icon: number
       title: string
       desc: string
     }[]

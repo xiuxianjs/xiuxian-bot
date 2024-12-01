@@ -168,12 +168,47 @@ export const useBelongsTo = () => {
     foreignKey: 'uid',
     targetKey: 'uid'
   })
+
+  /**
+   * group
+   */
   models.user_group.belongsTo(models.user, {
     foreignKey: 'uid',
     targetKey: 'uid'
   })
   models.user_group_list.belongsTo(models.user_group, {
     foreignKey: 'gid',
+    targetKey: 'id'
+  })
+
+  /**
+   * front
+   */
+  models.demon_front.belongsTo(models.demon, {
+    foreignKey: 'did',
+    targetKey: 'id'
+  })
+
+  models.demon_front.belongsTo(models.front, {
+    foreignKey: 'fid',
+    targetKey: 'id'
+  })
+
+  models.good_front.belongsTo(models.goods, {
+    foreignKey: 'gid',
+    targetKey: 'id'
+  })
+
+  /**
+   * world
+   */
+  models.world_front.belongsTo(models.world, {
+    foreignKey: 'wid',
+    targetKey: 'id'
+  })
+
+  models.world_front.belongsTo(models.front, {
+    foreignKey: 'fid',
     targetKey: 'id'
   })
 }
