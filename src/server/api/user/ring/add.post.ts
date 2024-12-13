@@ -45,7 +45,6 @@ export default OnRouter(
     }
   },
   {
-    method: 'post',
     jwt: true
   }
 )

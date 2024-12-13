@@ -7,7 +7,7 @@ import { ThemesEmun } from './pub/ThemeBackground.js'
 //
 type PropsType = {
   data: ShowSkyType
-  theme?: ThemesEmun
+  theme: ThemesEmun
 }
 
 export default function App({ data, theme }: PropsType) {

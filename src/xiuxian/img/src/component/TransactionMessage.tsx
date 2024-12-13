@@ -12,7 +12,7 @@ type PropsType = {
     page: number
     goods: Attributes<typeof user_transactions>[]
   }
-  theme?: ThemesEmun
+  theme: ThemesEmun
 }
 export default function TransactionMessage({ data, theme }: PropsType) {
   return (

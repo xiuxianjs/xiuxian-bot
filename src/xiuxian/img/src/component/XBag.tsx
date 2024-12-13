@@ -12,7 +12,7 @@ import { Attributes, goods } from '@src/xiuxian/db'
 
 type PropsType = {
   data: BackpackInformationType
-  theme?: ThemesEmun
+  theme: ThemesEmun
 }
 
 /**

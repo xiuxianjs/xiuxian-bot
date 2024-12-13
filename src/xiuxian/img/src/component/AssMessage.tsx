@@ -7,7 +7,7 @@ import { LinkStyleSheet } from 'jsxp'
 import ThemeBackground, { ThemesEmun } from './pub/ThemeBackground.js'
 type PropsType = {
   data: Attributes<typeof user_ass>[]
-  theme?: ThemesEmun
+  theme: ThemesEmun
 }
 export default function AssMessage({ data, theme }: PropsType) {
   return (

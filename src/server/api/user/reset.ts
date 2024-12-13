@@ -31,7 +31,6 @@ export default OnRouter(
     }
   },
   {
-    method: 'get',
     jwt: true
   }
 )

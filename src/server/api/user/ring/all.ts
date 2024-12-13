@@ -1,4 +1,4 @@
-import { Attributes, user, users_email } from '@src/xiuxian/db'
+import { Attributes, user_ring, users_email } from '@src/xiuxian/db'
 export default OnRouter(
   async ctx => {
     const db = ctx.state['user'] as Attributes<typeof users_email>
@@ -8,15 +8,27 @@ export default OnRouter(
       return
     }
     const query = ctx.query as {
+      uid: string
       page: string
       limit: string
+      typing: string
+    }
+    if (!query?.uid) {
+      ctx.status = 400
+      ctx.body = { message: '未提供uid' }
+      return
     }
     // 获取请求的分页参数
+    const typing = parseInt(query.typing) || 1 // 默认第1页
     const page = parseInt(query.page) || 1 // 默认第1页
     const limit = parseInt(query.limit) || 10 // 默认每页10条
     try {
       // 分页查询
-      const data = await user.findAllValues({
+      const data = await user_ring.findAllValues({
+        where: {
+          uid: query.uid,
+          type: typing
+        },
         offset: (page - 1) * limit,
         limit
       })
@@ -29,7 +41,6 @@ export default OnRouter(
     }
   },
   {
-    method: 'post',
     jwt: true
   }
 )

@@ -7,7 +7,7 @@ import ThemeBackground, { ThemesEmun } from './pub/ThemeBackground.js'
 
 type PropsType = {
   data: any
-  theme?: ThemesEmun
+  theme: ThemesEmun
 }
 
 const CD_MAP = {

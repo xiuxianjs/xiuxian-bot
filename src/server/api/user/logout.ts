@@ -5,7 +5,6 @@ export default OnRouter(
     ctx.body = { message: '登出成功' }
   },
   {
-    method: 'get',
     jwt: true
   }
 )

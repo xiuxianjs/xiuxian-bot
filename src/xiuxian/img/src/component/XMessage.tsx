@@ -8,7 +8,7 @@ import ThemeBackground from './pub/ThemeBackground.js'
 import { ThemesEmun } from './pub/ThemeBackground.js'
 type PropsType = {
   data: PersonalInformationType
-  theme?: ThemesEmun
+  theme: ThemesEmun
 }
 export default function App({ data, theme }: PropsType) {
   return (

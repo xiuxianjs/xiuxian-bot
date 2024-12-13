@@ -4,7 +4,6 @@ export default OnRouter(
     ctx.body = { message: 'Token 刷新成功' }
   },
   {
-    method: 'get',
     jwt: true
   }
 )

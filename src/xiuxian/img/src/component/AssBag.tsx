@@ -13,7 +13,7 @@ type PropsType = {
     ass: Attributes<typeof ass>
     bag: BackpackInformationType['bag']
   }
-  theme?: ThemesEmun
+  theme: ThemesEmun
 }
 
 /**

@@ -12,7 +12,7 @@ type PropsType = {
     date: string
     message: string[]
   }[]
-  theme?: ThemesEmun
+  theme: ThemesEmun
 }
 
 /**

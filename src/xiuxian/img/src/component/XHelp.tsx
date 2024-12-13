@@ -12,7 +12,7 @@ type PropsType = {
       desc: string
     }[]
   }[]
-  theme?: ThemesEmun
+  theme: ThemesEmun
 }
 export default function App({ data, theme }: PropsType) {
   const _email = 'ningmengchongshui@gmail.com'

@@ -11,7 +11,7 @@ import ThemeBackground, { ThemesEmun } from './pub/ThemeBackground.js'
 import { Avatar } from './pub/Avatar.js'
 type PropsType = {
   data: SkillInformationType
-  theme?: ThemesEmun
+  theme: ThemesEmun
 }
 export default function App({ data, theme }: PropsType) {
   const UID = createUID(data.UID)

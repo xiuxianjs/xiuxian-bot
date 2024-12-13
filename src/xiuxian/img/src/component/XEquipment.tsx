@@ -11,7 +11,7 @@ import { Avatar } from './pub/Avatar.js'
 
 type PropsType = {
   data: EquipmentInformationType
-  theme?: ThemesEmun
+  theme: ThemesEmun
 }
 /**
  *

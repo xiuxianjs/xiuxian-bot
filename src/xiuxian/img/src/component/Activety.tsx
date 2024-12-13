@@ -8,7 +8,7 @@ import data from '@src/assets/defset/activety.json'
 import Header from './pub/header.js'
 type PropsType = {
   select: 'every_day' | 'limit_time' | 'version'
-  theme?: ThemesEmun
+  theme: ThemesEmun
 }
 export default function App({ select, theme }: PropsType) {
   return (

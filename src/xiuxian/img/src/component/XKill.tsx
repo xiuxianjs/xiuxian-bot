@@ -7,7 +7,7 @@ import { LinkStyleSheet } from 'jsxp'
 import { ThemesEmun } from './pub/ThemeBackground.js'
 type PropsType = {
   data: killInformationType
-  theme?: ThemesEmun
+  theme: ThemesEmun
 }
 export default function App({ data, theme }: PropsType) {
   return (

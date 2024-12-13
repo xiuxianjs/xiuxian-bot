@@ -5,7 +5,7 @@ import { LinkStyleSheet } from 'jsxp'
 import ThemeBackground, { ThemesEmun } from './pub/ThemeBackground.js'
 type PropsType = {
   data: Attributes<typeof goods>
-  theme?: ThemesEmun
+  theme: ThemesEmun
 }
 export default function GoodMessage({ data, theme }: PropsType) {
   return (

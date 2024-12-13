@@ -1,10 +1,14 @@
+type NewcomerErrorType = (msg: string) => string
+
+type NewcomerType = {
+  reg: RegExp
+  msg: string
+  ok: string
+  err: NewcomerErrorType
+}
+
 export const newcomer: {
-  [key: string]: {
-    reg: RegExp
-    msg: string
-    ok: string
-    err: (msg: string) => string
-  }
+  [key: string]: NewcomerType
 } = {
   '0': {
     reg: /^\/我的资料$/,
