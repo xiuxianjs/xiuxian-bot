@@ -1,10 +1,10 @@
 import { defineConfig } from 'lvyjs'
 import { fileURLToPath } from 'url'
 import { dirname, join } from 'path'
-
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
 const includes = (val: string) => process.argv.includes(val)
+
 const alemonjs = async () => (await import('alemonjs')).onStart()
 const jsxp = async () => (await import('jsxp')).createServer()
 
@@ -23,7 +23,6 @@ export default defineConfig({
   },
   build: {
     typescript: {
-      // 去除注释
       removeComments: true
     }
   }
