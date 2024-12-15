@@ -9,13 +9,11 @@ import { Talent, Equipment } from '@xiuxian/core/index'
  * @returns
  */
 export async function personalInformation(UID: string, UserAvatar?: string) {
-  const UserData = await DB.user
-    .findOne({
-      where: {
-        uid: UID
-      }
-    })
-    .then(res => res?.dataValues)
+  const UserData = await DB.user.findOneValue({
+    where: {
+      uid: UID
+    }
+  })
 
   // 灵根名
   let size = '未知'
@@ -166,13 +164,11 @@ export type PersonalInformationType =
  */
 export async function equipmentInformation(UID: string, UserAvatar?: string) {
   // 得到用户数据
-  const UserData = await DB.user
-    .findOne({
-      where: {
-        uid: UID
-      }
-    })
-    .then(res => res?.dataValues)
+  const UserData = await DB.user.findOneValue({
+    where: {
+      uid: UID
+    }
+  })
   const equipment = await DB.user_equipment
     .findAll({
       where: {
@@ -264,13 +260,11 @@ export type EquipmentInformationType =
  */
 export async function skillInformation(UID: string, UserAvatar: string) {
   // 得到用户数据
-  const UserData = await DB.user
-    .findOne({
-      where: {
-        uid: UID
-      }
-    })
-    .then(res => res?.dataValues)
+  const UserData = await DB.user.findOneValue({
+    where: {
+      uid: UID
+    }
+  })
   // 灵根名
   let size = '未知'
   let name = '未知'
@@ -318,13 +312,11 @@ export async function backpackInformation(
   type: number | number[]
 ) {
   // 得到用户数据
-  const UserData = await DB.user
-    .findOne({
-      where: {
-        uid: UID
-      }
-    })
-    .then(res => res?.dataValues)
+  const UserData = await DB.user.findOneValue({
+    where: {
+      uid: UID
+    }
+  })
 
   // 长度
   const length = await DB.user_bag.count({
@@ -372,13 +364,11 @@ export type BackpackInformationType =
  * @returns
  */
 export async function ringInformation(UID: string, UserAvatar: string) {
-  const UserData = await DB.user
-    .findOne({
-      where: {
-        uid: UID
-      }
-    })
-    .then(res => res?.dataValues)
+  const UserData = await DB.user.findOneValue({
+    where: {
+      uid: UID
+    }
+  })
   const length = await DB.user_ring.count({
     where: {
       uid: UID
@@ -414,13 +404,11 @@ export type RingInformationType =
  */
 export async function showSky(UID: string) {
   // 找到比自己id大  xxx的 4条数据。
-  const data = await DB.user_sky_ranking
-    .findOne({
-      where: {
-        uid: UID
-      }
-    })
-    .then(res => res?.dataValues)
+  const data = await DB.user_sky_ranking.findOneValue({
+    where: {
+      uid: UID
+    }
+  })
   const list = await DB.user_sky_ranking
     .findAll({
       where: {

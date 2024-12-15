@@ -9,6 +9,7 @@ import css_output from './input.scss'
 import { LinkStyleSheet } from 'jsxp'
 import ThemeBackground, { ThemesEmun } from './pub/ThemeBackground.js'
 import { Avatar } from './pub/Avatar.js'
+console.log('css_output', css_output)
 type PropsType = {
   data: SkillInformationType
   theme: ThemesEmun
