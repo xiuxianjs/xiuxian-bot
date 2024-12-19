@@ -1,15 +1,5 @@
 import { Redis } from '@xiuxian/db/index'
 import { v4 as uuidv4 } from 'uuid'
-import { getHash as hash } from 'chat-space'
-
-/**
- * 重新生产UID
- * @param UID
- * @returns
- */
-export const createUID = (UID: string) => {
-  return isNaN(Number(UID)) || UID.length > 11 ? hash(UID) : UID
-}
 
 /**
  * @param UID
@@ -18,7 +8,7 @@ export const createUID = (UID: string) => {
  */
 export const operationLock = async (UID: string) => {
   const Now = Date.now()
-  const KEY = `xiuxian:open:${createUID(UID)}`
+  const KEY = `xiuxian:open:${UID}`
   // 当前的时间
   const LOCK = await Redis.get(KEY)
   // 现在的时间

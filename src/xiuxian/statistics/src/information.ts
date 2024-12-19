@@ -8,7 +8,7 @@ import { Talent, Equipment } from '@xiuxian/core/index'
  * @param UserAvatar
  * @returns
  */
-export async function personalInformation(UID: string, UserAvatar?: string) {
+export async function personalInformation(UID: string) {
   const UserData = await DB.user.findOneValue({
     where: {
       uid: UID
@@ -109,7 +109,7 @@ export async function personalInformation(UID: string, UserAvatar?: string) {
 
   return {
     UID: UID,
-    avatar: UserAvatar ?? UserData.avatar,
+    avatar: UserData.avatar,
     // 天赋
     linggenName: name,
     talentsize: size,
@@ -159,10 +159,9 @@ export type PersonalInformationType =
 /**
  * 装备信息
  * @param UID
- * @param UserAvatar
  * @returns
  */
-export async function equipmentInformation(UID: string, UserAvatar?: string) {
+export async function equipmentInformation(UID: string) {
   // 得到用户数据
   const UserData = await DB.user.findOneValue({
     where: {
@@ -245,7 +244,7 @@ export async function equipmentInformation(UID: string, UserAvatar?: string) {
     immortal_grade: UserData.immortal_grade,
     equipment: equipment,
     fate: arr,
-    avatar: UserAvatar ?? UserData.avatar
+    avatar: UserData.avatar
   }
 }
 
@@ -258,7 +257,7 @@ export type EquipmentInformationType =
  * @param UserAvatar
  * @returns
  */
-export async function skillInformation(UID: string, UserAvatar: string) {
+export async function skillInformation(UID: string) {
   // 得到用户数据
   const UserData = await DB.user.findOneValue({
     where: {
@@ -292,7 +291,7 @@ export async function skillInformation(UID: string, UserAvatar: string) {
     name: UserData.name,
     linggenName: name,
     talentsize: size,
-    avatar: UserAvatar
+    avatar: UserData.avatar
   }
 }
 
@@ -308,7 +307,6 @@ export type SkillInformationType =
  */
 export async function backpackInformation(
   UID: string,
-  UserAvatar: string,
   type: number | number[]
 ) {
   // 得到用户数据
@@ -350,7 +348,7 @@ export async function backpackInformation(
     bag_grade: bag_message?.grade ?? 0,
     length: length,
     bag: bag,
-    avatar: UserAvatar
+    avatar: UserData.avatar
   }
 }
 
@@ -363,7 +361,7 @@ export type BackpackInformationType =
  * @param UserAvatar
  * @returns
  */
-export async function ringInformation(UID: string, UserAvatar: string) {
+export async function ringInformation(UID: string) {
   const UserData = await DB.user.findOneValue({
     where: {
       uid: UID
@@ -390,7 +388,7 @@ export async function ringInformation(UID: string, UserAvatar: string) {
     bag_grade: 1,
     length: length ?? 0,
     bag: bag,
-    avatar: UserAvatar
+    avatar: UserData.avatar
   }
 }
 

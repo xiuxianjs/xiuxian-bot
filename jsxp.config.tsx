@@ -32,7 +32,7 @@ export default defineConfig({
     //       data={await user_ass
     //         .findAll({
     //           where: {
-    //             uid: event.UserId
+    //             uid: event.UserKey
     //           },
     //           include: [
     //             {
@@ -54,7 +54,7 @@ export default defineConfig({
     //     <Component.BagComponent
     //       theme={'purple'}
     //       data={await backpackInformation(
-    //         event.UserId,
+    //         event.UserKey,
     //         event.UserAvatar,
     //         Goods.mapType['道具']
     //       )}
@@ -69,7 +69,7 @@ export default defineConfig({
     //   component: (
     //     <Component.Equipmentcomponent
     //       theme={'purple'}
-    //       data={await equipmentInformation(event.UserId, event.UserAvatar)}
+    //       data={await equipmentInformation(event.UserKey, event.UserAvatar)}
     //     />
     //   )
     // },
@@ -80,7 +80,7 @@ export default defineConfig({
     //   component: (
     //     <Component.SkillsComponent
     //       theme={'dark'}
-    //       data={await skillInformation(event.UserId, event.UserAvatar)}
+    //       data={await skillInformation(event.UserKey, event.UserAvatar)}
     //     />
     //   )
     // },
@@ -94,7 +94,7 @@ export default defineConfig({
     //   component: (
     //     <Component.MessageComponent
     //       theme={'purple'}
-    //       data={await personalInformation(event.UserId, event.UserAvatar)}
+    //       data={await personalInformation(event.UserKey, event.UserAvatar)}
     //     />
     //   )
     // },
@@ -102,7 +102,7 @@ export default defineConfig({
     //   component: (
     //     <Component.SkyComponent
     //       theme={'dark'}
-    //       data={await showSky(event.UserId)}
+    //       data={await showSky(event.UserKey)}
     //     />
     //   )
     // },

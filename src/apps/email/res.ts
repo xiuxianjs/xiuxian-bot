@@ -1,7 +1,135 @@
 import { operationLock } from '@src/xiuxian/core'
 import { generateCaptcha, sendEmail } from '@src/xiuxian/core/src/system/email'
 import { Redis, users_email, user_email } from '@src/xiuxian/db'
-import { Text, useOberver, useParse, useSend } from 'alemonjs'
+import { Text, useObserver, useSend } from 'alemonjs'
+export default OnResponse(async (e, next) => {
+  if (
+    !/^(\/|#)?绑定邮箱[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}.*$/.test(
+      e.MessageText
+    )
+  ) {
+    next()
+    return
+  }
+  // 操作锁
+  const TT = await operationLock(e.UserKey)
+  const Send = useSend(e)
+  if (!TT) {
+    Send(Text('操作频繁'))
+    return
+  }
+
+  const UID = e.UserKey
+  const txt = e.MessageText
+  const email = txt.replace(/^(\/|#)?绑定邮箱/, '')
+
+  //
+  if (!email || email == '') {
+    Send(Text('输入的邮箱错误'))
+    return
+  }
+  createCode({ uid: UID, email, Send })
+  //
+  const Observer = useObserver(e, 'message.create')
+  //
+  Observer(
+    async (e, next) => {
+      //
+      const UID = e.UserKey
+      const txt = e.MessageText
+      const Send = useSend(e)
+      if (/取消验证码/.test(txt)) {
+        return
+      } else if (/重置验证码/.test(txt)) {
+        createCode({ uid: UID, email, Send })
+        next()
+        return
+      } else {
+        // 尝试读取出code
+        const match = txt.match(/\d+/g)
+        const code = match ? match[0] : null
+        if (!code) {
+          next()
+          return
+        }
+
+        // 验证code
+        const c = await Redis.get(`xiuxian:email:code:${UID}`)
+
+        if (c !== code) {
+          Send(Text('验证码错误'))
+          return
+        }
+
+        // 查找映射
+        users_email
+          .findOne({
+            where: {
+              email
+            }
+          })
+          .then(res => res?.dataValues)
+          .then(res => {
+            //
+            if (!res) {
+              // 不存在
+              users_email.create({
+                uid: UID,
+                email
+              })
+            } else {
+              users_email.update(
+                {
+                  uid: UID
+                },
+                {
+                  where: {
+                    email
+                  }
+                }
+              )
+            }
+          })
+          .catch(console.error)
+        // 正确。输入映射。
+        user_email
+          .findOne({
+            where: {
+              uid: UID
+            }
+          })
+          .then(res => res?.dataValues)
+          .then(res => {
+            if (!res) {
+              // 不存在
+              user_email.create({
+                uid: UID,
+                email
+              })
+            } else {
+              // 存在，更新
+              user_email.update(
+                {
+                  email
+                },
+                {
+                  where: {
+                    uid: UID
+                  }
+                }
+              )
+            }
+          })
+          .then(() => {
+            Send(Text('邮箱绑定成功'))
+          })
+          .catch(console.error)
+      }
+    },
+    ['UserKey']
+  )
+}, 'message.create')
+
 /**
  *
  * @param uid
@@ -29,127 +157,3 @@ const createCode = ({ uid, email, Send }) => {
     )
   )
 }
-
-export default OnResponse(
-  async e => {
-    // 操作锁
-    const TT = await operationLock(e.UserId)
-    const Send = useSend(e)
-    if (!TT) {
-      Send(Text('操作频繁'))
-      return
-    }
-
-    const UID = e.UserId
-    const txt = useParse(e.Megs, 'Text')
-    const email = txt.replace(/^(\/|#)?绑定邮箱/, '')
-
-    //
-    if (!email || email == '') {
-      Send(Text('输入的邮箱错误'))
-      return
-    }
-    createCode({ uid: UID, email, Send })
-    //
-    const Oberver = useOberver(e, 'message.create')
-    //
-    Oberver(
-      async (e, { next }) => {
-        //
-        const UID = e.UserId
-        const txt = useParse(e.Megs, 'Text')
-        const Send = useSend(e)
-        if (/取消验证码/.test(txt)) {
-          return
-        } else if (/重置验证码/.test(txt)) {
-          createCode({ uid: UID, email, Send })
-          next()
-          return
-        } else {
-          // 尝试读取出code
-          const match = txt.match(/\d+/g)
-          const code = match ? match[0] : null
-          if (!code) {
-            next()
-            return
-          }
-
-          // 验证code
-          const c = await Redis.get(`xiuxian:email:code:${UID}`)
-
-          if (c !== code) {
-            Send(Text('验证码错误'))
-            return
-          }
-
-          // 查找映射
-          users_email
-            .findOne({
-              where: {
-                email
-              }
-            })
-            .then(res => res?.dataValues)
-            .then(res => {
-              //
-              if (!res) {
-                // 不存在
-                users_email.create({
-                  uid: UID,
-                  email
-                })
-              } else {
-                users_email.update(
-                  {
-                    uid: UID
-                  },
-                  {
-                    where: {
-                      email
-                    }
-                  }
-                )
-              }
-            })
-            .catch(console.error)
-          // 正确。输入映射。
-          user_email
-            .findOne({
-              where: {
-                uid: UID
-              }
-            })
-            .then(res => res?.dataValues)
-            .then(res => {
-              if (!res) {
-                // 不存在
-                user_email.create({
-                  uid: UID,
-                  email
-                })
-              } else {
-                // 存在，更新
-                user_email.update(
-                  {
-                    email
-                  },
-                  {
-                    where: {
-                      uid: UID
-                    }
-                  }
-                )
-              }
-            })
-            .then(() => {
-              Send(Text('邮箱绑定成功'))
-            })
-            .catch(console.error)
-        }
-      },
-      ['UserId']
-    )
-  },
-  'message.create',
-  /^(\/|#)?绑定邮箱[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}.*$/
-)

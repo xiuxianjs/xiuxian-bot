@@ -53,7 +53,7 @@ export async function getKillList() {
       lifeName: item?.name, // 道号
       prestige: item?.special_prestige, // 煞气
       power: getImmortalValue(item?.battle_power, item.immortal_grade), // 战力
-      avatar: item?.avatar // 头像
+      avatar: item?.avatar
     }
   }) as KillListType[]
 }

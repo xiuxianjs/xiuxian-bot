@@ -21,9 +21,9 @@ import { getEmailUID } from '@src/xiuxian/core/src/system/email'
  * @param e
  */
 export async function showUserMsg(e) {
-  const UID = await getEmailUID(e.UserId)
+  const UID = await getEmailUID(e.UserKey)
   const Send = useSend(e)
-  showUserMessage(UID, e.UserAvatar).then(img => {
+  showUserMessage(UID).then(img => {
     if (typeof img != 'boolean') {
       Send(Image(img))
     } else {
@@ -35,11 +35,11 @@ export async function showUserMsg(e) {
 /**
  *
  * @param UID
- * @param UserAvatar
+ * @param
  * @returns
  */
-export const showUserMessage = async (UID: string, UserAvatar: string) => {
-  return await personalInformation(UID, UserAvatar).then(UserData =>
+export const showUserMessage = async (UID: string) => {
+  return await personalInformation(UID).then(UserData =>
     pictureRender('MessageComponent', {
       data: UserData,
       theme: UserData?.theme ?? 'dark'

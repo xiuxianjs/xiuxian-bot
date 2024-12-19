@@ -2,51 +2,51 @@ import { pictureRender } from '@xiuxian/img/index'
 import { ass, ass_typing, user_ass } from '@xiuxian/db/index'
 import { Image, Text, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
-export default OnResponse(
-  async e => {
-    const UID = await getEmailUID(e.UserId)
-
-    // send
-    const Send = useSend(e)
-
-    // 查看自己的我的势力
-    user_ass
-      .findAll({
-        where: {
-          uid: UID
-        },
-        include: [
-          {
-            model: ass,
-            include: [
-              {
-                model: ass_typing
-              }
-            ]
-          }
-        ]
-      })
-      .then(res => res.map(item => item?.dataValues))
-      .then(async res => {
-        if (res.length === 0) {
-          Send(Text('未加入任何势力'))
-          return
-        }
-        // 返回物品信息
-        const img = await pictureRender('AssMessage', {
-          data: res
-        })
-        //
-        if (Buffer.isBuffer(img)) {
-          Send(Image(img))
-        } else {
-          Send(Text('截图错误'))
-        }
-      })
-
-    //
+export default OnResponse(async (e, next) => {
+  if (!/^(#|\/)我的势力$/.test(e.MessageText)) {
+    next()
     return
-  },
-  'message.create',
-  /^(#|\/)我的势力$/
-)
+  }
+  const UID = await getEmailUID(e.UserKey)
+
+  // send
+  const Send = useSend(e)
+
+  // 查看自己的我的势力
+  user_ass
+    .findAll({
+      where: {
+        uid: UID
+      },
+      include: [
+        {
+          model: ass,
+          include: [
+            {
+              model: ass_typing
+            }
+          ]
+        }
+      ]
+    })
+    .then(res => res.map(item => item?.dataValues))
+    .then(async res => {
+      if (res.length === 0) {
+        Send(Text('未加入任何势力'))
+        return
+      }
+      // 返回物品信息
+      const img = await pictureRender('AssMessage', {
+        data: res
+      })
+      //
+      if (Buffer.isBuffer(img)) {
+        Send(Image(img))
+      } else {
+        Send(Text('截图错误'))
+      }
+    })
+
+  //
+  return
+}, 'message.create')

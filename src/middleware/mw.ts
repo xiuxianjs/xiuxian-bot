@@ -1,7 +1,7 @@
 import { Burial, Cooling, operationLock, Player } from '@src/xiuxian/core'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 import { map_point, user } from '@xiuxian/db/index'
-import { Text, useParse, useSend } from 'alemonjs'
+import { Text, useSend } from 'alemonjs'
 import { newcomer } from './newcomer'
 import { operationLocalLock } from './util'
 import { ControlByBlood, endAllWord } from '@src/xiuxian/api'
@@ -11,25 +11,26 @@ export default OnMiddleware(
   async e => {
     // 获取 txt
     const Send = useSend(e)
-    if (!operationLocalLock(e.UserId)) {
+    if (!operationLocalLock(e.UserKey)) {
       Send(Text('操作频繁'))
-      e.Megs = []
+      e.MessageText = ''
       return e
     }
-    const UID = await getEmailUID(e.UserId)
+    const UID = await getEmailUID(e.UserKey)
     const data = await user.findOneValue({
       where: {
         uid: UID
       }
     })
     if (!data) {
-      const T = await operationLock(e.UserId)
+      const T = await operationLock(e.UserKey)
       if (!T) {
         Send(Text('操作频繁'))
-        e.Megs = []
+        e.MessageText = ''
         return e
       }
-      Player.updatePlayer(UID, e.UserAvatar)
+      const url = (await e.UserAvatar?.toURL()) ?? ''
+      Player.updatePlayer(UID, url)
         .then(() => {
           // 设置冷却
           Burial.set(UID, 8, Cooling.CD_Reborn)
@@ -54,7 +55,7 @@ export default OnMiddleware(
           Send(Text('未寻得仙缘'))
         })
       // 清空数据
-      e.Megs = []
+      e.MessageText = ''
       return e
     }
 
@@ -73,10 +74,10 @@ export default OnMiddleware(
       return e
     }
 
-    const T = await operationLock(e.UserId)
+    const T = await operationLock(e.UserKey)
     if (!T) {
       Send(Text('操作频繁'))
-      e.Megs = []
+      e.MessageText = ''
       return e
     }
 
@@ -151,11 +152,11 @@ export default OnMiddleware(
       }
     }
 
-    const txt = useParse(e.Megs, 'Text')
+    const txt = e.MessageText
 
     if (!txt) {
       Send(Text(['小柠檬：', '不对哦～', '你的指令是空的'].join('\n')))
-      e.Megs = []
+      e.MessageText = ''
       return e
     }
 
@@ -171,7 +172,7 @@ export default OnMiddleware(
         )
       )
       user.update({ newcomer: 1 }, { where: { uid: data.uid } })
-      e.Megs = []
+      e.MessageText = ''
       return e
     }
 
@@ -179,7 +180,7 @@ export default OnMiddleware(
     const c = newcomer[data.newcomer_step]
     if (!c.reg.test(txt)) {
       Send(Text(['小柠檬：', c.err(c.msg)].join('\n')))
-      e.Megs = []
+      e.MessageText = ''
       return e
     }
 
@@ -192,7 +193,7 @@ export default OnMiddleware(
 
     // 状态进行中
     if (!(await ControlByBlood(e, data))) {
-      e.Megs = []
+      e.MessageText = ''
       return e
     }
 

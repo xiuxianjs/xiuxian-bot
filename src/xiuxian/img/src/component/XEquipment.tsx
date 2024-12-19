@@ -1,5 +1,4 @@
 import React from 'react'
-import { createUID } from '../core/index.js'
 import Header from './pub/header.js'
 import Footer from './pub/footer.js'
 import { EquipmentInformationType } from '@xiuxian/statistics/index'
@@ -19,7 +18,7 @@ type PropsType = {
  * @returns
  */
 export default function App({ data, theme }: PropsType) {
-  const UID = createUID(data.UID)
+  const UID = data.UID
   return (
     <html>
       <head>
@@ -39,11 +38,13 @@ export default function App({ data, theme }: PropsType) {
                   </div>
                 </div>
                 <div className="flex-1 flex">
-                  <Avatar
-                    className="size-56 rounded-full m-auto"
-                    src={data.avatar}
-                    alt="User Avatar"
-                  />
+                  {data.avatar && data.avatar != '' && (
+                    <Avatar
+                      className="size-56 rounded-full m-auto"
+                      src={data.avatar}
+                      alt="User Avatar"
+                    />
+                  )}
                 </div>
                 <div className=" bg-black bg-opacity-30">
                   <div className=" text-white text-2xl p-3">

@@ -15,25 +15,25 @@ import { Attributes, user } from '@src/xiuxian/db'
  * 同时灵根变异可对炼丹有加成
  * 灵根多，加成的下降
  */
-export default OnResponse(
-  async e => {
-    const UserData = e['UserData'] as Attributes<typeof user>
-    if (!(await controlByName(e, UserData, '协会'))) return
-    const Send = useSend(e)
+export default OnResponse(async (e, next) => {
+  if (!/^(#|\/)查看协会$/.test(e.MessageText)) {
+    next()
+    return
+  }
+  const UserData = e['UserData'] as Attributes<typeof user>
+  if (!(await controlByName(e, UserData, '协会'))) return
+  const Send = useSend(e)
 
-    Send(
-      Text(
-        [
-          '[协会执事]😳叶子凡\n',
-          '欢迎来到修仙协会\n',
-          '化神境之后,可交付灵石获得学徒身份\n',
-          '当前可领取[/炼器师学徒]'
-        ].join('')
-      )
+  Send(
+    Text(
+      [
+        '[协会执事]😳叶子凡\n',
+        '欢迎来到修仙协会\n',
+        '化神境之后,可交付灵石获得学徒身份\n',
+        '当前可领取[/炼器师学徒]'
+      ].join('')
     )
+  )
 
-    //
-  },
-  'message.create',
-  /^(#|\/)查看协会$/
-)
+  //
+}, 'message.create')

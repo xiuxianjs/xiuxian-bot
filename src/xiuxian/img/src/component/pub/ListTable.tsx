@@ -45,10 +45,12 @@ export default function ListTable<
                 size={'100% 100%'}
                 url={img_right}
               >
-                <Avatar
-                  className="rounded-full size-48 m-auto"
-                  src={item.avatar}
-                />
+                {item.avatar && item.avatar != '' && (
+                  <Avatar
+                    className="rounded-full size-48 m-auto"
+                    src={item.avatar}
+                  />
+                )}
               </BackgroundImage>
             </div>
           </BackgroundImage>

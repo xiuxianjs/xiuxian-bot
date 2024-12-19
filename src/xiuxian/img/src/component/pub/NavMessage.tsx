@@ -1,7 +1,6 @@
 import React from 'react'
 import Header from './header.js'
 import classNames from 'classnames'
-import { createUID } from '../../core/index.js'
 import { PersonalInformationType } from '@xiuxian/statistics/index'
 import { getImmortalGradeValue } from '@src/xiuxian/core/src/system/fight.js'
 import { Avatar } from './Avatar.js'
@@ -37,7 +36,7 @@ export default function NavMessage({ data }: PropsType) {
       return 'grayscale(100%)'
     }
   }
-  const UID = createUID(data.UID)
+  const UID = data.UID
   const List = [
     {
       title: '金',
@@ -130,10 +129,12 @@ export default function NavMessage({ data }: PropsType) {
           // 2
         }
         <div className="flex-1 m-auto relative text-center">
-          <Avatar
-            className="w-52 h-52 m-auto rounded-full border-2 border-white"
-            src={data.avatar}
-          />
+          {data.avatar && data.avatar != '' && (
+            <Avatar
+              className="w-52 h-52 m-auto rounded-full border-2 border-white"
+              src={data.avatar}
+            />
+          )}
           {
             // 血条
           }

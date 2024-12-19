@@ -1,6 +1,5 @@
 import React from 'react'
 import { BackgroundImage } from 'jsxp'
-import { createUID } from '../core/index.js'
 import { SkillInformationType } from '@xiuxian/statistics/index'
 import Header from './pub/header.js'
 import Footer from './pub/footer.js'
@@ -14,7 +13,7 @@ type PropsType = {
   theme: ThemesEmun
 }
 export default function App({ data, theme }: PropsType) {
-  const UID = createUID(data.UID)
+  const UID = data.UID
   return (
     <html>
       <head>
@@ -41,11 +40,13 @@ export default function App({ data, theme }: PropsType) {
                   </div>
                 </div>
                 <div className="flex-1 flex">
-                  <Avatar
-                    className="size-48 m-auto rounded-full"
-                    src={data.avatar}
-                    alt="User Agoodvatar"
-                  />
+                  {data.avatar && data.avatar != '' && (
+                    <Avatar
+                      className="size-48 m-auto rounded-full"
+                      src={data.avatar}
+                      alt="User Agoodvatar"
+                    />
+                  )}
                 </div>
               </div>
             </div>

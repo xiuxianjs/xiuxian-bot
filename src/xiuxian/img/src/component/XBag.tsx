@@ -1,5 +1,4 @@
 import React from 'react'
-import { createUID } from '@src/xiuxian/core/index.js'
 import Nav from './pub/Naved.js'
 import Header from './pub/header.js'
 import { BackpackInformationType } from '@xiuxian/statistics/index'
@@ -21,7 +20,7 @@ type PropsType = {
  * @returns
  */
 export default function App({ data, theme }: PropsType) {
-  const UID = createUID(data.UID)
+  const UID = data.UID
   return (
     <html>
       <head>
