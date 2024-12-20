@@ -1,5 +1,5 @@
 import { operationLock, Status } from '@xiuxian/core/index'
-import { Text, useParse, useSend } from 'alemonjs'
+import { Text, useParse, useSend, useUserHashKey } from 'alemonjs'
 import { Attributes, user_group, user_group_list } from '@src/xiuxian/db'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 export default OnResponse(async (e, next) => {
@@ -47,10 +47,16 @@ export default OnResponse(async (e, next) => {
   }
 
   const ats = useParse(e, 'At')
-  let UIDB = null
+  let UIDB: string | null = null
+
   if (ats && ats.length > 0) {
-    const d = ats.find(item => item?.typing === 'user' && !item.bot)
-    UIDB = d?.value
+    const value = ats.find(item => item?.typing === 'user' && !item.bot)?.value
+    if (value) {
+      UIDB = useUserHashKey({
+        Platform: e.Platform,
+        UserId: value
+      })
+    }
     //
     if (!UIDB) {
       Send(Text('未正确获取对方UID'))

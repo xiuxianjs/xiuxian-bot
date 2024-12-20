@@ -7,7 +7,7 @@ import {
 } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
 import { Attributes, user, user_level } from '@xiuxian/db/index'
-import { Text, useParse, useSend } from 'alemonjs'
+import { Text, useParse, useSend, useUserHashKey } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 export default OnResponse(async (e, next) => {
   if (!/^(#|\/)(决斗|比鬥)/.test(e.MessageText)) {
@@ -27,16 +27,20 @@ export default OnResponse(async (e, next) => {
   const UserData = e['UserData'] as Attributes<typeof user>
 
   const ats = useParse(e, 'At')
-  let UIDB = null
+  let UIDB: null | undefined | string = null
   if (!ats || ats.length === 0) {
     const text = e.MessageText
-    UIDB = text.replace(/^(#|\/)(决斗|比鬥)/, '')
+    UIDB = text.replace(/^(#|\/)打劫/, '')
   } else {
-    const d = ats.find(item => item?.typing === 'user' && !item.bot)
-    UIDB = d?.value
+    const value = ats.find(item => item?.typing === 'user' && !item.bot)?.value
+    if (value) {
+      UIDB = useUserHashKey({
+        Platform: e.Platform,
+        UserId: value
+      })
+    }
   }
-
-  if (!UIDB) return
+  if (!UIDB || UIDB == '') return
   const UserDataB = await isSideUser(e, UIDB)
   if (!UserDataB || typeof UserDataB === 'boolean') return
   if (!(await dualVerification(e, UserData, UserDataB))) return
