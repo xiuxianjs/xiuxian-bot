@@ -1,5 +1,5 @@
 import { operationLock, Status } from '@xiuxian/core/index'
-import { Text, useParse, useSend, useUserHashKey } from 'alemonjs'
+import { Text, useMention, useSend } from 'alemonjs'
 import { Attributes, user_group, user_group_list } from '@src/xiuxian/db'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 export default OnResponse(async (e, next) => {
@@ -46,16 +46,13 @@ export default OnResponse(async (e, next) => {
     return
   }
 
-  const ats = useParse(e, 'At')
+  const ats = await useMention(e)
   let UIDB: string | null = null
 
   if (ats && ats.length > 0) {
-    const value = ats.find(item => item?.typing === 'user' && !item.bot)?.value
+    const value = ats.find(item => !item.IsBot)
     if (value) {
-      UIDB = useUserHashKey({
-        Platform: e.Platform,
-        UserId: value
-      })
+      UIDB = value.UserKey
     }
     //
     if (!UIDB) {

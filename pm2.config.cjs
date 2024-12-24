@@ -1,14 +1,12 @@
-const fs = require('fs')
-const yaml = require('yaml')
-const data = fs.readFileSync('./alemon.config.yaml', 'utf8')
-const config = yaml.parse(data)
-const app = config?.pm2 ?? {}
 /**
  * @type {{ apps: import("pm2").StartOptions[] }}
  */
 module.exports = {
   apps: [
     {
+      name: 'app',
+      script: 'node index.js',
+      args: process.argv.slice(2),
       // 超时时间内进程仍未终止，则 PM2 将强制终止该进程
       kill_timeout: 5000,
       // 发送意外重启
@@ -23,13 +21,7 @@ module.exports = {
       autodump: true,
       // 不监听文件变化
       watch: false,
-      // logs 文件夹下的日志文件
-      out_file: `logs/${app?.name ?? 'xixian'}/output.log`,
-      error_file: `logs/${app?.name ?? 'xixian'}/error.log`,
-      log_date_format: 'YYYY-MM-DD HH:mm Z',
-      ...app,
       env: {
-        ...(app?.env ?? {}),
         NODE_ENV: 'production'
       }
     }

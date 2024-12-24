@@ -7,7 +7,7 @@ import {
 } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
 import { Attributes, user, user_level } from '@xiuxian/db/index'
-import { Text, useParse, useSend, useUserHashKey } from 'alemonjs'
+import { Text, useMention, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 export default OnResponse(async (e, next) => {
   if (!/^(#|\/)(决斗|比鬥)/.test(e.MessageText)) {
@@ -26,18 +26,15 @@ export default OnResponse(async (e, next) => {
 
   const UserData = e['UserData'] as Attributes<typeof user>
 
-  const ats = useParse(e, 'At')
+  const ats = await useMention(e)
   let UIDB: null | undefined | string = null
   if (!ats || ats.length === 0) {
     const text = e.MessageText
-    UIDB = text.replace(/^(#|\/)打劫/, '')
+    UIDB = text.replace(/^(#|\/)(决斗|比鬥)/, '')
   } else {
-    const value = ats.find(item => item?.typing === 'user' && !item.bot)?.value
+    const value = ats.find(item => !item.IsBot)
     if (value) {
-      UIDB = useUserHashKey({
-        Platform: e.Platform,
-        UserId: value
-      })
+      UIDB = value.UserKey
     }
   }
   if (!UIDB || UIDB == '') return

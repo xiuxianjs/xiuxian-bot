@@ -2,7 +2,7 @@
 
 # 创建 dist
 mkdir dist
-# 复制 
+# 复制
 cp -rf .npmrc ./dist
 # 创建 build
 mkdir build

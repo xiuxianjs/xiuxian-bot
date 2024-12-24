@@ -6,10 +6,10 @@ import {
 } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
 import { Attributes, user, user_level } from '@xiuxian/db/index'
-import { Text, useParse, useSend, useUserHashKey } from 'alemonjs'
+import { Text, useMention, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 export default OnResponse(async (e, next) => {
-  if (!/^(#|\/)(雙修|双修).*$/.test(e.MessageText)) {
+  if (!/^(#|\/)(雙修|双修)/.test(e.MessageText)) {
     next()
     return
   }
@@ -22,18 +22,15 @@ export default OnResponse(async (e, next) => {
   }
   const UID = await getEmailUID(e.UserKey)
   const UserData = e['UserData'] as Attributes<typeof user>
-  const ats = useParse(e, 'At')
+  const ats = await useMention(e)
   let UIDB: null | undefined | string = null
   if (!ats || ats.length === 0) {
     const text = e.MessageText
-    UIDB = text.replace(/^(#|\/)打劫/, '')
+    UIDB = text.replace(/^(#|\/)(雙修|双修)/, '')
   } else {
-    const value = ats.find(item => item?.typing === 'user' && !item.bot)?.value
+    const value = ats.find(item => !item.IsBot)
     if (value) {
-      UIDB = useUserHashKey({
-        Platform: e.Platform,
-        UserId: value
-      })
+      UIDB = value.UserKey
     }
   }
   if (!UIDB || UIDB == '') return
@@ -58,24 +55,21 @@ export default OnResponse(async (e, next) => {
   GameApi.Burial.set(UID, CDID, CDTime)
 
   // 读取境界
-  const LevelDataA = await user_level
-    .findOne({
-      where: {
-        uid: UID,
-        type: 1
-      }
-    })
-    .then(res => res?.dataValues)
+  const LevelDataA = await user_level.findOneValue({
+    where: {
+      uid: UID,
+      type: 1
+    }
+  })
 
   //
-  const LevelDataB = await user_level
-    .findOne({
-      where: {
-        uid: UIDB,
-        type: 1
-      }
-    })
-    .then(res => res?.dataValues)
+  const LevelDataB = await user_level.findOneValue({
+    where: {
+      uid: UIDB,
+      type: 1
+    }
+  })
+
   const sizeA = LevelDataA.experience * 0.15
   const sizeB = LevelDataB.experience * 0.1
   const expA = sizeA > 648 ? 648 : sizeA

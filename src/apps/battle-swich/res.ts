@@ -1,4 +1,4 @@
-import { createHash, Text, useParse, useSend, useUserHashKey } from 'alemonjs'
+import { Text, useMention, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 import {
   sendReply,
@@ -25,18 +25,15 @@ export default OnResponse(async (e, next) => {
   //
   const UID = await getEmailUID(e.UserKey)
   const UserData = e['UserData'] as DB.Attributes<typeof DB.user>
-  const ats = useParse(e, 'At')
+  const ats = await useMention(e)
   let UIDB: null | undefined | string = null
   if (!ats || ats.length === 0) {
     const text = e.MessageText
     UIDB = text.replace(/^(#|\/)打劫/, '')
   } else {
-    const value = ats.find(item => item?.typing === 'user' && !item.bot)?.value
+    const value = ats.find(item => !item.IsBot)
     if (value) {
-      UIDB = useUserHashKey({
-        Platform: e.Platform,
-        UserId: value
-      })
+      UIDB = value.UserKey
     }
   }
   if (!UIDB || UIDB == '') return

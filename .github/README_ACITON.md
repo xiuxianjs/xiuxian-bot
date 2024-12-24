@@ -26,10 +26,6 @@ ssh 密钥
 
 ssh 用户
 
-- SSH_SERVER_IP_CONFIG
-
-获取配置的地址
-
 - SSH_SERVER_IP_DISCORD
 
 向discord推送的地址
@@ -41,3 +37,7 @@ ssh 用户
 - SSH_SERVER_IP_API
 
 接口服务地址
+
+- SSH_CONFIG_YAML
+
+alemon.config.yaml 配置文件

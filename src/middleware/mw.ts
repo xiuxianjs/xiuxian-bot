@@ -5,30 +5,40 @@ import { Text, useSend } from 'alemonjs'
 import { newcomer } from './newcomer'
 import { operationLocalLock } from './util'
 import { ControlByBlood, endAllWord } from '@src/xiuxian/api'
+
 // 指引标记
 const UIDS = {}
+
 export default OnMiddleware(
-  async e => {
-    // 获取 txt
+  async (e, next) => {
+    // send
     const Send = useSend(e)
-    if (!operationLocalLock(e.UserKey)) {
+
+    const offLocalLock = operationLocalLock(e.UserKey)
+
+    // loack
+    if (!offLocalLock) {
       Send(Text('操作频繁'))
-      e.MessageText = ''
-      return e
+      return
     }
+
+    // user id
     const UID = await getEmailUID(e.UserKey)
+
+    // data
     const data = await user.findOneValue({
       where: {
         uid: UID
       }
     })
+
     if (!data) {
-      const T = await operationLock(e.UserKey)
-      if (!T) {
+      const offLock = await operationLock(e.UserKey)
+      if (!offLock) {
         Send(Text('操作频繁'))
-        e.MessageText = ''
-        return e
+        return
       }
+
       const url = (await e.UserAvatar?.toURL()) ?? ''
       Player.updatePlayer(UID, url)
         .then(() => {
@@ -55,8 +65,7 @@ export default OnMiddleware(
           Send(Text('未寻得仙缘'))
         })
       // 清空数据
-      e.MessageText = ''
-      return e
+      return
     }
 
     //
@@ -64,21 +73,23 @@ export default OnMiddleware(
 
     // 不是新手
     if (data.newcomer != 0) {
-      return e
+      // continue
+      next()
+      return
     }
 
     // 不存在步骤
     if (!newcomer[data.newcomer_step]) {
       data.newcomer = 1
       user.update({ newcomer: 1 }, { where: { uid: data.uid } })
-      return e
+      next()
+      return
     }
 
-    const T = await operationLock(e.UserKey)
-    if (!T) {
+    const isLock = await operationLock(e.UserKey)
+    if (!isLock) {
       Send(Text('操作频繁'))
-      e.MessageText = ''
-      return e
+      return
     }
 
     // 没有提示跳过
@@ -152,16 +163,13 @@ export default OnMiddleware(
       }
     }
 
-    const txt = e.MessageText
-
-    if (!txt) {
+    if (!e.MessageText || e.MessageText == '') {
       Send(Text(['小柠檬：', '不对哦～', '你的指令是空的'].join('\n')))
-      e.MessageText = ''
-      return e
+      return
     }
 
     //
-    if (/^\/(跳过|跳过新手指引|跳过指引)/.test(txt)) {
+    if (/^\/(跳过|跳过新手指引|跳过指引)/.test(e.MessageText)) {
       Send(
         Text(
           [
@@ -172,16 +180,14 @@ export default OnMiddleware(
         )
       )
       user.update({ newcomer: 1 }, { where: { uid: data.uid } })
-      e.MessageText = ''
-      return e
+      return
     }
 
     // 获得指引
     const c = newcomer[data.newcomer_step]
-    if (!c.reg.test(txt)) {
+    if (!c.reg.test(e.MessageText)) {
       Send(Text(['小柠檬：', c.err(c.msg)].join('\n')))
-      e.MessageText = ''
-      return e
+      return
     }
 
     // 新人必须是满血的。
@@ -191,11 +197,10 @@ export default OnMiddleware(
       data.battle_blood_now = data.battle_blood_limit
     }
 
+    const isFullBoold = await ControlByBlood(e, data)
+
     // 状态进行中
-    if (!(await ControlByBlood(e, data))) {
-      e.MessageText = ''
-      return e
-    }
+    if (!isFullBoold) return
 
     // 刷新步骤
     await user.update(
@@ -207,7 +212,10 @@ export default OnMiddleware(
     setTimeout(() => {
       Send(Text(['小柠檬：', c.ok].join('\n')))
     }, 2300)
-    return e
+
+    // continue
+    next()
+    return
   },
   ['message.create', 'private.message.create']
 )
