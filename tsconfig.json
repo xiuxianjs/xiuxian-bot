@@ -6,6 +6,6 @@
       "@xiuxian/*": ["src/xiuxian/*"]
     }
   },
-  "include": ["src/**/*", "lvy.config.ts", "jsxp.config.tsx"],
+  "include": ["src/**/*", "jsxp.config.tsx"],
   "extends": "lvyjs/tsconfig.json"
 }

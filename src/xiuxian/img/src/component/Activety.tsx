@@ -10,6 +10,7 @@ type PropsType = {
   select: 'every_day' | 'limit_time' | 'version'
   theme: ThemesEmun
 }
+
 export default function App({ select, theme }: PropsType) {
   return (
     <html>
