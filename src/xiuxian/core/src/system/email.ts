@@ -1,84 +1,33 @@
-import nodemailer, { Transporter, SentMessageInfo } from 'nodemailer'
-import { getConfig } from 'alemonjs'
-import SMTPPool from 'nodemailer/lib/smtp-pool'
-import crypto from 'crypto'
-import { users_email, user_email } from '@src/xiuxian/db'
-
-const config = getConfig()
-const ConfigEMail = config.value?.email
-
-// 创建可重用的传输器对象，使用 SMTP 协议
-let transporter: Transporter<SentMessageInfo, SMTPPool.Options> = null
-
-export const sendEmail = ({
-  text,
-  html,
-  to,
-  subject
-}: {
-  text: string
-  html: string
-  to: string
-  subject: string
-}) => {
-  if (!transporter) {
-    transporter = nodemailer.createTransport(ConfigEMail.options)
-  }
-  transporter.sendMail(
-    {
-      from: `"${ConfigEMail.name}" <${ConfigEMail.options.auth.user}>`, // 发件人
-      to: to, // 收件人
-      subject: subject, // 邮件主题
-      text: text, // 邮件正文（纯文本）
-      html: html // 邮件正文（HTML）
-    },
-    (error, info) => {
-      if (error) {
-        return console.log('Error occurred:', error)
-      }
-      console.log('Email sent:', info.response)
-    }
-  )
-}
+import { getIoRedis } from 'alemonjs'
+import { user_email } from '@src/xiuxian/db'
 
 /**
- *
- * @param length
- * @returns
- */
-export const generateCaptcha = (length = 6) => {
-  return crypto
-    .randomInt(0, 10 ** length)
-    .toString()
-    .padStart(length, '0')
-}
-
-/**
- *
+ * 根据user_key查询邮箱
  * @param uid
  * @returns
  */
-export const getEmailUID = async (uid: string) => {
+export const getEmailUID = async (user_key: string) => {
+  /**
+   * 这个查询可以使用 redis 缓存起来。
+   * 不用每次都去询问 mysql。
+   */
+  const ioRedis = getIoRedis()
+  const key = `email:uid:${user_key}`
+  const email = await ioRedis.get(key)
+  // 存在则返回
+  if (email) return email
+  // 不存在则查询
   return await user_email
-    .findOne({
+    .findOneValue({
       where: {
-        uid
+        uid: user_key
       }
     })
-    .then(res => res?.dataValues)
-    .then(async res => {
-      if (res) {
-        return await users_email
-          .findOne({
-            where: {
-              email: res.email
-            }
-          })
-          .then(res => res?.dataValues)
-          .then(res => res.uid)
-          .catch(() => uid)
-      }
-      return uid
+    .then(data => {
+      if (!data) return null
+      if (!data.email) return null
+      // 进行缓存
+      ioRedis.set(key, data.email)
+      return data.email
     })
-    .catch(() => uid)
 }

@@ -1,4 +1,4 @@
-const CD = {}
+const cdCache = {}
 /**
  * @param UID
  * @returns
@@ -6,9 +6,9 @@ const CD = {}
 export const operationLocalLock = (UID: string) => {
   const Now = Date.now()
   // 2300
-  if (CD[UID] && Number(CD[UID]) + 2300 > Now) {
+  if (cdCache[UID] && Number(cdCache[UID]) + 2300 > Now) {
     return false
   }
-  CD[UID] = Now
+  cdCache[UID] = Now
   return true
 }

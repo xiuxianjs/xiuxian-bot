@@ -6,7 +6,6 @@ import {
   DataTypes,
   Model
 } from 'sequelize'
-import { user } from './user.js'
 
 type ModelProps = {
   id: number
@@ -74,15 +73,13 @@ user_email.init(
     },
     uid: {
       type: DataTypes.STRING(50),
-      comment: '平台uid',
-      references: {
-        model: user,
-        key: 'uid'
-      }
+      comment: 'user_key'
+      // 不用关联起来。可能是随机的。
     },
     email: {
       type: DataTypes.STRING(255),
-      comment: '邮箱'
+      comment: 'email'
+      // 不用关联起来。可能是随机的。
     }
   },
   {

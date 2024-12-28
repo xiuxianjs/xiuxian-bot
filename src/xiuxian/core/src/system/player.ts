@@ -16,7 +16,7 @@ import { getRandomConstitutionOnId } from './constitution.js'
  * @param UserAvatar
  * @returns
  */
-export async function setPlayer(UID: string, UserAvatar: string) {
+export async function setPlayer(UID: string, UserAvatar?: string) {
   const gaspractice = await levels.findOneValue({
     where: {
       grade: 0,
@@ -53,7 +53,7 @@ export async function setPlayer(UID: string, UserAvatar: string) {
     await user.create({
       uid: UID,
       name: name, // 道号
-      avatar: UserAvatar, // 头像地址
+      avatar: UserAvatar ?? '', // 头像地址
       state: 0, // 用户状态_默认0
       state_start_time: 9999999999, // 状态开始时间
       state_end_time: 9999999999, // 状态结束时间
@@ -116,7 +116,7 @@ export async function setPlayer(UID: string, UserAvatar: string) {
  * @param UserAvatar
  * @returns
  */
-export async function updatePlayer(UID: string, UserAvatar: string) {
+export async function updatePlayer(UID: string, UserAvatar?: string) {
   return Promise.all(
     Object.values(users).map(item =>
       item.destroy({

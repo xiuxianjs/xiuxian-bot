@@ -2,7 +2,7 @@ import { getIoRedis, Text, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 import { ass, user_ass } from '@xiuxian/db/index'
 import { Bag, operationLock } from '@src/xiuxian/core'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import { literal } from 'sequelize'
 
 // 查看该宗门都有谁
@@ -42,7 +42,7 @@ export default OnResponse(async (e, next) => {
 
   if (
     value &&
-    moment.unix(Math.floor(Number(value) / 1000)).isSame(moment(), 'day')
+    dayjs.unix(Math.floor(Number(value) / 1000)).isSame(dayjs(), 'day')
   ) {
     Send(Text('今日已领取'))
     return
