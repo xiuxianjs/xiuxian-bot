@@ -37,10 +37,9 @@ export default OnMiddleware(
     })
 
     if (!data) {
-      Send(Text('数据开始生产....'))
       // 开始创建存档
       updatePlayer(UID).then(() => {
-        Send(Text('数据创建成功'))
+        Send(Text('数据生成完成.\n可发送[/修仙帮助]了解更多'))
       })
       return
     }
