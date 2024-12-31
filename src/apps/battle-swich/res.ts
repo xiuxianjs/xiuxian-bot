@@ -1,5 +1,5 @@
 import { Text, useMention, useSend } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
+
 import {
   sendReply,
   dualVerification,
@@ -10,8 +10,15 @@ import {
 import * as GameApi from '@xiuxian/core/index'
 import { operationLock } from '@xiuxian/core/index'
 import * as DB from '@xiuxian/db/index'
+import { platform as telegram } from '@alemonjs/telegram'
+import { platform as wechat } from '@alemonjs/wechat'
 export default OnResponse(
   async (e, next) => {
+    if (e.Platform == telegram || e.Platform == wechat) {
+      // 暂时不支持
+      next()
+      return
+    }
     if (!/^(#|\/)打劫/.test(e.MessageText)) {
       next()
       return
@@ -24,7 +31,7 @@ export default OnResponse(
       return
     }
     //
-    const UID = await getEmailUID(e.UserKey)
+    const UID = e.UserKey
     const UserData = e['UserData'] as DB.Attributes<typeof DB.user>
     const ats = await useMention(e)
     let UIDB: null | undefined | string = null
@@ -35,7 +42,7 @@ export default OnResponse(
       const value = ats.find(item => !item.IsBot)
       if (value) {
         // 检查用户
-        UIDB = await getEmailUID(value.UserKey)
+        UIDB = value.UserKey
       }
     }
     if (!UIDB || UIDB == '') return

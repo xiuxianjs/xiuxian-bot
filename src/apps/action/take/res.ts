@@ -1,9 +1,16 @@
 import { Text, useSend } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
+
 import { Bag, Equipment, Levels, operationLock } from '@xiuxian/core/index'
 import { Attributes, user } from '@src/xiuxian/db'
+import { platform as telegram } from '@alemonjs/telegram'
+import { platform as wechat } from '@alemonjs/wechat'
 export default OnResponse(
   async (e, next) => {
+    if (e.Platform == telegram || e.Platform == wechat) {
+      // 暂时不支持
+      next()
+      return
+    }
     if (!/^(#|\/)服用[\u4e00-\u9fa5]+\*\d+$/.test(e.MessageText)) {
       next()
       return
@@ -16,7 +23,7 @@ export default OnResponse(
       return
     }
     // is user
-    const UID = await getEmailUID(e.UserKey)
+    const UID = e.UserKey
     const UserData = e['UserData'] as Attributes<typeof user>
     // message parse
     const text = e.MessageText

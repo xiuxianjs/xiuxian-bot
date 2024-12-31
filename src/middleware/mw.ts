@@ -1,14 +1,16 @@
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 import { user } from '@xiuxian/db/index'
 import { Text, useSend, useSubscribe } from 'alemonjs'
 import { operationLocalLock } from '@src/middleware/util'
-import LoginRes, { emailReg } from '@src/middleware/login'
 import NewsUser from '@src/middleware/newuser'
 import { newcomer } from './newcomer'
+import { platform as telegram } from '@alemonjs/telegram'
+import { platform as wechat } from '@alemonjs/wechat'
+import { updatePlayer } from '@src/xiuxian/core/src/system/player'
 export default OnMiddleware(
   async (e, next) => {
     // send
     const Send = useSend(e)
+
     // 本地内存操作锁，防止频繁操作
     const offLocalLock = operationLocalLock(e.UserKey)
 
@@ -18,23 +20,14 @@ export default OnMiddleware(
       return
     }
 
-    // user id
-    const UID = await getEmailUID(e.UserKey)
-
-    if (!UID) {
-      // 直接就是登录指令的话
-      if (emailReg.test(e.MessageText)) {
-        LoginRes.current(e, next)
-        return
-      }
-
-      Send(Text('尚未登录,请发送[/登录+邮箱地址]进行'))
-      // 没有查询到用户邮箱。需要提示用户进行邮箱绑定。
-      const [subscribe] = useSubscribe(e, 'message.create')
-      // 锁定用户的所有操作？
-      subscribe(LoginRes.current, ['UserId'])
+    if (e.Platform == telegram || e.Platform == wechat) {
+      // 暂时不支持
+      next()
       return
     }
+
+    // user id
+    const UID = e.UserKey
 
     // data
     const data = await user.findOneValue({
@@ -44,7 +37,11 @@ export default OnMiddleware(
     })
 
     if (!data) {
-      Send(Text('数据生成中...'))
+      Send(Text('数据开始生产....'))
+      // 开始创建存档
+      updatePlayer(UID).then(() => {
+        Send(Text('数据创建成功'))
+      })
       return
     }
 
@@ -89,11 +86,30 @@ export default OnMiddleware(
       return
     }
 
-    // 开始这一步的新手提示。
+    // 获得指引
+    const c = newcomer[data.newcomer_step]
+    if (!c.reg.test(e.MessageText)) {
+      // 新手指引指令错误
+      Send(
+        Text(`小柠檬: 开始新手指引,请发送[${newcomer[data.newcomer_step].msg}]`)
+      )
+    } else {
+      // 新人必须是满血的。
+      if (data.battle_blood_limit <= 800) {
+        data.battle_blood_now = 800
+      } else {
+        data.battle_blood_now = data.battle_blood_limit
+      }
 
-    Send(
-      Text(`小柠檬: 开始新手指引,请发送[${newcomer[data.newcomer_step].msg}]`)
-    )
+      // 刷新步骤
+      await user.update(
+        { newcomer_step: 1 + data.newcomer_step },
+        { where: { uid: data.uid } }
+      )
+
+      // 携带数据
+      Send(Text(['小柠檬：', c.ok].join('\n')))
+    }
 
     const [subscribe] = useSubscribe(e, 'message.create')
 

@@ -15,8 +15,15 @@ import { Attributes, user } from '@src/xiuxian/db'
  * 同时灵根变异可对炼丹有加成
  * 灵根多，加成的下降
  */
+import { platform as telegram } from '@alemonjs/telegram'
+import { platform as wechat } from '@alemonjs/wechat'
 export default OnResponse(
   async (e, next) => {
+    if (e.Platform == telegram || e.Platform == wechat) {
+      // 暂时不支持
+      next()
+      return
+    }
     if (!/^(#|\/)查看协会$/.test(e.MessageText)) {
       next()
       return

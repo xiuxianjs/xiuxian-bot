@@ -2,8 +2,15 @@ import { Image, Text, useSend } from 'alemonjs'
 import { operationLock } from '@xiuxian/core/index'
 import { Attributes, user, user_transactions } from '@xiuxian/db/index'
 import { pictureRender } from '@xiuxian/img/index'
+import { platform as telegram } from '@alemonjs/telegram'
+import { platform as wechat } from '@alemonjs/wechat'
 export default OnResponse(
   async (e, next) => {
+    if (e.Platform == telegram || e.Platform == wechat) {
+      // 暂时不支持
+      next()
+      return
+    }
     if (!/^(#|\/)虚空镜/.test(e.MessageText)) {
       next()
       return

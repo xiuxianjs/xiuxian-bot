@@ -1,10 +1,17 @@
 import { Text, useSend } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
+
 import { Control, showUserMsg } from '@xiuxian/api/index'
 import { Config, operationLock } from '@xiuxian/core/index'
 import { Attributes, user } from '@xiuxian/db/index'
+import { platform as telegram } from '@alemonjs/telegram'
+import { platform as wechat } from '@alemonjs/wechat'
 export default OnResponse(
   async (e, next) => {
+    if (e.Platform == telegram || e.Platform == wechat) {
+      // 暂时不支持
+      next()
+      return
+    }
     if (!/^(#|\/)更改昵称为[\u4e00-\u9fa5]+$/.test(e.MessageText)) {
       next()
       return
@@ -16,7 +23,7 @@ export default OnResponse(
       return
     }
 
-    const UID = await getEmailUID(e.UserKey)
+    const UID = e.UserKey
     const UserData = e['UserData'] as Attributes<typeof user>
     if (!(await Control(e, UserData))) return
     const text = e.MessageText

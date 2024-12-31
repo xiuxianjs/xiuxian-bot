@@ -1,16 +1,23 @@
 import { Image, Text, useSend } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
+
 import { showUserMsg } from '@xiuxian/api/index'
 import { Attributes, user, user_sky_ranking } from '@xiuxian/db/index'
 import { equipmentInformation } from '@src/xiuxian/statistics'
 import { pictureRender } from '@src/xiuxian/img'
+import { platform as telegram } from '@alemonjs/telegram'
+import { platform as wechat } from '@alemonjs/wechat'
 export default OnResponse(
   async (e, next) => {
+    if (e.Platform == telegram || e.Platform == wechat) {
+      // 暂时不支持
+      next()
+      return
+    }
     if (!/^(#|\/)查看通天塔第(\d+)名(资料|面板)?$/.test(e.MessageText)) {
       next()
       return
     }
-    const UID = await getEmailUID(e.UserKey)
+    const UID = e.UserKey
     const UserData = e['UserData'] as Attributes<typeof user>
     const Send = useSend(e)
     // 查看数据是否存在

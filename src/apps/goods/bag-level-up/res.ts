@@ -1,9 +1,16 @@
 import { Text, useSend } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
+
 import * as GameApi from '@xiuxian/core/index'
 import { user_bag_message } from '@xiuxian/db/index'
+import { platform as telegram } from '@alemonjs/telegram'
+import { platform as wechat } from '@alemonjs/wechat'
 export default OnResponse(
   async (e, next) => {
+    if (e.Platform == telegram || e.Platform == wechat) {
+      // 暂时不支持
+      next()
+      return
+    }
     if (!/^(#|\/)(储物袋|儲物袋|背包)(升级|升級)$/.test(e.MessageText)) {
       next()
       return
@@ -15,7 +22,7 @@ export default OnResponse(
       Send(Text('操作频繁'))
       return
     }
-    const UID = await getEmailUID(e.UserKey)
+    const UID = e.UserKey
 
     const UserBgData = await user_bag_message
       .findOne({

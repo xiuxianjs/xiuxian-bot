@@ -11,9 +11,16 @@ import {
 } from '@xiuxian/core/index'
 import { operationLock } from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
+
+import { platform as telegram } from '@alemonjs/telegram'
+import { platform as wechat } from '@alemonjs/wechat'
 export default OnResponse(
   async (e, next) => {
+    if (e.Platform == telegram || e.Platform == wechat) {
+      // 暂时不支持
+      next()
+      return
+    }
     if (!/^(#|\/)消耗[\u4e00-\u9fa5]+(\*\d+)?$/.test(e.MessageText)) {
       next()
       return
@@ -30,7 +37,7 @@ export default OnResponse(
     //
 
     // 检查用户
-    const UID = await getEmailUID(e.UserKey)
+    const UID = e.UserKey
 
     const UserData = e['UserData'] as Attributes<typeof user>
 
@@ -387,7 +394,7 @@ const reStart = {}
 
 async function reCreateMsg(e) {
   //
-  const UID = await getEmailUID(e.UserKey)
+  const UID = e.UserKey
   //
   const Send = useSend(e)
   // 不存在或者过期了

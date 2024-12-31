@@ -1,7 +1,14 @@
 import { Attributes, user } from '@src/xiuxian/db'
 import { Text, useSend } from 'alemonjs'
+import { platform as telegram } from '@alemonjs/telegram'
+import { platform as wechat } from '@alemonjs/wechat'
 export default OnResponse(
   async (e, next) => {
+    if (e.Platform == telegram || e.Platform == wechat) {
+      // 暂时不支持
+      next()
+      return
+    }
     if (!/^(#|\/)启动新手指引$/.test(e.MessageText)) {
       next()
       return

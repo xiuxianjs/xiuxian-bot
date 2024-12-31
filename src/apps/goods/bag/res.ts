@@ -3,9 +3,16 @@ import { backpackInformation } from '@xiuxian/statistics/index'
 import { Goods, operationLock } from '@xiuxian/core/index'
 import { Image, Text, useSend } from 'alemonjs'
 import { Attributes, user } from '@src/xiuxian/db'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
+
+import { platform as telegram } from '@alemonjs/telegram'
+import { platform as wechat } from '@alemonjs/wechat'
 export default OnResponse(
   async (e, next) => {
+    if (e.Platform == telegram || e.Platform == wechat) {
+      // 暂时不支持
+      next()
+      return
+    }
     if (
       !/^(#|\/)我的(储物袋|儲物袋|背包)(武器|护具|法宝|丹药|功法|道具|材料|装备)?$/.test(
         e.MessageText
@@ -24,7 +31,7 @@ export default OnResponse(
     const text = e.MessageText
     const typing = text.replace(/^(#|\/)我的(储物袋|儲物袋|背包)/, '')
 
-    const UID = await getEmailUID(e.UserKey)
+    const UID = e.UserKey
     const data = await backpackInformation(
       UID,
       Goods.mapType[typing] ?? Goods.mapType['道具']

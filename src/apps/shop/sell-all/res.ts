@@ -2,9 +2,16 @@ import { controlByName } from '@xiuxian/api/index'
 import * as DB from '@xiuxian/db/index'
 import * as GameApi from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
+
+import { platform as telegram } from '@alemonjs/telegram'
+import { platform as wechat } from '@alemonjs/wechat'
 export default OnResponse(
   async (e, next) => {
+    if (e.Platform == telegram || e.Platform == wechat) {
+      // 暂时不支持
+      next()
+      return
+    }
     if (
       !/^(#|\/)售出所有(武器|护具|法宝|丹药|功法|道具|材料|装备)$/.test(
         e.MessageText
@@ -21,7 +28,7 @@ export default OnResponse(
       return
     }
 
-    const UID = await getEmailUID(e.UserKey)
+    const UID = e.UserKey
 
     const UserData = e['UserData'] as DB.Attributes<typeof DB.user>
 

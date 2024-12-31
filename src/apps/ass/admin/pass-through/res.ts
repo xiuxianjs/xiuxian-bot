@@ -1,10 +1,17 @@
 import * as DB from '@xiuxian/db/index'
 import * as GameApi from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
+
 import { AssGradesSize } from '@src/xiuxian/core/src/config/cooling'
+import { platform as telegram } from '@alemonjs/telegram'
+import { platform as wechat } from '@alemonjs/wechat'
 export default OnResponse(
   async (e, next) => {
+    if (e.Platform == telegram || e.Platform == wechat) {
+      // 暂时不支持
+      next()
+      return
+    }
     if (!/^(#|\/)通过\d+$/.test(e.MessageText)) {
       next()
       return
@@ -17,7 +24,7 @@ export default OnResponse(
       return
     }
 
-    const UID = await getEmailUID(e.UserKey)
+    const UID = e.UserKey
     //
     const text = e.MessageText
 

@@ -1,15 +1,22 @@
 import { Text, useSend } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
+
 import { fate_level, goods, user_fate, user_level } from '@xiuxian/db/index'
 import { Talent } from '@xiuxian/core/index'
+import { platform as telegram } from '@alemonjs/telegram'
+import { platform as wechat } from '@alemonjs/wechat'
 export default OnResponse(
   async (e, next) => {
+    if (e.Platform == telegram || e.Platform == wechat) {
+      // 暂时不支持
+      next()
+      return
+    }
     if (!/^(#|\/)我的本命物$/.test(e.MessageText)) {
       next()
       return
     }
     // 操作锁
-    const UID = await getEmailUID(e.UserKey)
+    const UID = e.UserKey
     // 查看本命信息：武器名/等级/属性/强化需要消耗提示
     const thing = await user_fate
       .findOne({

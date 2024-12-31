@@ -14,14 +14,13 @@ import { urlHelpCache } from '@xiuxian/utils/index'
 import { personalInformation } from '@xiuxian/statistics/index'
 import { pictureRender } from '@xiuxian/img/index'
 import { Image, Text, useSend } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 
 /**
  * 显示我的资料
  * @param e
  */
 export async function showUserMsg(e) {
-  const UID = await getEmailUID(e.UserKey)
+  const UID = e.UserKey
   const Send = useSend(e)
   showUserMessage(UID).then(img => {
     if (typeof img != 'boolean') {

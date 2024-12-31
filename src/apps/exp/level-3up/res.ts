@@ -1,10 +1,17 @@
 import { Text, useSend } from 'alemonjs'
 import { Equipment, Levels, Method, operationLock } from '@xiuxian/core/index'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
+
 import { Attributes, levels, user, user_level } from '@src/xiuxian/db'
 import { NAMEMAP } from '@src/xiuxian/core/src/users/additional/levels'
+import { platform as telegram } from '@alemonjs/telegram'
+import { platform as wechat } from '@alemonjs/wechat'
 export default OnResponse(
   async (e, next) => {
+    if (e.Platform == telegram || e.Platform == wechat) {
+      // 暂时不支持
+      next()
+      return
+    }
     if (!/^(#|\/)(顿悟|頓悟)$/.test(e.MessageText)) {
       next()
       return
@@ -19,7 +26,7 @@ export default OnResponse(
 
     const ID = 3
 
-    const UID = await getEmailUID(e.UserKey)
+    const UID = e.UserKey
 
     // 校验
     const UserData = e['UserData'] as Attributes<typeof user>

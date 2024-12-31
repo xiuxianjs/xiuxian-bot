@@ -1,13 +1,20 @@
 import { ass, user_ass_apply } from '@xiuxian/db/index'
 import { Text, useSend } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
+
+import { platform as telegram } from '@alemonjs/telegram'
+import { platform as wechat } from '@alemonjs/wechat'
 export default OnResponse(
   async (e, next) => {
+    if (e.Platform == telegram || e.Platform == wechat) {
+      // 暂时不支持
+      next()
+      return
+    }
     if (!/^(#|\/)我的势力申请$/.test(e.MessageText)) {
       next()
       return
     }
-    const UID = await getEmailUID(e.UserKey)
+    const UID = e.UserKey
     // send
     const Send = useSend(e)
     // 查看自己的我的势力

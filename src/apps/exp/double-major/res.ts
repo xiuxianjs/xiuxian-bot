@@ -7,9 +7,16 @@ import {
 import * as GameApi from '@xiuxian/core/index'
 import { Attributes, user, user_level } from '@xiuxian/db/index'
 import { Text, useMention, useSend } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
+
+import { platform as telegram } from '@alemonjs/telegram'
+import { platform as wechat } from '@alemonjs/wechat'
 export default OnResponse(
   async (e, next) => {
+    if (e.Platform == telegram || e.Platform == wechat) {
+      // 暂时不支持
+      next()
+      return
+    }
     if (!/^(#|\/)(雙修|双修)/.test(e.MessageText)) {
       next()
       return
@@ -21,7 +28,7 @@ export default OnResponse(
       Send(Text('操作频繁'))
       return
     }
-    const UID = await getEmailUID(e.UserKey)
+    const UID = e.UserKey
     const UserData = e['UserData'] as Attributes<typeof user>
     const ats = await useMention(e)
     let UIDB: null | undefined | string = null
@@ -31,7 +38,7 @@ export default OnResponse(
     } else {
       const value = ats.find(item => !item.IsBot)
       if (value) {
-        UIDB = await getEmailUID(value.UserKey)
+        UIDB = value.UserKey
       }
     }
     if (!UIDB || UIDB == '') return

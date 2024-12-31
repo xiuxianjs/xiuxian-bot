@@ -2,9 +2,16 @@ import { showUserMsg } from '@xiuxian/api/index'
 import { user } from '@xiuxian/db/index'
 import { operationLock } from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
+
+import { platform as telegram } from '@alemonjs/telegram'
+import { platform as wechat } from '@alemonjs/wechat'
 export default OnResponse(
   async (e, next) => {
+    if (e.Platform == telegram || e.Platform == wechat) {
+      // 暂时不支持
+      next()
+      return
+    }
     if (!/^(#|\/)踏入仙途$/.test(e.MessageText)) {
       next()
       return
@@ -17,7 +24,7 @@ export default OnResponse(
       return
     }
 
-    const UID = await getEmailUID(e.UserKey)
+    const UID = e.UserKey
 
     user
       .findOneValue({

@@ -2,8 +2,15 @@ import { controlByName } from '@xiuxian/api/index'
 import * as DB from '@xiuxian/db/index'
 import * as GameApi from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
+import { platform as telegram } from '@alemonjs/telegram'
+import { platform as wechat } from '@alemonjs/wechat'
 export default OnResponse(
   async (e, next) => {
+    if (e.Platform == telegram || e.Platform == wechat) {
+      // 暂时不支持
+      next()
+      return
+    }
     if (
       !/^(#|\/)查看(商会|商會)(武器|护具|法宝|丹药|功法|道具|材料|装备)?$/.test(
         e.MessageText

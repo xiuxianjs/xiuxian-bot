@@ -1,16 +1,23 @@
 import { Text, useSend } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
+
 import { ControlByBlood, victoryCooling } from '@xiuxian/api/index'
 import { Boss, Fight, operationLock } from '@xiuxian/core/index'
 import { Attributes, Redis, user } from '@xiuxian/db/index'
 // 攻击
+import { platform as telegram } from '@alemonjs/telegram'
+import { platform as wechat } from '@alemonjs/wechat'
 export default OnResponse(
   async (e, next) => {
+    if (e.Platform == telegram || e.Platform == wechat) {
+      // 暂时不支持
+      next()
+      return
+    }
     if (!/^(#|\/)攻击(金角|银角)/.test(e.MessageText)) {
       next()
       return
     }
-    const UID = await getEmailUID(e.UserKey)
+    const UID = e.UserKey
 
     // lock start
     const T = await operationLock(e.UserKey)

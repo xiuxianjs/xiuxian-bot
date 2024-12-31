@@ -1,10 +1,17 @@
 import { Bag, Levels, operationLock } from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
+
 import { user_fate, user_level } from '@xiuxian/db/index'
 const reGiveup = {}
+import { platform as telegram } from '@alemonjs/telegram'
+import { platform as wechat } from '@alemonjs/wechat'
 export default OnResponse(
   async (e, next) => {
+    if (e.Platform == telegram || e.Platform == wechat) {
+      // 暂时不支持
+      next()
+      return
+    }
     if (!/^(#|\/)剥离本命物$/.test(e.MessageText)) {
       next()
       return
@@ -17,7 +24,7 @@ export default OnResponse(
       return
     }
     // 检查用户
-    const UID = await getEmailUID(e.UserKey)
+    const UID = e.UserKey
     const thing = await user_fate
       .findOne({
         where: {

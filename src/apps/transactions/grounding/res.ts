@@ -1,9 +1,16 @@
 import { Text, useSend } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
+
 import { Bag, Cooling, operationLock } from '@xiuxian/core/index'
 import { goods, user_transactions, user_bag } from '@xiuxian/db/index'
+import { platform as telegram } from '@alemonjs/telegram'
+import { platform as wechat } from '@alemonjs/wechat'
 export default OnResponse(
   async (e, next) => {
+    if (e.Platform == telegram || e.Platform == wechat) {
+      // 暂时不支持
+      next()
+      return
+    }
     if (!/^(#|\/)上架/.test(e.MessageText)) {
       next()
       return
@@ -14,7 +21,7 @@ export default OnResponse(
       Send(Text('操作频繁'))
       return
     }
-    const UID = await getEmailUID(e.UserKey)
+    const UID = e.UserKey
     // 解析文本
     const text = e.MessageText
     //  /上架物品名*数量*价格

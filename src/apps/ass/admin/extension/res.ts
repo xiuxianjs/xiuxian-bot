@@ -1,9 +1,16 @@
 import { Bag, Cooling, operationLock } from '@src/xiuxian/core'
 import { ass, user_ass } from '@xiuxian/db/index'
 import { Text, useSend } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
+
+import { platform as telegram } from '@alemonjs/telegram'
+import { platform as wechat } from '@alemonjs/wechat'
 export default OnResponse(
   async (e, next) => {
+    if (e.Platform == telegram || e.Platform == wechat) {
+      // 暂时不支持
+      next()
+      return
+    }
     if (!/^(#|\/)升级[\u4e00-\u9fa5]+$/.test(e.MessageText)) {
       next()
       return
@@ -16,7 +23,7 @@ export default OnResponse(
       return
     }
 
-    const UID = await getEmailUID(e.UserKey)
+    const UID = e.UserKey
 
     const text = e.MessageText
     const name = text.replace(/^(#|\/)升级/, '')

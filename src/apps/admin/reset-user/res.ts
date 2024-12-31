@@ -1,7 +1,14 @@
 import { Text, useSend } from 'alemonjs'
 import { Player } from '@xiuxian/core/index'
+import { platform as telegram } from '@alemonjs/telegram'
+import { platform as wechat } from '@alemonjs/wechat'
 export default OnResponse(
   async (e, next) => {
+    if (e.Platform == telegram || e.Platform == wechat) {
+      // 暂时不支持
+      next()
+      return
+    }
     if (!/^(#|\/)天道强制重生/.test(e.MessageText)) {
       next()
       return

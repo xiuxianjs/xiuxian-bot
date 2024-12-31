@@ -1,8 +1,15 @@
 import { Text, useSend } from 'alemonjs'
 import { operationLock } from '@xiuxian/core/index'
 import { user_group } from '@src/xiuxian/db'
+import { platform as telegram } from '@alemonjs/telegram'
+import { platform as wechat } from '@alemonjs/wechat'
 export default OnResponse(
   async (e, next) => {
+    if (e.Platform == telegram || e.Platform == wechat) {
+      // 暂时不支持
+      next()
+      return
+    }
     if (!/^(#|\/)查看队伍(\d+)?$/.test(e.MessageText)) {
       next()
       return

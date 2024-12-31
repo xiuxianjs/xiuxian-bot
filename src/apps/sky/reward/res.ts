@@ -3,9 +3,16 @@ import { skys, user_sky_reward } from '@xiuxian/db/index'
 import { Op } from 'sequelize'
 import { Bag, operationLock } from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
+
+import { platform as telegram } from '@alemonjs/telegram'
+import { platform as wechat } from '@alemonjs/wechat'
 export default OnResponse(
   async (e, next) => {
+    if (e.Platform == telegram || e.Platform == wechat) {
+      // 暂时不支持
+      next()
+      return
+    }
     if (!/^(#|\/)领取通天塔奖励$/.test(e.MessageText)) {
       next()
       return
@@ -18,7 +25,7 @@ export default OnResponse(
       return
     }
 
-    const UID = await getEmailUID(e.UserKey)
+    const UID = e.UserKey
 
     // 查看数据是否存在
     const data = await DB.user_sky_ranking

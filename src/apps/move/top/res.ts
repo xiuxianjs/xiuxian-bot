@@ -1,13 +1,19 @@
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 import { Attributes, user } from '@src/xiuxian/db'
 import { ControlByBlood, showAction } from '@xiuxian/api/index'
+import { platform as telegram } from '@alemonjs/telegram'
+import { platform as wechat } from '@alemonjs/wechat'
 export default OnResponse(
   async (e, next) => {
+    if (e.Platform == telegram || e.Platform == wechat) {
+      // 暂时不支持
+      next()
+      return
+    }
     if (!/^(#|\/)向上$/.test(e.MessageText)) {
       next()
       return
     }
-    const UID = await getEmailUID(e.UserKey)
+    const UID = e.UserKey
     const UserData = e['UserData'] as Attributes<typeof user>
     if (!(await ControlByBlood(e, UserData))) return
     UserData.pont_y += 10

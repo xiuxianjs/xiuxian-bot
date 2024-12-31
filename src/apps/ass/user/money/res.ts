@@ -1,13 +1,20 @@
 import { getIoRedis, Text, useSend } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
+
 import { ass, user_ass } from '@xiuxian/db/index'
 import { Bag, operationLock } from '@src/xiuxian/core'
 import dayjs from 'dayjs'
 import { literal } from 'sequelize'
 
 // 查看该宗门都有谁
+import { platform as telegram } from '@alemonjs/telegram'
+import { platform as wechat } from '@alemonjs/wechat'
 export default OnResponse(
   async (e, next) => {
+    if (e.Platform == telegram || e.Platform == wechat) {
+      // 暂时不支持
+      next()
+      return
+    }
     if (!/^(#|\/)领取势力俸禄$/.test(e.MessageText)) {
       next()
       return
@@ -20,7 +27,7 @@ export default OnResponse(
       return
     }
 
-    const UID = await getEmailUID(e.UserKey)
+    const UID = e.UserKey
 
     const AData = await user_ass
       .findAll({

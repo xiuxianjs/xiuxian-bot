@@ -1,14 +1,21 @@
 import { Text, useSend } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
+
 import * as DB from '@xiuxian/db/index'
 // 查看该宗门都有谁
+import { platform as telegram } from '@alemonjs/telegram'
+import { platform as wechat } from '@alemonjs/wechat'
 export default OnResponse(
   async (e, next) => {
+    if (e.Platform == telegram || e.Platform == wechat) {
+      // 暂时不支持
+      next()
+      return
+    }
     if (!/^(#|\/)打开([\u4e00-\u9fa5]+)宝库$/.test(e.MessageText)) {
       next()
       return
     }
-    const UID = await getEmailUID(e.UserKey)
+    const UID = e.UserKey
     const text = e.MessageText
     //
     const name = text.replace(/(#|\/|包库)/g, '')

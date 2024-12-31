@@ -1,10 +1,17 @@
 import { Text, useSend } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
+
 import * as GameApi from '@xiuxian/core/index'
 import * as DB from '@xiuxian/db/index'
 const delCooling = {}
+import { platform as telegram } from '@alemonjs/telegram'
+import { platform as wechat } from '@alemonjs/wechat'
 export default OnResponse(
   async (e, next) => {
+    if (e.Platform == telegram || e.Platform == wechat) {
+      // 暂时不支持
+      next()
+      return
+    }
     if (!/^(#|\/)解散$/.test(e.MessageText)) {
       next()
       return
@@ -17,7 +24,7 @@ export default OnResponse(
       return
     }
 
-    const UID = await getEmailUID(e.UserKey)
+    const UID = e.UserKey
 
     // 查看自己的宗门
     const UserAss = await DB.user_ass

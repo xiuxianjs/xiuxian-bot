@@ -2,14 +2,21 @@ import { ControlByBlood } from '@xiuxian/api/index'
 import { Op } from 'sequelize'
 import * as DB from '@xiuxian/db/index'
 import { Text, useSend } from 'alemonjs'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
+
+import { platform as telegram } from '@alemonjs/telegram'
+import { platform as wechat } from '@alemonjs/wechat'
 export default OnResponse(
   async (e, next) => {
+    if (e.Platform == telegram || e.Platform == wechat) {
+      // 暂时不支持
+      next()
+      return
+    }
     if (!/^(#|\/)释放神识$/.test(e.MessageText)) {
       next()
       return
     }
-    const UID = await getEmailUID(e.UserKey)
+    const UID = e.UserKey
     const UserData = e['UserData'] as DB.Attributes<typeof DB.user>
     if (!(await ControlByBlood(e, UserData))) return
     const Send = useSend(e)

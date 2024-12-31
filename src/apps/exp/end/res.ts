@@ -1,10 +1,17 @@
 import { operationLock } from '@src/xiuxian/core'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
+
 import { Attributes, user } from '@src/xiuxian/db'
 import { endAllWord } from '@xiuxian/api/index'
 import { Text, useSend } from 'alemonjs'
+import { platform as telegram } from '@alemonjs/telegram'
+import { platform as wechat } from '@alemonjs/wechat'
 export default OnResponse(
   async (e, next) => {
+    if (e.Platform == telegram || e.Platform == wechat) {
+      // 暂时不支持
+      next()
+      return
+    }
     if (!/^(#|\/)(归来|歸來|凝脉|出关|出關|聚灵|聚靈)$/.test(e.MessageText)) {
       next()
       return
@@ -17,7 +24,7 @@ export default OnResponse(
       return
     }
 
-    const UID = await getEmailUID(e.UserKey)
+    const UID = e.UserKey
     const UserData = e['UserData'] as Attributes<typeof user>
     endAllWord(e, UID, UserData)
     return

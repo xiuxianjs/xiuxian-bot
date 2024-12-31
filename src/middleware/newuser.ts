@@ -2,13 +2,20 @@ import { user } from '@xiuxian/db/index'
 import { Text, useSend } from 'alemonjs'
 import { newcomer } from '@src/middleware/newcomer'
 import { operationLock } from '@src/xiuxian/core'
-import { getEmailUID } from '@src/xiuxian/core/src/system/email'
+
 /**
  * 完成的新手指引
  * 是独立的环境。
  */
+import { platform as telegram } from '@alemonjs/telegram'
+import { platform as wechat } from '@alemonjs/wechat'
 export default OnResponse(
   async (e, next) => {
+    if (e.Platform == telegram || e.Platform == wechat) {
+      // 暂时不支持
+      next()
+      return
+    }
     //
     const Send = useSend(e)
 
@@ -21,7 +28,7 @@ export default OnResponse(
     }
 
     // 得到用户邮箱
-    const UID = await getEmailUID(e.UserKey)
+    const UID = e.UserKey
 
     if (!UID) {
       Send(Text('请先登录'))
