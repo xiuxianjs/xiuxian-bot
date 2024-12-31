@@ -3,6 +3,7 @@ import { backpackInformation } from '@xiuxian/statistics/index'
 import { Goods, operationLock } from '@xiuxian/core/index'
 import { Image, Text, useSend } from 'alemonjs'
 import { Attributes, user } from '@src/xiuxian/db'
+import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 export default OnResponse(
   async (e, next) => {
     if (
@@ -19,13 +20,13 @@ export default OnResponse(
       Send(Text('操作频繁'))
       return
     }
-
     const UserData = e['UserData'] as Attributes<typeof user>
     const text = e.MessageText
     const typing = text.replace(/^(#|\/)我的(储物袋|儲物袋|背包)/, '')
-    console.log('typing', typing)
+
+    const UID = await getEmailUID(e.UserKey)
     const data = await backpackInformation(
-      e.UserKey,
+      UID,
       Goods.mapType[typing] ?? Goods.mapType['道具']
     )
     const img = await pictureRender('BagComponent', {

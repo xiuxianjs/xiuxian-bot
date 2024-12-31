@@ -34,7 +34,8 @@ export default OnResponse(
     } else {
       const value = ats.find(item => !item.IsBot)
       if (value) {
-        UIDB = value.UserKey
+        // 检查用户
+        UIDB = await getEmailUID(value.UserKey)
       }
     }
     if (!UIDB || UIDB == '') return

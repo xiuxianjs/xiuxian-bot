@@ -384,11 +384,11 @@ export async function ringInformation(UID: string) {
     .then(res => res.map(item => item?.dataValues))
   return {
     UID,
-    name: UserData.name,
+    name: UserData?.name,
     bag_grade: 1,
     length: length ?? 0,
     bag: bag,
-    avatar: UserData.avatar
+    avatar: UserData?.avatar
   }
 }
 

@@ -53,7 +53,7 @@ export default OnResponse(
     if (ats && ats.length > 0) {
       const value = ats.find(item => !item.IsBot)
       if (value) {
-        UIDB = value.UserKey
+        UIDB = await getEmailUID(value.UserKey)
       }
       //
       if (!UIDB) {

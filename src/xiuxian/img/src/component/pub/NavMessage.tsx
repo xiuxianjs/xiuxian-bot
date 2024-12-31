@@ -141,7 +141,9 @@ export default function NavMessage({ data }: PropsType) {
             // 血条
           }
           <div
-            className="absolute nav-box-uidwhitespace-nowrap text-3xl text-center w-full bottom-0 text-[#ffffffe6] font-bold rounded-xl"
+            className="
+            whitespace-nowrap overflow-hidden text-ellipsis
+            absolute nav-box-uidwhitespace-nowrap text-3xl text-center w-full bottom-0 text-[#ffffffe6] font-bold rounded-xl"
             style={{
               background: `linear-gradient(to right, var(--bool-left-collor) ${value}%,var(--bool-right-collor) ${value}%)`
             }}

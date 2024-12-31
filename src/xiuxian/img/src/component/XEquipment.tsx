@@ -32,7 +32,7 @@ export default function App({ data, theme }: PropsType) {
             <nav className="flex justify-between rounded-md w-full bg-black bg-opacity-30">
               <div className="flex-1 flex flex-col">
                 <div className=" bg-black bg-opacity-30">
-                  <div className=" bg-[#2c447594] text-white text-2xl p-3">
+                  <div className=" bg-[#2c447594] text-white text-2xl p-3 whitespace-nowrap overflow-hidden text-ellipsis">
                     {data.UID}
                   </div>
                 </div>

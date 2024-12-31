@@ -2,7 +2,7 @@ import { getEmailUID } from '@src/xiuxian/core/src/system/email'
 import { user } from '@xiuxian/db/index'
 import { Text, useSend, useSubscribe } from 'alemonjs'
 import { operationLocalLock } from '@src/middleware/util'
-import LoginRes from '@src/middleware/login'
+import LoginRes, { emailReg } from '@src/middleware/login'
 import NewsUser from '@src/middleware/newuser'
 import { newcomer } from './newcomer'
 export default OnMiddleware(
@@ -22,6 +22,12 @@ export default OnMiddleware(
     const UID = await getEmailUID(e.UserKey)
 
     if (!UID) {
+      // 直接就是登录指令的话
+      if (emailReg.test(e.MessageText)) {
+        LoginRes.current(e, next)
+        return
+      }
+
       Send(Text('尚未登录,请发送[/登录+邮箱地址]进行'))
       // 没有查询到用户邮箱。需要提示用户进行邮箱绑定。
       const [subscribe] = useSubscribe(e, 'message.create')

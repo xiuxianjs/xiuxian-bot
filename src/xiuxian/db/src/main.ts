@@ -8,7 +8,6 @@ export const users = {
   user_bag: models.user_bag,
   user_bag_message: models.user_bag_message,
   user_buy_log: models.user_buy_log,
-  user_email: models.user_email,
   user_equipment: models.user_equipment,
   user_fate: models.user_fate,
   user_level: models.user_level,
@@ -57,10 +56,6 @@ export const useBelongsTo = () => {
     targetKey: 'uid'
   })
   models.user_buy_log.belongsTo(models.user, {
-    foreignKey: 'uid',
-    targetKey: 'uid'
-  })
-  models.user_email.belongsTo(models.user, {
     foreignKey: 'uid',
     targetKey: 'uid'
   })

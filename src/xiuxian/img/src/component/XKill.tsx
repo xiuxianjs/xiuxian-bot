@@ -20,7 +20,7 @@ export default function App({ data, theme }: PropsType) {
           {item => (
             <div className="flex-1 flex  flex-col justify-center  text-white px-8">
               <div className="flex  flex-col">
-                <div className="  text-2xl p-[5px]   ">
+                <div className="  text-2xl p-[5px]  whitespace-nowrap overflow-hidden text-ellipsis ">
                   {item.id}#
                   {isNaN(Number(item.UID)) ? hash(item.UID) : item.UID}
                 </div>

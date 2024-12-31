@@ -12,7 +12,9 @@ export default function Naved({
   return (
     <nav className="flex justify-between w-full">
       <div className="flex-1 bg-black bg-opacity-30">
-        <div className=" bg-[#2c447594] text-white text-2xl p-3">{UID}</div>
+        <div className=" bg-[#2c447594] text-white text-2xl p-3 whitespace-nowrap overflow-hidden text-ellipsis">
+          {UID}
+        </div>
         {list.map((item, index) => (
           <div key={index} className=" text-white text-2xl p-3">
             {item}

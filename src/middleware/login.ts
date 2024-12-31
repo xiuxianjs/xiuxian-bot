@@ -61,14 +61,13 @@ const CodeRes = OnResponse(
   ['message.create', 'private.message.create']
 )
 
+export const emailReg =
+  /^(\/|#)?登录[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}.*$/
+
 const EmailRes = OnResponse(
   async (e, next) => {
     // 每次来的时候。只允许该操作可进行后续。
-    if (
-      !/^(\/|#)?登录[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}.*$/.test(
-        e.MessageText
-      )
-    ) {
+    if (!emailReg.test(e.MessageText)) {
       next()
       return
     }
