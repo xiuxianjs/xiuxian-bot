@@ -18,7 +18,6 @@ type PropsType = {
  * @returns
  */
 export default function App({ data, theme }: PropsType) {
-  const UID = data.UID
   return (
     <html>
       <head>
@@ -34,16 +33,18 @@ export default function App({ data, theme }: PropsType) {
               <div className="flex-1 flex flex-col">
                 <div className=" bg-black bg-opacity-30">
                   <div className=" bg-[#2c447594] text-white text-2xl p-3">
-                    {UID}
+                    {data.UID}
                   </div>
                 </div>
                 <div className="flex-1 flex">
-                  {data.avatar && data.avatar != '' && (
+                  {data.avatar && data.avatar != '' ? (
                     <Avatar
                       className="size-56 rounded-full m-auto"
                       src={data.avatar}
                       alt="User Avatar"
                     />
+                  ) : (
+                    <div className="size-56 rounded-full m-auto"></div>
                   )}
                 </div>
                 <div className=" bg-black bg-opacity-30">

@@ -1,24 +1,24 @@
-import goods from './assets/db/goods.json'
-import goods_drops from './assets/db/goods_drops.json'
-import goods_commodities from './assets/db/goods_commodities.json'
-import goods_alliancemall from './assets/db/goods_alliancemall.json'
+import goods from '@src/assets/db/goods.json'
+import goods_drops from '@src/assets/db/goods_drops.json'
+import goods_commodities from '@src/assets/db/goods_commodities.json'
+import goods_alliancemall from '@src/assets/db/goods_alliancemall.json'
 
-import levels from './assets/db/levels.json'
-import levels_limit from './assets/db/levels_limit.json'
-import fate_level from './assets/db/fate_level.json'
+import levels from '@src/assets/db/levels.json'
+import levels_limit from '@src/assets/db/levels_limit.json'
+import fate_level from '@src/assets/db/fate_level.json'
 
-import map_point from './assets/db/map_point.json'
-import map_position from './assets/db/map_position.json'
-import map_treasure from './assets/db/map_treasure.json'
+import map_point from '@src/assets/db/map_point.json'
+import map_position from '@src/assets/db/map_position.json'
+import map_treasure from '@src/assets/db/map_treasure.json'
 
-import ass_typing from './assets/db/ass_typing.json'
+import ass_typing from '@src/assets/db/ass_typing.json'
 
-import monster from './assets/db/monster.json'
-import skys from './assets/db/skys.json'
-import talent from './assets/db/talent.json'
-import constitution from './assets/db/constitution.json'
+import monster from '@src/assets/db/monster.json'
+import skys from '@src/assets/db/skys.json'
+import talent from '@src/assets/db/talent.json'
+import constitution from '@src/assets/db/constitution.json'
 
-import { sequelize, models, useBelongsTo } from './xiuxian/db'
+import { sequelize, models, useBelongsTo } from '@src/xiuxian/db'
 
 const SqlData = {
   goods,

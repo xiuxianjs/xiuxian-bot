@@ -3,68 +3,71 @@ import { Bag, Equipment, Levels } from '@xiuxian/core/index'
 import { operationLock } from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
 import { getEmailUID } from '@src/xiuxian/core/src/system/email'
-export default OnResponse(async (e, next) => {
-  if (!/^(#|\/)炼化[\u4e00-\u9fa5]+$/.test(e.MessageText)) {
-    next()
-    return
-  }
-  // 操作锁
-  const TT = await operationLock(e.UserKey)
-  const Send = useSend(e)
-  if (!TT) {
-    Send(Text('操作频繁'))
-    return
-  }
-  // 检查用户
-  const UID = await getEmailUID(e.UserKey)
-  const UserData = e['UserData'] as Attributes<typeof user>
-  const T = await user_fate
-    .findOne({
-      where: {
-        uid: UID
-      }
+export default OnResponse(
+  async (e, next) => {
+    if (!/^(#|\/)炼化[\u4e00-\u9fa5]+$/.test(e.MessageText)) {
+      next()
+      return
+    }
+    // 操作锁
+    const TT = await operationLock(e.UserKey)
+    const Send = useSend(e)
+    if (!TT) {
+      Send(Text('操作频繁'))
+      return
+    }
+    // 检查用户
+    const UID = await getEmailUID(e.UserKey)
+    const UserData = e['UserData'] as Attributes<typeof user>
+    const T = await user_fate
+      .findOne({
+        where: {
+          uid: UID
+        }
+      })
+      .then(res => res?.dataValues)
+    if (T) {
+      Send(Text('已有本命物'))
+      return
+    }
+    // 解析
+    const text = e.MessageText
+    const thingName = text.replace(/^(#|\/)炼化/, '')
+    const bagThing = await Bag.searchBagByName(UID, thingName)
+    if (!bagThing) {
+      Send(Text(`没[${thingName}]`))
+      return
+    }
+    // 根据物品等级来消耗修为  1000
+    const size = bagThing.grade * 1000
+    // 看看经验
+    const LevelMsg = await user_level
+      .findOne({
+        where: {
+          uid: UID,
+          type: 1
+        }
+      })
+      .then(res => res?.dataValues)
+    if (LevelMsg.experience < size) {
+      Send(Text(`需要消耗[修为]*${size}~`))
+      return
+    }
+    // 减少修为
+    await Levels.reduceExperience(UID, 1, size)
+    // 新增数据
+    await user_fate.create({
+      uid: UID,
+      name: bagThing.name,
+      grade: 0
     })
-    .then(res => res?.dataValues)
-  if (T) {
-    Send(Text('已有本命物'))
+    // 减少物品
+    await Bag.reduceBagThing(UID, [{ name: thingName, acount: 1 }])
+    // 更新面板?
+    await Equipment.updatePanel(UID, UserData.battle_blood_now)
+    // 返回
+    Send(Text(`炼化[${bagThing.name}]`))
     return
-  }
-  // 解析
-  const text = e.MessageText
-  const thingName = text.replace(/^(#|\/)炼化/, '')
-  const bagThing = await Bag.searchBagByName(UID, thingName)
-  if (!bagThing) {
-    Send(Text(`没[${thingName}]`))
-    return
-  }
-  // 根据物品等级来消耗修为  1000
-  const size = bagThing.grade * 1000
-  // 看看经验
-  const LevelMsg = await user_level
-    .findOne({
-      where: {
-        uid: UID,
-        type: 1
-      }
-    })
-    .then(res => res?.dataValues)
-  if (LevelMsg.experience < size) {
-    Send(Text(`需要消耗[修为]*${size}~`))
-    return
-  }
-  // 减少修为
-  await Levels.reduceExperience(UID, 1, size)
-  // 新增数据
-  await user_fate.create({
-    uid: UID,
-    name: bagThing.name,
-    grade: 0
-  })
-  // 减少物品
-  await Bag.reduceBagThing(UID, [{ name: thingName, acount: 1 }])
-  // 更新面板?
-  await Equipment.updatePanel(UID, UserData.battle_blood_now)
-  // 返回
-  Send(Text(`炼化[${bagThing.name}]`))
-  return
-}, 'message.create')
+  },
+  ['message.create', 'private.message.create']
+)

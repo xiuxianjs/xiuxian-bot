@@ -1,18 +1,13 @@
 import { getIoRedis } from 'alemonjs'
 import { user_email } from '@src/xiuxian/db'
-
 /**
  * 根据user_key查询邮箱
  * @param uid
  * @returns
  */
 export const getEmailUID = async (user_key: string) => {
-  /**
-   * 这个查询可以使用 redis 缓存起来。
-   * 不用每次都去询问 mysql。
-   */
   const ioRedis = getIoRedis()
-  const key = `email:uid:${user_key}`
+  const key = `email:${user_key}`
   const email = await ioRedis.get(key)
   // 存在则返回
   if (email) return email

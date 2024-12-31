@@ -5,18 +5,10 @@ import { operationLocalLock } from '@src/middleware/util'
 import LoginRes from '@src/middleware/login'
 import NewsUser from '@src/middleware/newuser'
 import { newcomer } from './newcomer'
-
-/**
- * uid 都是邮箱
- * 不再使用平台的uid。
- * 而user_key是平台的uid
- * 都不再使用。避免数据不再找回。
- */
 export default OnMiddleware(
   async (e, next) => {
     // send
     const Send = useSend(e)
-
     // 本地内存操作锁，防止频繁操作
     const offLocalLock = operationLocalLock(e.UserKey)
 
@@ -27,9 +19,9 @@ export default OnMiddleware(
     }
 
     // user id
-    const email = await getEmailUID(e.UserKey)
+    const UID = await getEmailUID(e.UserKey)
 
-    if (!email) {
+    if (!UID) {
       Send(Text('尚未登录,请发送[/登录+邮箱地址]进行'))
       // 没有查询到用户邮箱。需要提示用户进行邮箱绑定。
       const [subscribe] = useSubscribe(e, 'message.create')
@@ -41,7 +33,7 @@ export default OnMiddleware(
     // data
     const data = await user.findOneValue({
       where: {
-        uid: email
+        uid: UID
       }
     })
 
@@ -61,7 +53,7 @@ export default OnMiddleware(
 
     const closeNewComer = () => {
       data.newcomer = 1
-      user.update({ newcomer: 1 }, { where: { uid: email } })
+      user.update({ newcomer: 1 }, { where: { uid: UID } })
     }
 
     // 不存步骤
@@ -98,6 +90,7 @@ export default OnMiddleware(
     )
 
     const [subscribe] = useSubscribe(e, 'message.create')
+
     // 锁定用户的所有操作？
     subscribe(NewsUser.current, ['UserId'])
 

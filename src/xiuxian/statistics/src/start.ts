@@ -48,7 +48,6 @@ export async function getKillList() {
   return ALLData.map(item => {
     return {
       id: item.id,
-      UID: item?.uid, // 编号
       autograph: item?.autograph, // 道宣
       lifeName: item?.name, // 道号
       prestige: item?.special_prestige, // 煞气

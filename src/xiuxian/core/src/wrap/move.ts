@@ -4,7 +4,7 @@ import { RedisBull, RedisBullAction } from '../config/index.js'
 import * as State from '../users/base/state.js'
 import * as Map from './map.js'
 import { Queue, Worker } from 'bullmq'
-import { Status } from '../../index.js'
+import * as Status from '../system/status.js'
 
 // 创建
 const QUEUE = new Queue(RedisBull, {

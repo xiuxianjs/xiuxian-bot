@@ -13,7 +13,6 @@ type PropsType = {
   theme: ThemesEmun
 }
 export default function App({ data, theme }: PropsType) {
-  const UID = data.UID
   return (
     <html>
       <head>
@@ -28,7 +27,7 @@ export default function App({ data, theme }: PropsType) {
             <div className="rounded-lg w-full px-4 py-4">
               <div className="flex flex-row bg-black bg-opacity-30">
                 <div className="flex-1 text-left mx-auto my-0 bg-black bg-opacity-20">
-                  <div className=" text-white text-2xl p-3">{UID}</div>
+                  <div className=" text-white text-2xl p-3">{data.UID}</div>
                   <div className=" text-white text-2xl p-3">
                     道号: {data.name}
                   </div>
@@ -40,12 +39,14 @@ export default function App({ data, theme }: PropsType) {
                   </div>
                 </div>
                 <div className="flex-1 flex">
-                  {data.avatar && data.avatar != '' && (
+                  {data.avatar && data.avatar != '' ? (
                     <Avatar
-                      className="size-48 m-auto rounded-full"
+                      className="size-48 rounded-full m-auto"
                       src={data.avatar}
-                      alt="User Agoodvatar"
+                      alt="User Avatar"
                     />
+                  ) : (
+                    <div className="size-48 rounded-full m-auto"></div>
                   )}
                 </div>
               </div>

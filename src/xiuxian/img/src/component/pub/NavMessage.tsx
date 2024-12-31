@@ -36,7 +36,6 @@ export default function NavMessage({ data }: PropsType) {
       return 'grayscale(100%)'
     }
   }
-  const UID = data.UID
   const List = [
     {
       title: '金',
@@ -129,11 +128,14 @@ export default function NavMessage({ data }: PropsType) {
           // 2
         }
         <div className="flex-1 m-auto relative text-center">
-          {data.avatar && data.avatar != '' && (
+          {data.avatar && data.avatar != '' ? (
             <Avatar
-              className="w-52 h-52 m-auto rounded-full border-2 border-white"
+              className="size-52 rounded-full m-auto border-2 border-white"
               src={data.avatar}
+              alt="User Avatar"
             />
+          ) : (
+            <div className="size-52 rounded-full m-auto"></div>
           )}
           {
             // 血条
@@ -144,7 +146,7 @@ export default function NavMessage({ data }: PropsType) {
               background: `linear-gradient(to right, var(--bool-left-collor) ${value}%,var(--bool-right-collor) ${value}%)`
             }}
           >
-            {UID}
+            {data.UID}
           </div>
 
           <div className="absolute nav-box-uidwhitespace-nowrap  text-center w-full text-[#ffffffe6] font-bold rounded-xl">

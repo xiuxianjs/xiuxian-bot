@@ -20,7 +20,6 @@ type PropsType = {
  * @returns
  */
 export default function App({ data, theme }: PropsType) {
-  const UID = data.UID
   return (
     <html>
       <head>
@@ -31,7 +30,7 @@ export default function App({ data, theme }: PropsType) {
           <div className="p-4">
             <Header list={['/装备+装备名', '/卸下+装备名']} />
             <Nav
-              UID={UID}
+              UID={data.UID}
               avatar={data.avatar}
               list={[
                 `道号: ${data.name}`,
