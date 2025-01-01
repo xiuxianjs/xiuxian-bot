@@ -4,89 +4,92 @@ import { controlByName } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
 import { operationLock } from '@xiuxian/core/index'
 import { Attributes, user } from '@src/xiuxian/db'
-import { platform as telegram } from '@alemonjs/telegram'
-import { platform as wechat } from '@alemonjs/wechat'
+import Xiuxian from '@src/apps/index'
+export const regular =
+  /^(#|\/)(金银坊置换|金銀坊置換)\d+\*[\u4e00-\u9fa5]+\*[\u4e00-\u9fa5]+$/
 export default OnResponse(
-  async (e, next) => {
-    if (e.Platform == telegram || e.Platform == wechat) {
-      // 暂时不支持
-      next()
-      return
-    }
-    if (
-      !/^(#|\/)(金银坊置换|金銀坊置換)\d+\*[\u4e00-\u9fa5]+\*[\u4e00-\u9fa5]+$/.test(
-        e.MessageText
+  [
+    Xiuxian.current,
+    async (e, next) => {
+      if (
+        !/^(#|\/)(金银坊置换|金銀坊置換)\d+\*[\u4e00-\u9fa5]+\*[\u4e00-\u9fa5]+$/.test(
+          e.MessageText
+        )
+      ) {
+        next()
+        return
+      }
+      // 操作锁
+      const TT = await operationLock(e.UserKey)
+      const Send = useSend(e)
+      if (!TT) {
+        Send(Text('操作频繁'))
+        return
+      }
+      // lock end
+      const UID = e.UserKey
+      const UserData = e['UserData'] as Attributes<typeof user>
+      if (!(await controlByName(e, UserData, '金银坊'))) return
+      const text = e.MessageText
+      const [account, LeftName, RightName] = text
+        .replace(/^(#|\/)(金银置换|金銀置換)/, '')
+        .split('*')
+      const quantity = convertStoneQuantity(
+        Number(account),
+        LeftName,
+        RightName
       )
-    ) {
-      next()
-      return
-    }
-    // 操作锁
-    const TT = await operationLock(e.UserKey)
-    const Send = useSend(e)
-    if (!TT) {
-      Send(Text('操作频繁'))
-      return
-    }
-    // lock end
-    const UID = e.UserKey
-    const UserData = e['UserData'] as Attributes<typeof user>
-    if (!(await controlByName(e, UserData, '金银坊'))) return
-    const text = e.MessageText
-    const [account, LeftName, RightName] = text
-      .replace(/^(#|\/)(金银置换|金銀置換)/, '')
-      .split('*')
-    const quantity = convertStoneQuantity(Number(account), LeftName, RightName)
-    if (!quantity) {
-      Send(Text('[金银坊]金老三\n?你玩我呢?'))
-      return
-    }
-    const lingshi = await GameApi.Bag.searchBagByName(UID, LeftName)
-    if (!lingshi || lingshi.acount < Number(account)) {
-      Send(Text('金银坊]金老三\n?哪儿来的穷鬼!'))
-      return
-    }
-    //
-    if (LeftName == '极品灵石' && Number(account) < 20) {
-      Send(Text(`[金银坊]金老三\n少于${20}不换`))
-      return
-    }
-    if (LeftName == '上品灵石' && Number(account) < 100) {
-      Send(Text(`[金银坊]金老三\n少于${100}不换`))
-      return
-    }
-    if (LeftName == '中品灵石' && Number(account) < 500) {
-      Send(Text(`[金银坊]金老三\n少于${500}不换`))
-      return
-    }
-    if (LeftName == '下品灵石' && Number(account) < 2500) {
-      Send(Text(`[金银坊]金老三\n少于${2500}不换`))
-      return
-    }
-    const BagSize = await GameApi.Bag.backpackFull(UID)
-    // 背包未位置了直接返回了
-    if (!BagSize) {
-      Send(Text('[金银坊]金老三\n背包满了'))
-      return
-    }
-    // 先扣除
-    await GameApi.Bag.reduceBagThing(UID, [
-      {
-        name: LeftName,
-        acount: Number(account)
+      if (!quantity) {
+        Send(Text('[金银坊]金老三\n?你玩我呢?'))
+        return
       }
-    ])
-    // 再增加
-    await GameApi.Bag.addBagThing(UID, [
-      {
-        name: RightName,
-        acount: quantity
+      const lingshi = await GameApi.Bag.searchBagByName(UID, LeftName)
+      if (!lingshi || lingshi.acount < Number(account)) {
+        Send(Text('金银坊]金老三\n?哪儿来的穷鬼!'))
+        return
       }
-    ])
-    //
-    Send(Text(`[${LeftName}]*${account}\n置换成\n[${RightName}]*${quantity}`))
-    return
-  },
+      //
+      if (LeftName == '极品灵石' && Number(account) < 20) {
+        Send(Text(`[金银坊]金老三\n少于${20}不换`))
+        return
+      }
+      if (LeftName == '上品灵石' && Number(account) < 100) {
+        Send(Text(`[金银坊]金老三\n少于${100}不换`))
+        return
+      }
+      if (LeftName == '中品灵石' && Number(account) < 500) {
+        Send(Text(`[金银坊]金老三\n少于${500}不换`))
+        return
+      }
+      if (LeftName == '下品灵石' && Number(account) < 2500) {
+        Send(Text(`[金银坊]金老三\n少于${2500}不换`))
+        return
+      }
+      const BagSize = await GameApi.Bag.backpackFull(UID)
+      // 背包未位置了直接返回了
+      if (!BagSize) {
+        Send(Text('[金银坊]金老三\n背包满了'))
+        return
+      }
+      // 先扣除
+      await GameApi.Bag.reduceBagThing(UID, [
+        {
+          name: LeftName,
+          acount: Number(account)
+        }
+      ])
+      // 再增加
+      await GameApi.Bag.addBagThing(UID, [
+        {
+          name: RightName,
+          acount: quantity
+        }
+      ])
+      //
+      Send(Text(`[${LeftName}]*${account}\n置换成\n[${RightName}]*${quantity}`))
+      return
+    }
+  ],
   ['message.create', 'private.message.create']
 )
 

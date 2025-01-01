@@ -11,382 +11,380 @@ import {
 } from '@xiuxian/core/index'
 import { operationLock } from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
-
-import { platform as telegram } from '@alemonjs/telegram'
-import { platform as wechat } from '@alemonjs/wechat'
+import Xiuxian from '@src/apps/index'
+export const regular = /^(#|\/)消耗[\u4e00-\u9fa5]+(\*\d+)?$/
 export default OnResponse(
-  async (e, next) => {
-    if (e.Platform == telegram || e.Platform == wechat) {
-      // 暂时不支持
-      next()
-      return
-    }
-    if (!/^(#|\/)消耗[\u4e00-\u9fa5]+(\*\d+)?$/.test(e.MessageText)) {
-      next()
-      return
-    }
-
-    // 操作锁
-    const T = await operationLock(e.UserKey)
-    const Send = useSend(e)
-    if (!T) {
-      Send(Text('操作频繁'))
-      return
-    }
-
-    //
-
-    // 检查用户
-    const UID = e.UserKey
-
-    const UserData = e['UserData'] as Attributes<typeof user>
-
-    // 解析
-    const text = e.MessageText
-    if (!text) return
-    const [thingName, thingAcount] = text.replace(/^(#|\/)消耗/, '').split('*')
-    let count = Number(thingAcount)
-    if (isNaN(Number(count))) {
-      count = 1
-    }
-    const thing = await Bag.searchBagByName(UID, thingName)
-    if (!thing) {
-      Send(Text(`没有[${thingName}]`))
-      return
-    }
-    // 检查数量
-    if (thing.acount < count) {
-      Send(Text('数量不足'))
-      return
-    }
-    // 不是道具
-    if (thing.type != 6) {
-      await Bag.reduceBagThing(UID, [
-        {
-          name: thing.name,
-          acount: count
-        }
-      ])
-      Send(Text(`[${thingName}]损坏`))
-      return
-    }
-
-    switch (thing.id) {
-      case 600201: {
-        addExperience(
-          e,
-          UID,
-          12,
-          UserData.talent_size,
-          {
-            name: thing.name,
-            experience: thing.exp_gaspractice
-          },
-          count
-        )
-        break
+  [
+    Xiuxian.current,
+    async (e, next) => {
+      if (!/^(#|\/)消耗[\u4e00-\u9fa5]+(\*\d+)?$/.test(e.MessageText)) {
+        next()
+        return
       }
-      case 600202: {
-        addExperience(
-          e,
-          UID,
-          20,
-          UserData.talent_size,
-          {
-            name: thing.name,
-            experience: thing.exp_gaspractice
-          },
-          count
-        )
-        break
+      // 操作锁
+      const T = await operationLock(e.UserKey)
+      const Send = useSend(e)
+      if (!T) {
+        Send(Text('操作频繁'))
+        return
       }
-      case 600203: {
-        addExperience(
-          e,
-          UID,
-          28,
-          UserData.talent_size,
-          {
-            name: thing.name,
-            experience: thing.exp_gaspractice
-          },
-          count
-        )
-        break
-      }
-      case 600204: {
-        addExperience(
-          e,
-          UID,
-          36,
-          UserData.talent_size,
-          {
-            name: thing.name,
-            experience: thing.exp_gaspractice
-          },
-          count
-        )
-        break
-      }
-      /**
-       * 洗灵根
-       */
-      case 600301: {
-        const LevelData = await user_level
-          .findOne({
-            where: {
-              uid: UID,
-              type: 1
-            }
-          })
-          .then(res => res?.dataValues)
-        if (!LevelData) {
-          break
-        }
-        if (LevelData.realm > 24) {
-          Send(Text('灵根已定\n此生不可再洗髓'))
-          break
-        }
-        UserData.talent = Talent.getTalent()
-        await user.update(
-          {
-            talent: UserData.talent
-          },
-          {
-            where: {
-              uid: UID
-            }
-          }
-        )
 
-        /**
-         * 更新天赋
-         */
-        setTimeout(async () => {
-          await Skills.updataEfficiency(UID, UserData.talent)
-        }, 500)
-        /**
-         * 扣物品
-         */
+      //
+
+      // 检查用户
+      const UID = e.UserKey
+
+      const UserData = e['UserData'] as Attributes<typeof user>
+
+      // 解析
+      const text = e.MessageText
+      if (!text) return
+      const [thingName, thingAcount] = text
+        .replace(/^(#|\/)消耗/, '')
+        .split('*')
+      let count = Number(thingAcount)
+      if (isNaN(Number(count))) {
+        count = 1
+      }
+      const thing = await Bag.searchBagByName(UID, thingName)
+      if (!thing) {
+        Send(Text(`没有[${thingName}]`))
+        return
+      }
+      // 检查数量
+      if (thing.acount < count) {
+        Send(Text('数量不足'))
+        return
+      }
+      // 不是道具
+      if (thing.type != 6) {
         await Bag.reduceBagThing(UID, [
           {
             name: thing.name,
             acount: count
           }
         ])
-        /**
-         * 显示资料
-         */
-        setTimeout(() => {
-          showUserMsg(e)
-        }, 1000)
-        break
+        Send(Text(`[${thingName}]损坏`))
+        return
       }
-      /**
-       * 望灵珠
-       */
-      case 600302: {
-        UserData.talent_show = 1
 
-        await user.update(
-          {
-            talent_show: UserData.talent_show
-          },
-          {
-            where: {
-              uid: UID
-            }
-          }
-        )
-
-        /**
-         * 扣物品
-         */
-        await Bag.reduceBagThing(UID, [
-          {
-            name: thing.name,
-            acount: count
-          }
-        ])
-        /**
-         * 显示资料
-         */
-        setTimeout(() => {
-          showUserMsg(e)
-        }, 500)
-        break
-      }
-      /**
-       * 灵木
-       */
-      case 600304: {
-        const soul = thing.exp_soul * count
-        /**
-         * 扣物品
-         */
-        await Bag.reduceBagThing(UID, [
-          {
-            name: thing.name,
-            acount: count
-          }
-        ])
-        /**
-         * 增加经验
-         */
-        const { msg } = await Levels.addExperience(UID, 3, soul)
-        Send(Text(msg))
-        break
-      }
-      /**
-       * 桃花酿
-       */
-      case 600306: {
-        const soul = thing.exp_soul * count
-        /**
-         * 扣物品
-         */
-        await Bag.reduceBagThing(UID, [
-          {
-            name: thing.name,
-            acount: count
-          }
-        ])
-        /**
-         * 增加经验
-         */
-        const { msg } = await Levels.addExperience(UID, 3, soul)
-        Send(Text(msg))
-        break
-      }
-      // 金盆
-      case 600305: {
-        if (UserData.special_prestige <= 0) {
-          Send(Text('已心无杂念'))
-          break
-        }
-        UserData.special_prestige -= count
-        if (UserData.special_prestige <= 0) {
-          UserData.special_prestige = 0
-        }
-        await user.update(
-          {
-            special_prestige: UserData.special_prestige
-          },
-          {
-            where: {
-              uid: UID
-            }
-          }
-        )
-
-        /**
-         * 扣物品
-         */
-        await Bag.reduceBagThing(UID, [
-          {
-            name: thing.name,
-            acount: count
-          }
-        ])
-        Send(Text(`成功洗去[煞气]*${thingAcount}~`))
-        break
-      }
-      /**
-       * 传送符
-       */
-      case 600402: {
-        /**
-         * 传送符用来回城池的
-         */
-        const PositionData = await map_position
-          .findAll({
-            where: {
-              attribute: [1, 6]
-            }
-          })
-          .then(res => res.map(item => item?.dataValues))
-        const point = {
-          type: 0,
-          attribute: 0,
-          name: '记录',
-          x: 0,
-          y: 0,
-          z: 0
-        }
-        let closestPosition: null | number = null
-        for await (const item of PositionData) {
-          const x = (item?.x1 + item?.x2) / 2,
-            y = (item?.y1 + item?.y2) / 2,
-            z = (item?.z1 + item?.z1) / 2
-          const distance = Math.sqrt(
-            Math.pow(x - UserData.pont_x, 2) +
-              Math.pow(y - UserData.pont_y, 2) +
-              Math.pow(z - UserData.pont_z, 2)
+      switch (thing.id) {
+        case 600201: {
+          addExperience(
+            e,
+            UID,
+            12,
+            UserData.talent_size,
+            {
+              name: thing.name,
+              experience: thing.exp_gaspractice
+            },
+            count
           )
-          if (!closestPosition || distance < closestPosition) {
-            closestPosition = distance
-            point.type = item?.type
-            point.name = item?.name
-            point.attribute = item?.attribute
-            point.x = x
-            point.y = y
-            point.z = z
-          }
+          break
         }
+        case 600202: {
+          addExperience(
+            e,
+            UID,
+            20,
+            UserData.talent_size,
+            {
+              name: thing.name,
+              experience: thing.exp_gaspractice
+            },
+            count
+          )
+          break
+        }
+        case 600203: {
+          addExperience(
+            e,
+            UID,
+            28,
+            UserData.talent_size,
+            {
+              name: thing.name,
+              experience: thing.exp_gaspractice
+            },
+            count
+          )
+          break
+        }
+        case 600204: {
+          addExperience(
+            e,
+            UID,
+            36,
+            UserData.talent_size,
+            {
+              name: thing.name,
+              experience: thing.exp_gaspractice
+            },
+            count
+          )
+          break
+        }
+        /**
+         * 洗灵根
+         */
+        case 600301: {
+          const LevelData = await user_level
+            .findOne({
+              where: {
+                uid: UID,
+                type: 1
+              }
+            })
+            .then(res => res?.dataValues)
+          if (!LevelData) {
+            break
+          }
+          if (LevelData.realm > 24) {
+            Send(Text('灵根已定\n此生不可再洗髓'))
+            break
+          }
+          UserData.talent = Talent.getTalent()
+          await user.update(
+            {
+              talent: UserData.talent
+            },
+            {
+              where: {
+                uid: UID
+              }
+            }
+          )
 
-        await user.update(
-          {
-            pont_x: point.x,
-            pont_y: point.y,
-            pont_z: point.z,
-            point_type: point.type,
-            pont_attribute: point.attribute
-          },
-          {
-            where: {
-              uid: UID
+          /**
+           * 更新天赋
+           */
+          setTimeout(async () => {
+            await Skills.updataEfficiency(UID, UserData.talent)
+          }, 500)
+          /**
+           * 扣物品
+           */
+          await Bag.reduceBagThing(UID, [
+            {
+              name: thing.name,
+              acount: count
+            }
+          ])
+          /**
+           * 显示资料
+           */
+          setTimeout(() => {
+            showUserMsg(e)
+          }, 1000)
+          break
+        }
+        /**
+         * 望灵珠
+         */
+        case 600302: {
+          UserData.talent_show = 1
+
+          await user.update(
+            {
+              talent_show: UserData.talent_show
+            },
+            {
+              where: {
+                uid: UID
+              }
+            }
+          )
+
+          /**
+           * 扣物品
+           */
+          await Bag.reduceBagThing(UID, [
+            {
+              name: thing.name,
+              acount: count
+            }
+          ])
+          /**
+           * 显示资料
+           */
+          setTimeout(() => {
+            showUserMsg(e)
+          }, 500)
+          break
+        }
+        /**
+         * 灵木
+         */
+        case 600304: {
+          const soul = thing.exp_soul * count
+          /**
+           * 扣物品
+           */
+          await Bag.reduceBagThing(UID, [
+            {
+              name: thing.name,
+              acount: count
+            }
+          ])
+          /**
+           * 增加经验
+           */
+          const { msg } = await Levels.addExperience(UID, 3, soul)
+          Send(Text(msg))
+          break
+        }
+        /**
+         * 桃花酿
+         */
+        case 600306: {
+          const soul = thing.exp_soul * count
+          /**
+           * 扣物品
+           */
+          await Bag.reduceBagThing(UID, [
+            {
+              name: thing.name,
+              acount: count
+            }
+          ])
+          /**
+           * 增加经验
+           */
+          const { msg } = await Levels.addExperience(UID, 3, soul)
+          Send(Text(msg))
+          break
+        }
+        // 金盆
+        case 600305: {
+          if (UserData.special_prestige <= 0) {
+            Send(Text('已心无杂念'))
+            break
+          }
+          UserData.special_prestige -= count
+          if (UserData.special_prestige <= 0) {
+            UserData.special_prestige = 0
+          }
+          await user.update(
+            {
+              special_prestige: UserData.special_prestige
+            },
+            {
+              where: {
+                uid: UID
+              }
+            }
+          )
+
+          /**
+           * 扣物品
+           */
+          await Bag.reduceBagThing(UID, [
+            {
+              name: thing.name,
+              acount: count
+            }
+          ])
+          Send(Text(`成功洗去[煞气]*${thingAcount}~`))
+          break
+        }
+        /**
+         * 传送符
+         */
+        case 600402: {
+          /**
+           * 传送符用来回城池的
+           */
+          const PositionData = await map_position
+            .findAll({
+              where: {
+                attribute: [1, 6]
+              }
+            })
+            .then(res => res.map(item => item?.dataValues))
+          const point = {
+            type: 0,
+            attribute: 0,
+            name: '记录',
+            x: 0,
+            y: 0,
+            z: 0
+          }
+          let closestPosition: null | number = null
+          for await (const item of PositionData) {
+            const x = (item?.x1 + item?.x2) / 2,
+              y = (item?.y1 + item?.y2) / 2,
+              z = (item?.z1 + item?.z1) / 2
+            const distance = Math.sqrt(
+              Math.pow(x - UserData.pont_x, 2) +
+                Math.pow(y - UserData.pont_y, 2) +
+                Math.pow(z - UserData.pont_z, 2)
+            )
+            if (!closestPosition || distance < closestPosition) {
+              closestPosition = distance
+              point.type = item?.type
+              point.name = item?.name
+              point.attribute = item?.attribute
+              point.x = x
+              point.y = y
+              point.z = z
             }
           }
-        )
 
-        Send(Text(`${UserData.name}成功传送至${point.name}`))
+          await user.update(
+            {
+              pont_x: point.x,
+              pont_y: point.y,
+              pont_z: point.z,
+              point_type: point.type,
+              pont_attribute: point.attribute
+            },
+            {
+              where: {
+                uid: UID
+              }
+            }
+          )
 
+          Send(Text(`${UserData.name}成功传送至${point.name}`))
+
+          /**
+           * 扣物品
+           */
+          await Bag.reduceBagThing(UID, [
+            {
+              name: thing.name,
+              acount: count
+            }
+          ])
+          break
+        }
         /**
-         * 扣物品
+         * 引魂灯
          */
-        await Bag.reduceBagThing(UID, [
-          {
-            name: thing.name,
-            acount: count
-          }
-        ])
-        break
-      }
-      /**
-       * 引魂灯
-       */
-      case 600403: {
-        reCreateMsg(e)
-          .then(() => {
-            Send(Text('操作完成'))
-          })
-          .catch(err => {
-            console.error(err)
-            Send(Text('重生数据错误'))
-          })
+        case 600403: {
+          reCreateMsg(e)
+            .then(() => {
+              Send(Text('操作完成'))
+            })
+            .catch(err => {
+              console.error(err)
+              Send(Text('重生数据错误'))
+            })
 
-        break
+          break
+        }
+        /**
+         * 开天令
+         */
+        case 600401: {
+          Send(Text('开天令:开辟宗门驻地\n————————\n此物暂未开放'))
+          break
+        }
       }
-      /**
-       * 开天令
-       */
-      case 600401: {
-        Send(Text('开天令:开辟宗门驻地\n————————\n此物暂未开放'))
-        break
-      }
+      return
     }
-    return
-  },
+  ],
   ['message.create', 'private.message.create']
 )
 

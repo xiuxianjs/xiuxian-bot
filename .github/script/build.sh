@@ -1,23 +1,25 @@
 #!/bin/bash
 
-# 创建 dist
-mkdir dist
-# 复制
-cp -rf .npmrc ./dist
-# 创建 build
-mkdir build
-# 删除 npmrc
+# Create directories
+mkdir -p dist build
+
+# Copy necessary files to dist
+cp -rf .npmrc index.js dist/
+
+# Remove .npmrc from the current directory
 rm -rf .npmrc
-# 安装yarn
-npm install yarn@1.12.1 -g
-# 加载依赖
+
+# Install yarn globally
+npm install -g yarn@1.12.1
+
+# Load dependencies using yarn
 yarn install --ignore-engines
-# 打包
+
+# Build the project
 yarn build
-# 复制文件
-cp -rf dist/.npmrc ./build
-cp -rf lib ./build
-cp -rf .puppeteerrc.cjs ./build
-cp -rf package.json ./build
-cp -rf pm2.config.cjs ./build
+
+# Copy files to build
+cp -rf dist/.npmrc dist/index.js lib .puppeteerrc.cjs package.json pm2.config.cjs build/
+
+# List contents of the build directory
 ls build

@@ -1,87 +1,85 @@
 import { Text, useSend } from 'alemonjs'
 
 import * as GameApi from '@xiuxian/core/index'
-import { platform as telegram } from '@alemonjs/telegram'
-import { platform as wechat } from '@alemonjs/wechat'
+import Xiuxian from '@src/apps/index'
+export const regular = /^(#|\/)仙石兑换.*$/
 export default OnResponse(
-  async (e, next) => {
-    if (e.Platform == telegram || e.Platform == wechat) {
-      // 暂时不支持
-      next()
-      return
-    }
-    if (!/^(#|\/)仙石兑换.*$/.test(e.MessageText)) {
-      next()
-      return
-    }
-    // lock start
-    const T = await GameApi.operationLock(e.UserKey)
-    const Send = useSend(e)
-    if (!T) {
-      Send(Text('操作频繁'))
-      return
-    }
+  [
+    Xiuxian.current,
+    async (e, next) => {
+      if (!/^(#|\/)仙石兑换.*$/.test(e.MessageText)) {
+        next()
+        return
+      }
+      // lock start
+      const T = await GameApi.operationLock(e.UserKey)
+      const Send = useSend(e)
+      if (!T) {
+        Send(Text('操作频繁'))
+        return
+      }
 
-    //检查用户
-    const UID = e.UserKey
+      //检查用户
+      const UID = e.UserKey
 
-    //检查是不是在时间内
-    if (
-      !(
-        Date.now() >= new Date('2024-04-08').getTime() &&
-        Date.now() <= new Date('2024-04-11').getTime()
-      )
-    ) {
-      Send(Text('未开放'))
+      //检查是不是在时间内
+      if (
+        !(
+          Date.now() >= new Date('2024-04-08').getTime() &&
+          Date.now() <= new Date('2024-04-11').getTime()
+        )
+      ) {
+        Send(Text('未开放'))
+        return
+      }
+
+      //检查是不是在联盟
+      const text = e.MessageText
+      const thingName = text.replace(/^(#|\/)仙石兑换/, '')
+      // 检查背包
+      const BagSize = await GameApi.Bag.backpackFull(UID)
+      // 背包未位置了直接返回了
+      if (!BagSize) {
+        Send(Text('储物袋空间不足'))
+        return
+      }
+      if (thingName == '天道剑') {
+        const bag = await GameApi.Bag.searchBagByName(UID, '仙石')
+        if (!bag || bag.acount < 4) {
+          Send(Text('仙石不足'))
+          return
+        }
+        const bagdata = await GameApi.Bag.searchBagByName(UID, '沉香')
+        if (!bagdata || bagdata.acount < 50) {
+          Send(Text('沉香不足'))
+          return
+        }
+        GameApi.Bag.reduceBagThing(UID, [
+          { name: '仙石', acount: 4 },
+          { name: '沉香', acount: 50 }
+        ])
+        GameApi.Bag.addBagThing(UID, [{ name: '天道剑', acount: 1 }])
+      } else if (thingName == '天罡神盾袍') {
+        const bag = await GameApi.Bag.searchBagByName(UID, '仙石')
+        if (!bag || bag.acount < 4) {
+          Send(Text('仙石不足'))
+          return
+        }
+        const bagdata = await GameApi.Bag.searchBagByName(UID, '沉香')
+        if (!bagdata || bagdata.acount < 40) {
+          Send(Text('沉香不足'))
+          return
+        }
+        GameApi.Bag.reduceBagThing(UID, [
+          { name: '仙石', acount: 4 },
+          { name: '沉香', acount: 40 }
+        ])
+        GameApi.Bag.addBagThing(UID, [{ name: '天罡神盾袍', acount: 1 }])
+      } else {
+        Send(Text(`哪来的${thingName}`))
+      }
       return
     }
-
-    //检查是不是在联盟
-    const text = e.MessageText
-    const thingName = text.replace(/^(#|\/)仙石兑换/, '')
-    // 检查背包
-    const BagSize = await GameApi.Bag.backpackFull(UID)
-    // 背包未位置了直接返回了
-    if (!BagSize) {
-      Send(Text('储物袋空间不足'))
-      return
-    }
-    if (thingName == '天道剑') {
-      const bag = await GameApi.Bag.searchBagByName(UID, '仙石')
-      if (!bag || bag.acount < 4) {
-        Send(Text('仙石不足'))
-        return
-      }
-      const bagdata = await GameApi.Bag.searchBagByName(UID, '沉香')
-      if (!bagdata || bagdata.acount < 50) {
-        Send(Text('沉香不足'))
-        return
-      }
-      GameApi.Bag.reduceBagThing(UID, [
-        { name: '仙石', acount: 4 },
-        { name: '沉香', acount: 50 }
-      ])
-      GameApi.Bag.addBagThing(UID, [{ name: '天道剑', acount: 1 }])
-    } else if (thingName == '天罡神盾袍') {
-      const bag = await GameApi.Bag.searchBagByName(UID, '仙石')
-      if (!bag || bag.acount < 4) {
-        Send(Text('仙石不足'))
-        return
-      }
-      const bagdata = await GameApi.Bag.searchBagByName(UID, '沉香')
-      if (!bagdata || bagdata.acount < 40) {
-        Send(Text('沉香不足'))
-        return
-      }
-      GameApi.Bag.reduceBagThing(UID, [
-        { name: '仙石', acount: 4 },
-        { name: '沉香', acount: 40 }
-      ])
-      GameApi.Bag.addBagThing(UID, [{ name: '天罡神盾袍', acount: 1 }])
-    } else {
-      Send(Text(`哪来的${thingName}`))
-    }
-    return
-  },
+  ],
   ['message.create', 'private.message.create']
 )

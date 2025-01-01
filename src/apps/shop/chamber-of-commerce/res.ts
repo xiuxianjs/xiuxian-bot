@@ -2,44 +2,44 @@ import { controlByName } from '@xiuxian/api/index'
 import * as DB from '@xiuxian/db/index'
 import * as GameApi from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
-import { platform as telegram } from '@alemonjs/telegram'
-import { platform as wechat } from '@alemonjs/wechat'
+import Xiuxian from '@src/apps/index'
+export const regular =
+  /^(#|\/)查看(商会|商會)(武器|护具|法宝|丹药|功法|道具|材料|装备)?$/
 export default OnResponse(
-  async (e, next) => {
-    if (e.Platform == telegram || e.Platform == wechat) {
-      // 暂时不支持
-      next()
-      return
-    }
-    if (
-      !/^(#|\/)查看(商会|商會)(武器|护具|法宝|丹药|功法|道具|材料|装备)?$/.test(
-        e.MessageText
-      )
-    ) {
-      next()
-      return
-    }
-    const UserData = e['UserData'] as DB.Attributes<typeof DB.user>
-    if (!(await controlByName(e, UserData, '联盟'))) return
-    const start_msg = ['___[联盟商会]___', '[/兑换+物品名*数量]']
-    const text = e.MessageText
-    const type = text.replace(/^(#|\/)查看(商会|商會)/, '')
-    const commoditiesList = await DB.goods_alliancemall
-      .findAll({
-        include: [
-          {
-            model: DB.goods,
-            where: {
-              type: GameApi.Goods.mapType[type] ?? GameApi.Goods.mapType['道具']
+  [
+    Xiuxian.current,
+    async (e, next) => {
+      if (
+        !/^(#|\/)查看(商会|商會)(武器|护具|法宝|丹药|功法|道具|材料|装备)?$/.test(
+          e.MessageText
+        )
+      ) {
+        next()
+        return
+      }
+      const UserData = e['UserData'] as DB.Attributes<typeof DB.user>
+      if (!(await controlByName(e, UserData, '联盟'))) return
+      const start_msg = ['___[联盟商会]___', '[/兑换+物品名*数量]']
+      const text = e.MessageText
+      const type = text.replace(/^(#|\/)查看(商会|商會)/, '')
+      const commoditiesList = await DB.goods_alliancemall
+        .findAll({
+          include: [
+            {
+              model: DB.goods,
+              where: {
+                type:
+                  GameApi.Goods.mapType[type] ?? GameApi.Goods.mapType['道具']
+              }
             }
-          }
-        ]
-      })
-      .then(item => item.map(item => item?.dataValues['good']['dataValues']))
-    const Send = useSend(e)
-    const end_msg = GameApi.Goods.getListMsg(commoditiesList, '声望')
-    Send(Text(start_msg.concat(end_msg).join('\n')))
-    return
-  },
+          ]
+        })
+        .then(item => item.map(item => item?.dataValues['good']['dataValues']))
+      const Send = useSend(e)
+      const end_msg = GameApi.Goods.getListMsg(commoditiesList, '声望')
+      Send(Text(start_msg.concat(end_msg).join('\n')))
+      return
+    }
+  ],
   ['message.create', 'private.message.create']
 )

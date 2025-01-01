@@ -15,35 +15,33 @@ import { Attributes, user } from '@src/xiuxian/db'
  * 同时灵根变异可对炼丹有加成
  * 灵根多，加成的下降
  */
-import { platform as telegram } from '@alemonjs/telegram'
-import { platform as wechat } from '@alemonjs/wechat'
+import Xiuxian from '@src/apps/index'
+export const regular = /^(#|\/)查看协会$/
 export default OnResponse(
-  async (e, next) => {
-    if (e.Platform == telegram || e.Platform == wechat) {
-      // 暂时不支持
-      next()
-      return
-    }
-    if (!/^(#|\/)查看协会$/.test(e.MessageText)) {
-      next()
-      return
-    }
-    const UserData = e['UserData'] as Attributes<typeof user>
-    if (!(await controlByName(e, UserData, '协会'))) return
-    const Send = useSend(e)
+  [
+    Xiuxian.current,
+    async (e, next) => {
+      if (!/^(#|\/)查看协会$/.test(e.MessageText)) {
+        next()
+        return
+      }
+      const UserData = e['UserData'] as Attributes<typeof user>
+      if (!(await controlByName(e, UserData, '协会'))) return
+      const Send = useSend(e)
 
-    Send(
-      Text(
-        [
-          '[协会执事]😳叶子凡\n',
-          '欢迎来到修仙协会\n',
-          '化神境之后,可交付灵石获得学徒身份\n',
-          '当前可领取[/炼器师学徒]'
-        ].join('')
+      Send(
+        Text(
+          [
+            '[协会执事]😳叶子凡\n',
+            '欢迎来到修仙协会\n',
+            '化神境之后,可交付灵石获得学徒身份\n',
+            '当前可领取[/炼器师学徒]'
+          ].join('')
+        )
       )
-    )
 
-    //
-  },
+      //
+    }
+  ],
   ['message.create', 'private.message.create']
 )

@@ -2,32 +2,31 @@ import { Image, useSend } from 'alemonjs'
 import { pictureRender } from '@xiuxian/img/index'
 import json_update from '@src/assets/defset/update.json'
 const helpData = {}
-import { platform as telegram } from '@alemonjs/telegram'
-import { platform as wechat } from '@alemonjs/wechat'
+import Xiuxian from '@src/apps/index'
+export const regular = /^(#|\/)查看更新$/
 export default OnResponse(
-  async (e, next) => {
-    if (e.Platform == telegram || e.Platform == wechat) {
-      // 暂时不支持
-      next()
+  [
+    Xiuxian.current,
+    async (e, next) => {
+      if (!/^(#|\/)查看更新$/.test(e.MessageText)) {
+        next()
+        return
+      }
+      const name = 'help-update'
+      const Send = useSend(e)
+      if (Object.prototype.hasOwnProperty.call(helpData, name)) {
+        Send(Image(helpData[name]))
+        return
+      }
+      const data = json_update
+      // 得 buffer
+      helpData[name] = await pictureRender('UpdateComponent', {
+        data: data,
+        theme: 'dark'
+      }).catch(console.error)
+      Send(Image(helpData[name]))
       return
     }
-    if (!/^(#|\/)查看更新$/.test(e.MessageText)) {
-      next()
-      return
-    }
-    const name = 'help-update'
-    const Send = useSend(e)
-    if (Object.prototype.hasOwnProperty.call(helpData, name)) {
-      Send(Image(helpData[name], 'buffer'))
-      return
-    }
-    const data = json_update
-    // 得 buffer
-    helpData[name] = await pictureRender('UpdateComponent', {
-      data: data
-    }).catch(console.error)
-    Send(Image(helpData[name], 'buffer'))
-    return
-  },
+  ],
   ['message.create', 'private.message.create']
 )

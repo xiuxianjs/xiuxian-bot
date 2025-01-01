@@ -2,32 +2,30 @@ import { Text, useSend } from 'alemonjs'
 
 import { showUserMsg } from '@xiuxian/api/index'
 import { Skills, Equipment } from '@xiuxian/core/index'
-import { platform as telegram } from '@alemonjs/telegram'
-import { platform as wechat } from '@alemonjs/wechat'
+import Xiuxian from '@src/apps/index'
+export const regular = /^(#|\/)我的资料$/
 export default OnResponse(
-  async (e, next) => {
-    if (e.Platform == telegram || e.Platform == wechat) {
-      // 暂时不支持
-      next()
-      return
-    }
-    if (!/^(#|\/)我的资料$/.test(e.MessageText)) {
-      next()
-      return
-    }
-    const UID = e.UserKey
-    const UserData = e['UserData']
-    Promise.all([
-      Skills.updataEfficiency(UID, UserData.talent),
-      Equipment.updatePanel(UID, UserData.battle_blood_now),
-      showUserMsg(e)
-    ]).catch(err => {
-      console.error(err)
-      const Send = useSend(e)
-      Send(Text('数据处理错误'))
-    })
+  [
+    Xiuxian.current,
+    async (e, next) => {
+      if (!/^(#|\/)我的资料$/.test(e.MessageText)) {
+        next()
+        return
+      }
+      const UID = e.UserKey
+      const UserData = e['UserData']
+      Promise.all([
+        Skills.updataEfficiency(UID, UserData.talent),
+        Equipment.updatePanel(UID, UserData.battle_blood_now),
+        showUserMsg(e)
+      ]).catch(err => {
+        console.error(err)
+        const Send = useSend(e)
+        Send(Text('数据处理错误'))
+      })
 
-    return
-  },
+      return
+    }
+  ],
   ['message.create', 'private.message.create']
 )

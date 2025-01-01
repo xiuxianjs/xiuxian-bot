@@ -2,65 +2,63 @@ import { Text, useSend } from 'alemonjs'
 
 import * as DB from '@xiuxian/db/index'
 import { operationLock } from '@src/xiuxian/core'
-import { platform as telegram } from '@alemonjs/telegram'
-import { platform as wechat } from '@alemonjs/wechat'
+import Xiuxian from '@src/apps/index'
+export const regular = /^(#|\/)设置密码/
 export default OnResponse(
-  async (e, next) => {
-    if (e.Platform == telegram || e.Platform == wechat) {
-      // 暂时不支持
-      next()
-      return
-    }
-    if (!/^(#|\/)设置密码/.test(e.MessageText)) {
-      next()
-      return
-    }
-    const TT = await operationLock(e.UserKey)
-    const Send = useSend(e)
-    if (!TT) {
-      Send(Text('操作频繁'))
-      return
-    }
+  [
+    Xiuxian.current,
+    async (e, next) => {
+      if (!/^(#|\/)设置密码/.test(e.MessageText)) {
+        next()
+        return
+      }
+      const TT = await operationLock(e.UserKey)
+      const Send = useSend(e)
+      if (!TT) {
+        Send(Text('操作频繁'))
+        return
+      }
 
-    // 获取用户信息
-    const UID = e.UserKey
-    // 解析密码
-    const text = e.MessageText
-    const password = text.replace(/^(#|\/)设置密码/, '')
-    const regex = /^[a-zA-Z0-9]+$/
+      // 获取用户信息
+      const UID = e.UserKey
+      // 解析密码
+      const text = e.MessageText
+      const password = text.replace(/^(#|\/)设置密码/, '')
+      const regex = /^[a-zA-Z0-9]+$/
 
-    if (!regex.test(password)) {
-      Send(Text('密码必须只包含数字或字母'))
-      return
-    } else if (password.length < 6 || password.length > 22) {
-      Send(Text('密码大于6位或小于22位'))
-      return
-    } else {
-      // 更新用户密码
-      DB.user
-        .update(
-          {
-            password: password
-          },
-          {
-            where: {
-              uid: UID
+      if (!regex.test(password)) {
+        Send(Text('密码必须只包含数字或字母'))
+        return
+      } else if (password.length < 6 || password.length > 22) {
+        Send(Text('密码大于6位或小于22位'))
+        return
+      } else {
+        // 更新用户密码
+        DB.user
+          .update(
+            {
+              password: password
+            },
+            {
+              where: {
+                uid: UID
+              }
             }
-          }
-        )
-        .then(res => {
-          if (res.includes(0)) {
+          )
+          .then(res => {
+            if (res.includes(0)) {
+              Send(Text('设置错误'))
+            } else {
+              Send(Text('设置成功'))
+            }
+          })
+          .catch(err => {
+            console.error(err)
             Send(Text('设置错误'))
-          } else {
-            Send(Text('设置成功'))
-          }
-        })
-        .catch(err => {
-          console.error(err)
-          Send(Text('设置错误'))
-        })
+          })
+      }
+      return
     }
-    return
-  },
+  ],
   ['message.create', 'private.message.create']
 )

@@ -1,13 +1,19 @@
-import { user } from '@xiuxian/db/index'
-import { Text, useSend, useSubscribe } from 'alemonjs'
-import { operationLocalLock } from '@src/middleware/util'
-import NewsUser from '@src/middleware/newuser'
-import { newcomer } from './newcomer'
 import { platform as telegram } from '@alemonjs/telegram'
 import { platform as wechat } from '@alemonjs/wechat'
+import { user } from '@xiuxian/db/index'
+import { Text, useSend, useSubscribe } from 'alemonjs'
 import { updatePlayer } from '@src/xiuxian/core/src/system/player'
-export default OnMiddleware(
+import { operationLocalLock } from './util'
+import { newcomer } from './newcomer'
+import NewsUser from './newuser'
+export default OnResponse(
   async (e, next) => {
+    if (e.Platform == telegram || e.Platform == wechat) {
+      // 暂时不支持
+      next()
+      return
+    }
+
     // send
     const Send = useSend(e)
 
@@ -20,15 +26,8 @@ export default OnMiddleware(
       return
     }
 
-    if (e.Platform == telegram || e.Platform == wechat) {
-      // 暂时不支持
-      next()
-      return
-    }
-
     // user id
     const UID = e.UserKey
-
     // data
     const data = await user.findOneValue({
       where: {
@@ -39,7 +38,7 @@ export default OnMiddleware(
     if (!data) {
       // 开始创建存档
       updatePlayer(UID).then(() => {
-        Send(Text('数据生成完成.\n可发送[/修仙帮助]了解更多'))
+        Send(Text('数据生成完成.\n可发送[/开启新人指引]继续...'))
       })
       return
     }
@@ -48,9 +47,7 @@ export default OnMiddleware(
     if (data.newcomer != 0) {
       // 携带数据
       e['UserData'] = data
-      // continue
-      next()
-      return
+      return true
     }
 
     const closeNewComer = () => {
@@ -61,17 +58,13 @@ export default OnMiddleware(
     // 不存步骤
     if (!newcomer[data.newcomer_step]) {
       closeNewComer()
-
       // 携带数据
       e['UserData'] = data
-      // continue
-      next()
-      return
+      return true
     }
 
-    if (/^\/(跳过|跳过新手指引|跳过指引)/.test(e.MessageText)) {
+    if (/^\/(跳过)(新手指引|指引)?/.test(e.MessageText)) {
       closeNewComer()
-
       Send(
         Text(
           [
@@ -81,7 +74,6 @@ export default OnMiddleware(
           ].join('\n')
         )
       )
-
       return
     }
 
@@ -90,7 +82,9 @@ export default OnMiddleware(
     if (!c.reg.test(e.MessageText)) {
       // 新手指引指令错误
       Send(
-        Text(`小柠檬: 开始新手指引,请发送[${newcomer[data.newcomer_step].msg}]`)
+        Text(
+          `小柠檬: \n开始新手指引,请发送[${newcomer[data.newcomer_step].msg}]\n跳过指引可发送[/跳过]`
+        )
       )
     } else {
       // 新人必须是满血的。
@@ -107,15 +101,13 @@ export default OnMiddleware(
       )
 
       // 携带数据
-      Send(Text(['小柠檬：', c.ok].join('\n')))
+      Send(Text(['小柠檬：', c.ok, `\n跳过指引可发送[/跳过]`].join('\n')))
     }
 
+    // 订阅
     const [subscribe] = useSubscribe(e, 'message.create')
-
     // 锁定用户的所有操作？
     subscribe(NewsUser.current, ['UserId'])
-
-    return
   },
   ['message.create', 'private.message.create']
 )

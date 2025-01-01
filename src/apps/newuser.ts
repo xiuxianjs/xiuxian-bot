@@ -1,14 +1,9 @@
 import { user } from '@xiuxian/db/index'
 import { Text, useSend } from 'alemonjs'
-import { newcomer } from '@src/middleware/newcomer'
 import { operationLock } from '@src/xiuxian/core'
-
-/**
- * 完成的新手指引
- * 是独立的环境。
- */
 import { platform as telegram } from '@alemonjs/telegram'
 import { platform as wechat } from '@alemonjs/wechat'
+import { newcomer } from './newcomer'
 export default OnResponse(
   async (e, next) => {
     if (e.Platform == telegram || e.Platform == wechat) {
@@ -16,7 +11,6 @@ export default OnResponse(
       next()
       return
     }
-    //
     const Send = useSend(e)
 
     // 操作锁
