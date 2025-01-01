@@ -75,20 +75,20 @@ user_group_list.init(
       allowNull: false,
       comment: '组队信息'
     },
-    gid: {
-      type: DataTypes.BIGINT,
-      comment: '编号',
-      references: {
-        model: user_group,
-        key: 'id'
-      }
-    },
     uid: {
       type: DataTypes.STRING(50),
       comment: '编号',
       references: {
         model: user,
         key: 'uid'
+      }
+    },
+    gid: {
+      type: DataTypes.BIGINT,
+      comment: '编号',
+      references: {
+        model: user_group,
+        key: 'id'
       }
     }
   },

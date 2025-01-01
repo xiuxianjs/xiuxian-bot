@@ -78,6 +78,14 @@ user_group.init(
       allowNull: false,
       comment: '组队列表'
     },
+    uid: {
+      type: DataTypes.STRING(50),
+      comment: '编号',
+      references: {
+        model: user,
+        key: 'uid'
+      }
+    },
     name: {
       type: DataTypes.STRING(50),
       comment: '队长名'
@@ -86,14 +94,6 @@ user_group.init(
       type: DataTypes.BIGINT,
       comment: '是否开启申请',
       defaultValue: 1
-    },
-    uid: {
-      type: DataTypes.STRING(50),
-      comment: '编号',
-      references: {
-        model: user,
-        key: 'uid'
-      }
     }
   },
   {

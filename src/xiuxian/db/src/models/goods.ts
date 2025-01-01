@@ -98,7 +98,7 @@ goods.init(
     },
     name: {
       type: DataTypes.STRING(20),
-      primaryKey: true, // 确保此字段是主键或唯一键
+      primaryKey: true,
       allowNull: false,
       comment: '名字唯一'
     },

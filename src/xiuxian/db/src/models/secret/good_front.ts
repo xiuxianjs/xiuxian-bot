@@ -82,8 +82,10 @@ good_front.init(
       autoIncrement: true,
       allowNull: false
     },
+    name: DataTypes.STRING(50),
     gid: {
       type: DataTypes.BIGINT,
+      comment: '商品编号',
       references: {
         model: goods,
         key: 'id'
@@ -96,7 +98,6 @@ good_front.init(
         key: 'id'
       }
     },
-    name: DataTypes.STRING(50),
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE
   },

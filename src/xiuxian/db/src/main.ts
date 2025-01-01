@@ -179,6 +179,12 @@ export const useBelongsTo = () => {
   /**
    * front
    */
+
+  models.good_front.belongsTo(models.goods, {
+    foreignKey: 'gid',
+    targetKey: 'id'
+  })
+
   models.demon_front.belongsTo(models.demon, {
     foreignKey: 'did',
     targetKey: 'id'
@@ -186,11 +192,6 @@ export const useBelongsTo = () => {
 
   models.demon_front.belongsTo(models.front, {
     foreignKey: 'fid',
-    targetKey: 'id'
-  })
-
-  models.good_front.belongsTo(models.goods, {
-    foreignKey: 'gid',
     targetKey: 'id'
   })
 
