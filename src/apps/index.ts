@@ -3,7 +3,7 @@ import { platform as wechat } from '@alemonjs/wechat'
 import { user } from '@xiuxian/db/index'
 import { Text, useSend, useSubscribe } from 'alemonjs'
 import { updatePlayer } from '@src/xiuxian/core/src/system/player'
-import { operationLocalLock } from './util'
+import { operationLocalLock, testTip } from './util'
 import { newcomer } from './newcomer'
 import NewsUser from './newuser'
 export default OnResponse(
@@ -16,6 +16,11 @@ export default OnResponse(
 
     // send
     const Send = useSend(e)
+
+    if (testTip(e.UserKey)) {
+      Send(Text('游玩提示: 删档测试中。。。'))
+      return
+    }
 
     // 本地内存操作锁，防止频繁操作
     const offLocalLock = operationLocalLock(e.UserKey)

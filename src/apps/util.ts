@@ -15,6 +15,7 @@ export const createEventName = (url: string, select = 'apps') => {
 }
 
 const cdCache = {}
+
 /**
  * @param UID
  * @returns
@@ -27,4 +28,20 @@ export const operationLocalLock = (UID: string) => {
   }
   cdCache[UID] = Now
   return true
+}
+
+const testCache = {}
+
+/**
+ * @param UID
+ * @returns
+ */
+/**
+ * @param UID
+ * @returns
+ */
+export const testTip = (UID: string) => {
+  if (testCache) return true
+  testCache[UID] = true
+  return false
 }

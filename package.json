@@ -25,6 +25,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "axios": "^1.7.9",
     "bullmq": "^4.12.7",
     "chat-space": "^0.0.7",
     "classnames": "^2.5.1",
@@ -43,11 +44,11 @@
   },
   "devDependencies": {
     "@alemonjs/discord": "^0.2.1",
-    "@alemonjs/gui": "^0.2.5",
+    "@alemonjs/gui": "^0.2.6",
     "@alemonjs/kook": "^0.2.1",
     "@alemonjs/onebot": "^0.2.1",
     "@alemonjs/qq": "^0.2.1",
-    "@alemonjs/qq-bot": "^0.0.5",
+    "@alemonjs/qq-bot": "^0.0.6",
     "@alemonjs/qq-group-bot": "^0.2.2",
     "@alemonjs/qq-guild-bot": "^0.2.2",
     "@alemonjs/telegram": "^0.2.1",
