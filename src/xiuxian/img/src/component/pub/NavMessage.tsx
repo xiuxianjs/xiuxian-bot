@@ -7,6 +7,7 @@ import { Avatar } from './Avatar.js'
 
 type PropsType = {
   data: PersonalInformationType
+  avatar: string
 }
 
 /**
@@ -14,7 +15,7 @@ type PropsType = {
  * @param param0
  * @returns
  */
-export default function NavMessage({ data }: PropsType) {
+export default function NavMessage({ data, avatar }: PropsType) {
   // 现在的血量   血量总量
   const value = Math.floor(
     ((data?.battle_blood_now ?? 0) / (data?.battle_blood_limit ?? 1)) * 100
@@ -128,14 +129,14 @@ export default function NavMessage({ data }: PropsType) {
           // 2
         }
         <div className="flex-1 m-auto relative text-center">
-          {data.avatar && data.avatar != '' ? (
+          {avatar ? (
             <Avatar
               className="size-52 rounded-full m-auto border-2 border-white"
               src={data.avatar}
               alt="User Avatar"
             />
           ) : (
-            <div className="size-52 rounded-full m-auto"></div>
+            <div className="size-52 rounded-full m-auto border"></div>
           )}
           {
             // 血条

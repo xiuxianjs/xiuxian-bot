@@ -9,8 +9,9 @@ import { ThemesEmun } from './pub/ThemeBackground.js'
 type PropsType = {
   data: PersonalInformationType
   theme: ThemesEmun
+  avatar: string
 }
-export default function App({ data, theme }: PropsType) {
+export default function App({ data, theme, avatar }: PropsType) {
   return (
     <html>
       <head>
@@ -18,7 +19,7 @@ export default function App({ data, theme }: PropsType) {
       </head>
       <body>
         <ThemeBackground theme={theme}>
-          <NavMessage data={data} />
+          <NavMessage data={data} avatar={avatar} />
           {
             //
           }

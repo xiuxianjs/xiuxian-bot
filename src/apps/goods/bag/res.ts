@@ -36,9 +36,13 @@ export default OnResponse(
         UID,
         Goods.mapType[typing] ?? Goods.mapType['道具']
       )
+
+      const avatar = await e.UserAvatar.toURL()
+
       const img = await pictureRender('BagComponent', {
         data,
-        theme: UserData?.theme ?? 'dark'
+        theme: UserData?.theme ?? 'dark',
+        avatar: avatar
       })
       if (typeof img != 'boolean') {
         Send(Image(img))

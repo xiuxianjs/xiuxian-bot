@@ -12,6 +12,7 @@ import { Attributes, goods } from '@src/xiuxian/db'
 type PropsType = {
   data: BackpackInformationType
   theme: ThemesEmun
+  avatar: string
 }
 
 /**
@@ -19,7 +20,7 @@ type PropsType = {
  * @param param0
  * @returns
  */
-export default function App({ data, theme }: PropsType) {
+export default function App({ data, theme, avatar }: PropsType) {
   return (
     <html>
       <head>
@@ -31,7 +32,7 @@ export default function App({ data, theme }: PropsType) {
             <Header list={['/装备+装备名', '/卸下+装备名']} />
             <Nav
               UID={data.UID}
-              avatar={data.avatar}
+              avatar={avatar}
               list={[
                 `道号: ${data.name}`,
                 `等级: ${data.bag_grade}`,

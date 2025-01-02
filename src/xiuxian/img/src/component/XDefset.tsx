@@ -4,9 +4,9 @@ import Footer from './pub/footer.js'
 import css_output from './input.scss'
 import { LinkStyleSheet } from 'jsxp'
 import ThemeBackground, { ThemesEmun } from './pub/ThemeBackground.js'
+import * as data from '@xiuxian/core/src/config/cooling.js'
 
 type PropsType = {
-  data: any
   theme: ThemesEmun
 }
 
@@ -32,7 +32,7 @@ const CD_MAP = {
  * @returns
  */
 
-export default function App({ data, theme }: PropsType) {
+export default function App({ theme }: PropsType) {
   return (
     <html>
       <head>

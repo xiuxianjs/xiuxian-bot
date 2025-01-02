@@ -18,32 +18,26 @@ import { Image, Text, useSend } from 'alemonjs'
 /**
  * 显示我的资料
  * @param e
+ * @param avatar
  */
 export async function showUserMsg(e) {
   const UID = e.UserKey
   const Send = useSend(e)
-  showUserMessage(UID).then(img => {
-    if (typeof img != 'boolean') {
-      Send(Image(img))
-    } else {
-      Send(Text('数据错误'))
-    }
-  })
-}
-
-/**
- *
- * @param UID
- * @param
- * @returns
- */
-export const showUserMessage = async (UID: string) => {
-  return await personalInformation(UID).then(UserData =>
+  const avatar = await e.UserAvatar.toURL()
+  console.log(avatar)
+  const img = await personalInformation(UID).then(async UserData =>
     pictureRender('MessageComponent', {
       data: UserData,
-      theme: UserData?.theme ?? 'dark'
+      theme: UserData?.theme ?? 'dark',
+      avatar: avatar
     })
   )
+  if (typeof img != 'boolean') {
+    Send(Image(img))
+  } else {
+    Send(Text('数据错误'))
+  }
+  return
 }
 
 /**

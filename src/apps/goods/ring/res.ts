@@ -26,9 +26,13 @@ export default OnResponse(
       const UID = e.UserKey
       const UserData = e['UserData'] as Attributes<typeof user>
       const data = await Server.ringInformation(UID)
+
+      const avatar = await e.UserAvatar.toURL()
+
       const img = await pictureRender('BagComponent', {
         data,
-        theme: UserData?.theme ?? 'dark'
+        theme: UserData?.theme ?? 'dark',
+        avatar: avatar
       })
 
       if (typeof img != 'boolean') {

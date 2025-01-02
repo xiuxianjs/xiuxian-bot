@@ -19,10 +19,12 @@ export default OnResponse(
       const Send = useSend(e)
       const UserData = e['UserData']
       Skills.updataEfficiency(UID, UserData.talent).then(() => {
-        Server.skillInformation(UID).then(res => {
+        Server.skillInformation(UID).then(async res => {
+          const avatar = await e.UserAvatar.toURL()
           pictureRender('SkillsComponent', {
             data: res,
-            theme: UserData?.theme ?? 'dark'
+            theme: UserData?.theme ?? 'dark',
+            avatar: avatar
           }).then(img => {
             if (typeof img != 'boolean') {
               Send(Image(img))

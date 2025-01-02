@@ -22,14 +22,14 @@ export default function Naved({
         ))}
       </div>
       <div className="flex-1 flex">
-        {avatar != '' ? (
+        {avatar ? (
           <Avatar
             className="size-60 rounded-full m-auto"
             src={avatar}
             alt="User Avatar"
           />
         ) : (
-          <div className="size-60 rounded-full m-auto"></div>
+          <div className="size-60 rounded-full m-auto border"></div>
         )}
       </div>
     </nav>

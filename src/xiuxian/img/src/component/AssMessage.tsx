@@ -9,6 +9,24 @@ type PropsType = {
   data: Attributes<typeof user_ass>[]
   theme: ThemesEmun
 }
+
+const MessageCard = ({ ass, assTyping, item }) => {
+  return (
+    <div className="my-1 rounded-md bg-black bg-opacity-20">
+      <div className="bg-black bg-opacity-20 p-1">
+        {`[${ass['name']}](${ass['grade']})`}
+      </div>
+      <div className="p-1">
+        <div>{`身份 ${assTyping[item.identity]}`}</div>
+        <div>{`灵池 ${ass['property']}`}</div>
+        <div>{`活跃 ${ass['activation']}`}</div>
+        <div>{`名望 ${ass['fame']}`}</div>
+        <div>{`贡献 ${item.contribute}`}</div>
+      </div>
+    </div>
+  )
+}
+
 export default function AssMessage({ data, theme }: PropsType) {
   return (
     <html>
@@ -26,21 +44,12 @@ export default function AssMessage({ data, theme }: PropsType) {
               const assTyping = ass['ass_typing']['dataValues']
               // 待加入
               return (
-                <div
+                <MessageCard
                   key={index}
-                  className="my-1 rounded-md bg-black bg-opacity-20"
-                >
-                  <div className="bg-black bg-opacity-20 p-1">
-                    {`[${ass['name']}](${ass['grade']})`}
-                  </div>
-                  <div className="p-1">
-                    <div>{`身份 ${assTyping[item.identity]}`}</div>
-                    <div>{`灵池 ${ass['property']}`}</div>
-                    <div>{`活跃 ${ass['activation']}`}</div>
-                    <div>{`名望 ${ass['fame']}`}</div>
-                    <div>{`贡献 ${item.contribute}`}</div>
-                  </div>
-                </div>
+                  ass={ass}
+                  assTyping={assTyping}
+                  item={item}
+                />
               )
             })}
           </div>

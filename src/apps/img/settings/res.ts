@@ -1,5 +1,4 @@
 import { Image, useSend } from 'alemonjs'
-import { Cooling } from '@xiuxian/core/index'
 import { pictureRender } from '@xiuxian/img/index'
 import Xiuxian from '@src/apps/index'
 import { createEventName } from '@src/apps/util'
@@ -14,7 +13,6 @@ export default OnResponse(
         return
       }
       const img = await pictureRender('Defsetcomponent', {
-        data: Cooling,
         theme: 'dark'
       })
       const Send = useSend(e)

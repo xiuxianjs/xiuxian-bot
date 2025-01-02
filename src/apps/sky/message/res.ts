@@ -76,10 +76,12 @@ export default OnResponse(
       try {
         //
         if (/面板/.test(text)) {
-          await equipmentInformation(UIDB).then(res => {
+          await equipmentInformation(UIDB).then(async res => {
+            const avatar = await e.UserAvatar.toURL()
             pictureRender('Equipmentcomponent', {
               data: res,
-              theme: UserData?.theme ?? 'dark'
+              theme: UserData?.theme ?? 'dark',
+              avatar: avatar
             }).then(img => {
               if (typeof img != 'boolean') {
                 Send(Image(img))

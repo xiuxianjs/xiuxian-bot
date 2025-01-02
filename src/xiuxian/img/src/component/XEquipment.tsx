@@ -11,13 +11,14 @@ import { Avatar } from './pub/Avatar.js'
 type PropsType = {
   data: EquipmentInformationType
   theme: ThemesEmun
+  avatar: string
 }
 /**
  *
  * @param param0
  * @returns
  */
-export default function App({ data, theme }: PropsType) {
+export default function App({ data, theme, avatar }: PropsType) {
   return (
     <html>
       <head>
@@ -37,14 +38,14 @@ export default function App({ data, theme }: PropsType) {
                   </div>
                 </div>
                 <div className="flex-1 flex">
-                  {data.avatar && data.avatar != '' ? (
+                  {avatar ? (
                     <Avatar
                       className="size-56 rounded-full m-auto"
                       src={data.avatar}
                       alt="User Avatar"
                     />
                   ) : (
-                    <div className="size-56 rounded-full m-auto"></div>
+                    <div className="size-56 rounded-full m-auto border"></div>
                   )}
                 </div>
                 <div className=" bg-black bg-opacity-30">

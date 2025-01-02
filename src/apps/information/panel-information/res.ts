@@ -22,10 +22,12 @@ export default OnResponse(
       const UserData = e['UserData']
 
       Equipment.updatePanel(UID, UserData.battle_blood_now).then(() => {
-        Server.equipmentInformation(UID).then(res => {
+        Server.equipmentInformation(UID).then(async res => {
+          const avatar = await e.UserAvatar.toURL()
           pictureRender('Equipmentcomponent', {
             data: res,
-            theme: UserData?.theme ?? 'dark'
+            theme: UserData?.theme ?? 'dark',
+            avatar: avatar
           }).then(img => {
             if (typeof img != 'boolean') {
               Send(Image(img))
