@@ -17,6 +17,8 @@ import {
 } from '@src/xiuxian/db'
 import { NAMEMAP } from '@src/xiuxian/core/src/users/additional/levels'
 import Xiuxian from '@src/apps/index'
+import { createEventName } from '@src/apps/util'
+export const name = createEventName(import.meta.url)
 
 export const regular = /^(#|\/)突破$/
 export default OnResponse(

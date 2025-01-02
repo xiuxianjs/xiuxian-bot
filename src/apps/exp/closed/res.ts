@@ -4,6 +4,8 @@ import { endAllWord } from '@xiuxian/api/index'
 import { Status, operationLock } from '@xiuxian/core/index'
 import { Attributes, user } from '@src/xiuxian/db'
 import Xiuxian from '@src/apps/index'
+import { createEventName } from '@src/apps/util'
+export const name = createEventName(import.meta.url)
 export const regular = /^(#|\/)(闭关|閉關)$/
 export default OnResponse(
   [

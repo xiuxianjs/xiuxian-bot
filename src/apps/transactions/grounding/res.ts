@@ -3,6 +3,8 @@ import { Text, useSend } from 'alemonjs'
 import { Bag, Cooling, operationLock } from '@xiuxian/core/index'
 import { goods, user_transactions, user_bag } from '@xiuxian/db/index'
 import Xiuxian from '@src/apps/index'
+import { createEventName } from '@src/apps/util'
+export const name = createEventName(import.meta.url)
 export const regular = /^(#|\/)上架/
 export default OnResponse(
   [

@@ -1,35 +1,29 @@
-import { Text, useSend } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
-import { user } from '@src/xiuxian/db'
-export const regular = /^(\/|#)(跳过)(新手指引|指引)?/
-export default OnResponse(
-  [
-    Xiuxian.current,
-    async (e, next) => {
-      // send
-      const Send = useSend(e)
-      const data = e['UserData']
-      const UID = e.UserKey
-      if (data.newcomer == 1) {
-        next()
-        return
-      }
-      const closeNewComer = () => {
-        data.newcomer = 1
-        user.update({ newcomer: 1 }, { where: { uid: UID } })
-      }
-      closeNewComer()
-      Send(
-        Text(
-          [
-            '小柠檬：',
-            '哎呀,我要消失啦～',
-            '重新开始可发送[/启动新手指引]'
-          ].join('\n')
-        )
-      )
-      return
+import { Text, useSend, useState } from 'alemonjs'
+const open = /^(#|\/)?open:/
+const close = /^(#|\/)?close:/
+// 使用方法合并成一个
+export const regular = new RegExp(open.source + '|' + close.source)
+export default OnResponse((event, next) => {
+  // 不是主人
+  if (!event.IsMaster) {
+    next()
+    return
+  }
+  const name = event.MessageText.replace(regular, '')
+  const Send = useSend(event)
+  if (open.test(event.MessageText)) {
+    const [state, setState] = useState(name, true)
+    Send(Text('启用成功'))
+    if (!state) {
+      setState(true)
     }
-  ],
-  ['message.create', 'private.message.create']
-)
+  } else if (close.test(event.MessageText)) {
+    const [state, setState] = useState(name, false)
+    Send(Text('关闭成功'))
+    if (state) {
+      setState(false)
+    }
+  }
+  next()
+  return
+}, 'message.create')

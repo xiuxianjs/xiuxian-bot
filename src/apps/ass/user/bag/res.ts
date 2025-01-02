@@ -3,6 +3,8 @@ import { Text, useSend } from 'alemonjs'
 import * as DB from '@xiuxian/db/index'
 // 查看该宗门都有谁
 import Xiuxian from '@src/apps/index'
+import { createEventName } from '@src/apps/util'
+export const name = createEventName(import.meta.url)
 export const regular = /^(#|\/)打开([\u4e00-\u9fa5]+)宝库$/
 export default OnResponse(
   [

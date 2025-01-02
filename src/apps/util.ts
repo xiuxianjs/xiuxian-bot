@@ -1,3 +1,19 @@
+import { dirname } from 'path'
+import { fileURLToPath } from 'url'
+
+/**
+ * 创建app名称
+ * @param url
+ * @param select
+ * @returns
+ */
+export const createEventName = (url: string, select = 'apps') => {
+  const __dirname = dirname(fileURLToPath(url))
+  const dirs = __dirname.split('/').reverse()
+  const name = dirs.slice(0, dirs.indexOf(select)).join(':')
+  return `xiuxian:${select}:${name}`
+}
+
 const cdCache = {}
 /**
  * @param UID

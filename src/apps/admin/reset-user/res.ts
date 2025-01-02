@@ -1,6 +1,8 @@
 import { Text, useSend } from 'alemonjs'
 import { Player } from '@xiuxian/core/index'
 import Xiuxian from '@src/apps/index'
+import { createEventName } from '@src/apps/util'
+export const name = createEventName(import.meta.url)
 export const regular = /^(#|\/)天道强制重生/
 export default OnResponse(
   [

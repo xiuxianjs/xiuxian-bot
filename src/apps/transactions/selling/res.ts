@@ -4,6 +4,8 @@ import { operationLock } from '@xiuxian/core/index'
 import { Attributes, user, user_transactions } from '@xiuxian/db/index'
 import { pictureRender } from '@xiuxian/img/index'
 import Xiuxian from '@src/apps/index'
+import { createEventName } from '@src/apps/util'
+export const name = createEventName(import.meta.url)
 export const regular = /^(#|\/)我的虚空镜$/
 export default OnResponse(
   [

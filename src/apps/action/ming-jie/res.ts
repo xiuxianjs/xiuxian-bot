@@ -3,6 +3,8 @@ import { Text, useSend } from 'alemonjs'
 import { user_fate, user_level } from '@xiuxian/db/index'
 const reGiveup = {}
 import Xiuxian from '@src/apps/index'
+import { createEventName } from '@src/apps/util'
+export const name = createEventName(import.meta.url)
 export const regular = /^(#|\/)剥离本命物$/
 export default OnResponse(
   [

@@ -2,6 +2,8 @@ import { Text, useSend } from 'alemonjs'
 
 import { Attributes, user } from '@xiuxian/db/index'
 import Xiuxian from '@src/apps/index'
+import { createEventName } from '@src/apps/util'
+export const name = createEventName(import.meta.url)
 export const regular = /^(#|\/)战斗过程(开启|关闭)$/
 export default OnResponse(
   [

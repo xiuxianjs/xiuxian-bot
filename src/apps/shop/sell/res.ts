@@ -4,6 +4,8 @@ import { controlByName } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
 import { Attributes, user } from '@src/xiuxian/db'
 import Xiuxian from '@src/apps/index'
+import { createEventName } from '@src/apps/util'
+export const name = createEventName(import.meta.url)
 export const regular = /^(#|\/)出售[\u4e00-\u9fa5]+\*\d+$/
 export default OnResponse(
   [

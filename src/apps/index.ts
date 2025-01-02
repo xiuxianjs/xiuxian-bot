@@ -83,7 +83,7 @@ export default OnResponse(
       // 新手指引指令错误
       Send(
         Text(
-          `小柠檬: \n开始新手指引,请发送[${newcomer[data.newcomer_step].msg}]\n跳过指引可发送[/跳过]`
+          `小柠檬: \n开始新手指引,请发送[${newcomer[data.newcomer_step].msg}]\n跳过指引可发送[/跳过新手指引]`
         )
       )
     } else {
@@ -101,7 +101,9 @@ export default OnResponse(
       )
 
       // 携带数据
-      Send(Text(['小柠檬：', c.ok, `\n跳过指引可发送[/跳过]`].join('\n')))
+      Send(
+        Text(['小柠檬：', c.ok, `\n跳过指引可发送[/跳过新手指引]`].join('\n'))
+      )
     }
 
     // 订阅

@@ -4,6 +4,8 @@ import * as Server from '@xiuxian/statistics/index'
 import { Image, useSend } from 'alemonjs'
 
 import Xiuxian from '@src/apps/index'
+import { createEventName } from '@src/apps/util'
+export const name = createEventName(import.meta.url)
 export const regular = /^(#|\/)我的功法$/
 export default OnResponse(
   [

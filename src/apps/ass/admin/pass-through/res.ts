@@ -4,6 +4,8 @@ import { Text, useSend } from 'alemonjs'
 
 import { AssGradesSize } from '@src/xiuxian/core/src/config/cooling'
 import Xiuxian from '@src/apps/index'
+import { createEventName } from '@src/apps/util'
+export const name = createEventName(import.meta.url)
 export const regular = /^(#|\/)通过\d+$/
 export default OnResponse(
   [

@@ -3,6 +3,8 @@ import { Text, useSend } from 'alemonjs'
 import * as GameApi from '@xiuxian/core/index'
 import * as DB from '@xiuxian/db/index'
 import Xiuxian from '@src/apps/index'
+import { createEventName } from '@src/apps/util'
+export const name = createEventName(import.meta.url)
 export const regular = /^(#|\/)退出势力[\u4e00-\u9fa5]+$/
 export default OnResponse(
   [

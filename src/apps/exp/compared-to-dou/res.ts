@@ -10,6 +10,8 @@ import { Attributes, user, user_level } from '@xiuxian/db/index'
 import { Text, useMention, useSend } from 'alemonjs'
 
 import Xiuxian from '@src/apps/index'
+import { createEventName } from '@src/apps/util'
+export const name = createEventName(import.meta.url)
 export const regular = /^(#|\/)(决斗|比鬥)/
 export default OnResponse(
   [

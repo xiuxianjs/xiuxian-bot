@@ -5,6 +5,8 @@ import { Attributes, user, user_sky_ranking } from '@xiuxian/db/index'
 import { equipmentInformation } from '@src/xiuxian/statistics'
 import { pictureRender } from '@src/xiuxian/img'
 import Xiuxian from '@src/apps/index'
+import { createEventName } from '@src/apps/util'
+export const name = createEventName(import.meta.url)
 export const regular = /^(#|\/)查看通天塔第(\d+)名(资料|面板)?$/
 export default OnResponse(
   [

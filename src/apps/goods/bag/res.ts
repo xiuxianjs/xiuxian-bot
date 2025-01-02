@@ -5,6 +5,8 @@ import { Image, Text, useSend } from 'alemonjs'
 import { Attributes, user } from '@src/xiuxian/db'
 
 import Xiuxian from '@src/apps/index'
+import { createEventName } from '@src/apps/util'
+export const name = createEventName(import.meta.url)
 export const regular =
   /^(#|\/)我的(储物袋|儲物袋|背包)(武器|护具|法宝|丹药|功法|道具|材料|装备)?$/
 export default OnResponse(

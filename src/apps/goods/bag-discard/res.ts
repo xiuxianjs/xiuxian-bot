@@ -2,6 +2,8 @@ import { Text, useSend } from 'alemonjs'
 
 import * as GameApi from '@xiuxian/core/index'
 import Xiuxian from '@src/apps/index'
+import { createEventName } from '@src/apps/util'
+export const name = createEventName(import.meta.url)
 export const regular =
   /^(#|\/)(储物袋|儲物袋|背包)(丢弃|丟棄)[\u4e00-\u9fa5]+\*\d+$/
 export default OnResponse(

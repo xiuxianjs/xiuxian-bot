@@ -4,6 +4,8 @@ import { Equipment, Levels, Method, operationLock } from '@xiuxian/core/index'
 import { Attributes, levels, user, user_level } from '@src/xiuxian/db'
 import { NAMEMAP } from '@src/xiuxian/core/src/users/additional/levels'
 import Xiuxian from '@src/apps/index'
+import { createEventName } from '@src/apps/util'
+export const name = createEventName(import.meta.url)
 export const regular = /^(#|\/)破境$/
 export default OnResponse(
   [

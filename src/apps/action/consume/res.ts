@@ -12,6 +12,8 @@ import {
 import { operationLock } from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
 import Xiuxian from '@src/apps/index'
+import { createEventName } from '@src/apps/util'
+export const name = createEventName(import.meta.url)
 export const regular = /^(#|\/)消耗[\u4e00-\u9fa5]+(\*\d+)?$/
 export default OnResponse(
   [

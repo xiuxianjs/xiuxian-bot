@@ -1,21 +1,31 @@
-import { Text, useSend } from 'alemonjs'
 import { Attributes, user } from '@src/xiuxian/db'
+import { Text, useSend } from 'alemonjs'
 import Xiuxian from '@src/apps/index'
 import { createEventName } from '@src/apps/util'
 export const name = createEventName(import.meta.url)
-export const regular = /^(#|\/)我的坐标$/
+export const regular = /^(#|\/)启动(新手)?(指引|教程)$/
 export default OnResponse(
   [
     Xiuxian.current,
     async (e, next) => {
-      if (!/^(#|\/)我的坐标$/.test(e.MessageText)) {
+      if (!/^(#|\/)启动新手指引$/.test(e.MessageText)) {
         next()
         return
       }
       const UserData = e['UserData'] as Attributes<typeof user>
+      user.update(
+        { newcomer: 0, newcomer_step: 0 },
+        { where: { uid: UserData.id } }
+      )
       const Send = useSend(e)
       Send(
-        Text(`坐标(${UserData.pont_x},${UserData.pont_y},${UserData.pont_z})`)
+        Text(
+          [
+            '小柠檬：',
+            '发送[/我的资料]了解个人信息',
+            '发送[/跳过新手指引]可跳过新手指引'
+          ].join('\n')
+        )
       )
       return
     }

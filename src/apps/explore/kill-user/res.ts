@@ -5,6 +5,8 @@ import { Text, useSend } from 'alemonjs'
 
 import { literal } from 'sequelize'
 import Xiuxian from '@src/apps/index'
+import { createEventName } from '@src/apps/util'
+export const name = createEventName(import.meta.url)
 export const regular = /^(#|\/)(击杀|擊殺)[\u4e00-\u9fa5]+(\*1|\*2)?$/
 export default OnResponse(
   [
