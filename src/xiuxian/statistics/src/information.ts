@@ -5,7 +5,6 @@ import { Talent, Equipment } from '@xiuxian/core/index'
 /**
  * 我的资料
  * @param UID
- * @param UserAvatar
  * @returns
  */
 export async function personalInformation(UID: string) {
@@ -109,7 +108,6 @@ export async function personalInformation(UID: string) {
 
   return {
     UID: UID,
-    avatar: UserData.avatar,
     // 天赋
     linggenName: name,
     talentsize: size,
@@ -243,8 +241,7 @@ export async function equipmentInformation(UID: string) {
     battle_critical_damage: UserData.battle_critical_damage,
     immortal_grade: UserData.immortal_grade,
     equipment: equipment,
-    fate: arr,
-    avatar: UserData.avatar
+    fate: arr
   }
 }
 
@@ -254,7 +251,6 @@ export type EquipmentInformationType =
 /**
  * 我的功法
  * @param UID
- * @param UserAvatar
  * @returns
  */
 export async function skillInformation(UID: string) {
@@ -290,8 +286,7 @@ export async function skillInformation(UID: string) {
     skills: skills,
     name: UserData.name,
     linggenName: name,
-    talentsize: size,
-    avatar: UserData.avatar
+    talentsize: size
   }
 }
 
@@ -301,7 +296,6 @@ export type SkillInformationType =
 /**
  * 储物袋
  * @param UID
- * @param UserAvatar
  * @param type
  * @returns
  */
@@ -347,8 +341,7 @@ export async function backpackInformation(
     name: UserData.name,
     bag_grade: bag_message?.grade ?? 0,
     length: length,
-    bag: bag,
-    avatar: UserData.avatar
+    bag: bag
   }
 }
 
@@ -358,7 +351,6 @@ export type BackpackInformationType =
 /**
  * 呐戒
  * @param UID
- * @param UserAvatar
  * @returns
  */
 export async function ringInformation(UID: string) {
@@ -387,8 +379,7 @@ export async function ringInformation(UID: string) {
     name: UserData?.name,
     bag_grade: 1,
     length: length ?? 0,
-    bag: bag,
-    avatar: UserData?.avatar
+    bag: bag
   }
 }
 

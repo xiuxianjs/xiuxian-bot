@@ -41,7 +41,7 @@ export default function App({ data, theme, avatar }: PropsType) {
                   {avatar ? (
                     <Avatar
                       className="size-56 rounded-full m-auto"
-                      src={data.avatar}
+                      src={avatar}
                       alt="User Avatar"
                     />
                   ) : (

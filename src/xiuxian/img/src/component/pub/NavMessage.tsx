@@ -132,7 +132,7 @@ export default function NavMessage({ data, avatar }: PropsType) {
           {avatar ? (
             <Avatar
               className="size-52 rounded-full m-auto border-2 border-white"
-              src={data.avatar}
+              src={avatar}
               alt="User Avatar"
             />
           ) : (

@@ -24,7 +24,8 @@ export async function showUserMsg(e) {
   const UID = e.UserKey
   const Send = useSend(e)
   const avatar = await e.UserAvatar.toURL()
-  console.log(avatar)
+  // console.log("url",url)
+  console.log('url', avatar)
   const img = await personalInformation(UID).then(async UserData =>
     pictureRender('MessageComponent', {
       data: UserData,
