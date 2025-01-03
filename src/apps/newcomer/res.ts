@@ -3,7 +3,7 @@ import Xiuxian from '@src/apps/index'
 import { createEventName } from '@src/apps/util'
 export const name = createEventName(import.meta.url)
 import { user } from '@src/xiuxian/db'
-export const regular = /^(\/|#)跳过(新手)?(指引|教程)/
+export const regular = /^(\/|#)跳过(指引|教程)/
 export default OnResponse(
   [
     Xiuxian.current,
@@ -23,11 +23,9 @@ export default OnResponse(
       closeNewComer()
       Send(
         Text(
-          [
-            '小柠檬：',
-            '哎呀,我要消失啦～',
-            '重新开始可发送[/启动新手指引]'
-          ].join('\n')
+          ['小柠檬：', '哎呀,我要消失啦～', '重新开始可发送[/启动指引]'].join(
+            '\n'
+          )
         )
       )
       return

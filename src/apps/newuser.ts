@@ -46,26 +46,22 @@ export default OnResponse(
       closeNewComer()
       Send(
         Text(
-          [
-            '小柠檬：',
-            '新手指引已经结束。',
-            '重新开始可发送[/启动新手指引]'
-          ].join('\n')
+          ['小柠檬：', '新手指引已经结束。', '重新开始可发送[/启动指引]'].join(
+            '\n'
+          )
         )
       )
       return
     }
 
     //
-    if (/^(\/|#)(跳过)(新手指引|指引)?/.test(e.MessageText)) {
+    if (/^(\/|#)(跳过)(新手)?指引/.test(e.MessageText)) {
       closeNewComer()
       Send(
         Text(
-          [
-            '小柠檬：',
-            '哎呀,我要消失啦～',
-            '重新开始可发送[/启动新手指引]'
-          ].join('\n')
+          ['小柠檬：', '哎呀,我要消失啦～', '重新开始可发送[/启动指引]'].join(
+            '\n'
+          )
         )
       )
       return

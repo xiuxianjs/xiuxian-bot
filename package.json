@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "@alemonjs/discord": "^0.2.1",
-    "@alemonjs/gui": "^0.2.6",
+    "@alemonjs/gui": "^0.3.0",
     "@alemonjs/kook": "^0.2.1",
     "@alemonjs/onebot": "^0.2.1",
     "@alemonjs/qq": "^0.2.1",
