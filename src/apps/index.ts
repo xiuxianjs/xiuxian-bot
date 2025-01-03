@@ -17,7 +17,7 @@ export default OnResponse(
     // send
     const Send = useSend(e)
 
-    if (testTip(e.UserKey)) {
+    if (!testTip(e.UserKey)) {
       Send(Text('游玩提示: 删档测试中。。。'))
       return
     }
