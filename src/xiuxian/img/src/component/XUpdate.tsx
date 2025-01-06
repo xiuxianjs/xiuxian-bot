@@ -29,7 +29,7 @@ export default function App({ data, theme }: PropsType) {
       <body>
         <ThemeBackground className="bg-cover p-4" theme={theme}>
           <div className="px-4">
-            <Header list={['/修仙帮助', '/修仙配置']} />
+            <Header list={['/帮助', '/修仙配置']} />
           </div>
           <div className="px-4">
             {data.map((item, index) => (

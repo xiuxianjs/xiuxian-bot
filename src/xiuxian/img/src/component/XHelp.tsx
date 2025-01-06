@@ -34,7 +34,7 @@ export default function App({ data, theme }: PropsType) {
               </div>
             </div>
             <div className="text-red-500 text-left bg-white py-1 px-3 my-2 rounded-md">
-              使用 /修仙帮助1 查看第一页，使用 /修仙帮助2 查看第二页，以此类推
+              使用 /帮助1 查看第一页，使用 /帮助2 查看第二页，以此类推
             </div>
           </div>
           {data.map((val, index) => (

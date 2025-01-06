@@ -10,11 +10,7 @@ export const regular = /^(#|\/)强化本命物$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)强化本命物$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       // 操作锁
       const T = await operationLock(e.UserKey)
       const Send = useSend(e)

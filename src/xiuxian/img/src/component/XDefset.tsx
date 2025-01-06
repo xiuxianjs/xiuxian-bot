@@ -41,7 +41,7 @@ export default function App({ theme }: PropsType) {
       <body>
         <ThemeBackground className="w-full h-full p-4" theme={theme}>
           <div className="px-4">
-            <Header list={['/修仙帮助', '/查看更新']} />
+            <Header list={['/帮助', '/查看更新']} />
           </div>
           <div className="w-full h-full my-8 px-4  text-center">
             <div className="grid grid-cols-2 my-1 rounded-md bg-black bg-opacity-10">

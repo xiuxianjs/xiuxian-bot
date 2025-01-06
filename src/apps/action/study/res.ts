@@ -10,11 +10,7 @@ export const regular = /^(#|\/)(学习|學習)[\u4e00-\u9fa5]+$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)(学习|學習)[\u4e00-\u9fa5]+$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       // lock
       const T = await operationLock(e.UserKey)
       const Send = useSend(e)

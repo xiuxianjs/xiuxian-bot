@@ -6,11 +6,7 @@ export const regular = /^(#|\/)我的编号$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)我的编号$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       const Send = useSend(e)
       Send(Text(e.UserId))
     }

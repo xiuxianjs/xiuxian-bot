@@ -5,18 +5,14 @@ const helpData = {}
 import Xiuxian from '@src/apps/index'
 import { createEventName } from '@src/apps/util'
 export const name = createEventName(import.meta.url)
-export const regular = /^(#|\/)(修仙(帮|幫)助|帮助)/
+export const regular = /^(#|\/)(修仙)?((帮|幫)助|help)/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)(修仙(帮|幫)助|帮助)/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       const text = e.MessageText
       if (!text) return
-      const size = Number(text.replace(/^(#|\/)(修仙(帮|幫)助|帮助)/, ''))
+      const size = Number(text.replace(regular, ''))
       const n = isNaN(size) ? 0 : size
       const name = `help${n}`
       const Send = useSend(e)

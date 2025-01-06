@@ -27,7 +27,7 @@ export default function Footer({
     <div className="p-4  text-white   pt-8 pr-4 pb-4 pl-4   relative">
       <div className=" bg-[var(--bg-color)] shadow-md   rounded-md p-1 relative flex flex-wrap box-help-box">
         <div className=" px-2 py-1 rounded-t-lg text-lg bg-slate-400 absolute top-[-36px] flex left-[12px]  shadow-md">
-          /修仙帮助
+          /帮助
         </div>
         {
           // 展示其他指令，最好能带解释
