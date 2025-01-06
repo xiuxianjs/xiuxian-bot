@@ -1,4 +1,3 @@
-import { defineChildren } from 'alemonjs'
 export default defineChildren(() => ({
   async onCreated() {
     console.info('修仙机器人启动')

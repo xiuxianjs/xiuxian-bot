@@ -62,7 +62,7 @@
     "@types/node": "^20.3.1",
     "@types/nodemailer": "^6.4.16",
     "@types/uuid": "^10.0.0",
-    "alemonjs": "2.0.0-rc.82",
+    "alemonjs": "2.0.0-rc.83",
     "cssnano": "^7.0.6",
     "eslint": "^9.14.0",
     "eslint-config-prettier": "^9.1.0",
