@@ -355,7 +355,7 @@ export const user = InitModel.init(
     newcomer_step: {
       type: DataTypes.BIGINT,
       defaultValue: 0,
-      comment: '新手教程步骤'
+      comment: '新人教程步骤'
     },
     point_attribute: {
       type: DataTypes.BIGINT,

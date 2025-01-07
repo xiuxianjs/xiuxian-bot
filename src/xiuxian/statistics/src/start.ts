@@ -3,7 +3,7 @@ import { type KillListType } from './types.js'
 import { Redis } from '@xiuxian/db/index'
 import { getImmortalValue } from '@src/xiuxian/core/src/system/fight.js'
 
-// 启动刷新时间   // 一小时刷新一次  // 响应控制
+// 开启刷新时间   // 一小时刷新一次  // 响应控制
 const start_time = 30000
 const continue_time = 3600000
 
@@ -66,7 +66,7 @@ export async function updataKillList() {
   set(`xiuxian:list:kill`, JSON.stringify(await getKillList()))
 }
 
-// 启动的30秒计算一次,而后每小时刷新一次
+// 开启的30秒计算一次,而后每小时刷新一次
 setTimeout(() => {
   // 统计杀神榜
   updataKillList()

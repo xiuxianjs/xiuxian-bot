@@ -67,7 +67,7 @@ export default function AssMessage({ data, theme }: PropsType) {
               '/查看',
               '/势力'
             ]}
-            docs={'新手指引:XXX'}
+            docs={'新人指引:XXX'}
           />
         </ThemeBackground>
       </body>

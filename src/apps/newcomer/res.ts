@@ -23,7 +23,7 @@ export default OnResponse(
       closeNewComer()
       Send(
         Text(
-          ['小柠檬：', '哎呀,我要消失啦～', '重新开始可发送[/启动指引]'].join(
+          ['小柠檬：', '哎呀,我要消失啦～', '重新开始可发送[/开启指引]'].join(
             '\n'
           )
         )

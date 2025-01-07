@@ -46,7 +46,7 @@ export default OnResponse(
       closeNewComer()
       Send(
         Text(
-          ['小柠檬：', '新手指引已经结束。', '重新开始可发送[/启动指引]'].join(
+          ['小柠檬：', '新人指引已经结束。', '重新开始可发送[/开启指引]'].join(
             '\n'
           )
         )
@@ -55,11 +55,11 @@ export default OnResponse(
     }
 
     //
-    if (/^(\/|#)(跳过)(新手)?指引/.test(e.MessageText)) {
+    if (/^(\/|#)(跳过)(新人|新人)?指引/.test(e.MessageText)) {
       closeNewComer()
       Send(
         Text(
-          ['小柠檬：', '哎呀,我要消失啦～', '重新开始可发送[/启动指引]'].join(
+          ['小柠檬：', '哎呀,我要消失啦～', '重新开始可发送[/开启指引]'].join(
             '\n'
           )
         )
@@ -70,7 +70,7 @@ export default OnResponse(
     // 获得指引
     const c = newcomer[data.newcomer_step]
     if (!c.reg.test(e.MessageText)) {
-      // 新手指引指令错误
+      // 新人指引指令错误
       next()
       return
     }

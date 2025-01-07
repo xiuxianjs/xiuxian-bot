@@ -48,7 +48,7 @@ export default OnResponse(
       return
     }
 
-    // 不是新手
+    // 不是新人
     if (data.newcomer != 0) {
       // 携带数据
       e['UserData'] = data
@@ -68,11 +68,11 @@ export default OnResponse(
       return true
     }
 
-    if (/^(\/|#)(跳过)(新手)?指引/.test(e.MessageText)) {
+    if (/^(\/|#)(跳过)(新人|新人)?指引/.test(e.MessageText)) {
       closeNewComer()
       Send(
         Text(
-          ['小柠檬：', '哎呀,我要消失啦～', '重新开始可发送[/启动指引]'].join(
+          ['小柠檬：', '哎呀,我要消失啦～', '重新开始可发送[/开启指引]'].join(
             '\n'
           )
         )
@@ -83,10 +83,10 @@ export default OnResponse(
     // 获得指引
     const c = newcomer[data.newcomer_step]
     if (!c.reg.test(e.MessageText)) {
-      // 新手指引指令错误
+      // 新人指引指令错误
       Send(
         Text(
-          `小柠檬: \n开始新手指引,请发送[${newcomer[data.newcomer_step].msg}]\n跳过指引可发送[/跳过新手指引]`
+          `小柠檬: \n开始新人指引,请发送[${newcomer[data.newcomer_step].msg}]\n跳过指引可发送[/跳过新人指引]`
         )
       )
     } else {
@@ -105,7 +105,7 @@ export default OnResponse(
 
       // 携带数据
       Send(
-        Text(['小柠檬：', c.ok, `\n跳过指引可发送[/跳过新手指引]`].join('\n'))
+        Text(['小柠檬：', c.ok, `\n跳过指引可发送[/跳过新人指引]`].join('\n'))
       )
     }
 

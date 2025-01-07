@@ -47,7 +47,7 @@ export default function AssList({ data, theme }: PropsType) {
               '/退出',
               '/查看'
             ]}
-            docs={'新手指引: 加入数量有限哦，切莫发起过毒申请'}
+            docs={'新人指引: 加入数量有限哦，切莫发起过毒申请'}
           />
         </ThemeBackground>
       </body>

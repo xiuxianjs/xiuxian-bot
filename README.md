@@ -57,7 +57,7 @@ npm link
 npm link alemonjs-kuromc
 ```
 
-> 如果你要本地立即启动
+> 如果你要本地立即开启
 
 ```sh
 node index.js --login gui
@@ -70,7 +70,7 @@ node index.js --login gui
 以下是docker如何立即数据库的指令
 
 ```sh
-docker-compose up -d # 启动
+docker-compose up -d # 开启
 docker-compose restart -d # 重启
 docker-compose pause -d # 暂停
 ```
