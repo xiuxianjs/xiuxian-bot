@@ -10,7 +10,7 @@ cp -rf .npmrc index.js dist/
 rm -rf .npmrc
 
 # Install yarn globally
-npm install -g yarn@1.12.1
+npm install -g yarn@1.19.1
 
 # Load dependencies using yarn
 yarn install --ignore-engines

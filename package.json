@@ -14,8 +14,8 @@
     "./config": "./alemon.package.js"
   },
   "scripts": {
-    "dev": "lvy dev",
-    "view": "lvy dev --jsxp",
+    "dev": "npx lvy dev",
+    "view": "npx lvy dev --jsxp",
     "build": "lvy build",
     "start": "pm2 startOrRestart pm2.config.cjs",
     "stop": "pm2 stop pm2.config.cjs",

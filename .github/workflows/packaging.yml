@@ -30,7 +30,7 @@ jobs:
       - name: 使用 Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '18'
+          node-version: '22'
 
       - name: 检出工作区
         uses: actions/checkout@v2
