@@ -3,7 +3,7 @@ import { platform as wechat } from '@alemonjs/wechat'
 import { user } from '@xiuxian/db/index'
 import { Text, useSend, useSubscribe } from 'alemonjs'
 import { updatePlayer } from '@src/xiuxian/core/src/system/player'
-import { operationLocalLock, testTip } from './util'
+import { operationLocalLock } from './util'
 import { newcomer } from './newcomer'
 import NewsUser from './newuser'
 export default OnResponse(
@@ -17,11 +17,6 @@ export default OnResponse(
     // send
     const Send = useSend(e)
 
-    if (!testTip(e.UserKey)) {
-      Send(Text('游玩提示: 删档测试中。。。'))
-      return
-    }
-
     // 本地内存操作锁，防止频繁操作
     const offLocalLock = operationLocalLock(e.UserKey)
 
@@ -33,6 +28,7 @@ export default OnResponse(
 
     // user id
     const UID = e.UserKey
+
     // data
     const data = await user.findOneValue({
       where: {
@@ -43,7 +39,7 @@ export default OnResponse(
     if (!data) {
       // 开始创建存档
       updatePlayer(UID).then(() => {
-        Send(Text('数据生成完成.\n可发送[/开启新人指引]继续...'))
+        Send(Text('数据（游戏测试中...）生成完成.\n可发送[/开启指引]继续...'))
       })
       return
     }
@@ -86,7 +82,7 @@ export default OnResponse(
       // 新人指引指令错误
       Send(
         Text(
-          `小柠檬: \n开始新人指引,请发送[${newcomer[data.newcomer_step].msg}]\n跳过指引可发送[/跳过新人指引]`
+          `小柠檬: \n开始新人指引,请发送[${newcomer[data.newcomer_step].msg}]\n跳过指引可发送[/跳过指引]`
         )
       )
     } else {
@@ -104,9 +100,7 @@ export default OnResponse(
       )
 
       // 携带数据
-      Send(
-        Text(['小柠檬：', c.ok, `\n跳过指引可发送[/跳过新人指引]`].join('\n'))
-      )
+      Send(Text(['小柠檬：', c.ok, `\n跳过指引可发送[/跳过指引]`].join('\n')))
     }
 
     // 订阅
