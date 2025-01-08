@@ -54,6 +54,7 @@ export async function setPlayer(UID: string, UserAvatar?: string) {
       uid: UID,
       name: name, // 道号
       avatar: UserAvatar ?? '', // 头像地址
+      newcomer: 1, // 默认关闭新人模式
       state: 0, // 用户状态_默认0
       state_start_time: 9999999999, // 状态开始时间
       state_end_time: 9999999999, // 状态结束时间

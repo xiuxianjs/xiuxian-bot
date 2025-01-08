@@ -39,7 +39,11 @@ export default OnResponse(
     if (!data) {
       // 开始创建存档
       updatePlayer(UID).then(() => {
-        Send(Text('数据（游戏测试中...）生成完成.\n可发送[/开启指引]继续...'))
+        Send(
+          Text(
+            '数据（游戏测试中...）生成完成.\n可发送[/开启指引]以进入新手模式...'
+          )
+        )
       })
       return
     }
