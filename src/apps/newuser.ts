@@ -71,6 +71,7 @@ export default OnResponse(
     const c = newcomer[data.newcomer_step]
     if (!c.reg.test(e.MessageText)) {
       // 新人指引指令错误
+      Send(Text(['小柠檬：', `指令不对哦,请发送[${c.msg}]`].join('\n')))
       next()
       return
     }
