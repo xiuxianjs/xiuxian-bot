@@ -3,7 +3,7 @@ import { Text, useSend } from 'alemonjs'
 import Xiuxian from '@src/apps/index'
 import { createEventName } from '@src/apps/util'
 export const name = createEventName(import.meta.url)
-export const regular = /^(#|\/)(开启|开启)(新人|新人)?(指引|教程)$/
+export const regular = /^(#|\/)(开启|开启)(新人)?(指引|教程)$/
 export default OnResponse(
   [
     Xiuxian.current,

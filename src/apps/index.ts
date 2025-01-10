@@ -68,7 +68,7 @@ export default OnResponse(
       return true
     }
 
-    if (/^(\/|#)(跳过)(新人|新人)?指引/.test(e.MessageText)) {
+    if (/^(\/|#)(跳过)(新人)?指引/.test(e.MessageText)) {
       closeNewComer()
       Send(
         Text(

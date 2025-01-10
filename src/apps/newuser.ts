@@ -55,7 +55,7 @@ export default OnResponse(
     }
 
     //
-    if (/^(\/|#)跳过(新人|新人)?(指引|教程)/.test(e.MessageText)) {
+    if (/^(\/|#)跳过(新人)?(指引|教程)/.test(e.MessageText)) {
       closeNewComer()
       Send(
         Text(
@@ -71,7 +71,15 @@ export default OnResponse(
     const c = newcomer[data.newcomer_step]
     if (!c.reg.test(e.MessageText)) {
       // 新人指引指令错误
-      Send(Text(['小柠檬：', `指令不对哦,请发送[${c.msg}]`].join('\n')))
+      Send(
+        Text(
+          [
+            '小柠檬：',
+            `指令不对哦,请发送[${c.msg}]`,
+            `跳过请发送[/跳过指引]`
+          ].join('\n')
+        )
+      )
       next()
       return
     }
