@@ -10,11 +10,7 @@ export const regular = /^(#|\/)开采\d+(\*1|\*2)?$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)开采\d+(\*1|\*2)?$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       // lock start
       const T = await GameApi.operationLock(e.UserKey)
       const Send = useSend(e)

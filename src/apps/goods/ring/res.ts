@@ -11,11 +11,7 @@ export const regular = /^(#|\/)我的(戒指|(纳|呐|那)(借|介|戒))$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)我的(戒指|(纳|呐|那)(借|介|戒))$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       const TT = await operationLock(e.UserKey)
       const Send = useSend(e)
       if (!TT) {

@@ -9,11 +9,7 @@ export const regular = /^(#|\/)(更改|更换)主题$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)(更改|更换)主题$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       const TT = await GameApi.operationLock(e.UserKey)
       const Send = useSend(e)
       if (!TT) {

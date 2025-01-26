@@ -12,15 +12,7 @@ export const regular =
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (
-        !/^(#|\/)(金银坊置换|金銀坊置換)\d+\*[\u4e00-\u9fa5]+\*[\u4e00-\u9fa5]+$/.test(
-          e.MessageText
-        )
-      ) {
-        next()
-        return
-      }
+    async e => {
       // 操作锁
       const TT = await operationLock(e.UserKey)
       const Send = useSend(e)

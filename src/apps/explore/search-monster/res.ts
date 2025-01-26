@@ -8,11 +8,7 @@ export const regular = /^(#|\/)探索怪物$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)探索怪物$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       const UserData = e['UserData'] as DB.Attributes<typeof DB.user>
       const Send = useSend(e)
       // 在城里

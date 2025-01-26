@@ -1,4 +1,5 @@
-import { getIoRedis } from 'alemonjs'
+import { getIoRedis } from '@alemonjs/db'
+
 import { user_email } from '@src/xiuxian/db'
 /**
  * 根据user_key查询邮箱

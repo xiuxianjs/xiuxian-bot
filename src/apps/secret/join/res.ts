@@ -8,11 +8,7 @@ export const regular = /^(#|\/)开启[\u4e00-\u9fa5]+秘境$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)开启[\u4e00-\u9fa5]+秘境$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       const TT = await operationLock(e.UserKey)
       const Send = useSend(e)
       if (!TT) {

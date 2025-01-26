@@ -11,10 +11,6 @@ export default OnResponse(
   [
     Xiuxian.current,
     async (e, next) => {
-      if (!/^(#|\/)审核[\u4e00-\u9fa5]+$/.test(e.MessageText)) {
-        next()
-        return
-      }
       // 操作锁
       const TT = await operationLock(e.UserKey)
       const Send = useSend(e)

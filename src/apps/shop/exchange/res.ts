@@ -10,11 +10,7 @@ export const regular = /^(#|\/)(兑换|兌換)[\u4e00-\u9fa5]+\*\d+$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)(兑换|兌換)[\u4e00-\u9fa5]+\*\d+$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       // lock start
       const T = await GameApi.operationLock(e.UserKey)
       const Send = useSend(e)

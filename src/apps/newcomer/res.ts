@@ -7,7 +7,7 @@ export const regular = /^(\/|#)跳过(指引|教程)/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
+    async e => {
       // send
       const Send = useSend(e)
       const data = e['UserData']

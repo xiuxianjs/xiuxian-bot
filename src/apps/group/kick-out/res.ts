@@ -9,11 +9,7 @@ export const regular = /^(#|\/)踢出(\d+)?$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)踢出(\d+)?$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       const TT = await operationLock(e.UserKey)
       const Send = useSend(e)
       if (!TT) {

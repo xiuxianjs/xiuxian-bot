@@ -8,11 +8,7 @@ export const regular = /^(#|\/)我的势力[\u4e00-\u9fa5]+$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)我的势力[\u4e00-\u9fa5]+$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       const text = e.MessageText
       const name = text.replace(/^(#|\/)我的势力/, '')
 

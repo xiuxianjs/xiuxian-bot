@@ -10,11 +10,7 @@ export const regular = /^(#|\/)我的面板$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)我的面板$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       const UID = e.UserKey
 
       const Send = useSend(e)

@@ -9,11 +9,7 @@ export const regular = /^(#|\/)我的势力$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)我的势力$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       const UID = e.UserKey
 
       // send

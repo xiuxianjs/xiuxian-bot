@@ -9,11 +9,7 @@ export const regular = /^(#|\/)返回$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)返回$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       const TT = await GameApi.operationLock(e.UserKey)
       const Send = useSend(e)
       if (!TT) {

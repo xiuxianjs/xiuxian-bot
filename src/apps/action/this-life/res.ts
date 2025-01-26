@@ -9,11 +9,7 @@ export const regular = /^(#|\/)我的本命物$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)我的本命物$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       // 操作锁
       const UID = e.UserKey
       // 查看本命信息：武器名/等级/属性/强化需要消耗提示

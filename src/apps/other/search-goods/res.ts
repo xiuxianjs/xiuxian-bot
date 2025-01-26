@@ -8,11 +8,7 @@ export const regular = /^(#|\/)查询物品[\u4e00-\u9fa5]+/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)查询物品[\u4e00-\u9fa5]+/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       // 获取用户信息
       const UserData = e['UserData'] as Attributes<typeof user>
 

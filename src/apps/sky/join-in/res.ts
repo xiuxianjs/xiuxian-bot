@@ -9,11 +9,7 @@ export const regular = /^(#|\/)进入通天塔$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)进入通天塔$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       // 操作锁
       const TT = await operationLock(e.UserKey)
       const Send = useSend(e)

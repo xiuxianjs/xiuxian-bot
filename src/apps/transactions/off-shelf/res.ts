@@ -9,11 +9,7 @@ export const regular = /^(#|\/)下架/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)下架/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       const T = await operationLock(e.UserKey)
       const Send = useSend(e)
       if (!T) {

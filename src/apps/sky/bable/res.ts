@@ -10,11 +10,7 @@ export const regular = /^(#|\/)查看(通天塔|至尊榜|天命榜)$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)查看(通天塔|至尊榜|天命榜)$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       const UID = e.UserKey
       const UserData = e['UserData'] as DB.Attributes<typeof DB.user>
       const Send = useSend(e)

@@ -10,11 +10,7 @@ export const regular = /^(#|\/)我的虚空镜$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)我的虚空镜$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       const T = await operationLock(e.UserKey)
       const Send = useSend(e)
       if (!T) {

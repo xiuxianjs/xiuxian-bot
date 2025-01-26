@@ -8,11 +8,7 @@ export const regular = /^(#|\/)查看(日常|限时|特殊)活动$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)查看(日常|限时|特殊)活动$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       const Send = useSend(e)
       const txt = e.MessageText
       if (/日常/.test(txt)) {

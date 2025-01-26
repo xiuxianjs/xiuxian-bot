@@ -7,11 +7,7 @@ export const regular = /^(#|\/)我的坐标$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)我的坐标$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       const UserData = e['UserData'] as Attributes<typeof user>
       const Send = useSend(e)
       Send(

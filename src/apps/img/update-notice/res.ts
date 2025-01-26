@@ -9,11 +9,7 @@ export const regular = /^(#|\/)查看更新$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)查看更新$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       const name = 'help-update'
       const Send = useSend(e)
       if (Object.prototype.hasOwnProperty.call(helpData, name)) {

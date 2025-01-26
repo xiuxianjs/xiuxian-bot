@@ -10,15 +10,7 @@ export const regular =
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (
-        !/^(#|\/)查看(商会|商會)(武器|护具|法宝|丹药|功法|道具|材料|装备)?$/.test(
-          e.MessageText
-        )
-      ) {
-        next()
-        return
-      }
+    async e => {
       const UserData = e['UserData'] as DB.Attributes<typeof DB.user>
       if (!(await controlByName(e, UserData, '联盟'))) return
       const start_msg = ['___[联盟商会]___', '[/兑换+物品名*数量]']

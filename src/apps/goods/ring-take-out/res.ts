@@ -5,19 +5,11 @@ import Xiuxian from '@src/apps/index'
 import { createEventName } from '@src/apps/util'
 export const name = createEventName(import.meta.url)
 export const regular =
-  /^(#|\/)(戒指|(纳|呐|那)(借|介|戒))存入[\u4e00-\u9fa5]+\*\d+$/
+  /^(#|\/)(戒指|(纳|呐|那)(借|介|戒))取出[\u4e00-\u9fa5]+\*\d+$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (
-        !/^(#|\/)(戒指|(纳|呐|那)(借|介|戒))取出[\u4e00-\u9fa5]+\*\d+$/.test(
-          e.MessageText
-        )
-      ) {
-        next()
-        return
-      }
+    async e => {
       // lock start
       const T = await GameApi.operationLock(e.UserKey)
       const Send = useSend(e)

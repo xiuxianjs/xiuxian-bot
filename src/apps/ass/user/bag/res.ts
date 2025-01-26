@@ -9,11 +9,7 @@ export const regular = /^(#|\/)打开([\u4e00-\u9fa5]+)宝库$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)打开([\u4e00-\u9fa5]+)宝库$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       const UID = e.UserKey
       const text = e.MessageText
       //

@@ -14,11 +14,7 @@ export const regular = /^(#|\/)(传功|傳功)/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)(传功|傳功)/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       // lock start
       const T = await GameApi.operationLock(e.UserKey)
       const Send = useSend(e)

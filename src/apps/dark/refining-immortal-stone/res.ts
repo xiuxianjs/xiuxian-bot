@@ -10,11 +10,7 @@ export const regular = /^(#|\/)治炼仙石\d+$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)治炼仙石\d+$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       // 操作锁
       const TT = await operationLock(e.UserKey)
       const Send = useSend(e)

@@ -9,7 +9,7 @@ export const regular = /^(#|\/)查看杀神榜$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
+    async e => {
       if (!/^(#|\/)查看杀神榜$/.test(e.MessageText)) {
         next()
         return

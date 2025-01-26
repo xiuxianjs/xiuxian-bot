@@ -8,11 +8,7 @@ export const regular = /^(#|\/)我的协会$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)我的协会$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       const UserData = e['UserData'] as Attributes<typeof user>
       if (!(await ControlByBlood(e, UserData))) return
       const Send = useSend(e)

@@ -22,11 +22,7 @@ export const regular = /^(#|\/)查看协会$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)查看协会$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       const UserData = e['UserData'] as Attributes<typeof user>
       if (!(await controlByName(e, UserData, '协会'))) return
       const Send = useSend(e)

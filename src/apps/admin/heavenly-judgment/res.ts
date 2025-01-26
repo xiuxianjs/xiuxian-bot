@@ -9,11 +9,7 @@ export const regular = /^(#|\/)天道裁决/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)天道裁决/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       if (!e.IsMaster) return
       const text = e.MessageText
       if (!text) return

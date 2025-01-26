@@ -17,11 +17,7 @@ export const regular = /^(#|\/)偷袭\d+$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)偷袭\d+$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       // lock start
       const T = await GameApi.operationLock(e.UserKey)
       const Send = useSend(e)

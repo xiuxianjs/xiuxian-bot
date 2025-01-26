@@ -8,11 +8,7 @@ export const regular = /^(#|\/)天道更新面板/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)天道更新面板/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       if (!e.IsMaster) return
       const text = e.MessageText
       if (!text) return

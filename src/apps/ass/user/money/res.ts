@@ -1,4 +1,6 @@
-import { getIoRedis, Text, useSend } from 'alemonjs'
+import { Text, useSend } from 'alemonjs'
+
+import { getIoRedis } from '@alemonjs/db'
 
 import { ass, user_ass } from '@xiuxian/db/index'
 import { Bag, operationLock } from '@src/xiuxian/core'
@@ -13,11 +15,7 @@ export const regular = /^(#|\/)领取势力俸禄$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)领取势力俸禄$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       // 操作锁
       const TT = await operationLock(e.UserKey)
       const Send = useSend(e)

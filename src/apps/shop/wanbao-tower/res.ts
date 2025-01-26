@@ -10,15 +10,7 @@ export const regular =
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (
-        !/^(#|\/)查看(万宝楼|萬寶樓)(武器|护具|法宝|丹药|功法|道具|材料|装备)?$/.test(
-          e.MessageText
-        )
-      ) {
-        next()
-        return
-      }
+    async e => {
       const UserData = e['UserData'] as DB.Attributes<typeof DB.user>
       if (!(await controlByName(e, UserData, '万宝楼'))) return
       const start_msg = ['___[万宝楼]___', '欢迎光顾本店']

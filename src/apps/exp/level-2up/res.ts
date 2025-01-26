@@ -10,11 +10,7 @@ export const regular = /^(#|\/)破境$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)破境$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       // lock start
       const T = await operationLock(e.UserKey)
       const Send = useSend(e)

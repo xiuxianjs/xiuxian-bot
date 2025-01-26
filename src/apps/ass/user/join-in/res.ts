@@ -9,11 +9,7 @@ export const regular = /^(#|\/)加入[\u4e00-\u9fa5]+$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)加入[\u4e00-\u9fa5]+$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       // 操作锁
       const TT = await GameApi.operationLock(e.UserKey)
       const Send = useSend(e)

@@ -8,11 +8,7 @@ export const regular = /^(#|\/)查看(金角|银角)$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)查看(金角|银角)$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       const Send = useSend(e)
       // 检查活动时间
       if (!Boss.isBossActivityOpen()) {

@@ -7,11 +7,8 @@
   "private": true,
   "main": "./lib/index.js",
   "exports": {
-    ".": {
-      "import": "./lib/index.js"
-    },
-    "./package": "./package.json",
-    "./config": "./alemon.package.js"
+    ".": "./lib/index.js",
+    "./package": "./package.json"
   },
   "scripts": {
     "dev": "npx lvy dev",
@@ -32,28 +29,17 @@
     "classnames": "^2.5.1",
     "dayjs": "^1.11.13",
     "dotenv": "^16.4.5",
-    "ioredis": "^5.3.2",
     "jsonwebtoken": "^9.0.2",
-    "jsxp": "1.0.8",
+    "jsxp": "1.1.1",
     "koa": "^2.15.3",
     "koa-bodyparser": "^4.4.1",
     "koa-router": "^13.0.1",
-    "mysql2": "^3.6.2",
-    "nodemailer": "^6.9.16",
-    "sequelize": "^6.33.0",
     "uuid": "^10.0.0"
   },
   "devDependencies": {
-    "@alemonjs/discord": "^0.2.1",
-    "@alemonjs/gui": "^0.3.0",
-    "@alemonjs/kook": "^0.2.1",
-    "@alemonjs/onebot": "^0.2.1",
-    "@alemonjs/qq": "^0.2.1",
-    "@alemonjs/qq-bot": "^0.0.7",
-    "@alemonjs/qq-group-bot": "^0.2.2",
-    "@alemonjs/qq-guild-bot": "^0.2.2",
-    "@alemonjs/telegram": "^0.2.1",
-    "@alemonjs/wechat": "^0.2.1",
+    "@alemonjs/db": "^0.0.3",
+    "@alemonjs/telegram": "^0.2.3",
+    "@alemonjs/wechat": "^0.2.6",
     "@eslint/js": "^9.14.0",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/koa": "^2.15.0",
@@ -61,9 +47,8 @@
     "@types/koa-router": "^7.4.8",
     "@types/koa-static": "^4.0.4",
     "@types/node": "^20.3.1",
-    "@types/nodemailer": "^6.4.16",
     "@types/uuid": "^10.0.0",
-    "alemonjs": "2.0.0-rc.84",
+    "alemonjs": "2.0.0-rc.87",
     "cssnano": "^7.0.6",
     "eslint": "^9.14.0",
     "eslint-config-prettier": "^9.1.0",

@@ -17,11 +17,7 @@ export const regular = /^(#|\/)打劫/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)打劫/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       // lock
       const T = await operationLock(e.UserKey)
       const Send = useSend(e)

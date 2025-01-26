@@ -9,11 +9,7 @@ export const regular = /^(#|\/)(退出队伍|解散队伍)$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)(退出队伍|解散队伍)$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       const TT = await operationLock(e.UserKey)
       const Send = useSend(e)
       if (!TT) {

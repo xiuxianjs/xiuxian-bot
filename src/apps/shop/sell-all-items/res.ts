@@ -7,16 +7,11 @@ import { Text, useSend } from 'alemonjs'
 import Xiuxian from '@src/apps/index'
 import { createEventName } from '@src/apps/util'
 export const name = createEventName(import.meta.url)
-export const regular =
-  /^(#|\/)售出所有(武器|护具|法宝|丹药|功法|道具|材料|装备)$/
+export const regular = /^(#|\/)售出所有物品$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)售出所有物品$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       // lock start
       const T = await GameApi.operationLock(e.UserKey)
       const Send = useSend(e)

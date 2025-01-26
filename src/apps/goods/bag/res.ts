@@ -12,15 +12,7 @@ export const regular =
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (
-        !/^(#|\/)我的(储物袋|儲物袋|背包)(武器|护具|法宝|丹药|功法|道具|材料|装备)?$/.test(
-          e.MessageText
-        )
-      ) {
-        next()
-        return
-      }
+    async e => {
       const TT = await operationLock(e.UserKey)
       const Send = useSend(e)
       if (!TT) {

@@ -5,15 +5,11 @@ import * as DB from '@xiuxian/db/index'
 import Xiuxian from '@src/apps/index'
 import { createEventName } from '@src/apps/util'
 export const name = createEventName(import.meta.url)
-export const regular = /^(#|\/)小白[\u4e00-\u9fa5]+$/
+export const regular = /^(#|\/)建立[\u4e00-\u9fa5]+$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)建立[\u4e00-\u9fa5]+$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       // 操作锁
       const TT = await GameApi.operationLock(e.UserKey)
       const Send = useSend(e)

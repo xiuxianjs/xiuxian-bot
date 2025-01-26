@@ -7,11 +7,7 @@ export const regular = /^(#|\/)查看配置$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)查看配置$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       const img = await pictureRender('Defsetcomponent', {
         theme: 'dark'
       })

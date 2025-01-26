@@ -11,11 +11,7 @@ export const regular = /^(#|\/)查看通天塔第(\d+)名(资料|面板)?$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)查看通天塔第(\d+)名(资料|面板)?$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       const UID = e.UserKey
       const UserData = e['UserData'] as Attributes<typeof user>
       const Send = useSend(e)

@@ -7,11 +7,7 @@ export const regular = /^查看九城三十六郡$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^查看九城三十六郡$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       const Send = useSend(e)
       Send(Text('待开放'))
     }

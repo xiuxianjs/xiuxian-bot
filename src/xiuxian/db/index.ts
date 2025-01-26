@@ -3,7 +3,7 @@ export * from './src/models.js'
 export * from './src/main.js'
 import { Model, ModelCtor } from 'sequelize'
 import './src/main.js'
-import { getIoRedis } from 'alemonjs'
+import { getIoRedis } from '@alemonjs/db'
 export const Redis = getIoRedis()
 /**
  * 获取模型的属性类型

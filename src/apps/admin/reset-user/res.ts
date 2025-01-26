@@ -7,11 +7,7 @@ export const regular = /^(#|\/)天道强制重生/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)天道强制重生/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       if (!e.IsMaster) return
       const text = e.MessageText
       if (!text) return

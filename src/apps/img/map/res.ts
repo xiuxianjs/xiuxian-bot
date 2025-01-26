@@ -8,11 +8,7 @@ export const regular = /^(#|\/)(修仙)?(地图|地圖)$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)(修仙)?(地图|地圖)$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       // 不变的图片做缓存处理
       const img = lcalCacheImage(img_map)
       const Send = useSend(e)

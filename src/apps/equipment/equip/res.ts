@@ -9,11 +9,7 @@ export const regular = /^(#|\/)(装备|裝備)[\u4e00-\u9fa5]+$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)(装备|裝備)[\u4e00-\u9fa5]+$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       // lock start
       const T = await GameApi.operationLock(e.UserKey)
       const Send = useSend(e)

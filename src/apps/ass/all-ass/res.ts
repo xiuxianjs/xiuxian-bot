@@ -9,11 +9,7 @@ export const regular = /^(#|\/)查看势力(\d+)?$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)查看势力(\d+)?$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       const UserData = e['UserData'] as Attributes<typeof user>
       const text = e.MessageText
       const p = text.replace(/^(#|\/)查看势力/, '')

@@ -9,11 +9,7 @@ export const regular = /^(#|\/)我的记录$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)我的记录$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       const UID = e.UserKey
 
       const logsData = await user_log

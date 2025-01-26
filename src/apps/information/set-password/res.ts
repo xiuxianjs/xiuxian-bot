@@ -9,11 +9,7 @@ export const regular = /^(#|\/)设置密码/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)设置密码/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       const TT = await operationLock(e.UserKey)
       const Send = useSend(e)
       if (!TT) {

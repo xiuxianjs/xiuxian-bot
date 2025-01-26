@@ -7,11 +7,7 @@ export const regular = /^(#|\/)向左$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)向左$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       const UID = e.UserKey
       const UserData = e['UserData'] as Attributes<typeof user>
       if (!(await ControlByBlood(e, UserData))) return

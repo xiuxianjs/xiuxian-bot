@@ -8,11 +8,7 @@ export const regular = /^(#|\/)查看当前位置$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)查看当前位置$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       // 获取用户信息
       const UserData = e['UserData'] as DB.Attributes<typeof DB.user>
       const PositionData = await DB.map_point

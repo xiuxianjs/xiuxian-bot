@@ -10,11 +10,7 @@ export const regular = /^(#|\/)打坐$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)打坐$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       // 操作锁
       const TT = await GameApi.operationLock(e.UserKey)
       const Send = useSend(e)

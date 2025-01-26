@@ -10,11 +10,7 @@ export const regular = /^(#|\/)释放神识$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)释放神识$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       const UID = e.UserKey
       const UserData = e['UserData'] as DB.Attributes<typeof DB.user>
       if (!(await ControlByBlood(e, UserData))) return

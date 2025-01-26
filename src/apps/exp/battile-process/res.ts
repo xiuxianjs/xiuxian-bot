@@ -8,11 +8,7 @@ export const regular = /^(#|\/)战斗过程(开启|关闭)$/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)战斗过程(开启|关闭)$/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       const UID = e.UserKey
 
       const UserData = e['UserData'] as Attributes<typeof user>

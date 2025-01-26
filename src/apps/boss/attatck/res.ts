@@ -11,11 +11,7 @@ export const regular = /^(#|\/)攻击(金角|银角)/
 export default OnResponse(
   [
     Xiuxian.current,
-    async (e, next) => {
-      if (!/^(#|\/)攻击(金角|银角)/.test(e.MessageText)) {
-        next()
-        return
-      }
+    async e => {
       const UID = e.UserKey
 
       // lock start
