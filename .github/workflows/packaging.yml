@@ -48,6 +48,6 @@ jobs:
       - name: 推送到 qq-bot 服务器
         run: |
           echo "${{ secrets.SSH_CONFIG_YAML }}" > ./build/alemon.config.yaml
-          ssh ${{ secrets.SSH_SERVER_USER }}@${{ secrets.SSH_SERVER_IP_QQ_BOT }} "cd /home/lighthouse/qq-guild-bot && if [ -d node_modules ]; then npx pm2 kill ;fi &"  
+          ssh ${{ secrets.SSH_SERVER_USER }}@${{ secrets.SSH_SERVER_IP_QQ_BOT }} "cd /home/lighthouse/qq-bot && if [ -d node_modules ]; then npx pm2 kill ;fi &"  
           rsync -avz --delete ./build/ ${{ secrets.SSH_SERVER_USER }}@${{ secrets.SSH_SERVER_IP_QQ_BOT }}:/home/lighthouse/qq-bot
           ssh ${{ secrets.SSH_SERVER_USER }}@${{ secrets.SSH_SERVER_IP_QQ_BOT }} "cd /home/lighthouse/qq-bot && yarn install && yarn start&"
