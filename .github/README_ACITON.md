@@ -26,17 +26,9 @@ ssh 密钥
 
 ssh 用户
 
-- SSH_SERVER_IP_DISCORD
-
-向discord推送的地址
-
 - SSH_SERVER_IP_QQ_BOT
 
 向qqbot推送的地址
-
-- SSH_SERVER_IP_API
-
-接口服务地址
 
 - SSH_CONFIG_YAML
 

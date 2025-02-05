@@ -21,7 +21,7 @@ jobs:
       - name: 测试 SSH 连接
         run: |
           count=1
-          for IP in ${{ secrets.SSH_SERVER_IP_DISCORD }} ${{ secrets.SSH_SERVER_IP_QQ_BOT }}; do
+          for IP in ${{ secrets.SSH_SERVER_IP_QQ_BOT }}; do
             echo "Testing SSH connection to IP $count..."
             ssh -o BatchMode=yes -o StrictHostKeyChecking=no ${{ secrets.SSH_SERVER_USER }}@$IP "echo 'SSH connection to $count successful!' || echo 'Connection failed for $count'"
             count=$((count + 1))
@@ -47,8 +47,7 @@ jobs:
 
       - name: 推送到 qq-bot 服务器
         run: |
-          echo "${{ secrets.SSH_ALEMON_CONFIG_QQBOT }}" > ./build/alemon.config.yaml
+          echo "${{ secrets.SSH_CONFIG_YAML }}" > ./build/alemon.config.yaml
           ssh ${{ secrets.SSH_SERVER_USER }}@${{ secrets.SSH_SERVER_IP_QQ_BOT }} "cd /home/lighthouse/qq-guild-bot && if [ -d node_modules ]; then npx pm2 kill ;fi &"  
           rsync -avz --delete ./build/ ${{ secrets.SSH_SERVER_USER }}@${{ secrets.SSH_SERVER_IP_QQ_BOT }}:/home/lighthouse/qq-bot
           ssh ${{ secrets.SSH_SERVER_USER }}@${{ secrets.SSH_SERVER_IP_QQ_BOT }} "cd /home/lighthouse/qq-bot && yarn install && yarn start&"
-        continue-on-error: true
