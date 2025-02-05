@@ -1,0 +1,94 @@
+{
+  "name": "alemonjs-xiuxian",
+  "version": "0.0.1",
+  "description": "凡人修仙文字游戏",
+  "author": "ningmengchongshui",
+  "type": "module",
+  "private": true,
+  "main": "./lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./package": "./package.json",
+    "./desktop": "./lib/desktop.js"
+  },
+  "scripts": {
+    "dev": "npx lvy dev",
+    "view": "npx lvy dev --jsxp",
+    "build": "npx lvy build",
+    "start": "pm2 startOrRestart pm2.config.cjs",
+    "stop": "pm2 stop pm2.config.cjs",
+    "delete": "pm2 delete pm2.config.cjs",
+    "eslint": "eslint src --fix"
+  },
+  "dependencies": {
+    "axios": "^1.7.9",
+    "bullmq": "^4.12.7",
+    "chat-space": "^0.0.7",
+    "classnames": "^2.5.1",
+    "dayjs": "^1.11.13",
+    "dotenv": "^16.4.5",
+    "jsonwebtoken": "^9.0.2",
+    "jsxp": "1.1.1",
+    "koa": "^2.15.3",
+    "koa-bodyparser": "^4.4.1",
+    "koa-router": "^13.0.1",
+    "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "@alemonjs/db": "^0.0.3",
+    "@alemonjs/qq-bot": "^0.0.12",
+    "@alemonjs/telegram": "^0.2.3",
+    "@alemonjs/wechat": "^0.2.6",
+    "@eslint/js": "^9.14.0",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/koa": "^2.15.0",
+    "@types/koa-bodyparser": "^4.3.12",
+    "@types/koa-router": "^7.4.8",
+    "@types/koa-static": "^4.0.4",
+    "@types/node": "^20.3.1",
+    "@types/uuid": "^10.0.0",
+    "alemonjs": "2.0.0-rc.87",
+    "cssnano": "^7.0.6",
+    "eslint": "^9.14.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react": "^7.37.2",
+    "eslint-plugin-unused-imports": "^4.1.4",
+    "globals": "^15.12.0",
+    "less": "^4.2.1",
+    "lvyjs": "^0.2.14",
+    "pm2": "^5.3.0",
+    "sass": "^1.83.0",
+    "tailwindcss": "^3.4.16",
+    "typescript-eslint": "^8.13.0",
+    "yarn": "1.19.1"
+  },
+  "alemonjs": {
+    "desktop": {
+      "commond": [
+        {
+          "name": "修仙控制板",
+          "commond": "open.xiuxian"
+        }
+      ],
+      "sidebars": [
+        {
+          "name": "xiuxian",
+          "commond": "open.xiuxian"
+        }
+      ]
+    }
+  },
+  "keywords": [
+    "alemonjs"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  },
+  "bugs": "https://github.com/lemonade-lab/alemonjs/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lemonade-lab/alemonjs.git"
+  }
+}
