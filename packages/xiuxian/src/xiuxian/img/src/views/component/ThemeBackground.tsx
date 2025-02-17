@@ -20,7 +20,7 @@ const getBG = (theme: ThemesEmun = 'dark') => {
       return img_root
   }
 }
-type DivBackgroundImageProps = React.DetailedHTMLProps<
+type PropsType = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
   HTMLDivElement
 > & {
@@ -30,9 +30,9 @@ export default function ThemeBackground({
   children,
   theme,
   ...props
-}: DivBackgroundImageProps) {
+}: PropsType) {
   return (
-    <BackgroundImage id="root" data-theme={theme} url={getBG(theme)} {...props}>
+    <BackgroundImage id="root" data-theme={theme} src={getBG(theme)} {...props}>
       {children}
     </BackgroundImage>
   )
