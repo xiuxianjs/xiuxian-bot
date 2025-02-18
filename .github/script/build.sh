@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# 确保弹出错误
+set -e
+
 # Create distribution directory and copy necessary files
 mkdir -p dist
 mv .npmrc dist/
