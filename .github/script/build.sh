@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# 确保弹出错误
 set -e
 
 echo "Creating distribution directory..."
@@ -15,4 +14,8 @@ yarn build
 echo "Copying project files to the distribution directory..."
 
 ls -al ./packages/xiuxian
-cp -rf ./packages/xiuxian/{index.js,lib,.puppeteerrc.cjs,package.json,pm2.config.cjs} dist/
+cp -rf ./packages/xiuxian/index.js dist/
+cp -rf ./packages/xiuxian/lib dist/
+cp -rf ./packages/xiuxian/.puppeteerrc.cjs dist/
+cp -rf ./packages/xiuxian/package.json dist/
+cp -rf ./packages/xiuxian/pm2.config.cjs dist/
