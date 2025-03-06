@@ -1,22 +1,16 @@
 # 自动化部署
 
-## 本地生产
+## 配置变量
 
-- 部署密钥
+github仓库中
 
-```sh
-ssh-copy-id SSH_SERVER_USER@SSH_SERVER_IP
-```
+1. 前往 Settings > Actions secrets and variables > Action
 
-- 校验ip可通
+2. 点击 New repository secret
 
-```sh
-SSH_SERVER_IP=0.0.0.0
-SSH_SERVER_USER='user'
-ssh -o BatchMode=yes -o StrictHostKeyChecking=no $SSH_SERVER_USER@$SSH_SERVER_IP "echo 'successful!' || echo 'Connection failed'"
-```
+3. 配置 Name 和 Secret
 
-## 含义
+## 变量说明
 
 - SSH_PRIVATE_KEY
 
@@ -32,4 +26,18 @@ ssh 用户
 
 - SSH_CONFIG_YAML
 
-alemon.config.yaml 配置文件
+alemon.config.yaml 配置文件内容
+
+## 生成密钥
+
+- 部署密钥
+
+ssh-copy-id `user`@`ip`
+
+- 校验ip可通
+
+```sh
+ip=0.0.0.0
+user='root'
+ssh -o BatchMode=yes -o StrictHostKeyChecking=no $user@$ip "echo '完成!' || echo '连接错误'"
+```

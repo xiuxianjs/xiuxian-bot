@@ -24,8 +24,4 @@ https://github.com/xiuxianjs/xiuxian-bot.git
 
 ## Github自动化部署
 
-[README_ACITON](./README_ACITON.md)
-
-## 交流
-
-QQ Group 806943302
+[配置说明](./.github/README_ACITON.md)
