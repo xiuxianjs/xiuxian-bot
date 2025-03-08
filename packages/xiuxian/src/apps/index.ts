@@ -1,5 +1,3 @@
-import { platform as telegram } from '@alemonjs/telegram'
-import { platform as wechat } from '@alemonjs/wechat'
 import { user } from '@xiuxian/db/index'
 import { Text, useSend, useSubscribe } from 'alemonjs'
 import { updatePlayer } from '@src/xiuxian/core/src/system/player'
@@ -8,7 +6,7 @@ import { newcomer } from './newcomer'
 import NewsUser from './newuser'
 export default OnResponse(
   async (e, next) => {
-    if (e.Platform == telegram || e.Platform == wechat) {
+    if (e.Platform == 'telegram' || e.Platform == 'wechat') {
       // 暂时不支持
       next()
       return
