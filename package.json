@@ -1,12 +1,9 @@
 {
   "name": "xiuxian-bot",
   "version": "1.0.0",
-  "devDependencies": {
-    "lerna": "^8.1.9",
-    "prettier": "^3.3.3",
-    "husky": "^9.0.11"
-  },
-  "private": true,
+  "author": "ningmengchongshui",
+  "license": "MIT",
+  "description": "修仙",
   "scripts": {
     "build": "lerna run build",
     "dev": "yarn --cwd packages/xiuxian dev",
@@ -19,9 +16,12 @@
     "check-format": "git diff --exit-code",
     "prepare": "husky"
   },
-  "author": "ningmengchongshui",
-  "license": "MIT",
-  "description": "修仙",
+  "devDependencies": {
+    "lerna": "^8.1.9",
+    "prettier": "^3.3.3",
+    "husky": "^9.0.11"
+  },
+  "private": true,
   "workspaces": [
     "packages/*"
   ]
