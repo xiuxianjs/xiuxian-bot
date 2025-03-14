@@ -3,8 +3,7 @@ import { Text, useSend } from 'alemonjs'
 import { user_group, user_group_list } from '@src/xiuxian/db'
 
 import Xiuxian from '@src/apps/index'
-import { createEventName } from '@src/apps/util'
-export const name = createEventName(import.meta.url)
+
 export const regular = /^(#|\/)加入队伍\d+$/
 export default OnResponse(
   [

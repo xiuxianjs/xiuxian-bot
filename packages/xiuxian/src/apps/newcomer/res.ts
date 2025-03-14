@@ -1,7 +1,6 @@
 import { Text, useSend } from 'alemonjs'
 import Xiuxian from '@src/apps/index'
-import { createEventName } from '@src/apps/util'
-export const name = createEventName(import.meta.url)
+
 import { user } from '@src/xiuxian/db'
 export const regular = /^(\/|#)跳过(指引|教程)/
 export default OnResponse(

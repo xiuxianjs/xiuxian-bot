@@ -4,8 +4,7 @@ import { Attributes, user } from '@src/xiuxian/db'
 import { endAllWord } from '@xiuxian/api/index'
 import { Text, useSend } from 'alemonjs'
 import Xiuxian from '@src/apps/index'
-import { createEventName } from '@src/apps/util'
-export const name = createEventName(import.meta.url)
+
 export const regular = /^(#|\/)(归来|歸來|凝脉|出关|出關|聚灵|聚靈)$/
 export default OnResponse(
   [

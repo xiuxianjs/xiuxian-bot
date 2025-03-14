@@ -4,8 +4,7 @@ import { punishLevel } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
 import * as DB from '@xiuxian/db/index'
 import Xiuxian from '@src/apps/index'
-import { createEventName } from '@src/apps/util'
-export const name = createEventName(import.meta.url)
+
 export const regular = /^(#|\/)渡劫$/
 export default OnResponse(
   [

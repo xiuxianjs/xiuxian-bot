@@ -4,8 +4,7 @@ import { killNPC } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
 import { Attributes, user, user_level } from '@xiuxian/db/index'
 import Xiuxian from '@src/apps/index'
-import { createEventName } from '@src/apps/util'
-export const name = createEventName(import.meta.url)
+
 export const regular = /^(#|\/)开采\d+(\*1|\*2)?$/
 export default OnResponse(
   [

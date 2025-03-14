@@ -5,8 +5,7 @@ import * as GameApi from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
 
 import Xiuxian from '@src/apps/index'
-import { createEventName } from '@src/apps/util'
-export const name = createEventName(import.meta.url)
+
 export const regular = /^(#|\/)售出所有物品$/
 export default OnResponse(
   [

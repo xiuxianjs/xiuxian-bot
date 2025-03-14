@@ -9,8 +9,7 @@ import { literal } from 'sequelize'
 
 // 查看该宗门都有谁
 import Xiuxian from '@src/apps/index'
-import { createEventName } from '@src/apps/util'
-export const name = createEventName(import.meta.url)
+
 export const regular = /^(#|\/)领取势力俸禄$/
 export default OnResponse(
   [

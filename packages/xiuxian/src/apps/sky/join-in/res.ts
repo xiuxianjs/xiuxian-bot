@@ -3,8 +3,7 @@ import { Text, useSend } from 'alemonjs'
 import * as DB from '@xiuxian/db/index'
 import { operationLock } from '@src/xiuxian/core'
 import Xiuxian from '@src/apps/index'
-import { createEventName } from '@src/apps/util'
-export const name = createEventName(import.meta.url)
+
 export const regular = /^(#|\/)进入通天塔$/
 export default OnResponse(
   [

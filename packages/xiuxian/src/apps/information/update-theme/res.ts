@@ -3,8 +3,7 @@ import * as GameApi from '@xiuxian/core/index'
 import { user } from '@xiuxian/db/index'
 import { Text, useSend } from 'alemonjs'
 import Xiuxian from '@src/apps/index'
-import { createEventName } from '@src/apps/util'
-export const name = createEventName(import.meta.url)
+
 export const regular = /^(#|\/)(更改|更换)主题$/
 export default OnResponse(
   [

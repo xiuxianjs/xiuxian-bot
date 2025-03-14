@@ -1,8 +1,7 @@
 import { Text, useSend } from 'alemonjs'
 import { operationLock } from '@src/xiuxian/core'
 import Xiuxian from '@src/apps/index'
-import { createEventName } from '@src/apps/util'
-export const name = createEventName(import.meta.url)
+
 export const regular = /^(#|\/)升级宝库$/
 export default OnResponse(
   [

@@ -3,8 +3,7 @@ import { pictureRender } from '@xiuxian/img/index'
 import * as Server from '@xiuxian/statistics/index'
 import { Attributes, user } from '@src/xiuxian/db'
 import Xiuxian from '@src/apps/index'
-import { createEventName } from '@src/apps/util'
-export const name = createEventName(import.meta.url)
+
 export const regular = /^(#|\/)查看杀神榜$/
 export default OnResponse(
   [

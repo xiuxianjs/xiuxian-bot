@@ -2,8 +2,7 @@ import { Text, useSend } from 'alemonjs'
 import { ControlByBlood } from '@xiuxian/api/index'
 import { Attributes, user } from '@src/xiuxian/db'
 import Xiuxian from '@src/apps/index'
-import { createEventName } from '@src/apps/util'
-export const name = createEventName(import.meta.url)
+
 export const regular = /^(#|\/)我的协会$/
 export default OnResponse(
   [

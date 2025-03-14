@@ -4,8 +4,7 @@ import { Control, showUserMsg } from '@xiuxian/api/index'
 import { Config, operationLock } from '@xiuxian/core/index'
 import { Attributes, user } from '@xiuxian/db/index'
 import Xiuxian from '@src/apps/index'
-import { createEventName } from '@src/apps/util'
-export const name = createEventName(import.meta.url)
+
 export const regular = /^(#|\/)更改昵称为[\u4e00-\u9fa5]+$/
 export default OnResponse(
   [

@@ -4,8 +4,7 @@ import { Bag, Method, operationLock } from '@xiuxian/core/index'
 import { Attributes, user } from '@xiuxian/db/index'
 const MoenySize = 10
 import Xiuxian from '@src/apps/index'
-import { createEventName } from '@src/apps/util'
-export const name = createEventName(import.meta.url)
+
 export const regular = /^(#|\/)(联盟签到|聯盟簽到)$/
 export default OnResponse(
   [

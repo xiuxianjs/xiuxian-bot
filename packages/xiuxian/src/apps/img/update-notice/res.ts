@@ -3,8 +3,7 @@ import { pictureRender } from '@xiuxian/img/index'
 import json_update from '@src/assets/defset/update.json'
 const helpData = {}
 import Xiuxian from '@src/apps/index'
-import { createEventName } from '@src/apps/util'
-export const name = createEventName(import.meta.url)
+
 export const regular = /^(#|\/)查看更新$/
 export default OnResponse(
   [

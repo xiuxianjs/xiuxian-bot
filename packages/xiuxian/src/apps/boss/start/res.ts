@@ -2,8 +2,7 @@ import { Text, useSend } from 'alemonjs'
 import { console } from 'inspector'
 import { Boss } from '@xiuxian/core/index'
 import Xiuxian from '@src/apps/index'
-import { createEventName } from '@src/apps/util'
-export const name = createEventName(import.meta.url)
+
 export const regular = /^(#|\/)查看(金角|银角)$/
 export default OnResponse(
   [

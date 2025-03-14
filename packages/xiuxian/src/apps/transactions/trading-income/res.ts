@@ -3,8 +3,7 @@ import { Text, useSend } from 'alemonjs'
 import { Bag, operationLock } from '@xiuxian/core/index'
 import { Redis } from '@xiuxian/db/index'
 import Xiuxian from '@src/apps/index'
-import { createEventName } from '@src/apps/util'
-export const name = createEventName(import.meta.url)
+
 export const regular = /^(#|\/)领取交易所得$/
 export default OnResponse(
   [

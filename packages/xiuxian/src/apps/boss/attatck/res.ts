@@ -5,8 +5,7 @@ import { Boss, Fight, operationLock } from '@xiuxian/core/index'
 import { Attributes, Redis, user } from '@xiuxian/db/index'
 // 攻击
 import Xiuxian from '@src/apps/index'
-import { createEventName } from '@src/apps/util'
-export const name = createEventName(import.meta.url)
+
 export const regular = /^(#|\/)攻击(金角|银角)/
 export default OnResponse(
   [

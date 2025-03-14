@@ -2,8 +2,7 @@ import { sendReply } from '@xiuxian/api/index'
 import * as DB from '@xiuxian/db/index'
 import { useSend } from 'alemonjs'
 import Xiuxian from '@src/apps/index'
-import { createEventName } from '@src/apps/util'
-export const name = createEventName(import.meta.url)
+
 export const regular = /^(#|\/)查看当前位置$/
 export default OnResponse(
   [

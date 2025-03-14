@@ -16,8 +16,7 @@ import { Attributes, user } from '@src/xiuxian/db'
  * 灵根多，加成的下降
  */
 import Xiuxian from '@src/apps/index'
-import { createEventName } from '@src/apps/util'
-export const name = createEventName(import.meta.url)
+
 export const regular = /^(#|\/)查看协会$/
 export default OnResponse(
   [

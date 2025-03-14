@@ -3,8 +3,7 @@ import { pictureRender } from '@xiuxian/img/index'
 import josn_base_help from '@src/assets/defset/base_help.json'
 const helpData = {}
 import Xiuxian from '@src/apps/index'
-import { createEventName } from '@src/apps/util'
-export const name = createEventName(import.meta.url)
+
 export const regular = /^(#|\/)(修仙)?((帮|幫)助|help)/
 export default OnResponse(
   [

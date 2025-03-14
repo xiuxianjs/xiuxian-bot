@@ -2,8 +2,7 @@ import { Text, useSend } from 'alemonjs'
 import { Equipment } from '@xiuxian/core/index'
 import { user } from '@src/xiuxian/db'
 import Xiuxian from '@src/apps/index'
-import { createEventName } from '@src/apps/util'
-export const name = createEventName(import.meta.url)
+
 export const regular = /^(#|\/)天道更新面板/
 export default OnResponse(
   [

@@ -2,8 +2,7 @@ import { Attributes, user_group, user_group_list } from '@src/xiuxian/db'
 import { operationLock } from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
 import Xiuxian from '@src/apps/index'
-import { createEventName } from '@src/apps/util'
-export const name = createEventName(import.meta.url)
+
 export const regular = /^(#|\/)退出秘境$/
 export default OnResponse(
   [

@@ -5,8 +5,7 @@ import * as GameApi from '@xiuxian/core/index'
 import { operationLock } from '@xiuxian/core/index'
 import { Attributes, user } from '@src/xiuxian/db'
 import Xiuxian from '@src/apps/index'
-import { createEventName } from '@src/apps/util'
-export const name = createEventName(import.meta.url)
+
 export const regular =
   /^(#|\/)(金银坊置换|金銀坊置換)\d+\*[\u4e00-\u9fa5]+\*[\u4e00-\u9fa5]+$/
 export default OnResponse(

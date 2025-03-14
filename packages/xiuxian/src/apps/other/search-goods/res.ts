@@ -2,8 +2,7 @@ import { Image, Text, useSend } from 'alemonjs'
 import { Attributes, goods, user } from '@xiuxian/db/index'
 import { pictureRender } from '@xiuxian/img/index'
 import Xiuxian from '@src/apps/index'
-import { createEventName } from '@src/apps/util'
-export const name = createEventName(import.meta.url)
+
 export const regular = /^(#|\/)查询物品[\u4e00-\u9fa5]+/
 export default OnResponse(
   [

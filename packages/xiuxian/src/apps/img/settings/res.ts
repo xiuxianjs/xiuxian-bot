@@ -1,8 +1,7 @@
 import { Image, useSend } from 'alemonjs'
 import { pictureRender } from '@xiuxian/img/index'
 import Xiuxian from '@src/apps/index'
-import { createEventName } from '@src/apps/util'
-export const name = createEventName(import.meta.url)
+
 export const regular = /^(#|\/)查看配置$/
 export default OnResponse(
   [

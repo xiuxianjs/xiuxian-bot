@@ -5,8 +5,7 @@ import * as Server from '@xiuxian/statistics/index'
 import { operationLock } from '@src/xiuxian/core'
 import { Attributes, user } from '@src/xiuxian/db'
 import Xiuxian from '@src/apps/index'
-import { createEventName } from '@src/apps/util'
-export const name = createEventName(import.meta.url)
+
 export const regular = /^(#|\/)我的(戒指|(纳|呐|那)(借|介|戒))$/
 export default OnResponse(
   [
