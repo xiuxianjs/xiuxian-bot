@@ -2,11 +2,12 @@ import { Text, useSend } from 'alemonjs'
 import { isSideUser } from '@xiuxian/api/index'
 import { Bag } from '@xiuxian/core/index'
 import { goods } from '@xiuxian/db/index'
+import { createSelects } from 'alemonjs'
 import Xiuxian from '@src/apps/index'
-
+const selects = createSelects(['message.create', 'private.message.create'])
 export const regular = /^(#|\/)天道裁决/
-
-const Res = OnResponse(
+export default onResponse(selects, [
+  Xiuxian.current,
   async e => {
     if (!e.IsMaster) return
     const text = e.MessageText
@@ -42,11 +43,5 @@ const Res = OnResponse(
     ])
     Send(Text(`已添加[${Name}]*${Count}`))
     return
-  },
-  ['message.create', 'private.message.create']
-)
-
-export default OnResponse(
-  [Xiuxian.current, Res.current],
-  ['message.create', 'private.message.create']
-)
+  }
+])

@@ -1,48 +1,47 @@
 import { Text, useSend } from 'alemonjs'
 
 import { Attributes, user } from '@xiuxian/db/index'
+import { createSelects } from 'alemonjs'
 import Xiuxian from '@src/apps/index'
+const selects = createSelects(['message.create', 'private.message.create'])
 
 export const regular = /^(#|\/)战斗过程(开启|关闭)$/
-export default OnResponse(
-  [
-    Xiuxian.current,
-    async e => {
-      const UID = e.UserKey
+export default onResponse(selects, [
+  Xiuxian.current,
+  async e => {
+    const UID = e.UserKey
 
-      const UserData = e['UserData'] as Attributes<typeof user>
+    const UserData = e['UserData'] as Attributes<typeof user>
 
-      const text = e.MessageText
+    const text = e.MessageText
 
-      if (new RegExp(/战斗过程开启/).test(text)) {
-        UserData.battle_show = 1
-      } else {
-        UserData.battle_show = 0
-      }
-
-      await user.update(
-        {
-          battle_show: UserData.battle_show
-        },
-        {
-          where: {
-            uid: UID
-          }
-        }
-      )
-
-      const Send = useSend(e)
-
-      if (UserData.battle_show == 1) {
-        Send(Text('战斗过程开启'))
-
-        return
-      } else {
-        Send(Text('战斗过程关闭'))
-
-        return
-      }
+    if (new RegExp(/战斗过程开启/).test(text)) {
+      UserData.battle_show = 1
+    } else {
+      UserData.battle_show = 0
     }
-  ],
-  ['message.create', 'private.message.create']
-)
+
+    await user.update(
+      {
+        battle_show: UserData.battle_show
+      },
+      {
+        where: {
+          uid: UID
+        }
+      }
+    )
+
+    const Send = useSend(e)
+
+    if (UserData.battle_show == 1) {
+      Send(Text('战斗过程开启'))
+
+      return
+    } else {
+      Send(Text('战斗过程关闭'))
+
+      return
+    }
+  }
+])

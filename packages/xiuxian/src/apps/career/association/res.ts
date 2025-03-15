@@ -15,30 +15,29 @@ import { Attributes, user } from '@src/xiuxian/db'
  * 同时灵根变异可对炼丹有加成
  * 灵根多，加成的下降
  */
+import { createSelects } from 'alemonjs'
 import Xiuxian from '@src/apps/index'
+const selects = createSelects(['message.create', 'private.message.create'])
 
 export const regular = /^(#|\/)查看协会$/
-export default OnResponse(
-  [
-    Xiuxian.current,
-    async e => {
-      const UserData = e['UserData'] as Attributes<typeof user>
-      if (!(await controlByName(e, UserData, '协会'))) return
-      const Send = useSend(e)
+export default onResponse(selects, [
+  Xiuxian.current,
+  async e => {
+    const UserData = e['UserData'] as Attributes<typeof user>
+    if (!(await controlByName(e, UserData, '协会'))) return
+    const Send = useSend(e)
 
-      Send(
-        Text(
-          [
-            '[协会执事]😳叶子凡\n',
-            '欢迎来到修仙协会\n',
-            '化神境之后,可交付灵石获得学徒身份\n',
-            '当前可领取[/炼器师学徒]'
-          ].join('')
-        )
+    Send(
+      Text(
+        [
+          '[协会执事]😳叶子凡\n',
+          '欢迎来到修仙协会\n',
+          '化神境之后,可交付灵石获得学徒身份\n',
+          '当前可领取[/炼器师学徒]'
+        ].join('')
       )
+    )
 
-      //
-    }
-  ],
-  ['message.create', 'private.message.create']
-)
+    //
+  }
+])

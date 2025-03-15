@@ -2,28 +2,27 @@ import { Image, useSend } from 'alemonjs'
 import { pictureRender } from '@xiuxian/img/index'
 import json_update from '@src/assets/defset/update.json'
 const helpData = {}
+import { createSelects } from 'alemonjs'
 import Xiuxian from '@src/apps/index'
+const selects = createSelects(['message.create', 'private.message.create'])
 
 export const regular = /^(#|\/)查看更新$/
-export default OnResponse(
-  [
-    Xiuxian.current,
-    async e => {
-      const name = 'help-update'
-      const Send = useSend(e)
-      if (Object.prototype.hasOwnProperty.call(helpData, name)) {
-        Send(Image(helpData[name]))
-        return
-      }
-      const data = json_update
-      // 得 buffer
-      helpData[name] = await pictureRender('UpdateComponent', {
-        data: data,
-        theme: 'dark'
-      }).catch(console.error)
+export default onResponse(selects, [
+  Xiuxian.current,
+  async e => {
+    const name = 'help-update'
+    const Send = useSend(e)
+    if (Object.prototype.hasOwnProperty.call(helpData, name)) {
       Send(Image(helpData[name]))
       return
     }
-  ],
-  ['message.create', 'private.message.create']
-)
+    const data = json_update
+    // 得 buffer
+    helpData[name] = await pictureRender('UpdateComponent', {
+      data: data,
+      theme: 'dark'
+    }).catch(console.error)
+    Send(Image(helpData[name]))
+    return
+  }
+])
