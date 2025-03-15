@@ -4,11 +4,11 @@ import {
   dualVerificationAction
 } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
-import { Attributes, user, user_level } from '@xiuxian/db/index'
+import { user, user_level } from '@xiuxian/db/index'
 import { Text, useMention, useSend } from 'alemonjs'
 
 import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
+import Xiuxian, { useCurrent } from '@src/apps/index'
 const selects = createSelects(['message.create', 'private.message.create'])
 
 export const regular = /^(#|\/)(传功|傳功)/
@@ -25,7 +25,7 @@ export default onResponse(selects, [
 
     const UID = e.UserKey
 
-    const UserData = e['UserData'] as Attributes<typeof user>
+    const UserData = useCurrent(e).UserData
 
     const ats = await useMention(e)
     let UIDB: null | undefined | string = null

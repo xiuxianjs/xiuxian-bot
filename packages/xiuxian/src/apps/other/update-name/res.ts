@@ -2,9 +2,9 @@ import { Text, useSend } from 'alemonjs'
 
 import { Control, showUserMsg } from '@xiuxian/api/index'
 import { Config, operationLock } from '@xiuxian/core/index'
-import { Attributes, user } from '@xiuxian/db/index'
+import { user } from '@xiuxian/db/index'
 import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
+import Xiuxian, { useCurrent } from '@src/apps/index'
 const selects = createSelects(['message.create', 'private.message.create'])
 
 export const regular = /^(#|\/)更改昵称为[\u4e00-\u9fa5]+$/
@@ -19,7 +19,7 @@ export default onResponse(selects, [
     }
 
     const UID = e.UserKey
-    const UserData = e['UserData'] as Attributes<typeof user>
+    const UserData = useCurrent(e).UserData
     if (!(await Control(e, UserData))) return
     const text = e.MessageText
     const name = text.replace(/^(#|\/)更改昵称为/, '')

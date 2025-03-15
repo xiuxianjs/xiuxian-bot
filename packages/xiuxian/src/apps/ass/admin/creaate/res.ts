@@ -1,5 +1,4 @@
 import { Text, useSend } from 'alemonjs'
-
 import * as GameApi from '@xiuxian/core/index'
 import * as DB from '@xiuxian/db/index'
 import { createSelects } from 'alemonjs'

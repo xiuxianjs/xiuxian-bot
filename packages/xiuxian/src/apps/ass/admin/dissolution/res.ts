@@ -1,10 +1,10 @@
 import { Text, useSend } from 'alemonjs'
-
 import * as GameApi from '@xiuxian/core/index'
 import * as DB from '@xiuxian/db/index'
-const delCooling = {}
 import { createSelects } from 'alemonjs'
 import Xiuxian from '@src/apps/index'
+
+const delCooling = {}
 const selects = createSelects(['message.create', 'private.message.create'])
 
 export const regular = /^(#|\/)解散$/

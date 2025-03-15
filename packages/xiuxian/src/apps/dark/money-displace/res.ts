@@ -3,9 +3,8 @@ import { Text, useSend } from 'alemonjs'
 import { controlByName } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
 import { operationLock } from '@xiuxian/core/index'
-import { Attributes, user } from '@src/xiuxian/db'
 import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
+import Xiuxian, { useCurrent } from '@src/apps/index'
 const selects = createSelects(['message.create', 'private.message.create'])
 
 export const regular =
@@ -22,7 +21,7 @@ export default onResponse(selects, [
     }
     // lock end
     const UID = e.UserKey
-    const UserData = e['UserData'] as Attributes<typeof user>
+    const UserData = useCurrent(e).UserData
     if (!(await controlByName(e, UserData, '金银坊'))) return
     const text = e.MessageText
     const [account, LeftName, RightName] = text

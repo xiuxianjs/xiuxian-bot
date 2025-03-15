@@ -1,5 +1,4 @@
 import { Text, useSend } from 'alemonjs'
-
 import { Op } from 'sequelize'
 import {
   dualVerification,
@@ -7,7 +6,6 @@ import {
   sendReply,
   victoryCooling
 } from '@xiuxian/api/index'
-
 import * as GameApi from '@xiuxian/core/index'
 import * as DB from '@xiuxian/db/index'
 import { createSelects } from 'alemonjs'

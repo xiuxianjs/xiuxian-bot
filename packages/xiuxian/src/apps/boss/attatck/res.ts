@@ -2,10 +2,10 @@ import { Text, useSend } from 'alemonjs'
 
 import { ControlByBlood, victoryCooling } from '@xiuxian/api/index'
 import { Boss, Fight, operationLock } from '@xiuxian/core/index'
-import { Attributes, Redis, user } from '@xiuxian/db/index'
+import { Redis, user } from '@xiuxian/db/index'
 // 攻击
 import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
+import Xiuxian, { useCurrent } from '@src/apps/index'
 const selects = createSelects(['message.create', 'private.message.create'])
 
 export const regular = /^(#|\/)攻击(金角|银角)/
@@ -29,7 +29,7 @@ export default onResponse(selects, [
     }
 
     //
-    const UserData = e['UserData'] as Attributes<typeof user>
+    const UserData = useCurrent(e).UserData
 
     //
     if (UserData.special_spiritual < 1) {

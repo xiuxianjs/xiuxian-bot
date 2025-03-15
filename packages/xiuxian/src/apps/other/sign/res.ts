@@ -1,10 +1,10 @@
 import { Text, useSend } from 'alemonjs'
 
 import { Bag, Method, operationLock } from '@xiuxian/core/index'
-import { Attributes, user } from '@xiuxian/db/index'
+import { user } from '@xiuxian/db/index'
 const MoenySize = 10
 import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
+import Xiuxian, { useCurrent } from '@src/apps/index'
 const selects = createSelects(['message.create', 'private.message.create'])
 
 export const regular = /^(#|\/)(联盟签到|聯盟簽到)$/
@@ -19,7 +19,7 @@ export default onResponse(selects, [
     }
 
     const UID = e.UserKey
-    const UserData = e['UserData'] as Attributes<typeof user>
+    const UserData = useCurrent(e).UserData
     //
     const time = new Date()
     let size = 0

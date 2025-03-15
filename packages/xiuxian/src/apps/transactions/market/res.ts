@@ -1,9 +1,9 @@
 import { Image, Text, useSend } from 'alemonjs'
 import { operationLock } from '@xiuxian/core/index'
-import { Attributes, user, user_transactions } from '@xiuxian/db/index'
+import { user_transactions } from '@xiuxian/db/index'
 import { pictureRender } from '@xiuxian/img/index'
 import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
+import Xiuxian, { useCurrent } from '@src/apps/index'
 const selects = createSelects(['message.create', 'private.message.create'])
 
 export const regular = /^(#|\/)虚空镜/
@@ -18,7 +18,7 @@ export default onResponse(selects, [
       return
     }
     // is user
-    const UserData = e['UserData'] as Attributes<typeof user>
+    const UserData = useCurrent(e).UserData
     // message parse
     const text = e.MessageText
     const [xpage = '1', name] = text

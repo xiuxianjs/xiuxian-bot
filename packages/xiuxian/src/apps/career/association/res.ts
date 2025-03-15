@@ -1,6 +1,5 @@
 import { Text, useSend } from 'alemonjs'
 import { controlByName } from '@xiuxian/api/index'
-import { Attributes, user } from '@src/xiuxian/db'
 /**
  * 职业经验够了之后
  * 需要前往协会交付灵石来考核
@@ -16,14 +15,14 @@ import { Attributes, user } from '@src/xiuxian/db'
  * 灵根多，加成的下降
  */
 import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
+import Xiuxian, { useCurrent } from '@src/apps/index'
 const selects = createSelects(['message.create', 'private.message.create'])
 
 export const regular = /^(#|\/)查看协会$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
-    const UserData = e['UserData'] as Attributes<typeof user>
+    const UserData = useCurrent(e).UserData
     if (!(await controlByName(e, UserData, '协会'))) return
     const Send = useSend(e)
 

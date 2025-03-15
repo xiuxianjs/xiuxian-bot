@@ -1,10 +1,10 @@
 import { Text, useSend } from 'alemonjs'
 import { Equipment, Levels, Method, operationLock } from '@xiuxian/core/index'
 
-import { Attributes, levels, user, user_level } from '@src/xiuxian/db'
+import { levels, user_level } from '@src/xiuxian/db'
 import { NAMEMAP } from '@src/xiuxian/core/src/users/additional/levels'
 import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
+import Xiuxian, { useCurrent } from '@src/apps/index'
 const selects = createSelects(['message.create', 'private.message.create'])
 
 export const regular = /^(#|\/)破境$/
@@ -24,7 +24,7 @@ export default onResponse(selects, [
     const UID = e.UserKey
 
     // 校验
-    const UserData = e['UserData'] as Attributes<typeof user>
+    const UserData = useCurrent(e).UserData
 
     // 得到数据
     const UserLevel = await user_level

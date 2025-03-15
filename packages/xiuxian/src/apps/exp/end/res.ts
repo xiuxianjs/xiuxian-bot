@@ -1,10 +1,9 @@
 import { operationLock } from '@src/xiuxian/core'
 
-import { Attributes, user } from '@src/xiuxian/db'
 import { endAllWord } from '@xiuxian/api/index'
 import { Text, useSend } from 'alemonjs'
 import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
+import Xiuxian, { useCurrent } from '@src/apps/index'
 const selects = createSelects(['message.create', 'private.message.create'])
 
 export const regular = /^(#|\/)(归来|歸來|凝脉|出关|出關|聚灵|聚靈)$/
@@ -20,7 +19,7 @@ export default onResponse(selects, [
     }
 
     const UID = e.UserKey
-    const UserData = e['UserData'] as Attributes<typeof user>
+    const UserData = useCurrent(e).UserData
     endAllWord(e, UID, UserData)
     return
   }

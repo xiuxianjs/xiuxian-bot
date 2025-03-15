@@ -1,10 +1,29 @@
-import { user } from '@xiuxian/db/index'
-import { createSelects, Text, useSend, useSubscribe } from 'alemonjs'
+import { Attributes, user } from '@xiuxian/db/index'
+import {
+  createSelects,
+  PrivateEventMessageCreate,
+  PublicEventMessageCreate,
+  Text,
+  useSend,
+  useSubscribe
+} from 'alemonjs'
 import { updatePlayer } from '@src/xiuxian/core/src/system/player'
 import { operationLocalLock } from './util'
 import { newcomer } from './newcomer'
 import NewsUser from './newuser'
 const selects = createSelects(['message.create', 'private.message.create'])
+
+type UserDataType = Attributes<typeof user>
+
+// 获取用户数据
+export const useCurrent = (
+  e: PublicEventMessageCreate | PrivateEventMessageCreate
+) => {
+  return {
+    UserData: e['UserData'] as UserDataType
+  }
+}
+
 export default onResponse(selects, async (e, next) => {
   if (e.Platform == 'telegram' || e.Platform == 'wechat') {
     // 暂时不支持

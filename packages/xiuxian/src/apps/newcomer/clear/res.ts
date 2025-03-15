@@ -1,14 +1,14 @@
-import { Attributes, user } from '@src/xiuxian/db'
+import { user } from '@src/xiuxian/db'
 import { Text, useSend } from 'alemonjs'
 import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
+import Xiuxian, { useCurrent } from '@src/apps/index'
 const selects = createSelects(['message.create', 'private.message.create'])
 
 export const regular = /^(#|\/)开启(新人)?(指引|教程)$/
 export default onResponse(selects, [
   Xiuxian.current,
   e => {
-    const UserData = e['UserData'] as Attributes<typeof user>
+    const UserData = useCurrent(e).UserData
     user.update(
       { newcomer: 0, newcomer_step: 0 },
       { where: { uid: UserData.uid } }

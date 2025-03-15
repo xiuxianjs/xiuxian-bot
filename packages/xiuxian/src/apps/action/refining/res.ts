@@ -1,10 +1,10 @@
-import { Attributes, user, user_fate, user_level } from '@xiuxian/db/index'
+import { user_fate, user_level } from '@xiuxian/db/index'
 import { Bag, Equipment, Levels } from '@xiuxian/core/index'
 import { operationLock } from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
 
 import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
+import Xiuxian, { useCurrent } from '@src/apps/index'
 const selects = createSelects(['message.create', 'private.message.create'])
 
 export const regular = /^(#|\/)炼化[\u4e00-\u9fa5]+$/
@@ -20,7 +20,7 @@ export default onResponse(selects, [
     }
     // 检查用户
     const UID = e.UserKey
-    const UserData = e['UserData'] as Attributes<typeof user>
+    const UserData = useCurrent(e).UserData
     const T = await user_fate
       .findOne({
         where: {

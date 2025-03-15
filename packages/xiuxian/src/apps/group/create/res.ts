@@ -1,9 +1,9 @@
 import { operationLock, Status } from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
-import { Attributes, user, user_group, user_group_list } from '@src/xiuxian/db'
+import { user_group, user_group_list } from '@src/xiuxian/db'
 
 import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
+import Xiuxian, { useCurrent } from '@src/apps/index'
 const selects = createSelects(['message.create', 'private.message.create'])
 
 export const regular = /^(#|\/)创建队伍$/
@@ -26,7 +26,7 @@ export default onResponse(selects, [
       Send(Text('已有归属队伍'))
       return
     }
-    const UserData = e['UserData'] as Attributes<typeof user>
+    const UserData = useCurrent(e).UserData
     user_group
       .create({
         uid: UID,

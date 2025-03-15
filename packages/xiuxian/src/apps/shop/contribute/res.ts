@@ -1,10 +1,10 @@
 import { controlByName } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
-import { Attributes, user } from '@xiuxian/db/index'
+import { user } from '@xiuxian/db/index'
 import { Text, useSend } from 'alemonjs'
 
 import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
+import Xiuxian, { useCurrent } from '@src/apps/index'
 const selects = createSelects(['message.create', 'private.message.create'])
 
 export const regular = /^(#|\/)(贡献|貢獻)[\u4e00-\u9fa5]+\*\d+$/
@@ -20,7 +20,7 @@ export default onResponse(selects, [
     }
     // 从消息中获取用户ID
     const UID = e.UserKey
-    const UserData = e['UserData'] as Attributes<typeof user>
+    const UserData = useCurrent(e).UserData
     if (!(await controlByName(e, UserData, '联盟'))) return
     // 解析消息
     const text = e.MessageText

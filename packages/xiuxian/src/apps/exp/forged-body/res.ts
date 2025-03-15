@@ -2,9 +2,8 @@ import { Text, useSend } from 'alemonjs'
 
 import { endAllWord } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
-import { Attributes, user } from '@src/xiuxian/db'
 import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
+import Xiuxian, { useCurrent } from '@src/apps/index'
 const selects = createSelects(['message.create', 'private.message.create'])
 
 export const regular = /^(#|\/)(锻体|降妖)$/
@@ -20,7 +19,7 @@ export default onResponse(selects, [
     }
 
     const UID = e.UserKey
-    const UserData = e['UserData'] as Attributes<typeof user>
+    const UserData = useCurrent(e).UserData
 
     if (UserData.state == 2) {
       Send(Text('锻体中...'))

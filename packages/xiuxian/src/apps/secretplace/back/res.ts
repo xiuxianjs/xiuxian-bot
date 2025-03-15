@@ -1,9 +1,8 @@
 import { Text, useSend } from 'alemonjs'
 
 import * as GameApi from '@xiuxian/core/index'
-import { Attributes, user } from '@src/xiuxian/db'
 import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
+import Xiuxian, { useCurrent } from '@src/apps/index'
 const selects = createSelects(['message.create', 'private.message.create'])
 
 export const regular = /^(#|\/)返回$/
@@ -18,7 +17,7 @@ export default onResponse(selects, [
     }
 
     const UID = e.UserKey
-    const UserData = e['UserData'] as Attributes<typeof user>
+    const UserData = useCurrent(e).UserData
 
     // 不是赶路状态
     if (UserData.state == 3) {

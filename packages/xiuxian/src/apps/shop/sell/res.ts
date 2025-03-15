@@ -2,9 +2,8 @@ import { Text, useSend } from 'alemonjs'
 
 import { controlByName } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
-import { Attributes, user } from '@src/xiuxian/db'
 import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
+import Xiuxian, { useCurrent } from '@src/apps/index'
 const selects = createSelects(['message.create', 'private.message.create'])
 
 export const regular = /^(#|\/)出售[\u4e00-\u9fa5]+\*\d+$/
@@ -21,7 +20,7 @@ export default onResponse(selects, [
 
     const UID = e.UserKey
 
-    const UserData = e['UserData'] as Attributes<typeof user>
+    const UserData = useCurrent(e).UserData
 
     if (!(await controlByName(e, UserData, '万宝楼'))) return
 

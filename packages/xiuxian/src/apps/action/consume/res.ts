@@ -1,5 +1,5 @@
 import { showUserMsg, victoryCooling } from '@xiuxian/api/index'
-import { Attributes, map_position, user, user_level } from '@xiuxian/db/index'
+import { map_position, user, user_level } from '@xiuxian/db/index'
 import {
   Bag,
   Burial,
@@ -12,7 +12,7 @@ import {
 import { operationLock } from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
 import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
+import Xiuxian, { useCurrent } from '@src/apps/index'
 const selects = createSelects(['message.create', 'private.message.create'])
 export const regular = /^(#|\/)消耗[\u4e00-\u9fa5]+(\*\d+)?$/
 export default onResponse(selects, [
@@ -26,12 +26,10 @@ export default onResponse(selects, [
       return
     }
 
-    //
-
     // 检查用户
     const UID = e.UserKey
 
-    const UserData = e['UserData'] as Attributes<typeof user>
+    const UserData = useCurrent(e).UserData
 
     // 解析
     const text = e.MessageText

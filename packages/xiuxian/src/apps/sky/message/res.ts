@@ -1,11 +1,11 @@
 import { Image, Text, useSend } from 'alemonjs'
 
 import { showUserMsg } from '@xiuxian/api/index'
-import { Attributes, user, user_sky_ranking } from '@xiuxian/db/index'
+import { user, user_sky_ranking } from '@xiuxian/db/index'
 import { equipmentInformation } from '@src/xiuxian/statistics'
 import { pictureRender } from '@src/xiuxian/img'
 import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
+import Xiuxian, { useCurrent } from '@src/apps/index'
 const selects = createSelects(['message.create', 'private.message.create'])
 
 export const regular = /^(#|\/)查看通天塔第(\d+)名(资料|面板)?$/
@@ -13,7 +13,7 @@ export default onResponse(selects, [
   Xiuxian.current,
   async e => {
     const UID = e.UserKey
-    const UserData = e['UserData'] as Attributes<typeof user>
+    const UserData = useCurrent(e).UserData
     const Send = useSend(e)
     // 查看数据是否存在
     const data = await user_sky_ranking

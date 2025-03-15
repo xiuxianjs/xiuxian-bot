@@ -1,8 +1,8 @@
 import { Image, Text, useSend } from 'alemonjs'
-import { Attributes, goods, user } from '@xiuxian/db/index'
+import { goods } from '@xiuxian/db/index'
 import { pictureRender } from '@xiuxian/img/index'
 import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
+import Xiuxian, { useCurrent } from '@src/apps/index'
 const selects = createSelects(['message.create', 'private.message.create'])
 
 export const regular = /^(#|\/)查询物品[\u4e00-\u9fa5]+/
@@ -10,7 +10,7 @@ export default onResponse(selects, [
   Xiuxian.current,
   async e => {
     // 获取用户信息
-    const UserData = e['UserData'] as Attributes<typeof user>
+    const UserData = useCurrent(e).UserData
 
     // 获取消息内容
     const text = e.MessageText

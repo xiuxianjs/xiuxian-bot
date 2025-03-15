@@ -2,10 +2,9 @@ import { pictureRender } from '@xiuxian/img/index'
 import { backpackInformation } from '@xiuxian/statistics/index'
 import { Goods, operationLock } from '@xiuxian/core/index'
 import { Image, Text, useSend } from 'alemonjs'
-import { Attributes, user } from '@src/xiuxian/db'
 
 import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
+import Xiuxian, { useCurrent } from '@src/apps/index'
 const selects = createSelects(['message.create', 'private.message.create'])
 
 export const regular =
@@ -19,7 +18,7 @@ export default onResponse(selects, [
       Send(Text('操作频繁'))
       return
     }
-    const UserData = e['UserData'] as Attributes<typeof user>
+    const UserData = useCurrent(e).UserData
     const text = e.MessageText
     const typing = text.replace(/^(#|\/)我的(储物袋|儲物袋|背包)/, '')
 
