@@ -1,10 +1,6 @@
 import { ass, user_ass_apply } from '@xiuxian/db/index'
+import Xiuxian, { selects } from '@src/apps/index'
 import { Text, useSend } from 'alemonjs'
-
-import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
-
 export const regular = /^(#|\/)我的势力申请$/
 export default onResponse(selects, [
   Xiuxian.current,

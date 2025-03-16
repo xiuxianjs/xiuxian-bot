@@ -2,7 +2,10 @@ import { user } from '@xiuxian/db/index'
 import { createSelects, Text, useSend } from 'alemonjs'
 import { operationLock } from '@src/xiuxian/core'
 import { newcomer } from './newcomer'
-const selects = createSelects(['message.create', 'private.message.create'])
+export const selects = createSelects([
+  'message.create',
+  'private.message.create'
+])
 export default onResponse(selects, async (e, next) => {
   if (e.Platform == 'telegram' || e.Platform == 'wechat') {
     // 暂时不支持

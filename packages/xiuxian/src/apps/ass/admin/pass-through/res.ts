@@ -1,12 +1,8 @@
 import * as DB from '@xiuxian/db/index'
+import Xiuxian, { selects } from '@src/apps/index'
 import * as GameApi from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
-
 import { AssGradesSize } from '@src/xiuxian/core/src/config/cooling'
-import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
-
 export const regular = /^(#|\/)通过\d+$/
 export default onResponse(selects, [
   Xiuxian.current,

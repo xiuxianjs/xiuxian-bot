@@ -1,12 +1,8 @@
 import { Text, useSend } from 'alemonjs'
-
 import { controlByName } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
 import { operationLock } from '@xiuxian/core/index'
-import { createSelects } from 'alemonjs'
-import Xiuxian, { useCurrent } from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
-
+import Xiuxian, { useCurrent, selects } from '@src/apps/index'
 export const regular =
   /^(#|\/)(金银坊置换|金銀坊置換)\d+\*[\u4e00-\u9fa5]+\*[\u4e00-\u9fa5]+$/
 export default onResponse(selects, [

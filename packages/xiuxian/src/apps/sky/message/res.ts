@@ -2,11 +2,11 @@ import { Image, Text, useSend } from 'alemonjs'
 
 import { showUserMsg } from '@xiuxian/api/index'
 import { user, user_sky_ranking } from '@xiuxian/db/index'
+
 import { equipmentInformation } from '@src/xiuxian/statistics'
 import { pictureRender } from '@src/xiuxian/img'
-import { createSelects } from 'alemonjs'
-import Xiuxian, { useCurrent } from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
+
+import Xiuxian, { useCurrent, selects } from '@src/apps/index'
 
 export const regular = /^(#|\/)查看通天塔第(\d+)名(资料|面板)?$/
 export default onResponse(selects, [

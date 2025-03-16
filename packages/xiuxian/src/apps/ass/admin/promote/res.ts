@@ -1,11 +1,7 @@
 import { Config, operationLock } from '@src/xiuxian/core'
 import { ass, user_ass } from '@src/xiuxian/db'
 import { Text, useSend } from 'alemonjs'
-
-import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
-
+import Xiuxian, { selects } from '@src/apps/index'
 export const regular = /^(#|\/)提拔/
 export default onResponse(selects, [
   Xiuxian.current,

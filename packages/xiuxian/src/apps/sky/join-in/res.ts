@@ -1,10 +1,10 @@
 import { Text, useSend } from 'alemonjs'
 
 import * as DB from '@xiuxian/db/index'
+
+import Xiuxian, { selects } from '@src/apps/index'
+
 import { operationLock } from '@src/xiuxian/core'
-import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
 
 export const regular = /^(#|\/)进入通天塔$/
 export default onResponse(selects, [

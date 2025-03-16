@@ -1,10 +1,8 @@
 import { Image, useSend } from 'alemonjs'
 import { lcalCacheImage } from '@xiuxian/utils/index'
 import img_map from '@src/assets/img/map.jpg'
-import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
 
+import Xiuxian, { selects } from '@src/apps/index'
 export const regular = /^(#|\/)(修仙)?(地图|地圖)$/
 export default onResponse(selects, [
   Xiuxian.current,

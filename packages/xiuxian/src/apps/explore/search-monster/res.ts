@@ -1,9 +1,8 @@
 import { Text, useSend } from 'alemonjs'
 import { Map, Monster, Status } from '@xiuxian/core/index'
 import * as DB from '@xiuxian/db/index'
-import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
+
+import Xiuxian, { selects } from '@src/apps/index'
 
 export const regular = /^(#|\/)探索怪物$/
 export default onResponse(selects, [

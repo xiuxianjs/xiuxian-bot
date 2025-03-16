@@ -1,9 +1,6 @@
 import { Text, useSend } from 'alemonjs'
 import { controlByName } from '@xiuxian/api/index'
-import { createSelects } from 'alemonjs'
-import Xiuxian, { useCurrent } from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
-
+import Xiuxian, { useCurrent, selects } from '@src/apps/index'
 export const regular = /^(#|\/)炼器师学徒$/
 export default onResponse(selects, [
   Xiuxian.current,

@@ -2,9 +2,8 @@ import { Text, useSend } from 'alemonjs'
 
 import { Bag, operationLock, order } from '@xiuxian/core/index'
 import { Redis, user_transactions, user_bag } from '@xiuxian/db/index'
-import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
+
+import Xiuxian, { selects } from '@src/apps/index'
 
 export const regular = /^(#|\/)选购/
 export default onResponse(selects, [

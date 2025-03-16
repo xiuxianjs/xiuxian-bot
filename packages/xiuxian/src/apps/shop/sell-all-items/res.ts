@@ -1,12 +1,11 @@
 import { controlByName } from '@xiuxian/api/index'
 import * as DB from '@xiuxian/db/index'
+
+import Xiuxian, { selects } from '@src/apps/index'
+
 import * as GameApi from '@xiuxian/core/index'
 
 import { Text, useSend } from 'alemonjs'
-
-import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
 
 export const regular = /^(#|\/)售出所有物品$/
 export default onResponse(selects, [

@@ -1,10 +1,8 @@
 import { Image, useSend } from 'alemonjs'
 import { pictureRender } from '@xiuxian/img/index'
 const imgData = {}
-import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
 
+import Xiuxian, { selects } from '@src/apps/index'
 export const regular = /^(#|\/)查看(日常|限时|特殊)活动$/
 export default onResponse(selects, [
   Xiuxian.current,

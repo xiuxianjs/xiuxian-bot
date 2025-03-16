@@ -1,10 +1,7 @@
 import { Text, useSend } from 'alemonjs'
 import { console } from 'inspector'
 import { Boss } from '@xiuxian/core/index'
-import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
-
+import Xiuxian, { selects } from '@src/apps/index'
 export const regular = /^(#|\/)查看(金角|银角)$/
 export default onResponse(selects, [
   Xiuxian.current,

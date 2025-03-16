@@ -1,11 +1,10 @@
 import { ControlByBlood } from '@xiuxian/api/index'
 import { Op } from 'sequelize'
 import * as DB from '@xiuxian/db/index'
-import { Text, useSend } from 'alemonjs'
 
-import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
+import Xiuxian, { selects } from '@src/apps/index'
+
+import { Text, useSend } from 'alemonjs'
 
 export const regular = /^(#|\/)释放神识$/
 export default onResponse(selects, [

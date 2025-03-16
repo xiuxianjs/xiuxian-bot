@@ -1,12 +1,12 @@
 import { ControlByBlood, sendReply, killNPC } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
 import * as DB from '@xiuxian/db/index'
+
+import Xiuxian, { selects } from '@src/apps/index'
+
 import { Text, useSend } from 'alemonjs'
 
 import { literal } from 'sequelize'
-import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
 
 export const regular = /^(#|\/)(击杀|擊殺)[\u4e00-\u9fa5]+(\*1|\*2)?$/
 export default onResponse(selects, [

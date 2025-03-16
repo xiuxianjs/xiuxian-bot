@@ -1,9 +1,6 @@
 import { Text, useSend } from 'alemonjs'
 import { operationLock } from '@src/xiuxian/core'
-import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
-
+import Xiuxian, { selects } from '@src/apps/index'
 export const regular = /^(#|\/)升级宝库$/
 export default onResponse(selects, [
   Xiuxian.current,

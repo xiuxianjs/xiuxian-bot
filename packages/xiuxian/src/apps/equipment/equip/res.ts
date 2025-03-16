@@ -2,9 +2,8 @@ import { Text, useSend } from 'alemonjs'
 
 import * as GameApi from '@xiuxian/core/index'
 import { user, user_equipment } from '@xiuxian/db/index'
-import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
+
+import Xiuxian, { selects } from '@src/apps/index'
 
 export const regular = /^(#|\/)(装备|裝備)[\u4e00-\u9fa5]+$/
 export default onResponse(selects, [

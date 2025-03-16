@@ -1,12 +1,8 @@
 import { sendReply } from '@xiuxian/api/index'
 import * as DB from '@xiuxian/db/index'
+import Xiuxian, { selects } from '@src/apps/index'
 import { Text, useSend } from 'alemonjs'
-
 import { operationLock } from '@src/xiuxian/core'
-import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
-
 export const regular = /^(#|\/)审核[\u4e00-\u9fa5]+$/
 export default onResponse(selects, [
   Xiuxian.current,

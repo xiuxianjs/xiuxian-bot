@@ -2,9 +2,8 @@ import { Text, useSend } from 'alemonjs'
 
 import { endAllWord } from '@xiuxian/api/index'
 import { Status, operationLock } from '@xiuxian/core/index'
-import { createSelects } from 'alemonjs'
-import Xiuxian, { useCurrent } from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
+
+import Xiuxian, { useCurrent, selects } from '@src/apps/index'
 
 export const regular = /^(#|\/)(闭关|閉關)$/
 export default onResponse(selects, [

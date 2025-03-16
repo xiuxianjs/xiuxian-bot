@@ -3,10 +3,7 @@ import { Skills } from '@xiuxian/core/index'
 import * as Server from '@xiuxian/statistics/index'
 import { Image, useSend } from 'alemonjs'
 
-import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
-
+import Xiuxian, { selects } from '@src/apps/index'
 export const regular = /^(#|\/)我的功法$/
 export default onResponse(selects, [
   Xiuxian.current,

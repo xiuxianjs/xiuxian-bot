@@ -1,9 +1,8 @@
 import { Text, useSend } from 'alemonjs'
 
 import * as GameApi from '@xiuxian/core/index'
-import { createSelects } from 'alemonjs'
-import Xiuxian, { useCurrent } from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
+
+import Xiuxian, { useCurrent, selects } from '@src/apps/index'
 
 export const regular = /^(#|\/)返回$/
 export default onResponse(selects, [

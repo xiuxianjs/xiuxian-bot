@@ -1,7 +1,6 @@
 import { ControlByBlood, showAction } from '@xiuxian/api/index'
-import { createSelects } from 'alemonjs'
-import Xiuxian, { useCurrent } from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
+
+import Xiuxian, { useCurrent, selects } from '@src/apps/index'
 
 export const regular = /^(#|\/)向右$/
 export default onResponse(selects, [

@@ -1,10 +1,8 @@
 import { Attributes, user_group, user_group_list } from '@src/xiuxian/db'
 import { operationLock } from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
-import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
 
+import Xiuxian, { selects } from '@src/apps/index'
 export const regular = /^(#|\/)开启[\u4e00-\u9fa5]+秘境$/
 export default onResponse(selects, [
   Xiuxian.current,

@@ -1,7 +1,6 @@
 import { Text, useSend } from 'alemonjs'
-import { createSelects } from 'alemonjs'
-import Xiuxian, { useCurrent } from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
+
+import Xiuxian, { useCurrent, selects } from '@src/apps/index'
 
 export const regular = /^(#|\/)我的坐标$/
 export default onResponse(selects, [

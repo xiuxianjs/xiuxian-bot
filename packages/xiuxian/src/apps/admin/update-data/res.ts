@@ -1,10 +1,7 @@
 import { Text, useSend } from 'alemonjs'
 import { Equipment } from '@xiuxian/core/index'
 import { user } from '@src/xiuxian/db'
-import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
-
+import Xiuxian, { selects } from '@src/apps/index'
 export const regular = /^(#|\/)天道更新面板/
 export default onResponse(selects, [
   Xiuxian.current,

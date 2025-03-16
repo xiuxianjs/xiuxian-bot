@@ -2,9 +2,8 @@ import { Text, useSend } from 'alemonjs'
 
 import * as GameApi from '@xiuxian/core/index'
 import { user_bag_message } from '@xiuxian/db/index'
-import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
+
+import Xiuxian, { selects } from '@src/apps/index'
 
 export const regular = /^(#|\/)(储物袋|儲物袋|背包)(升级|升級)$/
 export default onResponse(selects, [

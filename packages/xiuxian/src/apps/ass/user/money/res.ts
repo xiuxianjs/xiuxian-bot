@@ -1,17 +1,10 @@
 import { Text, useSend } from 'alemonjs'
-
 import { getIoRedis } from '@alemonjs/db'
-
 import { ass, user_ass } from '@xiuxian/db/index'
+import Xiuxian, { selects } from '@src/apps/index'
 import { Bag, operationLock } from '@src/xiuxian/core'
 import dayjs from 'dayjs'
 import { literal } from 'sequelize'
-
-// 查看该宗门都有谁
-import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
-
 export const regular = /^(#|\/)领取势力俸禄$/
 export default onResponse(selects, [
   Xiuxian.current,

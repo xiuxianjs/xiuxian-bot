@@ -14,10 +14,7 @@ import { controlByName } from '@xiuxian/api/index'
  * 同时灵根变异可对炼丹有加成
  * 灵根多，加成的下降
  */
-import { createSelects } from 'alemonjs'
-import Xiuxian, { useCurrent } from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
-
+import Xiuxian, { useCurrent, selects } from '@src/apps/index'
 export const regular = /^(#|\/)查看协会$/
 export default onResponse(selects, [
   Xiuxian.current,

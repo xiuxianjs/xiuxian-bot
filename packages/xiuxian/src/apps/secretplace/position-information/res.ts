@@ -1,9 +1,9 @@
 import { sendReply } from '@xiuxian/api/index'
 import * as DB from '@xiuxian/db/index'
+
+import Xiuxian, { selects } from '@src/apps/index'
+
 import { useSend } from 'alemonjs'
-import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
 
 export const regular = /^(#|\/)查看当前位置$/
 export default onResponse(selects, [

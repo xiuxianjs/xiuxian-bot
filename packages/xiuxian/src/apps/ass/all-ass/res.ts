@@ -1,11 +1,8 @@
 import { Image, Text, useSend } from 'alemonjs'
 import { Cooling } from '@xiuxian/core/index'
 import { ass } from '@xiuxian/db/index'
+import Xiuxian, { selects, useCurrent } from '@src/apps/index'
 import { pictureRender } from '@xiuxian/img/index'
-import { createSelects } from 'alemonjs'
-import Xiuxian, { useCurrent } from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
-
 export const regular = /^(#|\/)查看势力(\d+)?$/
 export default onResponse(selects, [
   Xiuxian.current,

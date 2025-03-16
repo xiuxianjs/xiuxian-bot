@@ -3,9 +3,8 @@ import { Equipment, Levels, Method, operationLock } from '@xiuxian/core/index'
 
 import { levels, user_level } from '@src/xiuxian/db'
 import { NAMEMAP } from '@src/xiuxian/core/src/users/additional/levels'
-import { createSelects } from 'alemonjs'
-import Xiuxian, { useCurrent } from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
+
+import Xiuxian, { useCurrent, selects } from '@src/apps/index'
 
 export const regular = /^(#|\/)破境$/
 export default onResponse(selects, [

@@ -1,9 +1,9 @@
 import { Image, Text, useSend } from 'alemonjs'
 import { goods } from '@xiuxian/db/index'
+
 import { pictureRender } from '@xiuxian/img/index'
-import { createSelects } from 'alemonjs'
-import Xiuxian, { useCurrent } from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
+
+import Xiuxian, { useCurrent, selects } from '@src/apps/index'
 
 export const regular = /^(#|\/)查询物品[\u4e00-\u9fa5]+/
 export default onResponse(selects, [

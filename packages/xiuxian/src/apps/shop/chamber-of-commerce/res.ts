@@ -1,10 +1,10 @@
 import { controlByName } from '@xiuxian/api/index'
 import * as DB from '@xiuxian/db/index'
+
+import Xiuxian, { selects } from '@src/apps/index'
+
 import * as GameApi from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
-import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
 
 export const regular =
   /^(#|\/)查看(商会|商會)(武器|护具|法宝|丹药|功法|道具|材料|装备)?$/

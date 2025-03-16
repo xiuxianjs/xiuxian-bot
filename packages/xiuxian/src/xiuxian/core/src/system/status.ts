@@ -1,5 +1,6 @@
 import { Attributes, user } from '@src/xiuxian/db'
 
+type UserDataType = Attributes<typeof user>
 /**
  * 行为
  */
@@ -50,7 +51,7 @@ export const Actions = {
   }
 }
 
-export const isPass = (UserData: Attributes<typeof user>) => {
+export const isPass = (UserData: UserDataType) => {
   if (UserData.battle_blood_now >= 1) return true
   return false
 }
@@ -87,10 +88,7 @@ export const setStatus = (options: {
  * @param UserData
  * @returns
  */
-export const getStatus = (
-  UserData: Attributes<typeof user>,
-  key: Keys = 'kongxian'
-) => {
+export const getStatus = (UserData: UserDataType, key: Keys = 'kongxian') => {
   const { state, state_end_time, state_start_time } = UserData
   // 空闲状态
   if (state == Actions[key].value) {

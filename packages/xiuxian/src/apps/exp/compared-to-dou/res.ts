@@ -7,11 +7,10 @@ import {
 } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
 import { user, user_level } from '@xiuxian/db/index'
+
 import { Text, useMention, useSend } from 'alemonjs'
 
-import { createSelects } from 'alemonjs'
-import Xiuxian, { useCurrent } from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
+import Xiuxian, { useCurrent, selects } from '@src/apps/index'
 
 export const regular = /^(#|\/)(决斗|比鬥)/
 export default onResponse(selects, [

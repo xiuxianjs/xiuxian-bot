@@ -1,13 +1,8 @@
 import { Text, useSend } from 'alemonjs'
-
 import { ControlByBlood, victoryCooling } from '@xiuxian/api/index'
 import { Boss, Fight, operationLock } from '@xiuxian/core/index'
 import { Redis, user } from '@xiuxian/db/index'
-// 攻击
-import { createSelects } from 'alemonjs'
-import Xiuxian, { useCurrent } from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
-
+import Xiuxian, { useCurrent, selects } from '@src/apps/index'
 export const regular = /^(#|\/)攻击(金角|银角)/
 export default onResponse(selects, [
   Xiuxian.current,

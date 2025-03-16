@@ -3,9 +3,8 @@ import { Image, Text, useSend } from 'alemonjs'
 import { pictureRender } from '@xiuxian/img/index'
 import * as Server from '@xiuxian/statistics/index'
 import { operationLock } from '@src/xiuxian/core'
-import { createSelects } from 'alemonjs'
-import Xiuxian, { useCurrent } from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
+
+import Xiuxian, { useCurrent, selects } from '@src/apps/index'
 
 export const regular = /^(#|\/)我的(戒指|(纳|呐|那)(借|介|戒))$/
 export default onResponse(selects, [

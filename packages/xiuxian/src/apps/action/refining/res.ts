@@ -1,12 +1,11 @@
 import { user_fate, user_level } from '@xiuxian/db/index'
+
+import Xiuxian, { selects } from '@src/apps/index'
+
 import { Bag, Equipment, Levels } from '@xiuxian/core/index'
 import { operationLock } from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
-
-import { createSelects } from 'alemonjs'
-import Xiuxian, { useCurrent } from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
-
+import Xiuxian, { selects, useCurrent } from '@src/apps/index'
 export const regular = /^(#|\/)炼化[\u4e00-\u9fa5]+$/
 export default onResponse(selects, [
   Xiuxian.current,

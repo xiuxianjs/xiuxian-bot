@@ -15,6 +15,8 @@ import { personalInformation } from '@xiuxian/statistics/index'
 import { pictureRender } from '@xiuxian/img/index'
 import { Image, Text, useSend } from 'alemonjs'
 
+type UserDataType = Attributes<typeof user>
+
 /**
  * 显示我的资料
  * @param e
@@ -50,8 +52,8 @@ export async function showUserMsg(e) {
  */
 export async function dualVerification(
   e,
-  UserData: Attributes<typeof user>,
-  UserDataB: Attributes<typeof user>
+  UserData: UserDataType,
+  UserDataB: UserDataType
 ) {
   const Send = useSend(e)
   if (UserData.uid == UserDataB.uid) {
@@ -133,7 +135,7 @@ export async function Control(e, UserData) {
  * @param UID
  * @returns
  */
-export async function ControlByBlood(e, UserData: Attributes<typeof user>) {
+export async function ControlByBlood(e, UserData: UserDataType) {
   const { state, msg } = await State.goByBlood(UserData)
   const Send = useSend(e)
   if (state == 4001) {
@@ -152,7 +154,7 @@ export async function ControlByBlood(e, UserData: Attributes<typeof user>) {
  */
 export async function controlByName(
   e,
-  UserData: Attributes<typeof user>,
+  UserData: UserDataType,
   addressName: string
 ) {
   if (!(await ControlByBlood(e, UserData))) return false
@@ -255,11 +257,7 @@ export async function killNPC(e, Mname: string, UID: string, prestige: number) {
   return false
 }
 
-export async function showAction(
-  e,
-  UID: string,
-  UserData: Attributes<typeof user>
-) {
+export async function showAction(e, UID: string, UserData: UserDataType) {
   const mData = await Map.getRecordsByXYZ(
     UserData.pont_x,
     UserData.pont_y,
@@ -313,11 +311,7 @@ export async function victoryCooling(e, UID: string, CDID: Burial.CDType) {
   return true
 }
 
-export async function endAllWord(
-  e,
-  UID: string,
-  UserData: Attributes<typeof user>
-) {
+export async function endAllWord(e, UID: string, UserData: UserDataType) {
   const mapText = {
     1: '只是呆了一会儿',
     2: '走累了,就停一停吧',
@@ -363,7 +357,7 @@ export async function condensateGas(
   e,
   UID: string,
   time: number,
-  UserData: Attributes<typeof user>
+  UserData: UserDataType
 ) {
   const size = Math.floor((time * (UserData.talent_size + 100)) / 100)
   const limit = UserData.special_spiritual_limit
@@ -409,7 +403,7 @@ export async function upgrade(
   time: number,
   key: number,
   type: 1 | 2 | 3,
-  UserData: Attributes<typeof user>
+  UserData: UserDataType
 ) {
   const config = {
     1: Cooling.work_size,
@@ -456,11 +450,7 @@ export async function upgrade(
  * @param size
  * @returns
  */
-export async function punishLevel(
-  e,
-  UID: string,
-  UserData: Attributes<typeof user>
-) {
+export async function punishLevel(e, UID: string, UserData: UserDataType) {
   /**
    * 渡劫失败惩罚
    *

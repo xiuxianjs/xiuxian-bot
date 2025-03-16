@@ -2,10 +2,8 @@ import { Image, useSend } from 'alemonjs'
 import { pictureRender } from '@xiuxian/img/index'
 import josn_base_help from '@src/assets/defset/base_help.json'
 const helpData = {}
-import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
 
+import Xiuxian, { selects } from '@src/apps/index'
 export const regular = /^(#|\/)(修仙)?((帮|幫)助|help)/
 export default onResponse(selects, [
   Xiuxian.current,

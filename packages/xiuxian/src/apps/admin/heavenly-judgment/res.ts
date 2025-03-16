@@ -2,9 +2,7 @@ import { Text, useSend } from 'alemonjs'
 import { isSideUser } from '@xiuxian/api/index'
 import { Bag } from '@xiuxian/core/index'
 import { goods } from '@xiuxian/db/index'
-import { createSelects } from 'alemonjs'
-import Xiuxian from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
+import Xiuxian, { selects } from '@src/apps/index'
 export const regular = /^(#|\/)天道裁决/
 export default onResponse(selects, [
   Xiuxian.current,

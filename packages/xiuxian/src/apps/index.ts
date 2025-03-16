@@ -11,7 +11,11 @@ import { updatePlayer } from '@src/xiuxian/core/src/system/player'
 import { operationLocalLock } from './util'
 import { newcomer } from './newcomer'
 import NewsUser from './newuser'
-const selects = createSelects(['message.create', 'private.message.create'])
+
+export const selects = createSelects([
+  'message.create',
+  'private.message.create'
+])
 
 type UserDataType = Attributes<typeof user>
 

@@ -1,6 +1,7 @@
 import { Attributes, user } from '@xiuxian/db/index'
 import { ACTIONMAP } from '../../config'
 
+type UserDataType = Attributes<typeof user>
 /**
  * 更改行为状态
  * @param UID
@@ -75,7 +76,7 @@ export async function Go(UserData) {
  * @param UID
  * @returns
  */
-export async function goByBlood(UserData: Attributes<typeof user>) {
+export async function goByBlood(UserData: UserDataType) {
   // 空闲状态
   if (UserData.state == 0) {
     if (UserData.battle_blood_now >= 1) {

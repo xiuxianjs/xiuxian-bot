@@ -3,9 +3,7 @@ import { backpackInformation } from '@xiuxian/statistics/index'
 import { Goods, operationLock } from '@xiuxian/core/index'
 import { Image, Text, useSend } from 'alemonjs'
 
-import { createSelects } from 'alemonjs'
-import Xiuxian, { useCurrent } from '@src/apps/index'
-const selects = createSelects(['message.create', 'private.message.create'])
+import Xiuxian, { useCurrent, selects } from '@src/apps/index'
 
 export const regular =
   /^(#|\/)我的(储物袋|儲物袋|背包)(武器|护具|法宝|丹药|功法|道具|材料|装备)?$/
