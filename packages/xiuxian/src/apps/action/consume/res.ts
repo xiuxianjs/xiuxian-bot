@@ -1,8 +1,5 @@
 import { showUserMsg, victoryCooling } from '@xiuxian/api/index'
 import { map_position, user, user_level } from '@xiuxian/db/index'
-
-import Xiuxian, { selects } from '@src/apps/index'
-
 import {
   Bag,
   Burial,

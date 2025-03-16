@@ -1,8 +1,6 @@
 import { Text, useSend } from 'alemonjs'
 import { Bag, Equipment, Levels, operationLock } from '@xiuxian/core/index'
-
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
-
 export const regular = /^(#|\/)服用[\u4e00-\u9fa5]+\*\d+$/
 export default onResponse(selects, [
   Xiuxian.current,

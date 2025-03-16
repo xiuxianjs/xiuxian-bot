@@ -1,9 +1,7 @@
 import { Bag, Levels, operationLock } from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
 import { user_fate, user_level } from '@xiuxian/db/index'
-
 import Xiuxian, { selects } from '@src/apps/index'
-
 const reGiveup = {}
 export const regular = /^(#|\/)剥离本命物$/
 export default onResponse(selects, [

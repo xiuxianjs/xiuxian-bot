@@ -1,7 +1,4 @@
 import { user_fate, user_level } from '@xiuxian/db/index'
-
-import Xiuxian, { selects } from '@src/apps/index'
-
 import { Bag, Equipment, Levels } from '@xiuxian/core/index'
 import { operationLock } from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
