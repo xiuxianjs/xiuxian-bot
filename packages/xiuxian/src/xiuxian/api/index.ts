@@ -13,16 +13,16 @@ import {
 import { urlHelpCache } from '@xiuxian/utils/index'
 import { personalInformation } from '@xiuxian/statistics/index'
 import { pictureRender } from '@xiuxian/img/index'
-import { Image, Text, useSend } from 'alemonjs'
+import { EventsMessageCreateEnum, Image, Text, useSend } from 'alemonjs'
 
-type UserDataType = Attributes<typeof user>
+export type UserDataType = Attributes<typeof user>
 
 /**
  * 显示我的资料
  * @param e
  * @param avatar
  */
-export async function showUserMsg(e) {
+export async function showUserMsg(e: EventsMessageCreateEnum) {
   const UID = e.UserKey
   const Send = useSend(e)
   const avatar = await e.UserAvatar.toURL()
@@ -51,7 +51,7 @@ export async function showUserMsg(e) {
  * @returns
  */
 export async function dualVerification(
-  e,
+  e: EventsMessageCreateEnum,
   UserData: UserDataType,
   UserDataB: UserDataType
 ) {
@@ -80,7 +80,11 @@ export async function dualVerification(
  * @param regionB
  * @returns
  */
-export function dualVerificationAction(e, region: number, regionB: number) {
+export function dualVerificationAction(
+  e: EventsMessageCreateEnum,
+  region: number,
+  regionB: number
+) {
   if (region != regionB) {
     const Send = useSend(e)
     Send(Text('此地未找到此人'))
@@ -119,7 +123,10 @@ export async function sendReply(
  * @param UID
  * @returns
  */
-export async function Control(e, UserData) {
+export async function Control(
+  e: EventsMessageCreateEnum,
+  UserData: UserDataType
+) {
   const { state, msg } = await State.Go(UserData)
   const Send = useSend(e)
   if (state == 4001) {
@@ -135,7 +142,10 @@ export async function Control(e, UserData) {
  * @param UID
  * @returns
  */
-export async function ControlByBlood(e, UserData: UserDataType) {
+export async function ControlByBlood(
+  e: EventsMessageCreateEnum,
+  UserData: UserDataType
+) {
   const { state, msg } = await State.goByBlood(UserData)
   const Send = useSend(e)
   if (state == 4001) {
@@ -153,7 +163,7 @@ export async function ControlByBlood(e, UserData: UserDataType) {
  * @returns
  */
 export async function controlByName(
-  e,
+  e: EventsMessageCreateEnum,
   UserData: UserDataType,
   addressName: string
 ) {
@@ -179,7 +189,7 @@ export async function controlByName(
  * @param name
  * @returns
  */
-export async function postHelp(e, name: string) {
+export async function postHelp(e: EventsMessageCreateEnum, name: string) {
   const img = await urlHelpCache(name).catch(err => {
     console.error(err)
     return '图片缓存错误'
@@ -218,7 +228,12 @@ const npcName = [
  * @param SpecialData
  * @returns
  */
-export async function killNPC(e, Mname: string, UID: string, prestige: number) {
+export async function killNPC(
+  e: EventsMessageCreateEnum,
+  Mname: string,
+  UID: string,
+  prestige: number
+) {
   if (!npcName.find(item => Mname.includes(item))) return true
 
   const Send = useSend(e)
@@ -257,7 +272,11 @@ export async function killNPC(e, Mname: string, UID: string, prestige: number) {
   return false
 }
 
-export async function showAction(e, UID: string, UserData: UserDataType) {
+export async function showAction(
+  e: EventsMessageCreateEnum,
+  UID: string,
+  UserData: UserDataType
+) {
   const mData = await Map.getRecordsByXYZ(
     UserData.pont_x,
     UserData.pont_y,
@@ -289,7 +308,7 @@ export async function showAction(e, UID: string, UserData: UserDataType) {
  * @param UID
  * @returns
  */
-export async function isSideUser(e, UID: string) {
+export async function isSideUser(e: EventsMessageCreateEnum, UID: string) {
   const UserData = await user.findOneValue({
     where: {
       uid: UID
@@ -311,7 +330,11 @@ export async function victoryCooling(e, UID: string, CDID: Burial.CDType) {
   return true
 }
 
-export async function endAllWord(e, UID: string, UserData: UserDataType) {
+export async function endAllWord(
+  e: EventsMessageCreateEnum,
+  UID: string,
+  UserData: UserDataType
+) {
   const mapText = {
     1: '只是呆了一会儿',
     2: '走累了,就停一停吧',
@@ -354,7 +377,7 @@ export async function endAllWord(e, UID: string, UserData: UserDataType) {
 }
 
 export async function condensateGas(
-  e,
+  e: EventsMessageCreateEnum,
   UID: string,
   time: number,
   UserData: UserDataType
@@ -398,7 +421,7 @@ export async function condensateGas(
  * @param type
  */
 export async function upgrade(
-  e,
+  e: EventsMessageCreateEnum,
   UID: string,
   time: number,
   key: number,
@@ -450,7 +473,11 @@ export async function upgrade(
  * @param size
  * @returns
  */
-export async function punishLevel(e, UID: string, UserData: UserDataType) {
+export async function punishLevel(
+  e: EventsMessageCreateEnum,
+  UID: string,
+  UserData: UserDataType
+) {
   /**
    * 渡劫失败惩罚
    *

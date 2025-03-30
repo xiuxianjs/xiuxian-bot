@@ -1,8 +1,7 @@
-import { Attributes, user } from '@xiuxian/db/index'
+import { user } from '@xiuxian/db/index'
 import {
   createSelects,
-  PrivateEventMessageCreate,
-  PublicEventMessageCreate,
+  EventsMessageCreateEnum,
   Text,
   useSend,
   useSubscribe
@@ -11,18 +10,15 @@ import { updatePlayer } from '@src/xiuxian/core/src/system/player'
 import { operationLocalLock } from './util'
 import { newcomer } from './newcomer'
 import NewsUser from './newuser'
+import { UserDataType } from '@src/xiuxian/api'
 
 export const selects = createSelects([
   'message.create',
   'private.message.create'
 ])
 
-type UserDataType = Attributes<typeof user>
-
 // 获取用户数据
-export const useCurrent = (
-  e: PublicEventMessageCreate | PrivateEventMessageCreate
-) => {
+export const useCurrent = (e: EventsMessageCreateEnum) => {
   return {
     UserData: e['UserData'] as UserDataType
   }
@@ -128,8 +124,15 @@ export default onResponse(selects, async (e, next) => {
     Send(Text(['小柠檬：', c.ok, `\n跳过指引可发送[/跳过指引]`].join('\n')))
   }
 
-  // 订阅
-  const [subscribe] = useSubscribe(e, 'message.create')
-  // 锁定用户的所有操作？
-  subscribe(NewsUser.current, ['UserId'])
+  if (e.name === 'message.create') {
+    // 订阅
+    const [subscribe] = useSubscribe(e, 'message.create')
+    // 锁定用户的所有操作？
+    subscribe(NewsUser.current, ['UserId'])
+  } else {
+    // 订阅
+    const [subscribe] = useSubscribe(e, 'private.message.create')
+    // 锁定用户的所有操作？
+    subscribe(NewsUser.current, ['UserId'])
+  }
 })

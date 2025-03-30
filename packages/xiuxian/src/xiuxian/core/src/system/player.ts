@@ -118,17 +118,13 @@ export async function setPlayer(UID: string, UserAvatar?: string) {
  * @returns
  */
 export async function updatePlayer(UID: string, UserAvatar?: string) {
-  return Promise.all(
-    Object.values(users).map(item => {
-      item.destroy({
-        where: {
-          uid: UID
-        }
-      })
+  for (const key in users) {
+    await users[key].destroy({
+      where: {
+        uid: UID
+      }
     })
-  )
-    .then(() => setPlayer(UID, UserAvatar))
-    .catch(err => {
-      console.error(err)
-    })
+  }
+  const res = setPlayer(UID, UserAvatar)
+  return res
 }

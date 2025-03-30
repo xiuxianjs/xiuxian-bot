@@ -14,7 +14,7 @@ export async function get(key: string | number) {
  * @param key
  * @param val
  */
-export function set(key: string | number, val: any) {
+export function set(key: string | number, val: string) {
   Redis.set(`${ReadiName}:${key}:lace`, val)
 }
 /**

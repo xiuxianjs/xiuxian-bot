@@ -34,7 +34,7 @@ function convert(data: string) {
  * @param key
  * @param data
  */
-export async function set(key: string, data: any) {
+export async function set(key: string, data: string) {
   Redis.set(key, JSON.stringify(data))
 }
 
@@ -45,7 +45,11 @@ export async function set(key: string, data: any) {
  * @param create
  * @returns
  */
-export async function cache(key: string, i: number, create: any) {
+export async function cache(
+  key: string,
+  i: number,
+  create: (i: number) => void
+) {
   /**
    * 得到缓存
    */

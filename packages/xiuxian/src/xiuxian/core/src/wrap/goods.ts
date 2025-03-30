@@ -55,6 +55,12 @@ export const mapType = {
  * @param param1
  * @returns
  */
-export function getListMsg(list: any[], name = '灵石', size = 1) {
+export function getListMsg(
+  list: {
+    type: string
+  }[],
+  name = '灵石',
+  size = 1
+) {
   return list.map(item => map[item?.type](item, name, size))
 }
