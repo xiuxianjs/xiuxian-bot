@@ -3,7 +3,7 @@ import * as GameApi from '@xiuxian/core/index'
 import * as DB from '@xiuxian/db/index'
 import Xiuxian, { selects } from '@src/apps/index'
 const delCooling = {}
-export const regular = /^(#|\/)解散$/
+export const regular = /^(#|\/)?解散$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

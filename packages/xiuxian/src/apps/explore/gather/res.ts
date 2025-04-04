@@ -6,7 +6,7 @@ import { user, user_level } from '@xiuxian/db/index'
 
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
 
-export const regular = /^(#|\/)开采\d+(\*1|\*2)?$/
+export const regular = /^(#|\/)?开采\d+(\*1|\*2)?$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -24,7 +24,7 @@ export default onResponse(selects, [
 
     const text = e.MessageText
 
-    const [id, count] = text.replace(/^(#|\/)开采/, '').split('*')
+    const [id, count] = text.replace(/^(#|\/)?开采/, '').split('*')
 
     // 看看境界
     const realm = await user_level

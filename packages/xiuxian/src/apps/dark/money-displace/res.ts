@@ -4,7 +4,7 @@ import * as GameApi from '@xiuxian/core/index'
 import { operationLock } from '@xiuxian/core/index'
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
 export const regular =
-  /^(#|\/)(金银坊置换|金銀坊置換)\d+\*[\u4e00-\u9fa5]+\*[\u4e00-\u9fa5]+$/
+  /^(#|\/)?(金银坊置换|金銀坊置換)\d+\*[\u4e00-\u9fa5]+\*[\u4e00-\u9fa5]+$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -21,7 +21,7 @@ export default onResponse(selects, [
     if (!(await controlByName(e, UserData, '金银坊'))) return
     const text = e.MessageText
     const [account, LeftName, RightName] = text
-      .replace(/^(#|\/)(金银置换|金銀置換)/, '')
+      .replace(/^(#|\/)?(金银置换|金銀置換)/, '')
       .split('*')
     const quantity = convertStoneQuantity(Number(account), LeftName, RightName)
     if (!quantity) {

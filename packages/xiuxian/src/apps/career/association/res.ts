@@ -15,7 +15,7 @@ import { controlByName } from '@xiuxian/api/index'
  * 灵根多，加成的下降
  */
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
-export const regular = /^(#|\/)查看协会$/
+export const regular = /^(#|\/)?查看协会$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

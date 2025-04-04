@@ -6,7 +6,7 @@ import { pictureRender } from '@xiuxian/img/index'
 
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
 
-export const regular = /^(#|\/)虚空镜/
+export const regular = /^(#|\/)?虚空镜/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -22,7 +22,7 @@ export default onResponse(selects, [
     // message parse
     const text = e.MessageText
     const [xpage = '1', name] = text
-      .replace(/^(#|\/)虚空镜/, '')
+      .replace(/^(#|\/)?虚空镜/, '')
       .trim()
       .split('*')
 

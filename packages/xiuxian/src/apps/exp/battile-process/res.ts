@@ -4,7 +4,7 @@ import { user } from '@xiuxian/db/index'
 
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
 
-export const regular = /^(#|\/)战斗过程(开启|关闭)$/
+export const regular = /^(#|\/)?战斗过程(开启|关闭)$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

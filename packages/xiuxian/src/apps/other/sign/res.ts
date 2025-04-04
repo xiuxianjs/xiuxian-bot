@@ -7,7 +7,7 @@ const MoenySize = 10
 
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
 
-export const regular = /^(#|\/)(联盟签到|聯盟簽到)$/
+export const regular = /^(#|\/)?(联盟签到|聯盟簽到)$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

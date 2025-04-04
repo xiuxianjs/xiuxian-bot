@@ -6,7 +6,7 @@ import Xiuxian, { selects } from '@src/apps/index'
 import * as GameApi from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
 
-export const regular = /^(#|\/)挑战\d+$/
+export const regular = /^(#|\/)?挑战\d+$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -43,7 +43,7 @@ export default onResponse(selects, [
 
     const text = e.MessageText
 
-    const id = Number(text.replace(/^(#|\/)挑战/, ''))
+    const id = Number(text.replace(/^(#|\/)?挑战/, ''))
     if (id >= data.id || id < 1) {
       Send(Text('😅你干嘛'))
 

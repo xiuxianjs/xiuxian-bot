@@ -7,7 +7,7 @@ import * as GameApi from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
 
 export const regular =
-  /^(#|\/)售出所有(武器|护具|法宝|丹药|功法|道具|材料|装备)$/
+  /^(#|\/)?售出所有(武器|护具|法宝|丹药|功法|道具|材料|装备)$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -27,7 +27,7 @@ export default onResponse(selects, [
 
     const text = e.MessageText
 
-    const type = text.replace(/^(#|\/)售出所有/, '')
+    const type = text.replace(/^(#|\/)?售出所有/, '')
 
     // 金额累计
     let money = 0

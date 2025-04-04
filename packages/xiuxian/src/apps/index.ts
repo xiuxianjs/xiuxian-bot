@@ -30,6 +30,12 @@ export default onResponse(selects, async (e, next) => {
     next()
     return
   }
+  // 不需要@的平台，必须有前缀的才能出发
+  const pl = ['discord', 'qq', 'kook', 'onebot']
+  if (pl.includes(e.Platform) && !/^(#|\/)/.test(e.MessageText)) {
+    // 不做任何反馈。
+    return
+  }
 
   // send
   const Send = useSend(e)

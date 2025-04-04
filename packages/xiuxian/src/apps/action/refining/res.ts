@@ -3,7 +3,7 @@ import { Bag, Equipment, Levels } from '@xiuxian/core/index'
 import { operationLock } from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
 import Xiuxian, { selects, useCurrent } from '@src/apps/index'
-export const regular = /^(#|\/)炼化[\u4e00-\u9fa5]+$/
+export const regular = /^(#|\/)?炼化[\u4e00-\u9fa5]+$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -30,7 +30,7 @@ export default onResponse(selects, [
     }
     // 解析
     const text = e.MessageText
-    const thingName = text.replace(/^(#|\/)炼化/, '')
+    const thingName = text.replace(/^(#|\/)?炼化/, '')
     const bagThing = await Bag.searchBagByName(UID, thingName)
     if (!bagThing) {
       Send(Text(`没[${thingName}]`))

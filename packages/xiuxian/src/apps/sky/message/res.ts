@@ -8,7 +8,7 @@ import { pictureRender } from '@src/xiuxian/img'
 
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
 
-export const regular = /^(#|\/)查看通天塔第(\d+)名(资料|面板)?$/
+export const regular = /^(#|\/)?查看通天塔第(\d+)名(资料|面板)?$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

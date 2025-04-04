@@ -7,7 +7,7 @@ import { map_point, user_level } from '@src/xiuxian/db'
 
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
 
-export const regular = /^(#|\/)前往[\u4e00-\u9fa5]+$/
+export const regular = /^(#|\/)?前往[\u4e00-\u9fa5]+$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -53,7 +53,7 @@ export default onResponse(selects, [
     const text = e.MessageText
 
     // 检查地点
-    const address = text.replace(/^(#|\/)前往/, '')
+    const address = text.replace(/^(#|\/)?前往/, '')
 
     // 得到地点数据
     const point = await map_point.findOneValue({

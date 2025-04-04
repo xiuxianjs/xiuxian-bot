@@ -3,7 +3,7 @@ import * as DB from '@xiuxian/db/index'
 import Xiuxian, { selects } from '@src/apps/index'
 import { Text, useSend } from 'alemonjs'
 import { operationLock } from '@src/xiuxian/core'
-export const regular = /^(#|\/)审核[\u4e00-\u9fa5]+$/
+export const regular = /^(#|\/)?审核[\u4e00-\u9fa5]+$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -19,7 +19,7 @@ export default onResponse(selects, [
     const text = e.MessageText
 
     // 审核 宗门名称
-    const name = text.replace(/^(#|\/)审核/, '')
+    const name = text.replace(/^(#|\/)?审核/, '')
 
     const aData = await DB.ass
       .findOne({

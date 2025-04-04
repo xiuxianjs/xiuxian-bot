@@ -2,7 +2,7 @@ import { Equipment } from '@xiuxian/core/index'
 import * as Server from '@xiuxian/statistics/index'
 import { pictureRender } from '@xiuxian/img/index'
 import { Image, useSend } from 'alemonjs'
-export const regular = /^(#|\/)我的面板$/
+export const regular = /^(#|\/)?我的面板$/
 import Xiuxian, { selects } from '@src/apps/index'
 export default onResponse(selects, [
   Xiuxian.current,

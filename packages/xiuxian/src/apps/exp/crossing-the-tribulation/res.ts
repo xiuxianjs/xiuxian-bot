@@ -6,7 +6,7 @@ import * as DB from '@xiuxian/db/index'
 
 import Xiuxian, { selects } from '@src/apps/index'
 
-export const regular = /^(#|\/)渡劫$/
+export const regular = /^(#|\/)?渡劫$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

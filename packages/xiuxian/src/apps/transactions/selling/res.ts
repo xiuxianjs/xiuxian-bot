@@ -7,7 +7,7 @@ import { pictureRender } from '@xiuxian/img/index'
 
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
 
-export const regular = /^(#|\/)我的虚空镜$/
+export const regular = /^(#|\/)?我的虚空镜$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

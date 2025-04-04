@@ -8,7 +8,7 @@ import { Op } from 'sequelize'
 import { Bag, operationLock } from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
 
-export const regular = /^(#|\/)领取通天塔奖励$/
+export const regular = /^(#|\/)?领取通天塔奖励$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

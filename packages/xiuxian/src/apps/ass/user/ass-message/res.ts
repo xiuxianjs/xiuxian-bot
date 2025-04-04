@@ -2,7 +2,7 @@ import { pictureRender } from '@xiuxian/img/index'
 import { ass, ass_typing, user_ass } from '@xiuxian/db/index'
 import Xiuxian, { selects } from '@src/apps/index'
 import { Image, Text, useSend } from 'alemonjs'
-export const regular = /^(#|\/)我的势力$/
+export const regular = /^(#|\/)?我的势力$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

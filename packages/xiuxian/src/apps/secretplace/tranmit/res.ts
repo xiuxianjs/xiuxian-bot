@@ -6,7 +6,7 @@ import Xiuxian, { selects } from '@src/apps/index'
 import * as GameApi from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
 
-export const regular = /^(#|\/)(传送|傳送)[\u4e00-\u9fa5]+$/
+export const regular = /^(#|\/)?(传送|傳送)[\u4e00-\u9fa5]+$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -23,7 +23,7 @@ export default onResponse(selects, [
     if (!(await ControlByBlood(e, UserData))) return
     // 查看数据是否存在
     const text = e.MessageText
-    const address = text.replace(/^(#|\/)(传送|傳送)/, '')
+    const address = text.replace(/^(#|\/)?(传送|傳送)/, '')
     const position = await DB.map_position
       .findOne({
         where: {

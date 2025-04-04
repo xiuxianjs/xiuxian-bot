@@ -1,8 +1,6 @@
 import { Text, useSend } from 'alemonjs'
-
 import { user } from '@src/xiuxian/db'
-export const regular = /^(\/|#)跳过(指引|教程)/
-
+export const regular = /^(\/|#)跳过(新人)?(指引|教程)/
 import Xiuxian, { selects } from '@src/apps/index'
 export default onResponse(selects, [
   Xiuxian.current,

@@ -6,7 +6,7 @@ import { user } from '@xiuxian/db/index'
 
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
 
-export const regular = /^(#|\/)更改昵称为[\u4e00-\u9fa5]+$/
+export const regular = /^(#|\/)?更改昵称为[\u4e00-\u9fa5]+$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -21,7 +21,7 @@ export default onResponse(selects, [
     const UserData = useCurrent(e).UserData
     if (!(await Control(e, UserData))) return
     const text = e.MessageText
-    const name = text.replace(/^(#|\/)更改昵称为/, '')
+    const name = text.replace(/^(#|\/)?更改昵称为/, '')
 
     if (Config.IllegalCharacters.test(name)) {
       Send(Text('异常名称'))

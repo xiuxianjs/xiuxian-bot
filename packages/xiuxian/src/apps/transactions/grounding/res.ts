@@ -5,7 +5,7 @@ import { goods, user_transactions, user_bag } from '@xiuxian/db/index'
 
 import Xiuxian, { selects } from '@src/apps/index'
 
-export const regular = /^(#|\/)上架/
+export const regular = /^(#|\/)?上架/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -20,7 +20,7 @@ export default onResponse(selects, [
     const text = e.MessageText
     //  /上架物品名*数量*价格
     const [name, countx, pricex] = text
-      .replace(/^(#|\/)上架/, '')
+      .replace(/^(#|\/)?上架/, '')
       .trim()
       .split('*')
     const count = Math.floor(isNaN(Number(countx)) ? 1 : Number(countx))

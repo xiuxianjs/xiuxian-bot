@@ -1,9 +1,7 @@
 import { user } from '@src/xiuxian/db'
 import { Text, useSend } from 'alemonjs'
-
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
-
-export const regular = /^(#|\/)开启(新人)?(指引|教程)$/
+export const regular = /^(#|\/)?开启(新人)?(指引|教程)$/
 export default onResponse(selects, [
   Xiuxian.current,
   e => {

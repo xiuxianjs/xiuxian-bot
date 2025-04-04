@@ -2,7 +2,7 @@ import { Text, useSend } from 'alemonjs'
 import { fate_level, goods, user_fate, user_level } from '@xiuxian/db/index'
 import Xiuxian, { selects } from '@src/apps/index'
 import { Talent } from '@xiuxian/core/index'
-export const regular = /^(#|\/)我的本命物$/
+export const regular = /^(#|\/)?我的本命物$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

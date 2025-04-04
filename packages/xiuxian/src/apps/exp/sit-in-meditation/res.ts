@@ -4,7 +4,7 @@ import * as GameApi from '@xiuxian/core/index'
 
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
 
-export const regular = /^(#|\/)打坐$/
+export const regular = /^(#|\/)?打坐$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

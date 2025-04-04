@@ -4,7 +4,7 @@ import { user_group, user_group_list } from '@src/xiuxian/db'
 
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
 
-export const regular = /^(#|\/)创建队伍$/
+export const regular = /^(#|\/)?创建队伍$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

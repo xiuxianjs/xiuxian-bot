@@ -2,7 +2,7 @@ import { Text, useSend } from 'alemonjs'
 import * as GameApi from '@xiuxian/core/index'
 import * as DB from '@xiuxian/db/index'
 import Xiuxian, { selects } from '@src/apps/index'
-export const regular = /^(#|\/)退出势力[\u4e00-\u9fa5]+$/
+export const regular = /^(#|\/)?退出势力[\u4e00-\u9fa5]+$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -19,7 +19,7 @@ export default onResponse(selects, [
     const text = e.MessageText
 
     // 势力名称
-    const name = text.replace(/^(#|\/)退出势力/, '')
+    const name = text.replace(/^(#|\/)?退出势力/, '')
 
     // 存在该昵称的宗门
     const aData = await DB.ass

@@ -6,7 +6,7 @@ import { operationLock } from '@src/xiuxian/core'
 
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
 
-export const regular = /^(#|\/)我的(戒指|(纳|呐|那)(借|介|戒))$/
+export const regular = /^(#|\/)?我的(戒指|(纳|呐|那)(借|介|戒))$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

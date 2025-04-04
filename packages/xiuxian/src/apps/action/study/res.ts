@@ -3,7 +3,7 @@ import { user, user_skills } from '@xiuxian/db/index'
 import Xiuxian, { selects } from '@src/apps/index'
 import { operationLock } from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
-export const regular = /^(#|\/)(学习|學習)[\u4e00-\u9fa5]+$/
+export const regular = /^(#|\/)?(学习|學習)[\u4e00-\u9fa5]+$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -19,7 +19,7 @@ export default onResponse(selects, [
     // message parse
     const text = e.MessageText
     if (!text) return
-    const thingName = text.replace(/^(#|\/)(学习|學習)/, '')
+    const thingName = text.replace(/^(#|\/)?(学习|學習)/, '')
     const thing = await Bag.searchBagByName(UID, thingName)
     if (!thing) {
       Send(Text(`没有[${thingName}]`))

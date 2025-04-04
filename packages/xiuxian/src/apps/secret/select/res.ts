@@ -3,7 +3,7 @@ import { operationLock } from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
 
 import Xiuxian, { selects } from '@src/apps/index'
-export const regular = /^(#|\/)对阵第\d+关$/
+export const regular = /^(#|\/)?对阵第\d+关$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

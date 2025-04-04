@@ -6,7 +6,7 @@ import Xiuxian, { selects } from '@src/apps/index'
 
 import { operationLock } from '@src/xiuxian/core'
 
-export const regular = /^(#|\/)进入通天塔$/
+export const regular = /^(#|\/)?进入通天塔$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

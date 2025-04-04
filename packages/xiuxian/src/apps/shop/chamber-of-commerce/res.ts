@@ -7,7 +7,7 @@ import * as GameApi from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
 
 export const regular =
-  /^(#|\/)查看(商会|商會)(武器|护具|法宝|丹药|功法|道具|材料|装备)?$/
+  /^(#|\/)?查看(商会|商會)(武器|护具|法宝|丹药|功法|道具|材料|装备)?$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -15,7 +15,7 @@ export default onResponse(selects, [
     if (!(await controlByName(e, UserData, '联盟'))) return
     const start_msg = ['___[联盟商会]___', '[/兑换+物品名*数量]']
     const text = e.MessageText
-    const type = text.replace(/^(#|\/)查看(商会|商會)/, '')
+    const type = text.replace(/^(#|\/)?查看(商会|商會)/, '')
     const commoditiesList = await DB.goods_alliancemall
       .findAll({
         include: [

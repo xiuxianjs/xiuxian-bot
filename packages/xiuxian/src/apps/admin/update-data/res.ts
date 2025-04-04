@@ -2,7 +2,7 @@ import { Text, useSend } from 'alemonjs'
 import { Equipment } from '@xiuxian/core/index'
 import { user } from '@src/xiuxian/db'
 import Xiuxian, { selects } from '@src/apps/index'
-export const regular = /^(#|\/)天道更新面板/
+export const regular = /^(#|\/)?天道更新面板/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

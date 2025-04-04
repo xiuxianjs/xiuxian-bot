@@ -12,7 +12,7 @@ import { NAMEMAP } from '@src/xiuxian/core/src/users/additional/levels'
 
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
 
-export const regular = /^(#|\/)突破$/
+export const regular = /^(#|\/)?突破$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

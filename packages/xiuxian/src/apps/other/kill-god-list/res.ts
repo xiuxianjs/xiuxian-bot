@@ -4,7 +4,7 @@ import * as Server from '@xiuxian/statistics/index'
 
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
 
-export const regular = /^(#|\/)查看杀神榜$/
+export const regular = /^(#|\/)?查看杀神榜$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

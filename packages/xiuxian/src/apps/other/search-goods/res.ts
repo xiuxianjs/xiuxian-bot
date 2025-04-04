@@ -5,7 +5,7 @@ import { pictureRender } from '@xiuxian/img/index'
 
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
 
-export const regular = /^(#|\/)查询物品[\u4e00-\u9fa5]+/
+export const regular = /^(#|\/)?查询物品[\u4e00-\u9fa5]+/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -17,7 +17,7 @@ export default onResponse(selects, [
     if (!text) return
 
     // 获取物品名称
-    const name = text.replace(/^(#|\/)查询物品/, '').trim()
+    const name = text.replace(/^(#|\/)?查询物品/, '').trim()
     const Send = useSend(e)
 
     // 查询物品信息

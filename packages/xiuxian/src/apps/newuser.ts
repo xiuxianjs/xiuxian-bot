@@ -18,17 +18,11 @@ export default onResponse(selects, async (e, next) => {
   const isLock = await operationLock(e.UserKey)
   if (!isLock) {
     Send(Text('操作频繁'))
-    // close()
     return
   }
 
   // 得到用户邮箱
   const UID = e.UserKey
-
-  if (!UID) {
-    Send(Text('请先登录'))
-    return
-  }
 
   // 得到数据
   const data = await user.findOneValue({

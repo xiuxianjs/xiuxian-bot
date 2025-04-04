@@ -5,7 +5,7 @@ import * as GameApi from '@xiuxian/core/index'
 
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
 
-export const regular = /^(#|\/)(锻体|降妖)$/
+export const regular = /^(#|\/)?(锻体|降妖)$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

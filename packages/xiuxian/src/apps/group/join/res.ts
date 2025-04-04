@@ -3,7 +3,7 @@ import { Text, useSend } from 'alemonjs'
 import { user_group, user_group_list } from '@src/xiuxian/db'
 
 import Xiuxian, { selects } from '@src/apps/index'
-export const regular = /^(#|\/)加入队伍\d+$/
+export const regular = /^(#|\/)?加入队伍\d+$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -28,7 +28,7 @@ export default onResponse(selects, [
     }
 
     const text = e.MessageText
-    const p = text.replace(/^(#|\/)加入队伍/, '')
+    const p = text.replace(/^(#|\/)?加入队伍/, '')
     const id = p == '' ? 1 : Number(p)
 
     //

@@ -6,7 +6,7 @@ import * as GameApi from '@xiuxian/core/index'
 import { operationLock } from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
 
-export const regular = /^(#|\/)治炼仙石\d+$/
+export const regular = /^(#|\/)?治炼仙石\d+$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -22,7 +22,7 @@ export default onResponse(selects, [
     const msg = []
     // 金银置换
     const text = e.MessageText
-    let account = Number(text.replace(/^(#|\/)治炼仙石/, '')) || 1
+    let account = Number(text.replace(/^(#|\/)?治炼仙石/, '')) || 1
     if (account > 10) account = 10
     const Userleve = await DB.user_level
       .findOne({

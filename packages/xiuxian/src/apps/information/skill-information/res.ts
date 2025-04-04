@@ -4,7 +4,7 @@ import * as Server from '@xiuxian/statistics/index'
 import { Image, useSend } from 'alemonjs'
 
 import Xiuxian, { selects } from '@src/apps/index'
-export const regular = /^(#|\/)我的功法$/
+export const regular = /^(#|\/)?我的功法$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

@@ -5,7 +5,7 @@ import Xiuxian, { selects } from '@src/apps/index'
 import { Bag, operationLock } from '@src/xiuxian/core'
 import dayjs from 'dayjs'
 import { literal } from 'sequelize'
-export const regular = /^(#|\/)领取势力俸禄$/
+export const regular = /^(#|\/)?领取势力俸禄$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

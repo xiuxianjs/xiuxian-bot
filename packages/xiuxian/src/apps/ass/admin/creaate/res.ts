@@ -2,7 +2,7 @@ import { Text, useSend } from 'alemonjs'
 import * as GameApi from '@xiuxian/core/index'
 import * as DB from '@xiuxian/db/index'
 import Xiuxian, { selects } from '@src/apps/index'
-export const regular = /^(#|\/)建立[\u4e00-\u9fa5]+$/
+export const regular = /^(#|\/)?建立[\u4e00-\u9fa5]+$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -55,7 +55,7 @@ export default onResponse(selects, [
     }
 
     const text = e.MessageText
-    const NAME = text.replace(/^(#|\/)建立/, '')
+    const NAME = text.replace(/^(#|\/)?建立/, '')
     const NAMES = NAME.split('')
 
     if (NAMES.length > 6) {

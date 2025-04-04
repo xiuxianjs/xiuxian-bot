@@ -2,7 +2,7 @@ import { Image, useSend } from 'alemonjs'
 import { pictureRender } from '@xiuxian/img/index'
 
 import Xiuxian, { selects } from '@src/apps/index'
-export const regular = /^(#|\/)查看配置$/
+export const regular = /^(#|\/)?查看配置$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

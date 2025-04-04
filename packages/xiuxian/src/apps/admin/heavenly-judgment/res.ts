@@ -3,7 +3,7 @@ import { isSideUser } from '@xiuxian/api/index'
 import { Bag } from '@xiuxian/core/index'
 import { goods } from '@xiuxian/db/index'
 import Xiuxian, { selects } from '@src/apps/index'
-export const regular = /^(#|\/)天道裁决/
+export const regular = /^(#|\/)?天道裁决/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

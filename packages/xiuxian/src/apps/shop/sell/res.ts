@@ -5,7 +5,7 @@ import * as GameApi from '@xiuxian/core/index'
 
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
 
-export const regular = /^(#|\/)出售[\u4e00-\u9fa5]+\*\d+$/
+export const regular = /^(#|\/)?出售[\u4e00-\u9fa5]+\*\d+$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -25,7 +25,7 @@ export default onResponse(selects, [
 
     const text = e.MessageText
 
-    const [thingName, quantity] = text.replace(/^(#|\/)出售/, '').split('*')
+    const [thingName, quantity] = text.replace(/^(#|\/)?出售/, '').split('*')
     // 检查物品
     const thing = await GameApi.Bag.searchBagByName(UID, thingName)
     if (!thing) {

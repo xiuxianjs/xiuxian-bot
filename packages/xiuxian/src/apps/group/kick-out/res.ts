@@ -3,7 +3,7 @@ import { Text, useMention, useSend } from 'alemonjs'
 import { Attributes, user_group, user_group_list } from '@src/xiuxian/db'
 
 import Xiuxian, { selects } from '@src/apps/index'
-export const regular = /^(#|\/)踢出(\d+)?$/
+export const regular = /^(#|\/)?踢出(\d+)?$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -73,7 +73,7 @@ export default onResponse(selects, [
       Status.setStatus({ UID: UIDB, key: 'kongxian' })
     } else {
       const text = e.MessageText
-      const id = text.replace(/^(#|\/)踢出/, '')
+      const id = text.replace(/^(#|\/)?踢出/, '')
       // 查看标记
       const groupList = await user_group_list.findOneValue({
         where: {

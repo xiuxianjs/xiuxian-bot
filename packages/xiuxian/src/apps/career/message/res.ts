@@ -3,7 +3,7 @@ import { ControlByBlood } from '@xiuxian/api/index'
 
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
 
-export const regular = /^(#|\/)我的协会$/
+export const regular = /^(#|\/)?我的协会$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

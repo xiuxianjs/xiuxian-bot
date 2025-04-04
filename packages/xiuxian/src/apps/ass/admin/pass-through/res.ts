@@ -3,7 +3,7 @@ import Xiuxian, { selects } from '@src/apps/index'
 import * as GameApi from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
 import { AssGradesSize } from '@src/xiuxian/core/src/config/cooling'
-export const regular = /^(#|\/)通过\d+$/
+export const regular = /^(#|\/)?通过\d+$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -20,7 +20,7 @@ export default onResponse(selects, [
     const text = e.MessageText
 
     //
-    const id = Number(text.replace(/^(#|\/)通过/, ''))
+    const id = Number(text.replace(/^(#|\/)?通过/, ''))
 
     //
     if (!id) return

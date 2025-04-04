@@ -12,7 +12,7 @@ import {
 import { operationLock } from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
-export const regular = /^(#|\/)消耗[\u4e00-\u9fa5]+(\*\d+)?$/
+export const regular = /^(#|\/)?消耗[\u4e00-\u9fa5]+(\*\d+)?$/
 const response = onResponse(selects, async e => {
   // 操作锁
   const T = await operationLock(e.UserKey)
@@ -30,7 +30,7 @@ const response = onResponse(selects, async e => {
   // 解析
   const text = e.MessageText
   if (!text) return
-  const [thingName, thingAcount] = text.replace(/^(#|\/)消耗/, '').split('*')
+  const [thingName, thingAcount] = text.replace(/^(#|\/)?消耗/, '').split('*')
   let count = Number(thingAcount)
   if (isNaN(Number(count))) {
     count = 1

@@ -5,7 +5,7 @@ import { Redis, user_transactions, user_bag } from '@xiuxian/db/index'
 
 import Xiuxian, { selects } from '@src/apps/index'
 
-export const regular = /^(#|\/)选购/
+export const regular = /^(#|\/)?选购/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -20,7 +20,7 @@ export default onResponse(selects, [
     const UID = e.UserKey
     // 解析文本
     const text = e.MessageText
-    const id = text.replace(/^(#|\/)选购/, '').trim()
+    const id = text.replace(/^(#|\/)?选购/, '').trim()
     if (!id || id == '' || isNaN(Number(id))) {
       Send(Text('请输入正确的编号'))
       return

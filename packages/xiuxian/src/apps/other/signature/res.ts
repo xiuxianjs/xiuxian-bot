@@ -6,7 +6,7 @@ import { user } from '@xiuxian/db/index'
 
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
 
-export const regular = /^(#|\/)更改签名为[\u4e00-\u9fa5]+$/
+export const regular = /^(#|\/)?更改签名为[\u4e00-\u9fa5]+$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -23,7 +23,7 @@ export default onResponse(selects, [
 
     // 解析文本
     const text = e.MessageText
-    const autograph = text.replace(/^(#|\/)更改签名为/, '')
+    const autograph = text.replace(/^(#|\/)?更改签名为/, '')
 
     // 非法字符
     if (Config.IllegalCharacters.test(autograph)) {

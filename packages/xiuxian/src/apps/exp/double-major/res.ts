@@ -11,7 +11,7 @@ import { Text, useMention, useSend } from 'alemonjs'
 
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
 
-export const regular = /^(#|\/)(雙修|双修)/
+export const regular = /^(#|\/)?(雙修|双修)/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -28,7 +28,7 @@ export default onResponse(selects, [
     let UIDB: null | undefined | string = null
     if (!ats || ats.length === 0) {
       const text = e.MessageText
-      UIDB = text.replace(/^(#|\/)(雙修|双修)/, '')
+      UIDB = text.replace(/^(#|\/)?(雙修|双修)/, '')
     } else {
       const value = ats.find(item => !item.IsBot)
       if (value) {

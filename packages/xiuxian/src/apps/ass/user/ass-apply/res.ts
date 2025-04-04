@@ -1,7 +1,7 @@
 import { ass, user_ass_apply } from '@xiuxian/db/index'
 import Xiuxian, { selects } from '@src/apps/index'
 import { Text, useSend } from 'alemonjs'
-export const regular = /^(#|\/)我的势力申请$/
+export const regular = /^(#|\/)?我的势力申请$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

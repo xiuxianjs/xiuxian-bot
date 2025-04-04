@@ -10,7 +10,7 @@ import * as GameApi from '@xiuxian/core/index'
 import { operationLock } from '@xiuxian/core/index'
 import * as DB from '@xiuxian/db/index'
 import Xiuxian, { selects } from '@src/apps/index'
-export const regular = /^(#|\/)打劫/
+export const regular = /^(#|\/)?打劫/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -28,7 +28,7 @@ export default onResponse(selects, [
     let UIDB: null | undefined | string = null
     if (!ats || ats.length === 0) {
       const text = e.MessageText
-      UIDB = text.replace(/^(#|\/)打劫/, '')
+      UIDB = text.replace(/^(#|\/)?打劫/, '')
     } else {
       const value = ats.find(item => !item.IsBot)
       if (value) {

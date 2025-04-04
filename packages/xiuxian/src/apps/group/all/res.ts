@@ -3,7 +3,7 @@ import { operationLock } from '@xiuxian/core/index'
 import { user_group } from '@src/xiuxian/db'
 
 import Xiuxian, { selects } from '@src/apps/index'
-export const regular = /^(#|\/)查看队伍(\d+)?$/
+export const regular = /^(#|\/)?查看队伍(\d+)?$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -14,7 +14,7 @@ export default onResponse(selects, [
       return
     }
     const text = e.MessageText
-    const p = text.replace(/^(#|\/)查看队伍/, '')
+    const p = text.replace(/^(#|\/)?查看队伍/, '')
     //
     const page = p == '' ? 1 : Number(p)
     const pageSize = 10

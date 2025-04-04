@@ -3,7 +3,7 @@ import { ControlByBlood, victoryCooling } from '@xiuxian/api/index'
 import { Boss, Fight, operationLock } from '@xiuxian/core/index'
 import { Redis, user } from '@xiuxian/db/index'
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
-export const regular = /^(#|\/)攻击(金角|银角)/
+export const regular = /^(#|\/)?攻击(金角|银角)/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

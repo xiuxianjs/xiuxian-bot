@@ -3,7 +3,7 @@ import { pictureRender } from '@xiuxian/img/index'
 const imgData = {}
 
 import Xiuxian, { selects } from '@src/apps/index'
-export const regular = /^(#|\/)查看(日常|限时|特殊)活动$/
+export const regular = /^(#|\/)?查看(日常|限时|特殊)活动$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

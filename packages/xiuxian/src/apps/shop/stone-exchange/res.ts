@@ -3,7 +3,7 @@ import { Text, useSend } from 'alemonjs'
 import * as GameApi from '@xiuxian/core/index'
 
 import Xiuxian, { selects } from '@src/apps/index'
-export const regular = /^(#|\/)仙石兑换.*$/
+export const regular = /^(#|\/)?仙石兑换.*$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -31,7 +31,7 @@ export default onResponse(selects, [
 
     //检查是不是在联盟
     const text = e.MessageText
-    const thingName = text.replace(/^(#|\/)仙石兑换/, '')
+    const thingName = text.replace(/^(#|\/)?仙石兑换/, '')
     // 检查背包
     const BagSize = await GameApi.Bag.backpackFull(UID)
     // 背包未位置了直接返回了

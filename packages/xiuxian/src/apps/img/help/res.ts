@@ -4,7 +4,7 @@ import josn_base_help from '@src/assets/defset/base_help.json'
 const helpData = {}
 
 import Xiuxian, { selects } from '@src/apps/index'
-export const regular = /^(#|\/)(修仙)?((帮|幫)助|help)/
+export const regular = /^(#|\/)?(修仙)?((帮|幫)助|help)/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

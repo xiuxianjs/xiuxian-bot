@@ -2,7 +2,7 @@ import { ControlByBlood, showAction } from '@xiuxian/api/index'
 
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
 
-export const regular = /^(#|\/)向左$/
+export const regular = /^(#|\/)?向左$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

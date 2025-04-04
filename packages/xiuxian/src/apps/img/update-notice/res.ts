@@ -4,7 +4,7 @@ import json_update from '@src/assets/defset/update.json'
 const helpData = {}
 
 import Xiuxian, { selects } from '@src/apps/index'
-export const regular = /^(#|\/)查看更新$/
+export const regular = /^(#|\/)?查看更新$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

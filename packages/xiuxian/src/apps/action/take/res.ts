@@ -1,7 +1,7 @@
 import { Text, useSend } from 'alemonjs'
 import { Bag, Equipment, Levels, operationLock } from '@xiuxian/core/index'
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
-export const regular = /^(#|\/)服用[\u4e00-\u9fa5]+\*\d+$/
+export const regular = /^(#|\/)?服用[\u4e00-\u9fa5]+\*\d+$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -18,7 +18,7 @@ export default onResponse(selects, [
     // message parse
     const text = e.MessageText
     if (!text) return
-    const [thingName, thingAcount] = text.replace(/^(#|\/)服用/, '').split('*')
+    const [thingName, thingAcount] = text.replace(/^(#|\/)?服用/, '').split('*')
     const thing = await Bag.searchBagByName(UID, thingName)
     if (!thing) {
       Send(Text(`没有[${thingName}]`))

@@ -8,7 +8,7 @@ import { Text, useSend } from 'alemonjs'
 
 import { literal } from 'sequelize'
 
-export const regular = /^(#|\/)(击杀|擊殺)[\u4e00-\u9fa5]+(\*1|\*2)?$/
+export const regular = /^(#|\/)?(击杀|擊殺)[\u4e00-\u9fa5]+(\*1|\*2)?$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -29,7 +29,7 @@ export default onResponse(selects, [
 
     const text = e.MessageText
 
-    const [Mname, count] = text.replace(/^(#|\/)(击杀|擊殺)/, '').split('*')
+    const [Mname, count] = text.replace(/^(#|\/)?(击杀|擊殺)/, '').split('*')
 
     if (!(await killNPC(e, Mname, UID, UserData.special_prestige))) return
 

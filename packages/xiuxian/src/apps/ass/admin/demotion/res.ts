@@ -2,7 +2,7 @@ import { Config, operationLock } from '@src/xiuxian/core'
 import { ass, user_ass } from '@src/xiuxian/db'
 import { Text, useSend } from 'alemonjs'
 import Xiuxian, { selects } from '@src/apps/index'
-export const regular = /^(#|\/)贬职/
+export const regular = /^(#|\/)?贬职/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -19,7 +19,7 @@ export default onResponse(selects, [
 
     // 输入的是标记
 
-    const id = text.replace(/^(#|\/)贬职/, '')
+    const id = text.replace(/^(#|\/)?贬职/, '')
     if (!id) return
 
     const ID = Number(id)

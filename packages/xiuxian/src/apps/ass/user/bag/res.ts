@@ -2,7 +2,7 @@ import { Text, useSend } from 'alemonjs'
 import * as DB from '@xiuxian/db/index'
 import Xiuxian, { selects } from '@src/apps/index'
 // 查看该宗门都有谁
-export const regular = /^(#|\/)打开([\u4e00-\u9fa5]+)宝库$/
+export const regular = /^(#|\/)?打开([\u4e00-\u9fa5]+)宝库$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

@@ -2,7 +2,7 @@ import { Text, useSend } from 'alemonjs'
 import { console } from 'inspector'
 import { Boss } from '@xiuxian/core/index'
 import Xiuxian, { selects } from '@src/apps/index'
-export const regular = /^(#|\/)查看(金角|银角)$/
+export const regular = /^(#|\/)?查看(金角|银角)$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

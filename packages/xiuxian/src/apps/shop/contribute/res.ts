@@ -6,7 +6,7 @@ import { Text, useSend } from 'alemonjs'
 
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
 
-export const regular = /^(#|\/)(贡献|貢獻)[\u4e00-\u9fa5]+\*\d+$/
+export const regular = /^(#|\/)?(贡献|貢獻)[\u4e00-\u9fa5]+\*\d+$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -24,7 +24,7 @@ export default onResponse(selects, [
     // 解析消息
     const text = e.MessageText
     const [thingName, quantity] = text
-      .replace(/^(#|\/)(贡献|貢獻)/, '')
+      .replace(/^(#|\/)?(贡献|貢獻)/, '')
       .split('*')
     const thing = await GameApi.Bag.searchBagByName(UID, thingName)
     if (!thing) {

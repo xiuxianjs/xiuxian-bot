@@ -6,7 +6,7 @@ import Xiuxian, { selects } from '@src/apps/index'
 
 import { operationLock } from '@src/xiuxian/core'
 
-export const regular = /^(#|\/)设置密码/
+export const regular = /^(#|\/)?设置密码/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -21,7 +21,7 @@ export default onResponse(selects, [
     const UID = e.UserKey
     // 解析密码
     const text = e.MessageText
-    const password = text.replace(/^(#|\/)设置密码/, '')
+    const password = text.replace(/^(#|\/)?设置密码/, '')
     const regex = /^[a-zA-Z0-9]+$/
 
     if (!regex.test(password)) {

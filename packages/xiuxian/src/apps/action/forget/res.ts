@@ -3,7 +3,7 @@ import { Bag, Skills } from '@xiuxian/core/index'
 import { user, user_skills } from '@xiuxian/db/index'
 import { operationLock } from '@xiuxian/core/index'
 import Xiuxian, { selects } from '@src/apps/index'
-export const regular = /^(#|\/)忘掉[\u4e00-\u9fa5]+$/
+export const regular = /^(#|\/)?忘掉[\u4e00-\u9fa5]+$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -19,7 +19,7 @@ export default onResponse(selects, [
     // 解析
     const text = e.MessageText
     if (!text) return
-    const thingName = text.replace(/^(#|\/)忘掉/, '')
+    const thingName = text.replace(/^(#|\/)?忘掉/, '')
     const AllSorcery = await user_skills
       .findAll({ where: { uid: UID } })
       .then(res => res.map(item => item?.dataValues))

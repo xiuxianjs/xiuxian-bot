@@ -11,7 +11,7 @@ import * as DB from '@xiuxian/db/index'
 
 import Xiuxian, { selects } from '@src/apps/index'
 
-export const regular = /^(#|\/)偷袭\d+$/
+export const regular = /^(#|\/)?偷袭\d+$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -31,7 +31,7 @@ export default onResponse(selects, [
 
     const text = e.MessageText
 
-    const ID = text.replace(/^(#|\/)偷袭/, '')
+    const ID = text.replace(/^(#|\/)?偷袭/, '')
     //
     const UserDataB = await DB.user
       .findOne({

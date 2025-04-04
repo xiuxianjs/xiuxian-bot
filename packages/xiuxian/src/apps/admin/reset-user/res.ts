@@ -1,7 +1,7 @@
 import { Text, useSend } from 'alemonjs'
 import { Player } from '@xiuxian/core/index'
 import Xiuxian, { selects } from '@src/apps/index'
-export const regular = /^(#|\/)天道强制重生/
+export const regular = /^(#|\/)?天道强制重生/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

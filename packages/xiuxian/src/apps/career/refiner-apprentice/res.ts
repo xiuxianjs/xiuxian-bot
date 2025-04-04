@@ -1,7 +1,7 @@
 import { Text, useSend } from 'alemonjs'
 import { controlByName } from '@xiuxian/api/index'
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
-export const regular = /^(#|\/)炼器师学徒$/
+export const regular = /^(#|\/)?炼器师学徒$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

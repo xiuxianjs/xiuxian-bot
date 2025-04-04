@@ -6,7 +6,7 @@ import Xiuxian, { selects } from '@src/apps/index'
 import * as GameApi from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
 
-export const regular = /^(#|\/)(兑换|兌換)[\u4e00-\u9fa5]+\*\d+$/
+export const regular = /^(#|\/)?(兑换|兌換)[\u4e00-\u9fa5]+\*\d+$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -24,7 +24,7 @@ export default onResponse(selects, [
     // 解析消息
     const text = e.MessageText
     const [thingName, quantity] = text
-      .replace(/^(#|\/)(兑换|兌換)/, '')
+      .replace(/^(#|\/)?(兑换|兌換)/, '')
       .split('*')
     //
     const ifexist: DB.Attributes<typeof DB.goods> = await DB.goods_alliancemall

@@ -2,12 +2,12 @@ import { Text, useSend } from 'alemonjs'
 import * as DB from '@xiuxian/db/index'
 import Xiuxian, { selects } from '@src/apps/index'
 // 查看该宗门都有谁
-export const regular = /^(#|\/)我的势力[\u4e00-\u9fa5]+$/
+export const regular = /^(#|\/)?我的势力[\u4e00-\u9fa5]+$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
     const text = e.MessageText
-    const name = text.replace(/^(#|\/)我的势力/, '')
+    const name = text.replace(/^(#|\/)?我的势力/, '')
 
     // 查看该宗门中。关于自己的信息和宗门的信息。
 

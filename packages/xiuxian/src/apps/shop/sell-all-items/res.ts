@@ -7,7 +7,7 @@ import * as GameApi from '@xiuxian/core/index'
 
 import { Text, useSend } from 'alemonjs'
 
-export const regular = /^(#|\/)售出所有物品$/
+export const regular = /^(#|\/)?售出所有物品$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

@@ -7,7 +7,7 @@ import Xiuxian, { selects } from '@src/apps/index'
 import * as GameApi from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
 
-export const regular = /^(#|\/)(购买|購買)[\u4e00-\u9fa5]+\*\d+$/
+export const regular = /^(#|\/)?(购买|購買)[\u4e00-\u9fa5]+\*\d+$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -25,7 +25,7 @@ export default onResponse(selects, [
     // 解析消息
     const text = e.MessageText
     const [thingName, quantity] = text
-      .replace(/^(#|\/)(购买|購買)/, '')
+      .replace(/^(#|\/)?(购买|購買)/, '')
       .split('*')
 
     //

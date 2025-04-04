@@ -4,7 +4,7 @@ import * as GameApi from '@xiuxian/core/index'
 
 import Xiuxian, { selects } from '@src/apps/index'
 export const regular =
-  /^(#|\/)(戒指|(纳|呐|那)(借|介|戒))取出[\u4e00-\u9fa5]+\*\d+$/
+  /^(#|\/)?(戒指|(纳|呐|那)(借|介|戒))取出[\u4e00-\u9fa5]+\*\d+$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -21,7 +21,7 @@ export default onResponse(selects, [
     // 解析消息
     const text = e.MessageText
     const [thingName, thingAcount] = text
-      .replace(/^(#|\/)(戒指|(纳|呐|那)(借|介|戒))取出/, '')
+      .replace(/^(#|\/)?(戒指|(纳|呐|那)(借|介|戒))取出/, '')
       .split('*')
     // 检查戒指
     const thing = await GameApi.Ring.searchRingByName(UID, thingName)

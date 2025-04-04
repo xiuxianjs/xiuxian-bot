@@ -5,7 +5,7 @@ import Xiuxian, { selects } from '@src/apps/index'
 import { Method } from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
 
-export const regular = /^(#|\/)我的记录$/
+export const regular = /^(#|\/)?我的记录$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

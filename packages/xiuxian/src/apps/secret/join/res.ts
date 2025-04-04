@@ -3,7 +3,7 @@ import { operationLock } from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
 
 import Xiuxian, { selects } from '@src/apps/index'
-export const regular = /^(#|\/)开启[\u4e00-\u9fa5]+秘境$/
+export const regular = /^(#|\/)?开启[\u4e00-\u9fa5]+秘境$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

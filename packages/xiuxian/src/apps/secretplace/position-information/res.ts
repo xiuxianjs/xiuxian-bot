@@ -5,7 +5,7 @@ import Xiuxian, { selects } from '@src/apps/index'
 
 import { useSend } from 'alemonjs'
 
-export const regular = /^(#|\/)查看当前位置$/
+export const regular = /^(#|\/)?查看当前位置$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

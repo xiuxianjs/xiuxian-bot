@@ -6,7 +6,7 @@ import Xiuxian, { selects } from '@src/apps/index'
 
 import { Text, useSend } from 'alemonjs'
 
-export const regular = /^(#|\/)释放神识$/
+export const regular = /^(#|\/)?释放神识$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

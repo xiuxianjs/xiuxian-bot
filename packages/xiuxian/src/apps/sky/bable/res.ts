@@ -7,7 +7,7 @@ import Xiuxian, { selects } from '@src/apps/index'
 import { pictureRender } from '@xiuxian/img/index'
 import { showSky } from '@xiuxian/statistics/index'
 
-export const regular = /^(#|\/)查看(通天塔|至尊榜|天命榜)$/
+export const regular = /^(#|\/)?查看(通天塔|至尊榜|天命榜)$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

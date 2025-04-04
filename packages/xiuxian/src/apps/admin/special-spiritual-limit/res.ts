@@ -1,7 +1,7 @@
 import { Text, useSend } from 'alemonjs'
 import { user, user_level } from '@src/xiuxian/db'
 import Xiuxian, { selects } from '@src/apps/index'
-export const regular = /^(#|\/)天道更新灵力/
+export const regular = /^(#|\/)?天道更新灵力/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

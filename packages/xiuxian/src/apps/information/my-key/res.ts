@@ -1,5 +1,5 @@
 import { Text, useSend } from 'alemonjs'
-export const regular = /^(#|\/)我的账号$/
+export const regular = /^(#|\/)?我的账号$/
 import { selects } from '@src/apps/index'
 export default onResponse(selects, async e => {
   const Send = useSend(e)

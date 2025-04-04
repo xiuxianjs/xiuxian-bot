@@ -5,7 +5,7 @@ import { user, user_equipment } from '@xiuxian/db/index'
 
 import Xiuxian, { selects } from '@src/apps/index'
 
-export const regular = /^(#|\/)卸下[\u4e00-\u9fa5]+$/
+export const regular = /^(#|\/)?卸下[\u4e00-\u9fa5]+$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -22,7 +22,7 @@ export default onResponse(selects, [
     const UID = e.UserKey
     // message
     const text = e.MessageText
-    const thingName = text.replace(/^(#|\/)卸下/, '')
+    const thingName = text.replace(/^(#|\/)?卸下/, '')
     // 得到数据
     const equipment = await user_equipment
       .findAll({ where: { uid: UID } })
