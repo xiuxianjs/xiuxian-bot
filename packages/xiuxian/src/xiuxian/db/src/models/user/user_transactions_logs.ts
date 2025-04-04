@@ -68,7 +68,7 @@ type ModelProps = {
   price: number
   createAt: Date
   updateAt: Date
-  deleteAt: Date
+  // deleteAt: Date
 }
 user_transactions_logs.init(
   {
@@ -108,9 +108,9 @@ user_transactions_logs.init(
       defaultValue: DataTypes.NOW
       // onUpdate: DataTypes.NOW
     },
-    deleteAt: {
-      type: DataTypes.DATE
-    },
+    // deleteAt: {
+    //   type: DataTypes.DATE
+    // },
     createAt: {
       type: DataTypes.DATE
     }

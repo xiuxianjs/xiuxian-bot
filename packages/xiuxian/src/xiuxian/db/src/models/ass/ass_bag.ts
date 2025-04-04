@@ -11,8 +11,8 @@ type ModelProps = {
   tid: number // 物品编号
   type: number // 物品类型
   name: string // 物品名
-  acount: number // 数量
-  doc: number // 说明
+  count: number // 数量
+  // doc: number // 说明
 }
 
 class ass_bag extends Model<ModelProps> {
@@ -98,15 +98,15 @@ ass_bag.init(
         key: 'name'
       }
     },
-    acount: {
+    count: {
       type: DataTypes.BIGINT,
       defaultValue: 1,
       comment: '数量'
-    },
-    doc: {
-      type: DataTypes.STRING(20),
-      comment: '说明'
     }
+    // doc: {
+    //   type: DataTypes.STRING(20),
+    //   comment: '说明'
+    // }
   },
   {
     sequelize,

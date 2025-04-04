@@ -22,7 +22,7 @@ export default onResponse(selects, [
 
     const UserData = e['UserData'] as DB.Attributes<typeof DB.user>
 
-    if (!(await controlByName(e, UserData, '万宝楼'))) return
+    if (!(await controlByName(e, UserData))) return
     // 累计
     let money = 0
     // 得到该物品的所有信息

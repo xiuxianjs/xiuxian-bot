@@ -12,7 +12,7 @@ export default onResponse(selects, [
   Xiuxian.current,
   async e => {
     const UserData = e['UserData'] as DB.Attributes<typeof DB.user>
-    if (!(await controlByName(e, UserData, '万宝楼'))) return
+    if (!(await controlByName(e, UserData))) return
     const start_msg = ['___[万宝楼]___', '欢迎光顾本店']
     const text = e.MessageText
     const type = text.replace(/^(#|\/)?查看(万宝楼|萬寶樓)/, '')

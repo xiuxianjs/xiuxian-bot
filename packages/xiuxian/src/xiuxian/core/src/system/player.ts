@@ -1,5 +1,5 @@
 import {
-  map_point,
+  // map_point,
   user_level,
   levels,
   user,
@@ -29,11 +29,11 @@ export async function setPlayer(UID: string, UserAvatar?: string) {
       type: 2
     }
   })
-  const MapPointData = await map_point.findOneValue({
-    where: {
-      name: '天山'
-    }
-  })
+  // const MapPointData = await map_point.findOneValue({
+  //   where: {
+  //     name: '天山'
+  //   }
+  // })
   const constitutionId = await getRandomConstitutionOnId()
   //
   const name = Method.randomArray([
@@ -61,11 +61,11 @@ export async function setPlayer(UID: string, UserAvatar?: string) {
       age: 1, // 寿龄_默认1
       theme: 'dark', // 主题
       age_limit: 100, // 最高寿龄_默认100
-      point_type: MapPointData.type, // 地点类型_默认0
-      pont_attribute: MapPointData.attribute, // 地点属性_默认0
-      pont_x: MapPointData.x, // 地点x轴_默认0
-      pont_y: MapPointData.y, // 地点y轴_默认0
-      pont_z: MapPointData.z, // 地点z轴_默认0
+      // point_type: MapPointData.type, // 地点类型_默认0
+      // pont_attribute: MapPointData.attribute, // 地点属性_默认0
+      // pont_x: MapPointData.x, // 地点x轴_默认0
+      // pont_y: MapPointData.y, // 地点y轴_默认0
+      // pont_z: MapPointData.z, // 地点z轴_默认0
       battle_blood_now: gaspractice.blood + bodypractice.blood, // 当前血量_默认0
       battle_blood_limit: gaspractice.blood + bodypractice.blood, // 血量上限_默认0
       // 计算战力

@@ -12,7 +12,7 @@ export default onResponse(selects, [
   Xiuxian.current,
   async e => {
     const UserData = e['UserData'] as DB.Attributes<typeof DB.user>
-    if (!(await controlByName(e, UserData, '联盟'))) return
+    if (!(await controlByName(e, UserData))) return
     const start_msg = ['___[联盟商会]___', '[/兑换+物品名*数量]']
     const text = e.MessageText
     const type = text.replace(/^(#|\/)?查看(商会|商會)/, '')

@@ -44,6 +44,12 @@ export const getImmortalGradeValue = (grade: number, val = 0.01) => {
   return Number((1 + val * grade).toFixed(2))
 }
 
+/**
+ * 计算原始伤害
+ * @param UserA
+ * @param UserB
+ * @returns
+ */
 const getOriginal = (UserA: UserBattleType, UserB: UserBattleType) => {
   return (
     // 攻击 - 防御
@@ -52,12 +58,18 @@ const getOriginal = (UserA: UserBattleType, UserB: UserBattleType) => {
   )
 }
 
+/**
+ * 计算暴击伤害
+ * @param HurtA
+ * @param UserA
+ * @returns
+ */
 const getOutbreak = (HurtA, UserA: UserBattleType) => {
   return (HurtA.original * (100 + UserA.battle_critical_damage)) / 100
 }
 
 /**
- *
+ * 计算伤害
  * @param UserA
  * @param UserB
  * @returns

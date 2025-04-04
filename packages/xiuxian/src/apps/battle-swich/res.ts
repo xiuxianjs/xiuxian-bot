@@ -14,6 +14,8 @@ export const regular = /^(#|\/)?打劫/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
+    return
+
     // lock
     const T = await operationLock(e.UserKey)
     const Send = useSend(e)

@@ -6,7 +6,7 @@ export default onResponse(selects, [
   Xiuxian.current,
   async e => {
     const UserData = useCurrent(e).UserData
-    if (!(await controlByName(e, UserData, '协会'))) return
+    if (!(await controlByName(e, UserData))) return
     const Send = useSend(e)
     Send(Text(['[协会执事]😳叶子凡\n', '目前职业阵法师\n'].join('')))
   }

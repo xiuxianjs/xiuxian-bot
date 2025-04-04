@@ -23,7 +23,7 @@ export default onResponse(selects, [
 
     const UserData = e['UserData'] as DB.Attributes<typeof DB.user>
 
-    if (!(await controlByName(e, UserData, '万宝楼'))) return
+    if (!(await controlByName(e, UserData))) return
 
     const text = e.MessageText
 

@@ -1,5 +1,5 @@
 import { Text, useSend } from 'alemonjs'
-import { Map, Monster, Status } from '@xiuxian/core/index'
+import { Monster, Status } from '@xiuxian/core/index'
 import * as DB from '@xiuxian/db/index'
 
 import Xiuxian, { selects } from '@src/apps/index'
@@ -25,10 +25,13 @@ export default onResponse(selects, [
       return
     }
     // 得到地名
-    const name = await Map.getPlaceName(
-      UserData.point_type,
-      UserData.pont_attribute
-    )
+
+    // tudo
+    const name = '修仙大陆'
+    // const name = await Map.getPlaceName(
+    //   UserData.point_type,
+    //   UserData.pont_attribute
+    // )
     // 得到怪物境界
     const MonsterData = await DB.levels.findAllValues({
       where: {

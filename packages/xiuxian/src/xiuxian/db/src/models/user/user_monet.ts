@@ -6,23 +6,21 @@ import {
   DataTypes,
   Model
 } from 'sequelize'
+import { goods } from '../goods.js'
+import { user } from './user.js'
+
 type ModelProps = {
   id: number
-  name: string //string
-  type: number //int
-  grade: number //int
-  attribute: number //int
-  size: number
-  x1: number //int
-  x2: number //int
-  y1: number //int
-  y2: number //int
-  z1: number //int
-  z2: number //int
-  doc: string //string
+  uid: string // 编号
+  //   tid: number // 物品编号
+  grade: number // 物品类型
+  name: string // 物品名
+  count: number // 数量
+  //   doc: number // 说明
+  //   updateAt: Date
 }
 
-class map_position extends Model<ModelProps> {
+class user_ring extends Model<ModelProps> {
   /**
    * 找到所有数据
    * @param this
@@ -72,63 +70,50 @@ class map_position extends Model<ModelProps> {
     })
   }
 }
-map_position.init(
+
+user_ring.init(
   {
     id: {
       type: DataTypes.BIGINT,
       primaryKey: true,
+      autoIncrement: true,
       allowNull: false
     },
-    name: {
-      type: DataTypes.STRING(20)
+    uid: {
+      type: DataTypes.STRING(50),
+      comment: '编号',
+      references: {
+        model: user,
+        key: 'uid'
+      }
     },
-    type: {
-      type: DataTypes.INTEGER
+    name: {
+      type: DataTypes.STRING(20),
+      defaultValue: '10',
+      comment: '物品名',
+      references: {
+        model: goods,
+        key: 'name'
+      }
     },
     grade: {
-      type: DataTypes.INTEGER
+      // 下品、中品、上品、极品、仙品。
+      type: DataTypes.INTEGER,
+      comment: '物品等级'
     },
-    attribute: {
-      type: DataTypes.INTEGER
-    },
-    size: {
-      type: DataTypes.INTEGER
-    },
-    x1: {
-      type: DataTypes.INTEGER
-    },
-    x2: {
-      type: DataTypes.INTEGER
-    },
-    y1: {
-      type: DataTypes.INTEGER
-    },
-    y2: {
-      type: DataTypes.INTEGER
-    },
-    z1: {
-      type: DataTypes.INTEGER
-    },
-    z2: {
-      type: DataTypes.INTEGER
-    },
-    doc: {
-      type: DataTypes.STRING(20)
+    count: {
+      type: DataTypes.BIGINT,
+      defaultValue: 1,
+      comment: '数量'
     }
   },
   {
     sequelize,
-    tableName: 'map_position',
+    tableName: 'user_ring',
     freezeTableName: true,
     createdAt: false,
-    updatedAt: false,
-    indexes: [
-      {
-        unique: true,
-        fields: ['id']
-      }
-    ]
+    updatedAt: false
   }
 )
 
-export { map_position }
+export { user_ring }

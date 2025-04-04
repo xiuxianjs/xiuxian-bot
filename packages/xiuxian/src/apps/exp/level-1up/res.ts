@@ -1,17 +1,14 @@
 import { Text, useSend } from 'alemonjs'
 import {
-  Bag,
+  // Bag,
   Equipment,
   Levels,
   Method,
   operationLock
 } from '@xiuxian/core/index'
-
-import { goods, levels, levels_limit, user, user_level } from '@src/xiuxian/db'
+import { levels, user, user_level } from '@src/xiuxian/db'
 import { NAMEMAP } from '@src/xiuxian/core/src/users/additional/levels'
-
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
-
 export const regular = /^(#|\/)?突破$/
 export default onResponse(selects, [
   Xiuxian.current,
@@ -99,60 +96,6 @@ export default onResponse(selects, [
       })
       .then(res => res?.dataValues)
 
-    let things = []
-
-    if (nextLevel) {
-      // 得到该境界所需要的物品
-      const LevelsLimit = await levels_limit
-        .findOne({
-          where: {
-            grade: nextLevel.grade,
-            // 境界类型1
-            typing: 1
-          }
-        })
-        .then(res => res?.dataValues)
-
-      // 该境界存在门槛。
-      if (LevelsLimit) {
-        //
-        const length = UserData.talent.length
-        //
-        const gids = LevelsLimit.gids.split('.')
-        //
-        const goodsData = await goods.findAllValues({
-          where: {
-            id: gids
-          }
-        })
-        let pass = false
-        things = await Bag.searchAllByName(
-          UID,
-          goodsData.map(item => item.name)
-        )
-        for (const item of goodsData) {
-          const thing = things.find(thing => thing.name === item.name)
-          // 不存在
-          if (!thing) {
-            pass = true
-            break
-          }
-          if (thing.acount < length * length) {
-            pass = true
-            break
-          }
-        }
-        // 物品不满足要求
-        if (pass) {
-          const msgs = goodsData.map(item => `${item.name}*${length * length}`)
-          // gids
-          Send(Text(['突破到下境界需要:', ...msgs].join('\n')))
-          return
-        }
-        // 扣除突破物品
-      }
-    }
-
     /**
      *
      * @returns
@@ -211,20 +154,6 @@ export default onResponse(selects, [
       return
     }
 
-    // 扣除突破物品
-    if (things.length >= 1) {
-      // 扣除物品
-      Bag.reduceBagThing(
-        UID,
-        things.map(item => {
-          return {
-            name: item.name,
-            acount: item.acount
-          }
-        })
-      )
-    }
-
     // 下一个境界不存在，表示目前是最高境界
     if (!nextLevel) {
       // 提升用户的 仙人境
@@ -281,7 +210,5 @@ export default onResponse(selects, [
       // 更新面板
       Equipment.updatePanel(UID, UserData.battle_blood_limit)
     }, 1500)
-
-    //
   }
 ])

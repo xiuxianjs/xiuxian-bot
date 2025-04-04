@@ -21,7 +21,6 @@ type ModelProps = {
   size: number
   soul: number
   exp_needed: number //int
-  doc: string //string
 }
 
 class levels extends Model<ModelProps> {
@@ -124,9 +123,6 @@ levels.init(
       type: DataTypes.INTEGER,
       defaultValue: 10,
       comment: '成功率'
-    },
-    doc: {
-      type: DataTypes.STRING(20)
     }
   },
   {

@@ -67,7 +67,7 @@ type ModelProps = {
   time: Date
   createAt: Date
   updateAt: Date
-  deleteAt: Date
+  // deleteAt: Date
 }
 user_sky_reward.init(
   {
@@ -100,10 +100,10 @@ user_sky_reward.init(
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW
       // onUpdate: DataTypes.NOW
-    },
-    deleteAt: {
-      type: DataTypes.DATE
     }
+    // deleteAt: {
+    //   type: DataTypes.DATE
+    // }
   },
   {
     sequelize,

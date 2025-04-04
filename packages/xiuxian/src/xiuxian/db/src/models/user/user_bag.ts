@@ -15,8 +15,8 @@ type ModelProps = {
   type: number // 物品类型
   name: string // 物品名
   acount: number // 数量
-  doc: number // 说明
-  updateAt: Date
+  // doc: number // 说明
+  // updateAt: Date
 }
 
 class user_bag extends Model<ModelProps> {
@@ -106,16 +106,16 @@ user_bag.init(
       type: DataTypes.BIGINT,
       defaultValue: 1,
       comment: '数量'
-    },
-    doc: {
-      type: DataTypes.STRING(20),
-      comment: '说明'
-    },
-    updateAt: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW
-      // onUpdate: DataTypes.NOW
     }
+    // doc: {
+    //   type: DataTypes.STRING(20),
+    //   comment: '说明'
+    // }
+    // updateAt: {
+    //   type: DataTypes.DATE,
+    //   defaultValue: DataTypes.NOW
+    //   // onUpdate: DataTypes.NOW
+    // }
   },
   {
     sequelize,

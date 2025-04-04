@@ -16,7 +16,7 @@ type ModelProps = {
   buy_time: Date
   createAt: Date
   updateAt: Date
-  deleteAt: Date
+  // deleteAt: Date
 }
 
 class user_buy_log extends Model<ModelProps> {
@@ -105,10 +105,10 @@ user_buy_log.init(
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW
       // onUpdate: DataTypes.NOW
-    },
-    deleteAt: {
-      type: DataTypes.DATE
     }
+    // deleteAt: {
+    //   type: DataTypes.DATE
+    // }
   },
   {
     sequelize,

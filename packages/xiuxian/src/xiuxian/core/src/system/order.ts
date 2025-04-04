@@ -2,7 +2,7 @@ import { user_transactions, user_transactions_logs } from '@xiuxian/db/index'
 import { acquireLock, releaseLock } from '../wrap/lock.js'
 
 /**
- *
+ * 删除物品
  * @param ID
  */
 export async function delThing(ID: number) {

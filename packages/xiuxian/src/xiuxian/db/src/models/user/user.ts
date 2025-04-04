@@ -73,8 +73,6 @@ interface ModelProps {
   sign_in_count: number
   sign_in_month_count: number
   sign_in_time: Date
-  doc: string
-  deleteAt: Date
 }
 
 class InitModel extends Model<ModelProps> {
@@ -377,10 +375,10 @@ export const user = InitModel.init(
       defaultValue: 0,
       comment: '坐标'
     },
-    doc: {
-      type: DataTypes.STRING(20),
-      comment: '说明'
-    },
+    // doc: {
+    //   type: DataTypes.STRING(20),
+    //   comment: '说明'
+    // },
     man_size: {
       type: DataTypes.INTEGER,
       defaultValue: 0,
@@ -417,9 +415,9 @@ export const user = InitModel.init(
       defaultValue: 1,
       comment: '类型'
     },
-    deleteAt: {
-      type: DataTypes.DATE
-    },
+    // deleteAt: {
+    //   type: DataTypes.DATE
+    // },
     constitution: {
       type: DataTypes.BIGINT,
       defaultValue: 1,

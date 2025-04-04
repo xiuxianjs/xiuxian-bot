@@ -14,8 +14,8 @@ type ModelProps = {
   uid: string // 编号
   name: string // 装备名
   grade: number // 装备名
-  doc: string // 说明
-  update: Date
+  // doc: string // 说明
+  // update: Date
 }
 
 class user_fate extends Model<ModelProps> {
@@ -97,16 +97,16 @@ user_fate.init(
       type: DataTypes.BIGINT, // 使用 BIGINT 以匹配 int(20)
       allowNull: true,
       comment: '等级'
-    },
-    doc: {
-      type: DataTypes.STRING(20),
-      comment: '说明'
-    },
-    update: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW
-      // onUpdate: DataTypes.NOW
     }
+    // doc: {
+    //   type: DataTypes.STRING(20),
+    //   comment: '说明'
+    // },
+    // update: {
+    //   type: DataTypes.DATE,
+    //   defaultValue: DataTypes.NOW
+    //   // onUpdate: DataTypes.NOW
+    // }
   },
   {
     sequelize,

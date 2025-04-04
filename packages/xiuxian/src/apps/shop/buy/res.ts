@@ -21,7 +21,7 @@ export default onResponse(selects, [
     // 获取用户信息
     const UID = e.UserKey
     const UserData = e['UserData'] as DB.Attributes<typeof DB.user>
-    if (!(await controlByName(e, UserData, '万宝楼'))) return
+    if (!(await controlByName(e, UserData))) return
     // 解析消息
     const text = e.MessageText
     const [thingName, quantity] = text

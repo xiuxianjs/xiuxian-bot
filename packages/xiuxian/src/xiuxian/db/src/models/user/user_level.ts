@@ -16,8 +16,6 @@ type ModelProps = {
   addition: number // 突破概率加成
   realm: number // 等级
   experience: number // 经验
-  doc: string // 说明
-  updateAt: Date
 }
 
 class user_level extends Model<ModelProps> {
@@ -106,15 +104,6 @@ user_level.init(
     experience: {
       type: DataTypes.BIGINT,
       comment: '经验'
-    },
-    doc: {
-      type: DataTypes.STRING(20),
-      comment: '说明'
-    },
-    updateAt: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW
-      // onUpdate: DataTypes.NOW
     }
   },
   {

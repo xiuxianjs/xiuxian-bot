@@ -11,7 +11,7 @@ type ModelProps = {
   type: number //int
   grade: number //int
   name: string //string
-  doc: string
+  // doc: string
 }
 
 class monster extends Model<ModelProps> {
@@ -81,10 +81,10 @@ monster.init(
     },
     name: {
       type: DataTypes.STRING(20)
-    },
-    doc: {
-      type: DataTypes.STRING(20)
     }
+    // doc: {
+    //   type: DataTypes.STRING(20)
+    // }
   },
   {
     sequelize,

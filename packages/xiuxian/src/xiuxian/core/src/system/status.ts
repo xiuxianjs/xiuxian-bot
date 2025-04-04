@@ -51,6 +51,11 @@ export const Actions = {
   }
 }
 
+/**
+ * 是否是渡劫
+ * @param UserData
+ * @returns
+ */
 export const isPass = (UserData: UserDataType) => {
   if (UserData.battle_blood_now >= 1) return true
   return false

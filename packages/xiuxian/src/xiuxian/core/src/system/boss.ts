@@ -1,7 +1,7 @@
 import { levels, Redis } from '@xiuxian/db/index'
 
 /**
- *
+ * 时间规则
  */
 const rules = [
   { dayOfWeek: [2, 4], hour: 12, minute: 0 }, // 二四 12:00
@@ -13,7 +13,7 @@ const rules = [
 ]
 
 /**
- *
+ * 判断是否在活动时间内
  * @returns
  */
 export const isBossActivityOpen = () => {
@@ -52,7 +52,7 @@ type UserBattleType = {
 }
 
 /**
- *
+ * 获取boss数据
  * @param key
  * @returns
  */
@@ -68,7 +68,7 @@ export const getBossData = async (
 }
 
 /**
- *
+ * 设置boss数据
  * @param key
  * @param data
  */
@@ -76,11 +76,17 @@ export const setBossData = (key: '1' | '2', data) => {
   return Redis.set(`${BOSS_DATA_KEY}:${key}`, JSON.stringify(data))
 }
 
+/**
+ * 删除boss数据
+ * @param key
+ * @returns
+ */
 export const delBossData = (key: '1' | '2') => {
   return Redis.del(`${BOSS_DATA_KEY}:${key}`)
 }
 
 /**
+ * 更新boss数据
  * @param key 1 金角 2 银角
  */
 export const updateBossData = (key: '1' | '2') => {

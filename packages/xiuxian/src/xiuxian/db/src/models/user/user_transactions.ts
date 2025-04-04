@@ -17,7 +17,7 @@ type ModelProps = {
   price: number
   createAt: Date
   updateAt: Date
-  deleteAt: Date
+  // deleteAt: Date
 }
 
 class user_transactions extends Model<ModelProps> {
@@ -108,11 +108,12 @@ user_transactions.init(
       defaultValue: DataTypes.NOW
       // onUpdate: DataTypes.NOW
     },
-    deleteAt: {
-      type: DataTypes.DATE
-    },
+    // deleteAt: {
+    //   type: DataTypes.DATE
+    // },
     createAt: {
-      type: DataTypes.DATE
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW
     }
   },
   {

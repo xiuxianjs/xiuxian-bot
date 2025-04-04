@@ -9,7 +9,6 @@ import {
 type ModelProps = {
   id: number
   name: string //string
-  doc: string //string
 }
 
 class talent extends Model<ModelProps> {
@@ -70,9 +69,6 @@ talent.init(
       allowNull: false
     },
     name: {
-      type: DataTypes.STRING(20)
-    },
-    doc: {
       type: DataTypes.STRING(20)
     }
   },

@@ -2,9 +2,9 @@ import { Attributes, user, user_level } from '@xiuxian/db/index'
 import {
   Cooling,
   Method,
-  Map,
+  // Map,
   Burial,
-  Treasure,
+  // Treasure,
   State,
   Levels,
   Bag,
@@ -164,22 +164,22 @@ export async function ControlByBlood(
  */
 export async function controlByName(
   e: EventsMessageCreateEnum,
-  UserData: UserDataType,
-  addressName: string
+  UserData: UserDataType
+  // addressName: string
 ) {
   if (!(await ControlByBlood(e, UserData))) return false
-  if (
-    !(await Map.mapExistence(
-      UserData.pont_x,
-      UserData.pont_y,
-      UserData.point_z,
-      addressName
-    ))
-  ) {
-    const Send = useSend(e)
-    Send(Text(`你没有在这里哦！\n————————\n[/前往${addressName}]`))
-    return false
-  }
+  // if (
+  //   !(await Map.mapExistence(
+  //     UserData.pont_x,
+  //     UserData.pont_y,
+  //     UserData.point_z,
+  //     addressName
+  //   ))
+  // ) {
+  //   const Send = useSend(e)
+  //   Send(Text(`你没有在这里哦！\n————————\n[/前往${addressName}]`))
+  //   return false
+  // }
   return true
 }
 
@@ -264,7 +264,7 @@ export async function killNPC(
   // 存在物品
   if (data[0]) {
     // 击碎标记
-    await Treasure.add(data[0].name, data[0].type, data[0].acount)
+    // await Treasure.add(data[0].name, data[0].type, data[0].acount)
     Send(Text(`[${Mname}]击碎了你的的[${data[0].name}]`))
   }
 
@@ -272,36 +272,36 @@ export async function killNPC(
   return false
 }
 
-export async function showAction(
-  e: EventsMessageCreateEnum,
-  UID: string,
-  UserData: UserDataType
-) {
-  const mData = await Map.getRecordsByXYZ(
-    UserData.pont_x,
-    UserData.pont_y,
-    UserData.pont_z
-  )
-  if (mData) {
-    await user.update(
-      {
-        point_type: mData.type,
-        pont_attribute: mData.attribute,
-        pont_x: UserData.pont_x,
-        pont_y: UserData.pont_y,
-        pont_z: UserData.pont_z
-      },
-      {
-        where: {
-          uid: UID
-        }
-      }
-    )
-    const Send = useSend(e)
-    Send(Text(`(${UserData.pont_x},${UserData.pont_y},${UserData.pont_z})`))
-  }
-  return
-}
+// export async function showAction(
+//   e: EventsMessageCreateEnum,
+//   UID: string,
+//   UserData: UserDataType
+// ) {
+//   const mData = await Map.getRecordsByXYZ(
+//     UserData.pont_x,
+//     UserData.pont_y,
+//     UserData.pont_z
+//   )
+//   if (mData) {
+//     await user.update(
+//       {
+//         point_type: mData.type,
+//         pont_attribute: mData.attribute,
+//         pont_x: UserData.pont_x,
+//         pont_y: UserData.pont_y,
+//         pont_z: UserData.pont_z
+//       },
+//       {
+//         where: {
+//           uid: UID
+//         }
+//       }
+//     )
+//     const Send = useSend(e)
+//     Send(Text(`(${UserData.pont_x},${UserData.pont_y},${UserData.pont_z})`))
+//   }
+//   return
+// }
 
 /**
  * 对方是否存在

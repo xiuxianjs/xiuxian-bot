@@ -13,7 +13,6 @@ type ModelProps = {
   exp_bodypractice: number //int
   exp_gaspractice: number //int
   exp_soul: number //int
-  doc: string //string
 }
 
 class fate_level extends Model<ModelProps> {
@@ -91,10 +90,6 @@ fate_level.init(
       type: DataTypes.INTEGER,
       defaultValue: 0,
       comment: '灵魂经验'
-    },
-    doc: {
-      type: DataTypes.STRING(20),
-      comment: '说明'
     }
   },
   {

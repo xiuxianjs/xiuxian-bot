@@ -65,7 +65,6 @@ export default onResponse(selects, [
     }
 
     const map = {
-      1: '偷袭',
       2: '打劫',
       3: '窃取'
     }

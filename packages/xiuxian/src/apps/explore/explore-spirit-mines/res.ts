@@ -16,10 +16,12 @@ export default onResponse(selects, [
       return
     }
     // 得到位置名
-    const name = await GameApi.Map.getPlaceName(
-      UserData.point_type,
-      UserData.pont_attribute
-    )
+    // const name = await GameApi.Map.getPlaceName(
+    //   UserData.point_type,
+    //   UserData.pont_attribute
+    // )
+    // tudo
+    const name = '修仙大陆'
     // 消息
     const msg: string[] = [`[${name}]的灵矿`]
     // 得到灵矿

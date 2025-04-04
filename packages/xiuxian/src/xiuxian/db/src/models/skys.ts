@@ -14,7 +14,7 @@ type ModelProps = {
   ranking: number
   createAt: Date
   updateAt: Date
-  deleteAt: Date
+  // deleteAt: Date
 }
 
 class skys extends Model<ModelProps> {
@@ -96,10 +96,10 @@ skys.init(
     updateAt: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW
-    },
-    deleteAt: {
-      type: DataTypes.DATE
     }
+    // deleteAt: {
+    //   type: DataTypes.DATE
+    // }
   },
   {
     sequelize,

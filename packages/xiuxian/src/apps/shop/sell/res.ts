@@ -21,7 +21,7 @@ export default onResponse(selects, [
 
     const UserData = useCurrent(e).UserData
 
-    if (!(await controlByName(e, UserData, '万宝楼'))) return
+    if (!(await controlByName(e, UserData))) return
 
     const text = e.MessageText
 

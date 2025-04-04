@@ -20,7 +20,7 @@ export default onResponse(selects, [
   Xiuxian.current,
   async e => {
     const UserData = useCurrent(e).UserData
-    if (!(await controlByName(e, UserData, '协会'))) return
+    if (!(await controlByName(e, UserData))) return
     const Send = useSend(e)
 
     Send(

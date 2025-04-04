@@ -18,7 +18,7 @@ export default onResponse(selects, [
     // lock end
     const UID = e.UserKey
     const UserData = useCurrent(e).UserData
-    if (!(await controlByName(e, UserData, '金银坊'))) return
+    if (!(await controlByName(e, UserData))) return
     const text = e.MessageText
     const [account, LeftName, RightName] = text
       .replace(/^(#|\/)?(金银置换|金銀置換)/, '')

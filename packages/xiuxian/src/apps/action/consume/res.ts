@@ -1,5 +1,5 @@
 import { showUserMsg, victoryCooling } from '@xiuxian/api/index'
-import { map_position, user, user_level } from '@xiuxian/db/index'
+import { user, user_level } from '@xiuxian/db/index'
 import {
   Bag,
   Burial,
@@ -277,77 +277,7 @@ const response = onResponse(selects, async e => {
       Send(Text(`成功洗去[煞气]*${thingAcount}~`))
       break
     }
-    /**
-     * 传送符
-     */
-    case 600402: {
-      /**
-       * 传送符用来回城池的
-       */
-      const PositionData = await map_position
-        .findAll({
-          where: {
-            attribute: [1, 6]
-          }
-        })
-        .then(res => res.map(item => item?.dataValues))
-      const point = {
-        type: 0,
-        attribute: 0,
-        name: '记录',
-        x: 0,
-        y: 0,
-        z: 0
-      }
-      let closestPosition: null | number = null
-      for await (const item of PositionData) {
-        const x = (item?.x1 + item?.x2) / 2,
-          y = (item?.y1 + item?.y2) / 2,
-          z = (item?.z1 + item?.z1) / 2
-        const distance = Math.sqrt(
-          Math.pow(x - UserData.pont_x, 2) +
-            Math.pow(y - UserData.pont_y, 2) +
-            Math.pow(z - UserData.pont_z, 2)
-        )
-        if (!closestPosition || distance < closestPosition) {
-          closestPosition = distance
-          point.type = item?.type
-          point.name = item?.name
-          point.attribute = item?.attribute
-          point.x = x
-          point.y = y
-          point.z = z
-        }
-      }
 
-      await user.update(
-        {
-          pont_x: point.x,
-          pont_y: point.y,
-          pont_z: point.z,
-          point_type: point.type,
-          pont_attribute: point.attribute
-        },
-        {
-          where: {
-            uid: UID
-          }
-        }
-      )
-
-      Send(Text(`${UserData.name}成功传送至${point.name}`))
-
-      /**
-       * 扣物品
-       */
-      await Bag.reduceBagThing(UID, [
-        {
-          name: thing.name,
-          acount: count
-        }
-      ])
-      break
-    }
     /**
      * 引魂灯
      */
