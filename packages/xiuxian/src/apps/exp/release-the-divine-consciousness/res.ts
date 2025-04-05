@@ -2,7 +2,7 @@ import { ControlByBlood } from '@xiuxian/api/index'
 import { Op } from 'sequelize'
 import * as DB from '@xiuxian/db/index'
 
-import Xiuxian, { selects } from '@src/apps/index'
+import Xiuxian, { selects, useCurrent } from '@src/apps/index'
 
 import { Text, useSend } from 'alemonjs'
 
@@ -11,13 +11,15 @@ export default onResponse(selects, [
   Xiuxian.current,
   async e => {
     const UID = e.UserKey
-    const UserData = e['UserData'] as DB.Attributes<typeof DB.user>
+    const UserData = useCurrent(e).UserData
     if (!(await ControlByBlood(e, UserData))) return
     const Send = useSend(e)
-    if (UserData.pont_attribute == 1) {
-      Send(Text('[城主府]巡逻军:\n城内切莫释放神识!'))
-      return
-    }
+
+    return
+    // if (UserData.pont_attribute == 1) {
+    //   Send(Text('[城主府]巡逻军:\n城内切莫释放神识!'))
+    //   return
+    // }
     // 战力
     const battle_power = UserData.battle_power ?? 20
     //

@@ -1,7 +1,7 @@
 import { controlByName } from '@xiuxian/api/index'
 import * as DB from '@xiuxian/db/index'
 
-import Xiuxian, { selects } from '@src/apps/index'
+import Xiuxian, { selects, useCurrent } from '@src/apps/index'
 
 import * as GameApi from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
@@ -11,7 +11,7 @@ export const regular =
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
-    const UserData = e['UserData'] as DB.Attributes<typeof DB.user>
+    const UserData = useCurrent(e).UserData
     if (!(await controlByName(e, UserData))) return
     const start_msg = ['___[万宝楼]___', '欢迎光顾本店']
     const text = e.MessageText

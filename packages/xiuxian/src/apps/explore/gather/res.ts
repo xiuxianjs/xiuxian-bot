@@ -22,6 +22,8 @@ export default onResponse(selects, [
 
     const UserData = useCurrent(e).UserData
 
+    return
+
     const text = e.MessageText
 
     const [id, count] = text.replace(/^(#|\/)?开采/, '').split('*')

@@ -11,10 +11,11 @@ export default onResponse(selects, [
     const UserData = useCurrent(e).UserData
     if (!(await ControlByBlood(e, UserData))) return
     const Send = useSend(e)
-    if (UserData.pont_attribute == 1) {
-      Send(Text('[城主府]巡逻军:\n城内切莫释放神识!'))
-      return
-    }
+    return
+    // if (UserData.pont_attribute == 1) {
+    //   Send(Text('[城主府]巡逻军:\n城内切莫释放神识!'))
+    //   return
+    // }
     // 得到位置名
     // const name = await GameApi.Map.getPlaceName(
     //   UserData.point_type,

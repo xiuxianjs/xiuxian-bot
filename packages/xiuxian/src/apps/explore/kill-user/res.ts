@@ -2,7 +2,7 @@ import { ControlByBlood, sendReply, killNPC } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
 import * as DB from '@xiuxian/db/index'
 
-import Xiuxian, { selects } from '@src/apps/index'
+import Xiuxian, { selects, useCurrent } from '@src/apps/index'
 
 import { Text, useSend } from 'alemonjs'
 
@@ -22,7 +22,7 @@ export default onResponse(selects, [
 
     const UID = e.UserKey
 
-    const UserData = e['UserData'] as DB.Attributes<typeof DB.user>
+    const UserData = useCurrent(e).UserData
 
     // 血量不足
     if (!(await ControlByBlood(e, UserData))) return

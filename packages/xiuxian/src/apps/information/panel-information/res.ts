@@ -2,7 +2,7 @@ import { Equipment } from '@xiuxian/core/index'
 import * as Server from '@xiuxian/statistics/index'
 import { Image, useSend } from 'alemonjs'
 export const regular = /^(#|\/)?我的面板$/
-import Xiuxian, { selects } from '@src/apps/index'
+import Xiuxian, { selects, useCurrent } from '@src/apps/index'
 import { renderComponentToBuffer } from 'jsxp'
 import XEquipment from '@src/xiuxian/img/src/views/XEquipment'
 export default onResponse(selects, [
@@ -10,7 +10,7 @@ export default onResponse(selects, [
   async e => {
     const UID = e.UserKey
     const Send = useSend(e)
-    const UserData = e['UserData']
+    const UserData = useCurrent(e).UserData
     Equipment.updatePanel(UID, UserData.battle_blood_now).then(() => {
       Server.equipmentInformation(UID).then(async res => {
         const avatar = await e.UserAvatar.toURL()

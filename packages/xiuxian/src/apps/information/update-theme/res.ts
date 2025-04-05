@@ -2,7 +2,7 @@ import { Themes } from '@xiuxian/img/index'
 import * as GameApi from '@xiuxian/core/index'
 import { user } from '@xiuxian/db/index'
 
-import Xiuxian, { selects } from '@src/apps/index'
+import Xiuxian, { selects, useCurrent } from '@src/apps/index'
 
 import { Text, useSend } from 'alemonjs'
 
@@ -19,7 +19,7 @@ export default onResponse(selects, [
 
     const UID = e.UserKey
 
-    const UserData = e['UserData']
+    const UserData = useCurrent(e).UserData
 
     // 得到配置
     const index = Themes.indexOf(UserData.theme)

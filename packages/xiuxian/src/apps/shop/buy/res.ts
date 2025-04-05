@@ -2,7 +2,7 @@ import { controlByName } from '@xiuxian/api/index'
 import { Method } from '@xiuxian/core/index'
 import * as DB from '@xiuxian/db/index'
 
-import Xiuxian, { selects } from '@src/apps/index'
+import Xiuxian, { selects, useCurrent } from '@src/apps/index'
 
 import * as GameApi from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
@@ -20,7 +20,7 @@ export default onResponse(selects, [
     }
     // 获取用户信息
     const UID = e.UserKey
-    const UserData = e['UserData'] as DB.Attributes<typeof DB.user>
+    const UserData = useCurrent(e).UserData
     if (!(await controlByName(e, UserData))) return
     // 解析消息
     const text = e.MessageText

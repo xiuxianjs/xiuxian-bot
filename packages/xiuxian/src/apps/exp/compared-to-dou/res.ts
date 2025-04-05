@@ -16,6 +16,8 @@ export const regular = /^(#|\/)?(决斗|比鬥)/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
+    return
+
     // lock start
     const T = await GameApi.operationLock(e.UserKey)
     const Send = useSend(e)

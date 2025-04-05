@@ -4,7 +4,7 @@ import { punishLevel } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
 import * as DB from '@xiuxian/db/index'
 
-import Xiuxian, { selects } from '@src/apps/index'
+import Xiuxian, { selects, useCurrent } from '@src/apps/index'
 
 export const regular = /^(#|\/)?渡劫$/
 export default onResponse(selects, [
@@ -20,7 +20,7 @@ export default onResponse(selects, [
 
     const UID = e.UserKey
 
-    const UserData = e['UserData'] as DB.Attributes<typeof DB.user>
+    const UserData = useCurrent(e).UserData
 
     if (!(await GameApi.Levels.isLevelPoint(UID, 1))) {
       Send(Text('尚未感知到雷劫'))

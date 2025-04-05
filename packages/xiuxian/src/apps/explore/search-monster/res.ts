@@ -2,13 +2,13 @@ import { Text, useSend } from 'alemonjs'
 import { Monster, Status } from '@xiuxian/core/index'
 import * as DB from '@xiuxian/db/index'
 
-import Xiuxian, { selects } from '@src/apps/index'
+import Xiuxian, { selects, useCurrent } from '@src/apps/index'
 
 export const regular = /^(#|\/)?探索怪物$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
-    const UserData = e['UserData'] as DB.Attributes<typeof DB.user>
+    const UserData = useCurrent(e).UserData
     const Send = useSend(e)
     // 在城里
     if (UserData.pont_attribute == 1) {
