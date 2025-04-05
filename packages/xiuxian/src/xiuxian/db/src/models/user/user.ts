@@ -11,6 +11,7 @@ import {
 interface ModelProps {
   id: number
   uid: string
+  address_id: string
   password: string
   name: string
   avatar: string
@@ -121,6 +122,10 @@ export const user = InitModel.init(
       primaryKey: true,
       allowNull: false,
       comment: '编号'
+    },
+    address_id: {
+      type: DataTypes.STRING(255),
+      comment: '地址'
     },
     email: {
       type: DataTypes.STRING(255),

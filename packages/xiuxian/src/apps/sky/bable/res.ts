@@ -12,13 +12,11 @@ export default onResponse(selects, [
     const UserData = useCurrent(e).UserData
     const Send = useSend(e)
     // 查看数据是否存在
-    const data = await user_sky_ranking
-      .findOne({
-        where: {
-          uid: UID
-        }
-      })
-      .then(res => res?.dataValues)
+    const data = await user_sky_ranking.findOneValue({
+      where: {
+        uid: UID
+      }
+    })
     if (!data) {
       Send(Text('未进入'))
       return

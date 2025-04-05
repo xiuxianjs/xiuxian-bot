@@ -58,6 +58,7 @@ const response = onResponse(selects, async e => {
   }
 
   switch (thing.id) {
+    // 加经验
     case 600201: {
       addExperience(
         e,
@@ -72,6 +73,7 @@ const response = onResponse(selects, async e => {
       )
       break
     }
+    // 加经验
     case 600202: {
       addExperience(
         e,
@@ -86,6 +88,7 @@ const response = onResponse(selects, async e => {
       )
       break
     }
+    // 加经验
     case 600203: {
       addExperience(
         e,
@@ -100,6 +103,7 @@ const response = onResponse(selects, async e => {
       )
       break
     }
+    // 加经验
     case 600204: {
       addExperience(
         e,
@@ -171,7 +175,6 @@ const response = onResponse(selects, async e => {
      */
     case 600302: {
       UserData.talent_show = 1
-
       await user.update(
         {
           talent_show: UserData.talent_show
@@ -182,7 +185,6 @@ const response = onResponse(selects, async e => {
           }
         }
       )
-
       /**
        * 扣物品
        */
@@ -275,7 +277,6 @@ const response = onResponse(selects, async e => {
       Send(Text(`成功洗去[煞气]*${thingAcount}~`))
       break
     }
-
     /**
      * 引魂灯
      */

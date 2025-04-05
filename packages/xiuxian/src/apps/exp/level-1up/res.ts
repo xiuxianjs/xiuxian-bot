@@ -197,10 +197,9 @@ export default onResponse(selects, [
 
     Send(Text(`境界提升至${nextLevel.name}`))
 
-    // 突破直接满血
     setTimeout(async () => {
-      // 更新面板
-      Equipment.updatePanel(UID, UserData.battle_blood_limit)
+      // 突破不再满血。
+      Equipment.updatePanel(UID, UserData.battle_blood_now)
     }, 1500)
   }
 ])

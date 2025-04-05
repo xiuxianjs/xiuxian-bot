@@ -54,14 +54,12 @@ export async function personalInformation(UID: string) {
   const sLevelData = userLevelData.find(item => item.type == 3)
 
   // 境界数据
-  const SoulList = await DB.levels
-    .findAll({
-      where: {
-        grade: sLevelData?.realm ?? 0,
-        type: 3
-      }
-    })
-    .then(res => res.map(item => item?.dataValues))
+  const SoulList = await DB.levels.findAllValues({
+    where: {
+      grade: sLevelData?.realm ?? 0,
+      type: 3
+    }
+  })
 
   // 固定数据读取
   const GaspracticeData = GaspracticeList[0]
@@ -90,12 +88,11 @@ export async function personalInformation(UID: string) {
     .then(res => res.map(item => item?.dataValues))
 
   const constitution_name = await DB.constitution
-    .findOne({
+    .findOneValue({
       where: {
         id: UserData.constitution
       }
     })
-    .then(res => res?.dataValues)
     .then(res => res?.name)
 
   return {
@@ -390,16 +387,14 @@ export async function showSky(UID: string) {
       uid: UID
     }
   })
-  const list = await DB.user_sky_ranking
-    .findAll({
-      where: {
-        id: { [Op.lte]: data.id } // 获取ID小于给定ID的记录
-      },
-      order: [['id', 'DESC']], // 根据 id 升序排序
-      //
-      limit: 5
-    })
-    .then(res => res.map(item => item?.dataValues))
+  const list = await DB.user_sky_ranking.findAllValues({
+    where: {
+      id: { [Op.lte]: data.id } // 获取ID小于给定ID的记录
+    },
+    order: [['id', 'DESC']], // 根据 id 升序排序
+    //
+    limit: 5
+  })
   const msg: {
     id: number
     UID: string

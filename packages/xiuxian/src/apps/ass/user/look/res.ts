@@ -12,12 +12,11 @@ export default onResponse(selects, [
     // 查看该宗门中。关于自己的信息和宗门的信息。
 
     const AData = await DB.ass
-      .findOne({
+      .findOneValue({
         where: {
           name: name
         }
       })
-      .then(res => res?.dataValues)
       .catch(err => console.error(err))
 
     const Send = useSend(e)

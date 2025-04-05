@@ -11,6 +11,7 @@ import { operationLocalLock } from './util'
 import { newcomer } from './newcomer'
 import NewsUser from './newuser'
 import { UserDataType } from '@src/xiuxian/api'
+import { addAddressToId } from '@src/xiuxian/core/src/system/address'
 
 export const selects = createSelects([
   'message.create',
@@ -37,6 +38,11 @@ export default onResponse(selects, async (e, next) => {
     return
   }
 
+  // 更新地址
+  if (e.name === 'message.create') {
+    await addAddressToId(e.ChannelId, e.UserKey)
+  }
+
   // send
   const Send = useSend(e)
 
@@ -48,6 +54,10 @@ export default onResponse(selects, async (e, next) => {
     Send(Text('操作频繁'))
     return
   }
+
+  /**
+   * 把玩家标记到该地点。
+   */
 
   // user id
   const UID = e.UserKey

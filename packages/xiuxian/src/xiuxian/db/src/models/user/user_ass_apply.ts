@@ -21,6 +21,36 @@ class user_ass_apply extends Model<ModelProps> {
    * @param options
    * @returns
    */
+  public static async findAllDataValues<M extends Model>(
+    this: ModelStatic<M>,
+    options?: FindOptions<Attributes<M>>
+  ): Promise<Attributes<M>[]> {
+    return this.findAll({
+      ...options
+    }).then(res => res.map(item => item.dataValues))
+  }
+
+  /**
+   * 找到一条数据
+   * @param this
+   * @param options
+   * @returns
+   */
+  public static async findOneDataValue<M extends Model>(
+    this: ModelStatic<M>,
+    options?: FindOptions<Attributes<M>>
+  ): Promise<Attributes<M>> {
+    return this.findOne({
+      ...options
+    }).then(res => res.dataValues)
+  }
+
+  /**
+   * 找到所有数据
+   * @param this
+   * @param options
+   * @returns
+   */
   public static async findAllValues<M extends Model>(
     this: ModelStatic<M>,
     options?: FindOptions<Attributes<M>>
