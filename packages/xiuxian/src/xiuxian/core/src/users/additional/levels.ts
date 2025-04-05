@@ -162,23 +162,19 @@ export async function enhanceRealm(UID: string, type: 1 | 2 | 3) {
  * @returns
  */
 export async function fallingRealm(UID: string, type: 1 | 2 | 3, size = 1) {
-  const UserLevel = await user_level
-    .findOne({
-      where: {
-        uid: UID,
-        type
-      }
-    })
-    .then(res => res?.dataValues)
+  const UserLevel = await user_level.findOneValue({
+    where: {
+      uid: UID,
+      type
+    }
+  })
   const realm = UserLevel.realm
-  const data = await levels
-    .findOne({
-      where: {
-        grade: realm - size,
-        type
-      }
-    })
-    .then(res => res?.dataValues)
+  const data = await levels.findOneValue({
+    where: {
+      grade: realm - size,
+      type
+    }
+  })
   // 并没有
   if (!data) {
     return {
@@ -239,14 +235,12 @@ export async function addExperience(
   size: number,
   number = 5
 ) {
-  const UserLevel = await user_level
-    .findOne({
-      where: {
-        uid: UID,
-        type
-      }
-    })
-    .then(res => res?.dataValues)
+  const UserLevel = await user_level.findOneValue({
+    where: {
+      uid: UID,
+      type
+    }
+  })
   if (isNaN(UserLevel.experience)) {
     UserLevel.experience = 0
   }
@@ -287,14 +281,12 @@ export async function reduceExperience(
   type: 1 | 2 | 3,
   size: number
 ) {
-  const UserLevel = await user_level
-    .findOne({
-      where: {
-        uid: UID,
-        type
-      }
-    })
-    .then(res => res?.dataValues)
+  const UserLevel = await user_level.findOneValue({
+    where: {
+      uid: UID,
+      type
+    }
+  })
   UserLevel.experience -= size
   if (UserLevel.experience < 0) UserLevel.experience = 0
 
@@ -323,23 +315,19 @@ export async function reduceExperience(
  * @returns
  */
 export async function isLevelPoint(UID: string, type: 1 | 2 | 3) {
-  const UserLevel = await user_level
-    .findOne({
-      where: {
-        uid: UID,
-        type
-      }
-    })
-    .then(res => res?.dataValues)
-  const LevelList = await levels
-    .findAll({
-      where: {
-        type
-      },
-      order: [['grade', 'DESC']],
-      limit: 3
-    })
-    .then(res => res.map(item => item?.dataValues))
+  const UserLevel = await user_level.findOneValue({
+    where: {
+      uid: UID,
+      type
+    }
+  })
+  const LevelList = await levels.findAllValues({
+    where: {
+      type
+    },
+    order: [['grade', 'DESC']],
+    limit: 3
+  })
   // 选最高的第二个就是渡劫期
   const data = LevelList[1]
   // 境界不存在,出去

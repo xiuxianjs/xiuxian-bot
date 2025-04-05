@@ -17,13 +17,11 @@ export default onResponse(selects, [
     const UID = e.UserKey
 
     // 查看自己的势力
-    const UserAss = await DB.user_ass
-      .findAll({
-        where: {
-          uid: UID
-        }
-      })
-      .then(res => res.map(item => item.dataValues))
+    const UserAss = await DB.user_ass.findAllValues({
+      where: {
+        uid: UID
+      }
+    })
 
     // 发现自己的势力
     if (
@@ -37,13 +35,11 @@ export default onResponse(selects, [
     }
 
     // 查看申请表
-    const ApplyData = await DB.user_ass_apply
-      .findAll({
-        where: {
-          uid: UID
-        }
-      })
-      .then(res => res.map(item => item.dataValues))
+    const ApplyData = await DB.user_ass_apply.findAllValues({
+      where: {
+        uid: UID
+      }
+    })
 
     if (UserAss.length + ApplyData.length >= 3) {
       Send(Text(`最多还能申请${3 - (UserAss.length + ApplyData.length)}个势力`))
@@ -54,13 +50,11 @@ export default onResponse(selects, [
     const name = text.replace(/^(#|\/)?加入/, '')
 
     // 存在该昵称的宗门
-    const aData = await DB.ass
-      .findOne({
-        where: {
-          name: name
-        }
-      })
-      .then(res => res?.dataValues)
+    const aData = await DB.ass.findOneValue({
+      where: {
+        name: name
+      }
+    })
 
     //
     if (!aData) {

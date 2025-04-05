@@ -487,32 +487,26 @@ export async function punishLevel(
    */
 
   // 得到用户数据
-  const Userexp = await user_level
-    .findOne({
-      where: {
-        uid: UID,
-        type: 1
-      }
-    })
-    .then(res => res?.dataValues)
+  const Userexp = await user_level.findOneValue({
+    where: {
+      uid: UID,
+      type: 1
+    }
+  })
   //
-  const Userbool = await user_level
-    .findOne({
-      where: {
-        uid: UID,
-        type: 2
-      }
-    })
-    .then(res => res?.dataValues)
+  const Userbool = await user_level.findOneValue({
+    where: {
+      uid: UID,
+      type: 2
+    }
+  })
   //
-  const Usershen = await user_level
-    .findOne({
-      where: {
-        uid: UID,
-        type: 3
-      }
-    })
-    .then(res => res?.dataValues)
+  const Usershen = await user_level.findOneValue({
+    where: {
+      uid: UID,
+      type: 3
+    }
+  })
 
   await user.update(
     { battle_blood_now: 0 },

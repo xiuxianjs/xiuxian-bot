@@ -19,13 +19,11 @@ export default onResponse(selects, [
     const text = e.MessageText
     const name = text.replace(/^(#|\/)?升级/, '')
 
-    const aData = await ass
-      .findOne({
-        where: {
-          name: name
-        }
-      })
-      .then(res => res?.dataValues)
+    const aData = await ass.findOneValue({
+      where: {
+        name: name
+      }
+    })
 
     // 不存在
     if (!aData) {
@@ -34,14 +32,12 @@ export default onResponse(selects, [
     }
 
     //
-    const UserAss = await user_ass
-      .findOne({
-        where: {
-          uid: UID, // uid
-          aid: aData.id
-        }
-      })
-      .then(res => res?.dataValues)
+    const UserAss = await user_ass.findOneValue({
+      where: {
+        uid: UID, // uid
+        aid: aData.id
+      }
+    })
 
     // 不存在，或者 9
     if (!UserAss || UserAss?.authentication == 9) {

@@ -49,14 +49,12 @@ export default onResponse(selects, [
     const aData = idData['ass']['dataValues']
 
     //
-    const UserAss = await user_ass
-      .findOne({
-        where: {
-          uid: UID, // uid
-          aid: aData.id
-        }
-      })
-      .then(res => res?.dataValues)
+    const UserAss = await user_ass.findOneValue({
+      where: {
+        uid: UID, // uid
+        aid: aData.id
+      }
+    })
 
     // 不存在
     if (!UserAss) {

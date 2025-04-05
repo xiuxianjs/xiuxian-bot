@@ -20,13 +20,11 @@ export async function addRingThing(
   const lockValue = await acquireLock(resource)
   try {
     for (const { name, acount } of arr) {
-      const THING = await goods
-        .findOne({
-          where: {
-            name
-          }
-        })
-        .then(res => res?.dataValues)
+      const THING = await goods.findOneValue({
+        where: {
+          name
+        }
+      })
       if (!THING) continue
       const length = await user_ring.count({
         where: {
@@ -37,19 +35,17 @@ export async function addRingThing(
       // 当前储物袋格子已到极限
       if (length >= grade * 10) break
       // 查找物品
-      const existingItem = await user_ring
-        .findOne({
-          where: {
-            uid: UID,
-            name: name
-          }
-        })
-        .then(res => res?.dataValues)
+      const existingItem = await user_ring.findOneValue({
+        where: {
+          uid: UID,
+          name: name
+        }
+      })
       // 存在则更新
       if (existingItem) {
         await user_ring.update(
           {
-            acount: Number(existingItem.acount) + Number(acount)
+            count: Number(existingItem.count) + Number(acount)
           },
           {
             where: {
@@ -65,7 +61,7 @@ export async function addRingThing(
           tid: THING.id, // 物品编号
           type: THING.type, //物品类型
           name: THING.name, // 物品名
-          acount: acount // 物品数量
+          count: acount // 物品数量
         })
       }
     }
@@ -101,7 +97,7 @@ export async function reduceRingThing(
       if (ACCOUNT >= 1) {
         await user_ring.update(
           {
-            acount: ACCOUNT
+            count: ACCOUNT
           },
           {
             where: {
@@ -152,25 +148,21 @@ export async function backpackFull(UID: string, grade = 1) {
  * @returns
  */
 export async function searchRingByName(UID: string, name: string) {
-  const data = await user_ring
-    .findOne({
+  const data = await user_ring.findOneValue({
+    where: {
+      uid: UID,
+      name
+    }
+  })
+  if (data) {
+    const good = await goods.findOneValue({
       where: {
-        uid: UID,
         name
       }
     })
-    .then(res => res?.dataValues)
-  if (data) {
-    const good = await goods
-      .findOne({
-        where: {
-          name
-        }
-      })
-      .then(res => res?.dataValues)
     return {
       ...good,
-      acount: data.acount
+      acount: data.count
     }
   }
   return false
@@ -184,21 +176,19 @@ export async function searchRingByName(UID: string, name: string) {
  * @returns
  */
 export async function delThing(UID: string) {
-  const data = await user_ring
-    .findOne({
-      where: {
-        uid: UID
-      },
-      // 进行随机排序
-      order: literal('RAND()')
-    })
-    .then(res => res?.dataValues)
+  const data = await user_ring.findOneValue({
+    where: {
+      uid: UID
+    },
+    // 进行随机排序
+    order: literal('RAND()')
+  })
   if (!data) return []
   // 击碎
   reduceRingThing(UID, [
     {
       name: data.name,
-      acount: data.acount
+      acount: data.count
     }
   ])
   return [data]

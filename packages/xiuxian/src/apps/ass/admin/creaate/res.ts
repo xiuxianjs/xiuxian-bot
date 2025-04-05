@@ -18,13 +18,12 @@ export default onResponse(selects, [
 
     // 境界拦截
     const gaspractice = await DB.user_level
-      .findOne({
+      .findOneValue({
         where: {
           uid: UID,
           type: 1
         }
       })
-      .then(res => res?.dataValues)
       .then(res => res.realm)
       .catch(() => 0)
 
@@ -39,13 +38,12 @@ export default onResponse(selects, [
 
     // 已拥有查询
     const UserAss = await DB.user_ass
-      .findOne({
+      .findOneValue({
         where: {
           uid: UID,
           identity: identity
         }
       })
-      .then(res => res?.dataValues)
       .catch(() => false)
 
     //
@@ -85,13 +83,11 @@ export default onResponse(selects, [
     }
 
     // 该势力已存在
-    const aData = await DB.ass
-      .findOne({
-        where: {
-          name: NAME
-        }
-      })
-      .then(res => res?.dataValues)
+    const aData = await DB.ass.findOneValue({
+      where: {
+        name: NAME
+      }
+    })
 
     //
     if (aData) {
@@ -135,13 +131,11 @@ export default onResponse(selects, [
         typing: GameApi.Config.ASS_TYPING_MAP[typing] // 类型
       })
       .then(async () => {
-        const res = await DB.ass
-          .findOne({
-            where: {
-              name: NAME
-            }
-          })
-          .then(res => res.dataValues)
+        const res = await DB.ass.findOneValue({
+          where: {
+            name: NAME
+          }
+        })
 
         await DB.user_ass.create({
           create_time: Date.now(),

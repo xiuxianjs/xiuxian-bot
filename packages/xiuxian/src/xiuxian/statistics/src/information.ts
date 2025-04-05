@@ -25,37 +25,31 @@ export async function personalInformation(UID: string) {
   }
 
   // 固定数据读取
-  const userLevelData = await DB.user_level
-    .findAll({
-      where: {
-        uid: UID
-      }
-    })
-    .then(res => res.map(item => item?.dataValues))
+  const userLevelData = await DB.user_level.findAllValues({
+    where: {
+      uid: UID
+    }
+  })
 
   const gLevelData = userLevelData.find(item => item.type == 1)
 
   // 境界数据
-  const GaspracticeList = await DB.levels
-    .findAll({
-      where: {
-        grade: gLevelData?.realm ?? 0,
-        type: 1
-      }
-    })
-    .then(res => res.map(item => item?.dataValues))
+  const GaspracticeList = await DB.levels.findAllValues({
+    where: {
+      grade: gLevelData?.realm ?? 0,
+      type: 1
+    }
+  })
 
   const bLevelData = userLevelData.find(item => item.type == 2)
 
   // 境界数据
-  const BodypracticeList = await DB.levels
-    .findAll({
-      where: {
-        grade: bLevelData?.realm ?? 0,
-        type: 2
-      }
-    })
-    .then(res => res.map(item => item?.dataValues))
+  const BodypracticeList = await DB.levels.findAllValues({
+    where: {
+      grade: bLevelData?.realm ?? 0,
+      type: 2
+    }
+  })
 
   const sLevelData = userLevelData.find(item => item.type == 3)
 
@@ -74,16 +68,14 @@ export async function personalInformation(UID: string) {
   const BodypracticeData = BodypracticeList[0]
   const SoulData = SoulList[0]
 
-  const skills = await DB.user_skills
-    .findAll({
-      where: {
-        uid: UID
-      },
-      include: {
-        model: DB.goods
-      }
-    })
-    .then(res => res.map(item => item?.dataValues))
+  const skills = await DB.user_skills.findAllValues({
+    where: {
+      uid: UID
+    },
+    include: {
+      model: DB.goods
+    }
+  })
 
   //
   const equipment = await DB.user_equipment
@@ -417,13 +409,11 @@ export async function showSky(UID: string) {
     avatar: string
   }[] = []
   for (const item of list) {
-    const data = await DB.user
-      .findOne({
-        where: {
-          uid: item.uid
-        }
-      })
-      .then(res => res?.dataValues)
+    const data = await DB.user.findOneValue({
+      where: {
+        uid: item.uid
+      }
+    })
     if (!data) {
       // 不存在 uid
       DB.user_sky_ranking.destroy({

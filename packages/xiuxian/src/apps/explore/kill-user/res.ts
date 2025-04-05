@@ -48,13 +48,12 @@ export default onResponse(selects, [
 
     // 看看境界
     const gaspractice = await DB.user_level
-      .findOne({
+      .findOneValue({
         where: {
           uid: UID,
           type: 1
         }
       })
-      .then(res => res?.dataValues)
       .then(item => item.realm)
 
     const myCount = Number(
@@ -79,14 +78,12 @@ export default onResponse(selects, [
       return
     }
 
-    const LevelMax = await DB.levels
-      .findOne({
-        where: {
-          id: Number(mon.level),
-          type: 0
-        }
-      })
-      .then(res => res?.dataValues)
+    const LevelMax = await DB.levels.findOneValue({
+      where: {
+        id: Number(mon.level),
+        type: 0
+      }
+    })
 
     // 怪物没有那么多的字段
     const BMSG = GameApi.Fight.start(UserData, {

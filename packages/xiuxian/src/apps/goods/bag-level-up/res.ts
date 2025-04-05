@@ -18,13 +18,11 @@ export default onResponse(selects, [
     }
     const UID = e.UserKey
 
-    const UserBgData = await user_bag_message
-      .findOne({
-        where: {
-          uid: UID
-        }
-      })
-      .then(res => res?.dataValues)
+    const UserBgData = await user_bag_message.findOneValue({
+      where: {
+        uid: UID
+      }
+    })
 
     // 等级
     let grade = UserBgData.grade

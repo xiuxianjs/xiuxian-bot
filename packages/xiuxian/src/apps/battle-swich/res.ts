@@ -127,14 +127,12 @@ export default onResponse(selects, [
     /**
      * 判断灵力
      */
-    const levelsB = await DB.user_level
-      .findOne({
-        where: {
-          uid: UID,
-          type: 1
-        }
-      })
-      .then(res => res?.dataValues)
+    const levelsB = await DB.user_level.findOneValue({
+      where: {
+        uid: UID,
+        type: 1
+      }
+    })
 
     if (UserData.special_spiritual < levelsB.realm) {
       Send(Text(`${UserData.immortal_grade > 0 ? '仙力' : '灵力'}不足`))

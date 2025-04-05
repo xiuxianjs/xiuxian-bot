@@ -26,26 +26,22 @@ export default onResponse(selects, [
     const UserData = useCurrent(e).UserData
 
     // 得到数据
-    const UserLevel = await user_level
-      .findOne({
-        where: {
-          uid: UID,
-          type: ID
-        }
-      })
-      .then(res => res?.dataValues)
+    const UserLevel = await user_level.findOneValue({
+      where: {
+        uid: UID,
+        type: ID
+      }
+    })
 
     // 查看当前境界所在位置
-    const LevelsData = await levels
-      .findAll({
-        where: {
-          type: ID
-        },
-        // 排序
-        order: [['grade', 'DESC']],
-        limit: 3
-      })
-      .then(res => res.map(item => item?.dataValues))
+    const LevelsData = await levels.findAllValues({
+      where: {
+        type: ID
+      },
+      // 排序
+      order: [['grade', 'DESC']],
+      limit: 3
+    })
 
     // 渡劫期数据
     const TribulationData = LevelsData[1]
@@ -64,17 +60,15 @@ export default onResponse(selects, [
     const realm = UserLevel?.realm ?? 0
 
     // 现在的境界数据
-    const nowLevel = await levels
-      .findOne({
-        where: {
-          type: ID,
-          grade: realm
-        },
-        // 按 grade 排序
-        order: [['grade', 'DESC']],
-        limit: 3
-      })
-      .then(res => res?.dataValues)
+    const nowLevel = await levels.findOneValue({
+      where: {
+        type: ID,
+        grade: realm
+      },
+      // 按 grade 排序
+      order: [['grade', 'DESC']],
+      limit: 3
+    })
 
     // 判断经验够不够
     if (UserLevel.experience < nowLevel.exp_needed) {
@@ -83,17 +77,15 @@ export default onResponse(selects, [
     }
 
     // 查看下一个境界
-    const nextLevel = await levels
-      .findOne({
-        where: {
-          type: ID,
-          grade: realm + 1
-        },
-        // 按 grade 排序
-        order: [['grade', 'DESC']],
-        limit: 3
-      })
-      .then(res => res?.dataValues)
+    const nextLevel = await levels.findOneValue({
+      where: {
+        type: ID,
+        grade: realm + 1
+      },
+      // 按 grade 排序
+      order: [['grade', 'DESC']],
+      limit: 3
+    })
 
     const levelUp = async () => {
       const p = 70 - realm - UserData.immortal_grade * 3

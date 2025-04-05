@@ -16,13 +16,11 @@ export default onResponse(selects, [
     }
     // 检查用户
     const UID = e.UserKey
-    const thing = await user_fate
-      .findOne({
-        where: {
-          uid: UID
-        }
-      })
-      .then(res => res?.dataValues)
+    const thing = await user_fate.findOneValue({
+      where: {
+        uid: UID
+      }
+    })
     //
     if (!thing) {
       Send(Text('未有本命物'))
@@ -48,43 +46,38 @@ export default onResponse(selects, [
     }
 
     // 得到门槛所需
-    const udata = await fate_level
-      .findOne({
-        where: {
-          grade: thing.grade
-        }
-      })
-      .then(res => res?.dataValues)
+    const udata = await fate_level.findOneValue({
+      where: {
+        grade: thing.grade
+      }
+    })
 
     // 得到境界剩余经验
     const exp_gaspractice = await user_level
-      .findOne({
+      .findOneValue({
         where: {
           uid: UID,
           type: 1
         }
       })
-      .then(res => res?.dataValues)
       .then(res => res.experience)
 
     const exp_bodypractice = await user_level
-      .findOne({
+      .findOneValue({
         where: {
           uid: UID,
           type: 2
         }
       })
-      .then(res => res?.dataValues)
       .then(res => res.experience)
 
     const exp_soul = await user_level
-      .findOne({
+      .findOneValue({
         where: {
           uid: UID,
           type: 3
         }
       })
-      .then(res => res?.dataValues)
       .then(res => res.experience)
 
     if (

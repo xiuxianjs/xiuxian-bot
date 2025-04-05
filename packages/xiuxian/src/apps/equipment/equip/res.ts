@@ -29,9 +29,9 @@ export default onResponse(selects, [
     }
 
     //
-    const equipment = await user_equipment
-      .findAll({ where: { uid: UID } })
-      .then(res => res.map(item => item?.dataValues))
+    const equipment = await user_equipment.findAllValues({
+      where: { uid: UID }
+    })
 
     //
     if (equipment.length >= GameApi.Cooling.myconfig_equipment) {
@@ -52,13 +52,11 @@ export default onResponse(selects, [
 
     // 响应消息
     setTimeout(async () => {
-      const UserData = await user
-        .findOne({
-          where: {
-            uid: UID
-          }
-        })
-        .then(res => res?.dataValues)
+      const UserData = await user.findOneValue({
+        where: {
+          uid: UID
+        }
+      })
       // 更新
       await GameApi.Equipment.updatePanel(UID, UserData.battle_blood_now)
       // 响应

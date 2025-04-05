@@ -20,9 +20,7 @@ export default onResponse(selects, [
     const text = e.MessageText
     if (!text) return
     const thingName = text.replace(/^(#|\/)?忘掉/, '')
-    const AllSorcery = await user_skills
-      .findAll({ where: { uid: UID } })
-      .then(res => res.map(item => item?.dataValues))
+    const AllSorcery = await user_skills.findAllValues({ where: { uid: UID } })
     const islearned = AllSorcery.find(item => item.name == thingName)
     if (!islearned) {
       Send(Text(`没学过[${thingName}]`))

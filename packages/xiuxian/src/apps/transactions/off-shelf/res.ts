@@ -25,14 +25,12 @@ export default onResponse(selects, [
     }
 
     // 查询物品
-    const data = await user_transactions
-      .findOne({
-        where: {
-          uid: UID,
-          id: Number(id)
-        }
-      })
-      .then(res => res?.dataValues)
+    const data = await user_transactions.findOneValue({
+      where: {
+        uid: UID,
+        id: Number(id)
+      }
+    })
 
     if (!data) {
       Send(Text('没有找到该物品'))

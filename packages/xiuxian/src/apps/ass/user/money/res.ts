@@ -19,13 +19,11 @@ export default onResponse(selects, [
 
     const UID = e.UserKey
 
-    const AData = await user_ass
-      .findAll({
-        where: {
-          uid: UID
-        }
-      })
-      .then(res => res.map(res => res?.dataValues))
+    const AData = await user_ass.findAllValues({
+      where: {
+        uid: UID
+      }
+    })
 
     if (!AData) {
       Send(Text('未加入任何势力'))

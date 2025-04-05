@@ -26,9 +26,7 @@ export default onResponse(selects, [
       return
     }
 
-    const AllSorcery = await user_skills
-      .findAll({ where: { uid: UID } })
-      .then(res => res.map(item => item?.dataValues))
+    const AllSorcery = await user_skills.findAllValues({ where: { uid: UID } })
     const islearned = AllSorcery.find(item => item.name == thingName)
     if (islearned) {
       Send(Text('学过了'))
@@ -49,13 +47,11 @@ export default onResponse(selects, [
 
     // 更新天赋
     setTimeout(async () => {
-      const UserData = await user
-        .findOne({
-          where: {
-            uid: UID
-          }
-        })
-        .then(res => res?.dataValues)
+      const UserData = await user.findOneValue({
+        where: {
+          uid: UID
+        }
+      })
       await Skills.updataEfficiency(UID, UserData.talent)
     }, 1000)
     await Bag.reduceBagThing(UID, [

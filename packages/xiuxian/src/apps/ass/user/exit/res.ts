@@ -22,13 +22,11 @@ export default onResponse(selects, [
     const name = text.replace(/^(#|\/)?退出势力/, '')
 
     // 存在该昵称的宗门
-    const aData = await DB.ass
-      .findOne({
-        where: {
-          name: name
-        }
-      })
-      .then(res => res?.dataValues)
+    const aData = await DB.ass.findOneValue({
+      where: {
+        name: name
+      }
+    })
 
     //
     if (!aData) {
@@ -38,14 +36,13 @@ export default onResponse(selects, [
 
     // 查看是否是主人
     const UserAss = await DB.user_ass
-      .findOne({
+      .findOneValue({
         where: {
           uid: UID,
           aid: aData.id,
           identity: GameApi.Config.ASS_IDENTITY_MAP['0']
         }
       })
-      .then(res => res?.dataValues)
       .catch(err => console.error(err))
 
     //

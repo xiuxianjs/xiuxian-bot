@@ -1,6 +1,5 @@
 # Node dependencies
 node_modules
-/data/
 /lib/
 /logs/
 /public
@@ -16,3 +15,4 @@ custom.properties
 mysql-connector-j-9.1.0
 /liquibase
 *.memory-card.json
+.data

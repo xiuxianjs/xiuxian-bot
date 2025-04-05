@@ -19,13 +19,12 @@ export default onResponse(selects, [
 
     // 查看自己的宗门
     const UserAss = await DB.user_ass
-      .findOne({
+      .findOneValue({
         where: {
           uid: UID, // uid
           identity: GameApi.Config.ASS_IDENTITY_MAP['0'] // 身份
         }
       })
-      .then(res => res?.dataValues)
       .catch(err => console.error(err))
 
     if (!UserAss) {

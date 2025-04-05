@@ -49,9 +49,7 @@ export function getTalent() {
  */
 export async function getTalentName(arr: number[]) {
   let name = ''
-  const TalentData = await talent
-    .findAll()
-    .then(res => res.map(item => item?.dataValues))
+  const TalentData = await talent.findAllValues()
   for await (const item of arr) {
     // item是id
     for await (const obj of TalentData) {

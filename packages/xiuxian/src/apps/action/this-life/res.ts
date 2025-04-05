@@ -25,42 +25,37 @@ export default onResponse(selects, [
       return
     }
     // 查看消耗所需
-    const data = await fate_level
-      .findOne({
-        where: {
-          grade: thing.grade
-        }
-      })
-      .then(res => res?.dataValues)
+    const data = await fate_level.findOneValue({
+      where: {
+        grade: thing.grade
+      }
+    })
     // 得到该境界经验
     const exp_gaspractice = await user_level
-      .findOne({
+      .findOneValue({
         where: {
           uid: UID,
           type: 1
         }
       })
-      .then(res => res?.dataValues)
       .then(res => res.experience)
     //
     const exp_bodypractice = await user_level
-      .findOne({
+      .findOneValue({
         where: {
           uid: UID,
           type: 2
         }
       })
-      .then(res => res?.dataValues)
       .then(res => res.experience)
     //
     const exp_soul = await user_level
-      .findOne({
+      .findOneValue({
         where: {
           uid: UID,
           type: 3
         }
       })
-      .then(res => res?.dataValues)
       .then(res => res.experience)
 
     const goodThing = await goods.findOneValue({

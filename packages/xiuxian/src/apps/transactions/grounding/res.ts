@@ -26,26 +26,22 @@ export default onResponse(selects, [
     const count = Math.floor(isNaN(Number(countx)) ? 1 : Number(countx))
     const price = Math.floor(isNaN(Number(pricex)) ? 1 : Number(pricex))
     // 查询物品
-    const data = await user_transactions
-      .findOne({
-        where: {
-          uid: UID
-        }
-      })
-      .then(res => res?.dataValues)
+    const data = await user_transactions.findOneValue({
+      where: {
+        uid: UID
+      }
+    })
 
     if (data) {
       Send(Text('已有上架物品'))
       return
     }
 
-    const gData = await goods
-      .findOne({
-        where: {
-          name: name
-        }
-      })
-      .then(res => res?.dataValues)
+    const gData = await goods.findOneValue({
+      where: {
+        name: name
+      }
+    })
 
     //
     if (!gData) {
@@ -59,14 +55,12 @@ export default onResponse(selects, [
     }
 
     // 查询 物品
-    const thing = await user_bag
-      .findOne({
-        where: {
-          uid: UID,
-          name: name
-        }
-      })
-      .then(res => res?.dataValues)
+    const thing = await user_bag.findOneValue({
+      where: {
+        uid: UID,
+        name: name
+      }
+    })
 
     if (!thing) {
       Send(Text('物品不存在'))

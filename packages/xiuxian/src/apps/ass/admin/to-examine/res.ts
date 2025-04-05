@@ -41,14 +41,12 @@ export default onResponse(selects, [
     }
 
     //
-    const UserAss = await DB.user_ass
-      .findOne({
-        where: {
-          uid: UID, // uid
-          aid: aData.id
-        }
-      })
-      .then(res => res?.dataValues)
+    const UserAss = await DB.user_ass.findOneValue({
+      where: {
+        uid: UID, // uid
+        aid: aData.id
+      }
+    })
 
     // 不存在，或者 9
     if (!UserAss) {

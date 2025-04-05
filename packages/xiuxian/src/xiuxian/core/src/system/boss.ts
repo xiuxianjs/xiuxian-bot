@@ -94,14 +94,12 @@ export const updateBossData = (key: '1' | '2') => {
     const level = key === '1' ? 41 : 28
     const b_size = 1000
     const a_size = 10
-    const LevelMax = await levels
-      .findOne({
-        where: {
-          id: level,
-          type: 0
-        }
-      })
-      .then(res => res?.dataValues)
+    const LevelMax = await levels.findOneValue({
+      where: {
+        id: level,
+        type: 0
+      }
+    })
     const data = {
       uid: '1',
       name: key === '1' ? '金角' : '银角',

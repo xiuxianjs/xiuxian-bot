@@ -6,12 +6,10 @@ import { user } from '@xiuxian/db/index'
  * @returns
  */
 export async function getUserName(UID: string) {
-  const data = await user
-    .findOne({
-      where: {
-        uid: UID
-      }
-    })
-    .then(res => res?.dataValues)
+  const data = await user.findOneValue({
+    where: {
+      uid: UID
+    }
+  })
   return data.name
 }

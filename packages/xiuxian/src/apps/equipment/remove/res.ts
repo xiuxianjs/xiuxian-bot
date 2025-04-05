@@ -24,9 +24,9 @@ export default onResponse(selects, [
     const text = e.MessageText
     const thingName = text.replace(/^(#|\/)?卸下/, '')
     // 得到数据
-    const equipment = await user_equipment
-      .findAll({ where: { uid: UID } })
-      .then(res => res.map(item => item?.dataValues))
+    const equipment = await user_equipment.findAllValues({
+      where: { uid: UID }
+    })
     const islearned = equipment.find(item => item.name == thingName)
     if (!islearned) return
 
@@ -52,13 +52,11 @@ export default onResponse(selects, [
 
     // 反馈
     setTimeout(async () => {
-      const UserData = await user
-        .findOne({
-          where: {
-            uid: UID
-          }
-        })
-        .then(res => res?.dataValues)
+      const UserData = await user.findOneValue({
+        where: {
+          uid: UID
+        }
+      })
       // 更新
       await GameApi.Equipment.updatePanel(UID, UserData.battle_blood_now)
 

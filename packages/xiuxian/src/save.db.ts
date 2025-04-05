@@ -25,9 +25,7 @@ const sequelizeInit = async () => {
   if (models[tableName]) {
     const dir = join(process.cwd(), 'public', tableName + '.json')
     mkdirSync(dirname(dir), { recursive: true })
-    const levels = await models[tableName]
-      .findAll()
-      .then(res => res.map(item => item.dataValues))
+    const levels = await models[tableName].findAllValues()
     writeFileSync(dir, JSON.stringify(levels), 'utf-8')
   }
 }

@@ -27,13 +27,11 @@ export default onResponse(selects, [
     }
 
     // 查询物品
-    const data = await user_transactions
-      .findOne({
-        where: {
-          id: Number(id)
-        }
-      })
-      .then(res => res?.dataValues)
+    const data = await user_transactions.findOneValue({
+      where: {
+        id: Number(id)
+      }
+    })
 
     if (!data) {
       Send(Text('没有找到该物品'))
@@ -46,14 +44,12 @@ export default onResponse(selects, [
     }
 
     // 查询下品灵石
-    const money = await user_bag
-      .findOne({
-        where: {
-          uid: UID,
-          name: '下品灵石'
-        }
-      })
-      .then(res => res?.dataValues)
+    const money = await user_bag.findOneValue({
+      where: {
+        uid: UID,
+        name: '下品灵石'
+      }
+    })
 
     //
     if (!money) {

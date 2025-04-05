@@ -21,13 +21,11 @@ export default onResponse(selects, [
     const UID = e.UserKey
 
     //查看数据是否存在
-    const data = await DB.user_sky_ranking
-      .findOne({
-        where: {
-          uid: UID
-        }
-      })
-      .then(res => res?.dataValues)
+    const data = await DB.user_sky_ranking.findOneValue({
+      where: {
+        uid: UID
+      }
+    })
 
     if (data) {
       Send(Text('已进入'))

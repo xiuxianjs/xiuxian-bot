@@ -11,13 +11,11 @@ export async function delThing(ID: number) {
   let t = false
   try {
     // 搜索物品。
-    const data = await user_transactions
-      .findOne({
-        where: {
-          id: ID
-        }
-      })
-      .then(res => res?.dataValues)
+    const data = await user_transactions.findOneValue({
+      where: {
+        id: ID
+      }
+    })
 
     if (!data) return t
 
@@ -30,9 +28,7 @@ export async function delThing(ID: number) {
 
     // 添加购买记录
     await user_transactions_logs.create({
-      ...data,
-      updateAt: new Date(),
-      deleteAt: new Date()
+      ...data
     })
 
     t = true

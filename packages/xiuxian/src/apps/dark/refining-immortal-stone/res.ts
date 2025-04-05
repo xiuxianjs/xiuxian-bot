@@ -24,11 +24,9 @@ export default onResponse(selects, [
     const text = e.MessageText
     let account = Number(text.replace(/^(#|\/)?治炼仙石/, '')) || 1
     if (account > 10) account = 10
-    const Userleve = await DB.user_level
-      .findOne({
-        where: { uid: UID, type: 1 }
-      })
-      .then(res => res?.dataValues)
+    const Userleve = await DB.user_level.findOneValue({
+      where: { uid: UID, type: 1 }
+    })
     if (Userleve.realm < 42) {
       Send(Text('境界不足'))
       return

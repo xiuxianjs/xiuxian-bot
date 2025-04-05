@@ -17,13 +17,11 @@ export default onResponse(selects, [
     // 检查用户
     const UID = e.UserKey
     const UserData = useCurrent(e).UserData
-    const T = await user_fate
-      .findOne({
-        where: {
-          uid: UID
-        }
-      })
-      .then(res => res?.dataValues)
+    const T = await user_fate.findOneValue({
+      where: {
+        uid: UID
+      }
+    })
     if (T) {
       Send(Text('已有本命物'))
       return
@@ -39,14 +37,12 @@ export default onResponse(selects, [
     // 根据物品等级来消耗修为  1000
     const size = bagThing.grade * 1000
     // 看看经验
-    const LevelMsg = await user_level
-      .findOne({
-        where: {
-          uid: UID,
-          type: 1
-        }
-      })
-      .then(res => res?.dataValues)
+    const LevelMsg = await user_level.findOneValue({
+      where: {
+        uid: UID,
+        type: 1
+      }
+    })
     if (LevelMsg.experience < size) {
       Send(Text(`需要消耗[修为]*${size}~`))
       return

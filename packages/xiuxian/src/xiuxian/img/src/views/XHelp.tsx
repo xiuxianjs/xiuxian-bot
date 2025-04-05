@@ -14,12 +14,12 @@ type PropsType = {
   theme: ThemesEmun
 }
 export default function XHelp({ data, theme }: PropsType) {
-  const _email = 'ningmengchongshui@gmail.com'
+  // const _email = 'ningmengchongshui@gmail.com'
   return (
     <HTML>
       <BackgroundImage id="root" data-theme={theme} url={img_equipment}>
-        <div className="min-h-10"></div>
-        <div className="text-xl m-8 p-2  rounded-md bg-black bg-opacity-20 text-center text-white relative shadow-lg font-semibold">
+        <div className="min-h-[1.4rem]"></div>
+        {/* <div className="text-xl m-8 p-2  rounded-md bg-black bg-opacity-20 text-center text-white relative shadow-lg font-semibold">
           <div className="text-red-500 text-left  py-1 px-3 my-2 rounded-md  bg-white">
             <div className="flex">
               <div className="w-32  text-green-500">反馈邮箱</div>
@@ -31,11 +31,11 @@ export default function XHelp({ data, theme }: PropsType) {
           <div className="text-red-500 text-left bg-white py-1 px-3 my-2 rounded-md">
             使用 /帮助1 查看第一页，使用 /帮助2 查看第二页，以此类推
           </div>
-        </div>
+        </div> */}
         {data.map((val, index) => (
           <div
             key={index}
-            className="rounded-md mb-5 ml-10 mr-10 overflow-hidden shadow-md relative bg-black bg-opacity-60"
+            className="rounded-md mb-5 ml-[1.2rem] mr-[1rem] overflow-hidden shadow-md relative bg-black bg-opacity-60"
           >
             <div className="text-white text-lg font-bold px-2 text-center">
               {val.group}
@@ -52,8 +52,7 @@ export default function XHelp({ data, theme }: PropsType) {
             </div>
           </div>
         ))}
-
-        <div className="min-h-10"></div>
+        {/* <div className="min-h-4"></div> */}
       </BackgroundImage>
     </HTML>
   )

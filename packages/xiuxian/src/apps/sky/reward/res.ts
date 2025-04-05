@@ -23,13 +23,11 @@ export default onResponse(selects, [
     const UID = e.UserKey
 
     // 查看数据是否存在
-    const data = await DB.user_sky_ranking
-      .findOne({
-        where: {
-          uid: UID
-        }
-      })
-      .then(res => res?.dataValues)
+    const data = await DB.user_sky_ranking.findOneValue({
+      where: {
+        uid: UID
+      }
+    })
     if (!data) {
       Send(Text('未进入'))
 
@@ -47,27 +45,23 @@ export default onResponse(selects, [
     // const currentDate = new Date()
     // currentDate.setDate(1)
     // currentDate.setHours(8, 0, 0, 0)
-    const uDAta = await user_sky_reward
-      .findAll({
-        where: {
-          uid: UID,
-          time: currentDate
-        }
-      })
-      .then(res => res.map(item => item?.dataValues))
+    const uDAta = await user_sky_reward.findAllValues({
+      where: {
+        uid: UID,
+        time: currentDate
+      }
+    })
 
     // 领取记录
     const ids = uDAta.map(item => item.sid)
     // 找到 比 比排名少的数据。 并一次检查记录中，是否存在领取记录。
-    const sData = await skys
-      .findAll({
-        where: {
-          ranking: {
-            [Op.gte]: data.id
-          }
+    const sData = await skys.findAllValues({
+      where: {
+        ranking: {
+          [Op.gte]: data.id
         }
-      })
-      .then(res => res.map(item => item?.dataValues))
+      }
+    })
     const sData2 = sData.filter(item => {
       // 存在
       if (ids.includes(item.id)) {

@@ -18,12 +18,11 @@ export default onResponse(selects, [
     const UID = e.UserKey
     const UserData = useCurrent(e).UserData
     user_transactions
-      .findAll({
+      .findAllValues({
         where: {
           uid: UID
         }
       })
-      .then(res => res.map(item => item?.dataValues))
       .then(async res => {
         if (res.length === 0) {
           Send(Text('没有找到数据'))

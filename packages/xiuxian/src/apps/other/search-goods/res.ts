@@ -20,8 +20,7 @@ export default onResponse(selects, [
 
     // 查询物品信息
     goods
-      .findOne({ where: { name } })
-      .then(res => res?.dataValues)
+      .findOneValue({ where: { name } })
       .then(async res => {
         if (!res) {
           Send(Text('未找到该物品'))

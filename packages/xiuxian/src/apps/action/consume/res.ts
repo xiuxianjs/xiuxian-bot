@@ -118,14 +118,12 @@ const response = onResponse(selects, async e => {
      * 洗灵根
      */
     case 600301: {
-      const LevelData = await user_level
-        .findOne({
-          where: {
-            uid: UID,
-            type: 1
-          }
-        })
-        .then(res => res?.dataValues)
+      const LevelData = await user_level.findOneValue({
+        where: {
+          uid: UID,
+          type: 1
+        }
+      })
       if (!LevelData) {
         break
       }
@@ -392,14 +390,12 @@ async function sendLing(e, UID: string, acount: number) {
     Send(Text('最多仅能2200'))
     return false
   }
-  const LevelData = await user_level
-    .findOne({
-      where: {
-        uid: UID,
-        type: 1
-      }
-    })
-    .then(res => res?.dataValues)
+  const LevelData = await user_level.findOneValue({
+    where: {
+      uid: UID,
+      type: 1
+    }
+  })
   /**
    * 到了筑基,灵石收益成倍削弱
    */

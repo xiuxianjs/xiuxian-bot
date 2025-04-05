@@ -35,13 +35,11 @@ export async function addBagThing(
       })
     }
     for (const { name, acount } of arr) {
-      const THING = await goods
-        .findOne({
-          where: {
-            name
-          }
-        })
-        .then(res => res?.dataValues)
+      const THING = await goods.findOneValue({
+        where: {
+          name
+        }
+      })
       if (!THING) continue
       const length = await user_bag.count({
         where: {
@@ -52,14 +50,12 @@ export async function addBagThing(
       // 当前储物袋格子已到极限
       if (length >= bag_message.grade * 10) break
       // 查找物品
-      const existingItem = await user_bag
-        .findOne({
-          where: {
-            uid: UID,
-            name: name
-          }
-        })
-        .then(res => res?.dataValues)
+      const existingItem = await user_bag.findOneValue({
+        where: {
+          uid: UID,
+          name: name
+        }
+      })
       // 存在则更新
       if (existingItem) {
         await user_bag.update(
@@ -173,14 +169,12 @@ export async function backpackFull(UID: string) {
 }
 
 export async function searchAllByName(UID: string, name: string[]) {
-  const data = await user_bag
-    .findAll({
-      where: {
-        uid: UID,
-        name
-      }
-    })
-    .then(res => res?.map(item => item.dataValues))
+  const data = await user_bag.findAllValues({
+    where: {
+      uid: UID,
+      name
+    }
+  })
   return data
 }
 
@@ -191,22 +185,18 @@ export async function searchAllByName(UID: string, name: string[]) {
  * @returns
  */
 export async function searchBagByName(UID: string, name: string, acount = 1) {
-  const data = await user_bag
-    .findOne({
+  const data = await user_bag.findOneValue({
+    where: {
+      uid: UID,
+      name
+    }
+  })
+  if (data && data.acount >= acount) {
+    const good = await goods.findOneValue({
       where: {
-        uid: UID,
         name
       }
     })
-    .then(res => res?.dataValues)
-  if (data && data.acount >= acount) {
-    const good = await goods
-      .findOne({
-        where: {
-          name
-        }
-      })
-      .then(res => res?.dataValues)
     return {
       ...good,
       acount: data.acount
@@ -227,15 +217,13 @@ export async function delThing(UID: string, size = 100, t = false) {
    *
    */
 
-  const data = await user_bag
-    .findOne({
-      where: {
-        uid: UID
-      },
-      // 进行随机排序
-      order: literal('RAND()')
-    })
-    .then(res => res?.dataValues)
+  const data = await user_bag.findOneValue({
+    where: {
+      uid: UID
+    },
+    // 进行随机排序
+    order: literal('RAND()')
+  })
 
   if (!data) return []
   // 击碎

@@ -13,13 +13,11 @@ export default onResponse(selects, [
     const UserData = useCurrent(e).UserData
     const Send = useSend(e)
     // 查看数据是否存在
-    const data = await user_sky_ranking
-      .findOne({
-        where: {
-          uid: UID
-        }
-      })
-      .then(res => res?.dataValues)
+    const data = await user_sky_ranking.findOneValue({
+      where: {
+        uid: UID
+      }
+    })
 
     if (!data) {
       Send(Text('😃未进入'))
@@ -37,13 +35,11 @@ export default onResponse(selects, [
       return
     }
     //
-    const dataB = await user_sky_ranking
-      .findOne({
-        where: {
-          id: id
-        }
-      })
-      .then(res => res?.dataValues)
+    const dataB = await user_sky_ranking.findOneValue({
+      where: {
+        id: id
+      }
+    })
     //
     if (!dataB) {
       Send(Text('该位置未录入'))
@@ -53,13 +49,11 @@ export default onResponse(selects, [
     //
     const UIDB = dataB.uid
 
-    const UserDataB = await user
-      .findOne({
-        where: {
-          uid: UIDB
-        }
-      })
-      .then(res => res?.dataValues)
+    const UserDataB = await user.findOneValue({
+      where: {
+        uid: UIDB
+      }
+    })
 
     if (!UserDataB) {
       Send(Text('该用户不存在'))

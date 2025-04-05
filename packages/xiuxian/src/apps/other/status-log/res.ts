@@ -11,17 +11,15 @@ export default onResponse(selects, [
   async e => {
     const UID = e.UserKey
 
-    const logsData = await user_log
-      .findAll({
-        where: {
-          uid: UID
-        },
-        order: [
-          ['create_time', 'DESC'] // 降序排列
-        ],
-        limit: 10
-      })
-      .then(res => res.map(item => item?.dataValues))
+    const logsData = await user_log.findAllValues({
+      where: {
+        uid: UID
+      },
+      order: [
+        ['create_time', 'DESC'] // 降序排列
+      ],
+      limit: 10
+    })
 
     /**
      * 查询后
@@ -38,7 +36,6 @@ export default onResponse(selects, [
           ['create_time', 'DESC'] // 降序排列
         ]
       })
-      .then(res => res.map(item => item?.dataValues))
       .then(res => {
         // 删除多余的记录
         for (const item of res) {

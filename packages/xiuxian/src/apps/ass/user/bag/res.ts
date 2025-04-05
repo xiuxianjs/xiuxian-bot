@@ -12,12 +12,11 @@ export default onResponse(selects, [
     const name = text.replace(/(#|\/|包库)/g, '')
 
     const AData = await DB.ass
-      .findOne({
+      .findOneValue({
         where: {
           name: name
         }
       })
-      .then(res => res?.dataValues)
       .catch(err => console.error(err))
 
     const Send = useSend(e)

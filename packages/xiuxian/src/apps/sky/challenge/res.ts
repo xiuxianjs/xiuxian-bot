@@ -28,13 +28,11 @@ export default onResponse(selects, [
     if (!(await victoryCooling(e, UID, CDID))) return
 
     // 查看数据是否存在
-    const data = await DB.user_sky_ranking
-      .findOne({
-        where: {
-          uid: UID
-        }
-      })
-      .then(res => res?.dataValues)
+    const data = await DB.user_sky_ranking.findOneValue({
+      where: {
+        uid: UID
+      }
+    })
 
     if (!data) {
       Send(Text('😃未进入'))
@@ -51,13 +49,11 @@ export default onResponse(selects, [
     }
     // 设置redis
     GameApi.Burial.set(UID, CDID, CDTime)
-    const dataB = await DB.user_sky_ranking
-      .findOne({
-        where: {
-          id: id
-        }
-      })
-      .then(res => res?.dataValues)
+    const dataB = await DB.user_sky_ranking.findOneValue({
+      where: {
+        id: id
+      }
+    })
     // 如果发现找不到。就说明位置是空的，占领位置。
     if (!dataB) {
       await DB.user_sky_ranking.update(
@@ -73,13 +69,11 @@ export default onResponse(selects, [
       Send(Text('位置占领成功'))
       return
     }
-    const UserDataB = await DB.user
-      .findOne({
-        where: {
-          uid: dataB.uid
-        }
-      })
-      .then(res => res?.dataValues)
+    const UserDataB = await DB.user.findOneValue({
+      where: {
+        uid: dataB.uid
+      }
+    })
     if (!UserDataB) {
       // 不存在该用户了
       await DB.user_sky_ranking.update(

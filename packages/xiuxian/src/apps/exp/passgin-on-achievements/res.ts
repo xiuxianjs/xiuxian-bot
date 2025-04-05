@@ -57,22 +57,18 @@ export default onResponse(selects, [
 
     if (!dualVerificationAction(e, UserData.point_type, UserDataB.point_type))
       return
-    const LevelDataA = await user_level
-      .findOne({
-        where: {
-          uid: UID,
-          type: 1
-        }
-      })
-      .then(res => res?.dataValues)
-    const LevelDataB = await user_level
-      .findOne({
-        where: {
-          uid: UIDB,
-          type: 1
-        }
-      })
-      .then(res => res?.dataValues)
+    const LevelDataA = await user_level.findOneValue({
+      where: {
+        uid: UID,
+        type: 1
+      }
+    })
+    const LevelDataB = await user_level.findOneValue({
+      where: {
+        uid: UIDB,
+        type: 1
+      }
+    })
     if (!LevelDataA || !LevelDataB) return
     if (LevelDataA.realm < 21) {
       Send(Text('未到元婴期'))
