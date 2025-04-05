@@ -1,11 +1,8 @@
 import { Text, useSend } from 'alemonjs'
-
 import { punishLevel } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
 import * as DB from '@xiuxian/db/index'
-
 import Xiuxian, { selects, useCurrent } from '@src/apps/index'
-
 export const regular = /^(#|\/)?渡劫$/
 export default onResponse(selects, [
   Xiuxian.current,

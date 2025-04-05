@@ -1,12 +1,9 @@
 import { controlByName } from '@xiuxian/api/index'
 import { Method } from '@xiuxian/core/index'
 import * as DB from '@xiuxian/db/index'
-
 import Xiuxian, { selects, useCurrent } from '@src/apps/index'
-
 import * as GameApi from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
-
 export const regular = /^(#|\/)?(购买|購買)[\u4e00-\u9fa5]+\*\d+$/
 export default onResponse(selects, [
   Xiuxian.current,

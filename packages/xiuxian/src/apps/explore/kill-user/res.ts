@@ -1,17 +1,18 @@
 import { ControlByBlood, sendReply, killNPC } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
 import * as DB from '@xiuxian/db/index'
-
 import Xiuxian, { selects, useCurrent } from '@src/apps/index'
-
 import { Text, useSend } from 'alemonjs'
-
 import { literal } from 'sequelize'
-
 export const regular = /^(#|\/)?(击杀|擊殺)[\u4e00-\u9fa5]+(\*1|\*2)?$/
+/**
+ * tudo
+ */
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
+    return
+
     // lock start
     const T = await GameApi.operationLock(e.UserKey)
     const Send = useSend(e)

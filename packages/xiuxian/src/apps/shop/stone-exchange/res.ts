@@ -1,7 +1,5 @@
 import { Text, useSend } from 'alemonjs'
-
 import * as GameApi from '@xiuxian/core/index'
-
 import Xiuxian, { selects } from '@src/apps/index'
 export const regular = /^(#|\/)?仙石兑换.*$/
 export default onResponse(selects, [

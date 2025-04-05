@@ -1,13 +1,9 @@
 import * as DB from '@xiuxian/db/index'
-
 import { skys, user_sky_reward } from '@xiuxian/db/index'
-
 import Xiuxian, { selects } from '@src/apps/index'
-
 import { Op } from 'sequelize'
 import { Bag, operationLock } from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
-
 export const regular = /^(#|\/)?领取通天塔奖励$/
 export default onResponse(selects, [
   Xiuxian.current,

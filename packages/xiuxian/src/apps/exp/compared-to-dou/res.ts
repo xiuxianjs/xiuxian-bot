@@ -1,26 +1,26 @@
 import {
   sendReply,
   dualVerification,
-  dualVerificationAction,
   isSideUser,
   victoryCooling
 } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
 import { user, user_level } from '@xiuxian/db/index'
-
 import { Text, useMention, useSend } from 'alemonjs'
-
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
-
+import { isUIDInAddress } from '@src/xiuxian/core/src/system/address'
 export const regular = /^(#|\/)?(决斗|比鬥)/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
-    return
+    const Send = useSend(e)
+    if (e.name !== 'message.create') {
+      Send(Text('请在群聊中使用'))
+      return
+    }
 
     // lock start
     const T = await GameApi.operationLock(e.UserKey)
-    const Send = useSend(e)
     if (!T) {
       Send(Text('操作频繁'))
       return
@@ -29,22 +29,33 @@ export default onResponse(selects, [
     const UID = e.UserKey
 
     const UserData = useCurrent(e).UserData
-
-    const ats = await useMention(e)
-    let UIDB: null | undefined | string = null
-    if (!ats || ats.length === 0) {
-      const text = e.MessageText
-      UIDB = text.replace(/^(#|\/)?(决斗|比鬥)/, '')
-    } else {
-      const value = ats.find(item => !item.IsBot)
-      if (value) {
-        UIDB = value.UserKey
+    const [mention] = useMention(e)
+    const res = await mention.findOne()
+    let UIDB: string | null = null
+    if (res.code !== 2000) {
+      // 不是@机制。则直接正则截取到uid
+      const uid = e.MessageText.replace(regular, '').trim()
+      if (!(await isUIDInAddress(e.ChannelId, uid))) {
+        Send(Text('道友不在此处'))
       }
+      UIDB = uid
+      return
+    } else {
+      UIDB = res.data
     }
-    if (!UIDB || UIDB == '') return
+    if (!UIDB || UIDB == '') {
+      Send(Text('请@道友'))
+      return
+    }
     const UserDataB = await isSideUser(e, UIDB)
-    if (!UserDataB || typeof UserDataB === 'boolean') return
-    if (!(await dualVerification(e, UserData, UserDataB))) return
+    if (!UserDataB || typeof UserDataB === 'boolean') {
+      Send(Text('此乃凡人'))
+      return
+    }
+    if (!(await dualVerification(e, UserData, UserDataB))) {
+      // 判断是否可为
+      return
+    }
 
     if (UserData.special_spiritual < 5) {
       Send(Text(`${UserData.immortal_grade > 0 ? '仙力' : '灵力'}不足`))
@@ -55,11 +66,12 @@ export default onResponse(selects, [
       return
     }
 
-    if (!dualVerificationAction(e, UserData.point_type, UserDataB.point_type))
-      return
     const CDID = 14
     const CDTime = GameApi.Cooling.CD_Ambiguous
-    if (!(await victoryCooling(e, UID, CDID))) return
+    if (!(await victoryCooling(e, UID, CDID))) {
+      // my cd...
+      return
+    }
 
     GameApi.Burial.set(UID, CDID, CDTime)
 

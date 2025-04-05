@@ -1,11 +1,8 @@
 import { sendReply, victoryCooling } from '@xiuxian/api/index'
 import * as DB from '@xiuxian/db/index'
-
 import Xiuxian, { selects } from '@src/apps/index'
-
 import * as GameApi from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
-
 export const regular = /^(#|\/)?挑战\d+$/
 export default onResponse(selects, [
   Xiuxian.current,

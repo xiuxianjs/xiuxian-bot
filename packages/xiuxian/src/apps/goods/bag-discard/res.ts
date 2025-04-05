@@ -1,10 +1,9 @@
 import { Text, useSend } from 'alemonjs'
-
 import * as GameApi from '@xiuxian/core/index'
-
 import Xiuxian, { selects } from '@src/apps/index'
 export const regular =
   /^(#|\/)?(储物袋|儲物袋|背包)(丢弃|丟棄)[\u4e00-\u9fa5]+\*\d+$/
+
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

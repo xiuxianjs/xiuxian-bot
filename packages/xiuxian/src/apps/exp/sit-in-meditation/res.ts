@@ -1,9 +1,7 @@
 import { Text, useSend } from 'alemonjs'
 import { endAllWord } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
-
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
-
 export const regular = /^(#|\/)?打坐$/
 export default onResponse(selects, [
   Xiuxian.current,

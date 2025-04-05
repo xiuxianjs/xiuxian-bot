@@ -1,10 +1,7 @@
 import { Text, useSend } from 'alemonjs'
-
 import { Bag, operationLock, order } from '@xiuxian/core/index'
 import { Redis, user_transactions, user_bag } from '@xiuxian/db/index'
-
 import Xiuxian, { selects } from '@src/apps/index'
-
 export const regular = /^(#|\/)?选购/
 export default onResponse(selects, [
   Xiuxian.current,

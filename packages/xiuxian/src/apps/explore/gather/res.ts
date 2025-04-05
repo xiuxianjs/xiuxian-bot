@@ -1,12 +1,12 @@
 import { Text, useSend } from 'alemonjs'
-
 import { killNPC } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
 import { user, user_level } from '@xiuxian/db/index'
-
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
-
 export const regular = /^(#|\/)?开采\d+(\*1|\*2)?$/
+/**
+ * tudo
+ */
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

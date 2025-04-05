@@ -1,12 +1,8 @@
 import { Text, useSend } from 'alemonjs'
-
 import { Bag, Method, operationLock } from '@xiuxian/core/index'
 import { user } from '@xiuxian/db/index'
-
 const MoenySize = 10
-
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
-
 export const regular = /^(#|\/)?(联盟签到|聯盟簽到)$/
 export default onResponse(selects, [
   Xiuxian.current,

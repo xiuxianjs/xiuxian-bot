@@ -1,10 +1,11 @@
 import { Text, useSend } from 'alemonjs'
 import { ControlByBlood } from '@xiuxian/api/index'
 import * as GameApi from '@xiuxian/core/index'
-
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
-
 export const regular = /^(#|\/)?探索灵矿$/
+/**
+ * tudo
+ */
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
@@ -22,19 +23,19 @@ export default onResponse(selects, [
     //   UserData.pont_attribute
     // )
     // tudo
-    const name = '修仙大陆'
-    // 消息
-    const msg: string[] = [`[${name}]的灵矿`]
-    // 得到灵矿
-    const explore = await GameApi.explore.explorecache(UserData.point_type)
-    for (const item in explore) {
-      msg.push(
-        `🔹标记:${item}(${getMoneyGrade(explore[item].grade)}灵矿)*${
-          explore[item].acount
-        }`
-      )
-    }
-    Send(Text(msg.join('\n')))
+    // const name = '修仙大陆'
+    // // 消息
+    // const msg: string[] = [`[${name}]的灵矿`]
+    // // 得到灵矿
+    // const explore = await GameApi.explore.explorecache(UserData.point_type)
+    // for (const item in explore) {
+    //   msg.push(
+    //     `🔹标记:${item}(${getMoneyGrade(explore[item].grade)}灵矿)*${
+    //       explore[item].acount
+    //     }`
+    //   )
+    // }
+    // Send(Text(msg.join('\n')))
   }
 ])
 

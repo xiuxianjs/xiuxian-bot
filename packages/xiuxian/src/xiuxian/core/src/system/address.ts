@@ -38,3 +38,17 @@ export async function removeAddressFromId(playerId: string, uid: string) {
   // 删除玩家的地址记录
   await Redis.del(`xiuxian:user:address:${uid}`)
 }
+
+/**
+ * 判断玩家是否在某个地址
+ * @param playerId
+ * @param uid
+ * @returns
+ */
+export async function isUIDInAddress(playerId: string, uid: string) {
+  const currentId = await Redis.get(`xiuxian:user:address:${uid}`)
+  if (currentId === playerId) {
+    return true
+  }
+  return false
+}

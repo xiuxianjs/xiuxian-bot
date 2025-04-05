@@ -1,8 +1,6 @@
 import { Text, useSend } from 'alemonjs'
-
 import { showUserMsg } from '@xiuxian/api/index'
 import { Skills, Equipment } from '@xiuxian/core/index'
-
 import Xiuxian, { selects, useCurrent } from '@src/apps/index'
 export const regular = /^(#|\/)?我的资料$/
 export default onResponse(selects, [

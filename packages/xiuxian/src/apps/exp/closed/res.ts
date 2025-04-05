@@ -1,10 +1,7 @@
 import { Text, useSend } from 'alemonjs'
-
 import { endAllWord } from '@xiuxian/api/index'
 import { Status, operationLock } from '@xiuxian/core/index'
-
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
-
 export const regular = /^(#|\/)?(闭关|閉關)$/
 export default onResponse(selects, [
   Xiuxian.current,

@@ -1,7 +1,6 @@
 import { operationLock, Status } from '@xiuxian/core/index'
 import { Text, useMention, useSend } from 'alemonjs'
 import { Attributes, user_group, user_group_list } from '@src/xiuxian/db'
-
 import Xiuxian, { selects } from '@src/apps/index'
 export const regular = /^(#|\/)?踢出(\d+)?$/
 export default onResponse(selects, [
@@ -46,32 +45,10 @@ export default onResponse(selects, [
       return
     }
 
-    const ats = await useMention(e)
+    const [mention] = useMention(e)
     let UIDB: string | null = null
-
-    if (ats && ats.length > 0) {
-      const value = ats.find(item => !item.IsBot)
-      if (value) {
-        UIDB = value.UserKey
-      }
-      //
-      if (!UIDB) {
-        Send(Text('未正确获取对方UID'))
-        return
-      }
-      if (UIDB == UID) {
-        Send(Text('你干嘛,哎哟～'))
-        return
-      }
-      //
-      user_group_list.destroy({
-        where: {
-          uid: UIDB
-        }
-      })
-      Send(Text('成功踢出'))
-      Status.setStatus({ UID: UIDB, key: 'kongxian' })
-    } else {
+    const res = await mention.findOne()
+    if (res.code !== 2000) {
       const text = e.MessageText
       const id = text.replace(/^(#|\/)?踢出/, '')
       // 查看标记
@@ -86,18 +63,31 @@ export default onResponse(selects, [
         return
       }
       UIDB = groupList.uid
-      if (UIDB == UID) {
-        Send(Text('你干嘛,哎哟～'))
-        return
-      }
-      user_group_list.destroy({
+    } else {
+      UIDB = res.data
+      const groupList = await user_group_list.findOneValue({
         where: {
+          gid: group.id,
           uid: UIDB
         }
       })
-      Send(Text('成功踢出'))
-      Status.setStatus({ UID: UIDB, key: 'kongxian' })
+      if (!groupList) {
+        Send(Text('不在队伍内'))
+        return
+      }
     }
+    if (UIDB == UID) {
+      Send(Text('你干嘛,哎哟～'))
+      return
+    }
+    user_group_list.destroy({
+      where: {
+        uid: UIDB
+      }
+    })
+    Send(Text('成功踢出'))
+    Status.setStatus({ UID: UIDB, key: 'kongxian' })
+
     return
   }
 ])

@@ -5,6 +5,11 @@ import { operationLock } from '@xiuxian/core/index'
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
 export const regular =
   /^(#|\/)?(金银坊置换|金銀坊置換)\d+\*[\u4e00-\u9fa5]+\*[\u4e00-\u9fa5]+$/
+
+/**
+ * tudo
+ */
+
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {

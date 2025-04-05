@@ -1,7 +1,6 @@
 import { Text, useSend } from 'alemonjs'
 import { operationLock } from '@xiuxian/core/index'
 import { user_group } from '@src/xiuxian/db'
-
 import Xiuxian, { selects } from '@src/apps/index'
 export const regular = /^(#|\/)?查看队伍(\d+)?$/
 export default onResponse(selects, [

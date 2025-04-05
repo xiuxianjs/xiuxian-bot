@@ -1,11 +1,8 @@
 import { showUserMsg } from '@xiuxian/api/index'
 import { user } from '@xiuxian/db/index'
-
 import Xiuxian, { selects } from '@src/apps/index'
-
 import { operationLock } from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
-
 export const regular = /^(#|\/)?踏入仙途$/
 export default onResponse(selects, [
   Xiuxian.current,

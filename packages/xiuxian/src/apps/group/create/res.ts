@@ -1,9 +1,7 @@
 import { operationLock, Status } from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
 import { user_group, user_group_list } from '@src/xiuxian/db'
-
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
-
 export const regular = /^(#|\/)?创建队伍$/
 export default onResponse(selects, [
   Xiuxian.current,

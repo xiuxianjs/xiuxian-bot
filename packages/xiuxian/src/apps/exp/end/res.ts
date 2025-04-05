@@ -1,10 +1,7 @@
 import { operationLock } from '@src/xiuxian/core'
-
 import { endAllWord } from '@xiuxian/api/index'
 import { Text, useSend } from 'alemonjs'
-
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
-
 export const regular = /^(#|\/)?(归来|歸來|凝脉|出关|出關|聚灵|聚靈)$/
 export default onResponse(selects, [
   Xiuxian.current,

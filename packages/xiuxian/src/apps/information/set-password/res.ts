@@ -1,11 +1,7 @@
 import { Text, useSend } from 'alemonjs'
-
 import * as DB from '@xiuxian/db/index'
-
 import Xiuxian, { selects } from '@src/apps/index'
-
 import { operationLock } from '@src/xiuxian/core'
-
 export const regular = /^(#|\/)?设置密码/
 export default onResponse(selects, [
   Xiuxian.current,

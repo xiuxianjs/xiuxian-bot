@@ -1,11 +1,8 @@
 import { Text, useSend } from 'alemonjs'
-
 import { Control, showUserMsg } from '@xiuxian/api/index'
 import { Config, operationLock } from '@xiuxian/core/index'
 import { user } from '@xiuxian/db/index'
-
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
-
 export const regular = /^(#|\/)?更改昵称为[\u4e00-\u9fa5]+$/
 export default onResponse(selects, [
   Xiuxian.current,

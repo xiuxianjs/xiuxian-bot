@@ -1,13 +1,16 @@
 import { Text, useSend } from 'alemonjs'
 import { Monster, Status } from '@xiuxian/core/index'
 import * as DB from '@xiuxian/db/index'
-
 import Xiuxian, { selects, useCurrent } from '@src/apps/index'
-
 export const regular = /^(#|\/)?探索怪物$/
+/**
+ * tudo
+ *
+ */
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
+    return
     const UserData = useCurrent(e).UserData
     const Send = useSend(e)
     // 在城里

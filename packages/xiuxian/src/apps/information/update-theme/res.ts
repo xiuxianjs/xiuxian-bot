@@ -1,11 +1,8 @@
 import { Themes } from '@xiuxian/img/index'
 import * as GameApi from '@xiuxian/core/index'
 import { user } from '@xiuxian/db/index'
-
 import Xiuxian, { selects, useCurrent } from '@src/apps/index'
-
 import { Text, useSend } from 'alemonjs'
-
 export const regular = /^(#|\/)?(更改|更换)主题$/
 export default onResponse(selects, [
   Xiuxian.current,

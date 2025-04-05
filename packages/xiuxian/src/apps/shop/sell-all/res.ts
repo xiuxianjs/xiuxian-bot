@@ -1,13 +1,11 @@
 import { controlByName } from '@xiuxian/api/index'
 import * as DB from '@xiuxian/db/index'
-
 import Xiuxian, { selects, useCurrent } from '@src/apps/index'
-
 import * as GameApi from '@xiuxian/core/index'
 import { Text, useSend } from 'alemonjs'
-
 export const regular =
   /^(#|\/)?售出所有(武器|护具|法宝|丹药|功法|道具|材料|装备)$/
+
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
