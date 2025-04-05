@@ -13,7 +13,7 @@ type PropsType = {
   }[]
   theme: ThemesEmun
 }
-export default function App({ data, theme }: PropsType) {
+export default function XHelp({ data, theme }: PropsType) {
   const _email = 'ningmengchongshui@gmail.com'
   return (
     <HTML>

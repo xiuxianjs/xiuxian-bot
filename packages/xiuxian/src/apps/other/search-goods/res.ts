@@ -1,10 +1,8 @@
 import { Image, Text, useSend } from 'alemonjs'
 import { goods } from '@xiuxian/db/index'
-
-import { pictureRender } from '@xiuxian/img/index'
-
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
-
+import { renderComponentToBuffer } from 'jsxp'
+import GoodMessage from '@src/xiuxian/img/src/views/GoodMessage'
 export const regular = /^(#|\/)?查询物品[\u4e00-\u9fa5]+/
 export default onResponse(selects, [
   Xiuxian.current,
@@ -30,10 +28,14 @@ export default onResponse(selects, [
           return
         }
         // 返回物品信息
-        const img = await pictureRender('GoodMessage', {
-          data: res,
-          theme: UserData.theme
-        })
+        const img = await renderComponentToBuffer(
+          'GoodMessage/' + res.id,
+          GoodMessage,
+          {
+            data: res,
+            theme: UserData.theme
+          }
+        )
         if (Buffer.isBuffer(img)) {
           Send(Image(img))
         } else {

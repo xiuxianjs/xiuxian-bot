@@ -1,11 +1,9 @@
 import { Image, Text, useSend } from 'alemonjs'
 import { operationLock } from '@xiuxian/core/index'
 import { user_transactions } from '@xiuxian/db/index'
-
-import { pictureRender } from '@xiuxian/img/index'
-
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
-
+import { renderComponentToBuffer } from 'jsxp'
+import TransactionMessage from '@src/xiuxian/img/src/views/TransactionMessage'
 export const regular = /^(#|\/)?虚空镜/
 export default onResponse(selects, [
   Xiuxian.current,
@@ -53,13 +51,17 @@ export default onResponse(selects, [
           return
         }
         // 返回物品信息
-        const img = await pictureRender('TransactionMessage', {
-          data: {
-            page: page,
-            goods: res
-          },
-          theme: UserData.theme
-        })
+        const img = await renderComponentToBuffer(
+          'TransactionMessage/' + xpage,
+          TransactionMessage,
+          {
+            data: {
+              page: page,
+              goods: res
+            },
+            theme: UserData.theme
+          }
+        )
 
         //
         if (Buffer.isBuffer(img)) {

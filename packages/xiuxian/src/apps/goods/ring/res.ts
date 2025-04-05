@@ -1,11 +1,9 @@
 import { Image, Text, useSend } from 'alemonjs'
-
-import { pictureRender } from '@xiuxian/img/index'
 import * as Server from '@xiuxian/statistics/index'
 import { operationLock } from '@src/xiuxian/core'
-
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
-
+import { renderComponentToBuffer } from 'jsxp'
+import XBag from '@src/xiuxian/img/src/views/XBag'
 export const regular = /^(#|\/)?我的(戒指|(纳|呐|那)(借|介|戒))$/
 export default onResponse(selects, [
   Xiuxian.current,
@@ -23,8 +21,8 @@ export default onResponse(selects, [
 
     const avatar = await e.UserAvatar.toURL()
 
-    const img = await pictureRender('BagComponent', {
-      data,
+    const img = await renderComponentToBuffer('bag/' + data.UID, XBag, {
+      data: data as unknown,
       theme: UserData?.theme ?? 'dark',
       avatar: avatar
     })

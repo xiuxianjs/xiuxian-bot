@@ -1,7 +1,8 @@
-import { pictureRender } from '@xiuxian/img/index'
 import { ass, ass_typing, user_ass } from '@xiuxian/db/index'
 import Xiuxian, { selects } from '@src/apps/index'
 import { Image, Text, useSend } from 'alemonjs'
+import { renderComponentToBuffer } from 'jsxp'
+import AssMessage from '@src/xiuxian/img/src/views/AssMessage'
 export const regular = /^(#|\/)?我的势力$/
 export default onResponse(selects, [
   Xiuxian.current,
@@ -35,7 +36,7 @@ export default onResponse(selects, [
           return
         }
         // 返回物品信息
-        const img = await pictureRender('AssMessage', {
+        const img = await renderComponentToBuffer('AssMessage', AssMessage, {
           data: res,
           theme: 'dark'
         })

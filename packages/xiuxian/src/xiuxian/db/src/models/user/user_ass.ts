@@ -16,9 +16,7 @@ type ModelProps = {
   authentication: number
   contribute: number
   identity: string
-  // doc: string
   signin: string
-  // updateAt: Date
 }
 
 class user_ass extends Model<ModelProps> {
@@ -115,15 +113,6 @@ user_ass.init(
       type: DataTypes.BIGINT,
       comment: '签到'
     }
-    // doc: {
-    //   type: DataTypes.STRING(50),
-    //   comment: '关系表'
-    // }
-    // updateAt: {
-    //   type: DataTypes.DATE,
-    //   defaultValue: DataTypes.NOW
-    //   // onUpdate: DataTypes.NOW
-    // }
   },
   {
     sequelize,

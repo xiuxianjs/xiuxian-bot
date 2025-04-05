@@ -9,7 +9,7 @@ type PropsType = {
   select: 'every_day' | 'limit_time' | 'version'
   theme: ThemesEmun
 }
-export default function App({ select, theme }: PropsType) {
+export default function Activety({ select, theme }: PropsType) {
   return (
     <HTML>
       <ThemeBackground theme={theme}>

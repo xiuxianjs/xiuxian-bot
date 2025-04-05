@@ -6,12 +6,17 @@ import {
   DataTypes,
   Model
 } from 'sequelize'
+
+/**
+ * @description 人才
+ */
+
 type ModelProps = {
   id: number
   name: string //string
 }
 
-class talent extends Model<ModelProps> {
+class walled_city extends Model<ModelProps> {
   /**
    * 找到所有数据
    * @param this
@@ -61,7 +66,8 @@ class talent extends Model<ModelProps> {
     })
   }
 }
-talent.init(
+
+walled_city.init(
   {
     id: {
       type: DataTypes.BIGINT,
@@ -76,7 +82,7 @@ talent.init(
   },
   {
     sequelize,
-    tableName: 'talent',
+    tableName: 'walled_city',
     freezeTableName: true,
     createdAt: false,
     updatedAt: false,
@@ -89,4 +95,4 @@ talent.init(
   }
 )
 
-export { talent }
+export { walled_city }

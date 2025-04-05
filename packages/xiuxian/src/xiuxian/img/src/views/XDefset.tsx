@@ -10,7 +10,7 @@ type PropsType = {
   theme: ThemesEmun
 }
 
-export default function App({ theme }: PropsType) {
+export default function XDefset({ theme }: PropsType) {
   return (
     <HTML>
       <ThemeBackground className="w-full h-full p-4" theme={theme}>

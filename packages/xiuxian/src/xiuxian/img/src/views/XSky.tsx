@@ -9,7 +9,7 @@ type PropsType = {
   theme: ThemesEmun
 }
 
-export default function App({ data, theme }: PropsType) {
+export default function XSky({ data, theme }: PropsType) {
   return (
     <HTML>
       <ListTable data={data} theme={theme}>

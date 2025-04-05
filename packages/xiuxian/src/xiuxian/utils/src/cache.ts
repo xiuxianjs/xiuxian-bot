@@ -1,7 +1,8 @@
 import { BufferData } from 'chat-space'
-import { pictureRender } from '@xiuxian/img/index'
 import json_update from '@src/assets/defset/update.json'
 import json_base_help from '@src/assets/defset/base_help.json'
+import { renderComponentToBuffer } from 'jsxp'
+import XHelp from '@src/xiuxian/img/src/views/XHelp'
 const helpData = {}
 /**
  * 帮助图缓存
@@ -19,10 +20,14 @@ export async function urlHelpCache(name: string) {
     return helpData[name]
   }
   // 得数据
-  helpData[name] = await pictureRender('HelpComponent', {
-    data: names[name],
-    theme: 'dark'
-  }).catch(err => {
+  helpData[name] = await renderComponentToBuffer(
+    'HelpComponent/' + name,
+    XHelp,
+    {
+      data: names[name],
+      theme: 'dark'
+    }
+  ).catch(err => {
     // 发生错误
     console.error(err)
     return false

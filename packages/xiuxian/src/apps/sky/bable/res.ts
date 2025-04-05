@@ -1,21 +1,19 @@
 import { Image, Text, useSend } from 'alemonjs'
-
-import * as DB from '@xiuxian/db/index'
-
 import Xiuxian, { selects } from '@src/apps/index'
-
-import { pictureRender } from '@xiuxian/img/index'
 import { showSky } from '@xiuxian/statistics/index'
-
+import { user_sky_ranking } from '@src/xiuxian/db'
+import { UserDataType } from '@src/xiuxian/api'
+import { renderComponentToBuffer } from 'jsxp'
+import XSky from '@src/xiuxian/img/src/views/XSky'
 export const regular = /^(#|\/)?查看(通天塔|至尊榜|天命榜)$/
 export default onResponse(selects, [
   Xiuxian.current,
   async e => {
     const UID = e.UserKey
-    const UserData = e['UserData'] as DB.Attributes<typeof DB.user>
+    const UserData = e['UserData'] as UserDataType
     const Send = useSend(e)
     // 查看数据是否存在
-    const data = await DB.user_sky_ranking
+    const data = await user_sky_ranking
       .findOne({
         where: {
           uid: UID
@@ -27,7 +25,7 @@ export default onResponse(selects, [
       return
     }
     const sData = await showSky(UID)
-    const img = await pictureRender('SkyComponent', {
+    const img = await renderComponentToBuffer('SkyComponent', XSky, {
       data: sData,
       theme: UserData?.theme ?? 'dark'
     })

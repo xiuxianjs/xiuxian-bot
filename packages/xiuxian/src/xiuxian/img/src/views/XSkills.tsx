@@ -12,7 +12,7 @@ type PropsType = {
   theme: ThemesEmun
   avatar: string
 }
-export default function App({ data, theme, avatar }: PropsType) {
+export default function XSkills({ data, theme, avatar }: PropsType) {
   return (
     <HTML>
       <ThemeBackground theme={theme}>

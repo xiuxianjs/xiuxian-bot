@@ -2,7 +2,8 @@ import { Image, Text, useSend } from 'alemonjs'
 import { Cooling } from '@xiuxian/core/index'
 import { ass } from '@xiuxian/db/index'
 import Xiuxian, { selects, useCurrent } from '@src/apps/index'
-import { pictureRender } from '@xiuxian/img/index'
+import { renderComponentToBuffer } from 'jsxp'
+import AssList from '@src/xiuxian/img/src/views/AssList'
 export const regular = /^(#|\/)?查看势力(\d+)?$/
 export default onResponse(selects, [
   Xiuxian.current,
@@ -36,7 +37,7 @@ export default onResponse(selects, [
           return
         }
         // 宗门信息
-        const img = await pictureRender('AssList', {
+        const img = await renderComponentToBuffer('AssList', AssList, {
           data: res,
           theme: UserData.theme
         })

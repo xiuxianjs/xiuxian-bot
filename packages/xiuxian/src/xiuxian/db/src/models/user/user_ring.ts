@@ -16,8 +16,6 @@ type ModelProps = {
   type: number // 物品类型
   name: string // 物品名
   count: number // 数量
-  // doc: number // 说明
-  // updateAt: Date
 }
 
 class user_ring extends Model<ModelProps> {
@@ -109,15 +107,6 @@ user_ring.init(
       defaultValue: 1,
       comment: '数量'
     }
-    // doc: {
-    //   type: DataTypes.STRING(20),
-    //   comment: '说明'
-    // },
-    // updateAt: {
-    //   type: DataTypes.DATE,
-    //   defaultValue: DataTypes.NOW
-    //   // onUpdate: DataTypes.NOW,
-    // }
   },
   {
     sequelize,

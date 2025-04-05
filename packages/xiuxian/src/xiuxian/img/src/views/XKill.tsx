@@ -8,7 +8,7 @@ type PropsType = {
   data: killInformationType
   theme: ThemesEmun
 }
-export default function App({ data, theme }: PropsType) {
+export default function XKill({ data, theme }: PropsType) {
   return (
     <HTML>
       <ListTable data={data} theme={theme}>

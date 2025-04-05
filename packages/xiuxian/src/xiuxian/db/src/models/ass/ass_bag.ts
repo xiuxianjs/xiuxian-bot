@@ -12,7 +12,6 @@ type ModelProps = {
   type: number // 物品类型
   name: string // 物品名
   count: number // 数量
-  // doc: number // 说明
 }
 
 class ass_bag extends Model<ModelProps> {

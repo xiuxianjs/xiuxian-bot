@@ -14,8 +14,6 @@ type ModelProps = {
   uid: string // 编号
   name: string // 装备名
   grade: number // 装备名
-  // doc: string // 说明
-  // update: Date
 }
 
 class user_fate extends Model<ModelProps> {
@@ -98,15 +96,6 @@ user_fate.init(
       allowNull: true,
       comment: '等级'
     }
-    // doc: {
-    //   type: DataTypes.STRING(20),
-    //   comment: '说明'
-    // },
-    // update: {
-    //   type: DataTypes.DATE,
-    //   defaultValue: DataTypes.NOW
-    //   // onUpdate: DataTypes.NOW
-    // }
   },
   {
     sequelize,

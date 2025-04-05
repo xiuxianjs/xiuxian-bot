@@ -106,11 +106,7 @@ user_transactions_logs.init(
     updateAt: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW
-      // onUpdate: DataTypes.NOW
     },
-    // deleteAt: {
-    //   type: DataTypes.DATE
-    // },
     createAt: {
       type: DataTypes.DATE
     }

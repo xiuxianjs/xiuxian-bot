@@ -8,6 +8,10 @@ import {
 } from 'sequelize'
 import { goods } from './goods.js'
 
+/**
+ * @description 商品联盟商城
+ */
+
 type ModelProps = {
   // 定义模型属性
   id: number

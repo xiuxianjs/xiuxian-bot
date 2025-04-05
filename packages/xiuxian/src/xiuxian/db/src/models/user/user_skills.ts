@@ -13,8 +13,6 @@ type ModelProps = {
   id: number
   uid: string // 编号
   name: string // 功法名
-  // doc: string // 说明
-  // updateAt: Date
 }
 
 class user_skills extends Model<ModelProps> {
@@ -92,14 +90,6 @@ user_skills.init(
         key: 'name'
       }
     }
-    // doc: {
-    //   type: DataTypes.STRING(20)
-    // },
-    // updateAt: {
-    //   type: DataTypes.DATE,
-    //   defaultValue: DataTypes.NOW
-    //   // onUpdate: DataTypes.NOW
-    // }
   },
   {
     sequelize,

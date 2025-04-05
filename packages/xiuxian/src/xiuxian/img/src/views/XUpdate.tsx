@@ -19,7 +19,7 @@ type PropsType = {
  * @param param0
  * @returns
  */
-export default function App({ data, theme }: PropsType) {
+export default function XUpdate({ data, theme }: PropsType) {
   return (
     <HTML>
       <ThemeBackground className="bg-cover p-4" theme={theme}>

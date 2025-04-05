@@ -1,13 +1,10 @@
 import { Image, Text, useSend } from 'alemonjs'
-
 import { showUserMsg } from '@xiuxian/api/index'
 import { user, user_sky_ranking } from '@xiuxian/db/index'
-
 import { equipmentInformation } from '@src/xiuxian/statistics'
-import { pictureRender } from '@src/xiuxian/img'
-
 import Xiuxian, { useCurrent, selects } from '@src/apps/index'
-
+import { renderComponentToBuffer } from 'jsxp'
+import XEquipment from '@src/xiuxian/img/src/views/XEquipment'
 export const regular = /^(#|\/)?查看通天塔第(\d+)名(资料|面板)?$/
 export default onResponse(selects, [
   Xiuxian.current,
@@ -74,7 +71,7 @@ export default onResponse(selects, [
       if (/面板/.test(text)) {
         await equipmentInformation(UIDB).then(async res => {
           const avatar = await e.UserAvatar.toURL()
-          pictureRender('Equipmentcomponent', {
+          renderComponentToBuffer('Equipmentcomponent/' + res.UID, XEquipment, {
             data: res,
             theme: UserData?.theme ?? 'dark',
             avatar: avatar

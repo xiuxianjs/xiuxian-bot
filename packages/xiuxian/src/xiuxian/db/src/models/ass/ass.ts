@@ -18,7 +18,6 @@ type ModelProps = {
   property: number
   fame: number
   activation: number
-  doc: string
 }
 
 class ass extends Model<ModelProps> {
@@ -120,10 +119,6 @@ ass.init(
       type: DataTypes.BIGINT,
       defaultValue: 0,
       comment: '活跃度'
-    },
-    doc: {
-      type: DataTypes.STRING(50),
-      comment: '说明'
     }
   },
   {

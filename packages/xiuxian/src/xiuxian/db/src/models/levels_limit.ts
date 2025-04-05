@@ -6,6 +6,7 @@ import {
   DataTypes,
   Model
 } from 'sequelize'
+
 type ModelProps = {
   id: number
   typing: number

@@ -19,7 +19,7 @@ type PropsType = {
  * @param param0
  * @returns
  */
-export default function App({ data, theme, avatar }: PropsType) {
+export default function XBag({ data, theme, avatar }: PropsType) {
   return (
     <HTML>
       <ThemeBackground theme={theme}>

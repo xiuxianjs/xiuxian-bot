@@ -14,8 +14,6 @@ type ModelProps = {
   type: number
   create_time: number
   message: string
-  // doc: string
-  // updateAt: Date
 }
 
 class user_log extends Model<ModelProps> {
@@ -92,14 +90,6 @@ user_log.init(
     message: {
       type: DataTypes.STRING(255)
     }
-    // doc: {
-    //   type: DataTypes.STRING(20)
-    // },
-    // updateAt: {
-    //   type: DataTypes.DATE,
-    //   defaultValue: DataTypes.NOW
-    //   // onUpdate: DataTypes.NOW
-    // }
   },
   {
     sequelize,

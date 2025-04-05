@@ -11,8 +11,6 @@ import { user } from './user.js'
 type ModelProps = {
   id: number
   uid: string // string
-  // doc: string //
-  // updateAt: Date
 }
 
 class user_sky_ranking extends Model<ModelProps> {
@@ -81,14 +79,6 @@ user_sky_ranking.init(
         key: 'uid'
       }
     }
-    // updateAt: {
-    //   type: DataTypes.DATE,
-    //   defaultValue: DataTypes.NOW
-    //   // onUpdate: DataTypes.NOW
-    // },
-    // doc: {
-    //   type: DataTypes.STRING(20)
-    // }
   },
   {
     sequelize,

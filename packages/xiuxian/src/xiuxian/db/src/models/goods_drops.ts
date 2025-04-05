@@ -7,6 +7,11 @@ import {
   Model
 } from 'sequelize'
 import { goods } from './goods.js'
+
+/**
+ * @description 货物掉落
+ */
+
 type ModelProps = {
   id: number
   gid: number //int

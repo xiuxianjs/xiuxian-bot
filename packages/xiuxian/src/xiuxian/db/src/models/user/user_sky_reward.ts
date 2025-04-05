@@ -99,11 +99,7 @@ user_sky_reward.init(
     updateAt: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW
-      // onUpdate: DataTypes.NOW
     }
-    // deleteAt: {
-    //   type: DataTypes.DATE
-    // }
   },
   {
     sequelize,

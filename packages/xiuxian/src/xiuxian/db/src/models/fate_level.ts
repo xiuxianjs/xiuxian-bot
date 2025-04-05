@@ -7,6 +7,10 @@ import {
   Model
 } from 'sequelize'
 
+/**
+ * @description 等级表
+ */
+
 type ModelProps = {
   id: number
   grade: number //int

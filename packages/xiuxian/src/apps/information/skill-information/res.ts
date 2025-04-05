@@ -1,9 +1,9 @@
-import { pictureRender } from '@xiuxian/img/index'
 import { Skills } from '@xiuxian/core/index'
 import * as Server from '@xiuxian/statistics/index'
 import { Image, useSend } from 'alemonjs'
-
 import Xiuxian, { selects } from '@src/apps/index'
+import { renderComponentToBuffer } from 'jsxp'
+import XSkills from '@src/xiuxian/img/src/views/XSkills'
 export const regular = /^(#|\/)?我的功法$/
 export default onResponse(selects, [
   Xiuxian.current,
@@ -14,7 +14,7 @@ export default onResponse(selects, [
     Skills.updataEfficiency(UID, UserData.talent).then(() => {
       Server.skillInformation(UID).then(async res => {
         const avatar = await e.UserAvatar.toURL()
-        pictureRender('SkillsComponent', {
+        renderComponentToBuffer('SkillsComponent/' + res.UID, XSkills, {
           data: res,
           theme: UserData?.theme ?? 'dark',
           avatar: avatar

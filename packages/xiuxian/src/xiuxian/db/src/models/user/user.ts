@@ -16,7 +16,6 @@ interface ModelProps {
   avatar: string
   autograph: string
   phone: number
-
   constitution: number
   immortal_grade: number
   immortal_constitution: number
@@ -28,14 +27,6 @@ interface ModelProps {
   age: number
   age_limit: number
   age_state: number
-  point_type: number
-  pont_attribute: number
-  pont_x: number
-  pont_y: number
-  pont_z: number
-  point_x: number
-  point_y: number
-  point_z: number
   battle_show: number
   battle_blood_now: number
   battle_blood_limit: number
@@ -59,17 +50,8 @@ interface ModelProps {
   sign_size: number
   typing: number
   sign_time: number
-
   newcomer: number
   newcomer_step: number
-
-  point_attribute: number
-  update_time: string
-  create_time: number
-  delete: number
-  man_size: number
-  dong_size: number
-  dong_minit: number
   sign_in_count: number
   sign_in_month_count: number
   sign_in_time: Date
@@ -140,14 +122,6 @@ export const user = InitModel.init(
       allowNull: false,
       comment: '编号'
     },
-    create_time: {
-      type: DataTypes.BIGINT,
-      comment: '创建时间'
-    },
-    update_time: {
-      type: DataTypes.DATE(3),
-      comment: '更新时间'
-    },
     email: {
       type: DataTypes.STRING(255),
       comment: '邮箱'
@@ -175,6 +149,7 @@ export const user = InitModel.init(
       type: DataTypes.BIGINT,
       comment: '手机号'
     },
+    // tudo : 应该改为 redis
     state: {
       type: DataTypes.BIGINT,
       defaultValue: 0,
@@ -195,6 +170,7 @@ export const user = InitModel.init(
       defaultValue: 1,
       comment: '当前寿命'
     },
+    // tudo。应该改为redis
     theme: {
       type: DataTypes.STRING(255),
       defaultValue: 'dark',
@@ -210,35 +186,10 @@ export const user = InitModel.init(
       defaultValue: 1,
       comment: '寿命状态'
     },
-    point_type: {
-      type: DataTypes.BIGINT,
-      defaultValue: 0,
-      comment: '地点编号'
-    },
-    pont_attribute: {
-      type: DataTypes.BIGINT,
-      defaultValue: 0,
-      comment: '地点属性_默认0'
-    },
-    pont_x: {
-      type: DataTypes.BIGINT,
-      defaultValue: 0,
-      comment: '地点x轴_默认0'
-    },
-    pont_y: {
-      type: DataTypes.BIGINT,
-      defaultValue: 0,
-      comment: '地点y轴_默认0'
-    },
     battle_show: {
       type: DataTypes.BIGINT,
       defaultValue: 0,
       comment: '是否现实战斗过程'
-    },
-    pont_z: {
-      type: DataTypes.BIGINT,
-      defaultValue: 0,
-      comment: '地点z轴_默认0'
     },
     battle_blood_now: {
       type: DataTypes.BIGINT,
@@ -346,7 +297,6 @@ export const user = InitModel.init(
     },
     newcomer: {
       type: DataTypes.BIGINT,
-      // 0 是新人
       defaultValue: 0,
       comment: '是否是新人'
     },
@@ -354,49 +304,6 @@ export const user = InitModel.init(
       type: DataTypes.BIGINT,
       defaultValue: 0,
       comment: '新人教程步骤'
-    },
-    point_attribute: {
-      type: DataTypes.BIGINT,
-      defaultValue: 0,
-      comment: '地点属性'
-    },
-    point_x: {
-      type: DataTypes.BIGINT,
-      defaultValue: 0,
-      comment: '坐标'
-    },
-    point_y: {
-      type: DataTypes.BIGINT,
-      defaultValue: 0,
-      comment: '坐标'
-    },
-    point_z: {
-      type: DataTypes.BIGINT,
-      defaultValue: 0,
-      comment: '坐标'
-    },
-    // doc: {
-    //   type: DataTypes.STRING(20),
-    //   comment: '说明'
-    // },
-    man_size: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0,
-      comment: '南天宫'
-    },
-    dong_size: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0,
-      comment: '东湖宫'
-    },
-    dong_minit: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0,
-      comment: '东湖宫'
-    },
-    delete: {
-      type: DataTypes.INTEGER,
-      defaultValue: 1
     },
     sign_in_count: {
       type: DataTypes.INTEGER,
@@ -415,9 +322,6 @@ export const user = InitModel.init(
       defaultValue: 1,
       comment: '类型'
     },
-    // deleteAt: {
-    //   type: DataTypes.DATE
-    // },
     constitution: {
       type: DataTypes.BIGINT,
       defaultValue: 1,

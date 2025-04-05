@@ -13,12 +13,13 @@ export const users = {
   user_level: models.user_level,
   user_log: models.user_log,
   user_ring: models.user_ring,
-  users_email: models.users_email,
+  // users_email: models.users_email,
   user_sky_ranking: models.user_sky_ranking,
   user_sky_reward: models.user_sky_reward,
   user_transactions: models.user_transactions,
   user_transactions_logs: models.user_transactions_logs,
-  msg: models.user
+  msg: models.user,
+  user_money: models.user_money
 }
 
 export const useBelongsTo = () => {

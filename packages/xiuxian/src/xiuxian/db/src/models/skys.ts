@@ -7,6 +7,7 @@ import {
   Model
 } from 'sequelize'
 import { goods } from './goods.js'
+
 type ModelProps = {
   id: number
   name: string // string
@@ -14,7 +15,6 @@ type ModelProps = {
   ranking: number
   createAt: Date
   updateAt: Date
-  // deleteAt: Date
 }
 
 class skys extends Model<ModelProps> {
@@ -97,9 +97,6 @@ skys.init(
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW
     }
-    // deleteAt: {
-    //   type: DataTypes.DATE
-    // }
   },
   {
     sequelize,

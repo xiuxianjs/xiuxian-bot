@@ -12,11 +12,10 @@ import {
 } from '@xiuxian/core/index'
 import { urlHelpCache } from '@xiuxian/utils/index'
 import { personalInformation } from '@xiuxian/statistics/index'
-import { pictureRender } from '@xiuxian/img/index'
 import { EventsMessageCreateEnum, Image, Text, useSend } from 'alemonjs'
-
+import { renderComponentToBuffer } from 'jsxp'
+import XMessage from '../img/src/views/XMessage'
 export type UserDataType = Attributes<typeof user>
-
 /**
  * 显示我的资料
  * @param e
@@ -26,10 +25,8 @@ export async function showUserMsg(e: EventsMessageCreateEnum) {
   const UID = e.UserKey
   const Send = useSend(e)
   const avatar = await e.UserAvatar.toURL()
-  // console.log("url",url)
-  console.log('url', avatar)
   const img = await personalInformation(UID).then(async UserData =>
-    pictureRender('MessageComponent', {
+    renderComponentToBuffer('MessageComponent/' + UserData.UID, XMessage, {
       data: UserData,
       theme: UserData?.theme ?? 'dark',
       avatar: avatar
